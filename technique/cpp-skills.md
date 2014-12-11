@@ -1,5 +1,10 @@
 # c++ programming skills
 
+## Latest Questions
+- 2014-12-4 父类和子类同时又一个同名文件的时候，通过父类接口改变同名变量，改变的是父类的还是子类的？如AdventureBase的setInitData().
+
+-
+
 ## Language skills
 
 - 1. DISALLOW_COPY_AND_ASSIGN
