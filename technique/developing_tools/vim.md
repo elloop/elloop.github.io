@@ -12,28 +12,30 @@
 2. query: :set <command>? (e.g. :set numberwidth? can check the width of line number.)
 3. multiple options - :set number numberwidth=6
 
-## 3. Basic Mapping
+## 4. Basic Mapping
 1. map - x / map - dd     = basic
 2. map <space> viw        = use name to call speical key
 3. map <c-d> dd           = modifier keys {ctrl          = c, alt = m}
 4. map - ddp / map - ddkP = move line down/up
 
-## 3. Modal Mapping
+## 5. Modal Mapping
 1. nmap / vmap / imap     = modal mapping.
 2. vmap \ U               = upper selected text in visual mode.
 3. imap <c-u> <esc>viwUae = upper word under the cursor in insert mode and back in insert mode
 
-## 4. Strict Mapping
+## 6. Strict Mapping
 1. donwside of common mapping = nmap - dd then nmap \ -, will make \ =  = dd
 2. nunmap - / nunmap \        = remove mapping.
 3. recursive mapping = try this nmap dd O<esc>jddk.
 4. nonrecursive mapping
-| *recursive version* | *nonrecursive version*|
-|---------------------|-----------------------|
-| map    |   noremap    |
-| nmap   |   nnoremap   |
-| imap   |   inoremap   |
-| vmap   |   vnoremap   |
+
+*recursive version*|*nonrecursive version*
+---------------------|-----------------------
+ map    |   noremap    
+ nmap   |   nnoremap   
+ imap   |   inoremap   
+ vmap   |   vnoremap   
+ 
 *Remember*: always use nonrecursive version. Save yourself the trouble when you install a plugin or add a new custom mapping.
 
 ## 5. Leaders
