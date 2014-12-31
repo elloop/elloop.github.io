@@ -43,6 +43,15 @@
 2. `maplocalleader`           = can be same with `mapleader`, better not same, use in local .vim file in case to conflict with global `mapleader`
 3. an example of leader value = let `mapleader` = "," / let `maplocalleader` = "\\"
 
+## 6. More Mapping
+1. `< / `> = go to last selected content's first char or last char
+2. '< / '> = go to last selected content's first line or last line
+---
+
+## 7. Training your fingers
+to force you use shortcut, map occord keys to <nop>
+1. noremap <esc> <nop>
+
 ## Useful Command
 1. echo $MYVIMRC
 
