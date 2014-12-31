@@ -1,4 +1,8 @@
 #
+## how to stage deleted files?
+git add -u
+or
+try to enter sub-system of git add by typing : git add -i and following the prompt.
 
 ## git pull conflict
 solve:
