@@ -52,6 +52,98 @@
 to force you use shortcut, map occord keys to <nop>
 1. noremap <esc> <nop>
 
+## 8. Buffer-Local Options and Mapping
+1. nnoremap  <leader>d dd
+   nnoremap <buffer> <leader>x dd
+   <leader>x mapping will only take effect in current buffer.
+
+2. nnoremap <buffer> <leader>x dd is a bad habit, in local buffer you shoul use <localleader>
+
+3. `setlocal` can change setting of current buffer.
+
+4. shadowing: like program in c,
+```
+int flag = 1;
+void f(int flag)
+{
+    if (flag == 1) 
+    {
+
+    }
+}
+```
+flag in f() will hide the global flag.
+in vim, you set following mapings:
+:noremap <buffer> Q dd
+:noremap          Q x
+
+when you type Q, first Q will take effect, because <buffer> is more specific than no <buffer>.
+
+5. setl[ocal] all : show all local settings. if it uses a global value, there will be -- before the option.
+   setl[ocal] : (no parameter) show local settings that different its default value.
+   setl[ocal] {option}< : use global value for {option}.
+   se[t] {option}< : use global value for {option} (option is global-local option : use help global-local to learn more)
+
+6. 
+   use of <buffer>
+   :map <buffer> ,w dd
+   :unmap <buffer> ,w
+   :mapclear <buffer>
+
+   map-precedence
+   :map <buffer> <nowait> \a   :echo "Local \a"<CR>
+   :map                   \abc :echo "Global \abc"<CR>
+
+   <nowait> will make \a work immediately ignore longer mapping \abc
+
+## 9. Autocommands.
+1. :autocmd BufNewFile *.txt :write
+2. :autocmd BufWritePre, BufRead *.html :normal gg=G
+3. :autocmd BufNewFile, BufRead *.html setlocal nowrap
+4. :autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+more events: help autocmd-events.
+
+## 10. Autocommand Groups
+1. in order to avoid duplicate cmds, define autocmd using Autocommand Groups, like this:
+```
+:augroup group_name
+:autocmd!
+:autocmd BufWrite * :echom "write success"
+... lots of other commands.
+:augroup END
+```
+
+another example:
+```
+:augroup filetype_html
+:autocmd!
+:autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+:augroup END
+```
+
+## 11. Operator-Pending Mappings
+1. :onoremap p i( = cp will be same with ci(, that is cp will change content in parentheses and dp will be same with di(......
+2. :onoremap <buffer> b /return<cr> = notice <buffer> used like inoremap, nnoremap and vnoremap.
+
+```
+void f() {
+    int i(0);
+    int j(1);
+    int k(0);
+    return 0;
+}
+```
+put cursor in i, and press db, will delete lines until return.
+
+3. Change the Start
+:onoremap in( :<c-u>normal! f(vi(<cr> = will select the content in next pair of parentheses
+e.g.: void func(int & hello); put cursor somewhere in the word void, and type `cin(`, it will delete the content in the parentheses, and place you in insert mode between them.
+or 
+:onoremap il( :<c-u>normal! F)vi(<cr> = select last parentheses 
+
+see :help omap-info
+
+
 ## Useful Command
 1. echo $MYVIMRC
 

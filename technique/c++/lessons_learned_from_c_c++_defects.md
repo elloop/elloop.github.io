@@ -110,3 +110,29 @@ struct rect r = {10, 20};
 struct rect r = { r.l = 10, r.w = 20};
 ```
 
+12. 模板的两段编译
+```
+template<typename T>
+class A {
+    protected:
+        int num;
+};
+
+template <typename T>
+class B : public A<T> {
+    void init() {
+        num = 0;
+    }
+};
+```
+
+won't compiling pass in latest complier
+but will pass in old complier
+新的编译器模板两段编译：
+1. 扫描所有非依赖名称
+2. (实例化模板)扫描所有依赖名称(只有实例化的时候才能消除歧义的名称)
+reason: num是一个非依赖参数, 但是但是定义在基类中的，目前的编译器还没有实现第一阶段到模板基类中查找名称，因此会报错：num undeclared.
+
+旧版的编译器没有实现两段编译，对模板类的语法解析时，所有的名字查找都留在了实例化的时候进行，所以可以通过编译
+
+how to fix: this->num 将会使num变成依赖型名称
