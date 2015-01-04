@@ -143,6 +143,23 @@ or
 
 see :help omap-info
 
+## 12. Abbreviations
+vim will substitute `non-keyword` characters. (see :set iskeyword?)
+1. :iabbrev adn and, :iabbrev taht that, :iabbrev @@ jacysun@gmail.com
+2. why not use `map` ? 
+`map` cannot take context into account when replace the target.
+`abbrev` will pay attention to the characters before and after the target.
+3. :iabbrev <buffer> --- &mdash = use <buffer> option.
+4. :autocmd FileType python :iabbrev <buffer> iff if:<left> = remember to use augroup. 
+   :autocmd FileType javascript :iabbrev <buffer> iff if()<left> = remember to use augroup
+
+## 13. More Operator-Pending Mappings
+1. :onoremap ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
+type `cih`, vim will change title of markdown file.
+`execute`: execute the string as a vim command script.
+2. :onoremap ih :<c-u>execute "normal! ?^[\-=]\\+$\r:nohlsearch\rkvg_"<cr>
+type `cih`, vim will change title of markdown both =========== or ----------- are supported.
+
 
 ## Useful Command
 1. echo $MYVIMRC
