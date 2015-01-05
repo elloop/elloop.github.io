@@ -136,3 +136,52 @@ reason: num是一个非依赖参数, 但是但是定义在基类中的，目前�
 旧版的编译器没有实现两段编译，对模板类的语法解析时，所有的名字查找都留在了实例化的时候进行，所以可以通过编译
 
 how to fix: this->num 将会使num变成依赖型名称
+
+## lib functions.
+1. sprintf: segmentation fault.
+```
+char src[] = "aaaaaaaaaaaaaaaaaaaaa";
+char buf[10] = "";
+int len = sprintf(buf, "%s", src);
+```
+suggestion:
+>1. snprintf: 会检查返回值n，如果n>len(buffer), 会重新分配空间并再一次调用snprintf.
+2. asprintf: 不预先分配buf内存，复制过程中根据实际复制源的大小动态分配内存，参考libc手册
+
+2. snprintf parameters:
+```
+char buf[10] = "";
+char src[10] = "hello %s";
+int len = sprintf(buf, sizeof(buf), src);
+
+correct:
+int len = sprintf(buf, sizeof(buf), "%s", src);
+```
+
+3. return value of snprintf:
+```
+char buf[10] = "";
+char src[] = "aaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+int len = snprintf(buf, sizeof(buf), "%s", src);
+buf[len] = '\0';
+printf("buf = %s, buf_len = %d\n", buf, len);
+```
+snprintf返回实际写入到buf的字符个数（假设buf大小没有限制）
+e.g.: 
+"%s" src = "123" -> len = 3
+"src=%s" src = "123" -> len = strlen("str=") + strlen(src) = 6
+"%s" src = "1234567890123" -> len = 13
+
+correct:
+```
+int len = snprintf(buf, sizeof(buf), "%s", src);
+printf("return len: %d\n", len);
+if (len > sizeof(buf) - 1) {
+    printf("error: src len is %d, buf size is %d not enough", len, sizeof(buf));
+}
+else {
+    printf("buf=%s, len is %d\n", buf, strlen(buf));
+}
+```
+
+
