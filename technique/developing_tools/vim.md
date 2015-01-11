@@ -160,6 +160,83 @@ type `cih`, vim will change title of markdown file.
 2. :onoremap ih :<c-u>execute "normal! ?^[\-=]\\+$\r:nohlsearch\rkvg_"<cr>
 type `cih`, vim will change title of markdown both =========== or ----------- are supported.
 
+## 14. Variables.
+1. :let x = 10 | :echo x = define a variable name x. :unlet x to delete a variable.
+2. :let &wrap = 1 == Option `wrap` as a variable. Notice `wrap` is a boolean, 0 menas false, otherwise means true.
+3. :let &l:number=0 == Local Option as a variable.
+4. 
+>1. :let @a="hello", then `"ap` will paste "hello" to editor. or :echo @a, messages window will shows "hello"
+== use `Register` as a variable.
+2. yank a word, and :echo @" will show the word in message window, `"` is default yank register.
+3. use `/` to search a word, then :echo @/ will show the word in message window, `/` is search register. You can change the search behaviour by changing the value in `/` register.
+
+5. you should never use `let` in your .vimrc when `set` is suffice, because `let` is harder to read.
+
+## 15. Scope.
+1. variable with a b:, l: ... specifies it's scope.
+see :help internal-variables to learn more.
+
+## 16. Conditional.
+1. "hello10" + 10 = 10, "10hello" + 10 = 20 (string begins with number will convert to that number in an arithmetic expression.); if "astring" == if 0 ("string" as a boolean equals to false.)
+
+## 17. Comparisons.
+1. numbers comparison use >, <, == is ok, or better ==#(==?)
+2.> string comparison don't use == , use ==#, ==?, because == is depends on user's settings. ==# is case-sensitive, ==? is case-insensitive, both of them will ignore the setting of comparison operator like (&ignorecase)
+see :help ignorecase and noignorecase, :help expr4
+
+## 18. Function.
+1. define a function.
+> :function Fun()
+  : echo "fun"
+  :endfunction
+
+2. call a function:
+> :call Fun()
+
+3. return value.
+> :echo Fun() will output "fun" and 0, the 0 means default return value of a function(who doesn't return a value explicit) is 0.
+define a function,
+:function Funr()
+: return "func"
+:endfunction
+then :echo Funr() will show func, it's a explicit return value.
+
+## 19. Function Arguments.
+1. fixed count arguments, visit by a:
+> :function FixedCount(name)
+  :   echo a:name
+  :endfunction
+
+2. varargs.
+> :function Vararg(...)
+  :  echom a:0
+  :  echom a:1
+  :  echo a:000
+  :endfunction
+  then
+  :call Vararg("a", "b")
+  output: a:0 == 2, which means the number of arguments you were given.
+  a:1 == "a", which is the first argument. *a:1 = a:000[0]*
+  a:000 is the whole argument list, which can be print with echo only other than echom.
+
+3. mix style of fixed count and varargs.
+> :function Mix(fix, ...)
+  :  echo a:fix
+  :  echo a:0
+  :  echo a:000
+  :endfunction
+  then
+  :call Mix("fine", "a", "b")
+  output: a:fix  == "fine", a:0 = 2 ( "a" and "b"), a:000 = "a", "b"
+
+4. no assignment to a:arg.
+> :function temp(arg)
+  :  "a:arg = 10 " error, assignment to arg is disallowed.
+  :  let temparg = a:arg
+  :  temparg = 10
+  :endfunction
+
+5. more to see :help function-argument. && help local-variables. 
 
 ## Useful Command
 1. echo $MYVIMRC
