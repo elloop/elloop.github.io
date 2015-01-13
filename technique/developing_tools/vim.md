@@ -238,6 +238,12 @@ then :echo Funr() will show func, it's a explicit return value.
 
 5. more to see :help function-argument. && help local-variables. 
 
+## 20. Number & String.
+1. 0xff, 017, 1.24e4, 1.24e+4, 1.24e-4, 100.11, 
+2. + is only for number, operators will be cor
+3. :help floating-point-precision.
+
+
 ## Useful Command
 1. echo $MYVIMRC
 
