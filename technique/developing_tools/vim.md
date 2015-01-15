@@ -246,3 +246,5 @@ then :echo Funr() will show func, it's a explicit return value.
 - 1. 折叠  
 
     > zR : 打开所有折叠
+2. mac os system install vim with python support:
+   sudo port install macvim +python27 
