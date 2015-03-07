@@ -248,9 +248,46 @@ then :echo Funr() will show func, it's a explicit return value.
 1. echo $MYVIMRC
 
 
+
 ## 1. 常用快捷键
 - 1. 折叠  
 
     > zR : 打开所有折叠
 2. mac os system install vim with python support:
    sudo port install macvim +python27 
+
+
+
+
+# Plugins
+---
+## clang_complete
+### Install Problems:
+1. two ways to use clang_complete:
+clang_complete can be configured to use the clang executable or the clang library
+
+clang_complete uses the clang executable by default but the clang library will execute lot faster
+
+- clang_complete plugin (using the clang executable) needs:
+
+clang must be installed in your system and be in the PATH
+do not set (let) g:clang_library_path to a path containing the libclang.so library
+- clang_complete plugin (using the clang library) needs:
+
+python installed in your system
+vim must be built with python support (do :version and look for a +python/dyn or +python3/dyn entry)
+set (let) g:clang_library_path to the directory path where libclang.so is contained
+
+2.  whereis libclang.so?
+One can install libclang 3.4 on Ubuntu with
+
+apt-get install libclang-3.4-dev
+which installs into
+
+/usr/lib/llvm-3.4/
+and in particular, installs libclang.so as
+
+/usr/lib/llvm-3.4/lib/libclang.so
+
+3. libclang can not find the builtin includes. This will cause slow code completion. Please report the problem.
+
