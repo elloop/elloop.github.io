@@ -1,5 +1,8 @@
-# Windows Programming
-===
+---
+layout: post
+title: Windows Programming
+---
+{{ page.title }}
 
 # Unicode in windows
 ## _T and __T

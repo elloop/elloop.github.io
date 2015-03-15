@@ -1,4 +1,8 @@
-# cpp learning plan
+---
+layout: post
+title: cpp learning plan
+---
+{{ page.title }}
 
 ## basic grammer
 1. template

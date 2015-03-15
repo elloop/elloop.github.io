@@ -1,4 +1,8 @@
-# google cpp programming style gain
+---
+layout: post
+title: google cpp programming style gain
+---
+{{ page.title }}
 
 - 1. DISALLOW_COPY_AND_ASSIGN
 

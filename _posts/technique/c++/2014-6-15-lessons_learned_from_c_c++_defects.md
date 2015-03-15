@@ -1,3 +1,9 @@
+---
+layout: post
+title: Lessons learned from c/c++ defects
+---
+{{ page.title }}
+
 ## basic question
 1. n << 1 + 1 == 4*n , not 2*n + 1
 
