@@ -261,6 +261,44 @@ then :echo Funr() will show func, it's a explicit return value.
 
 # Plugins
 ---
+## vim with python support.
+在leopard snow下面编译不同版本的vim。
+
+以下通过3种不同的方法安装vim。
+
+1. 从官方下载source编译
+
+去vim官网下载 http://www.vim.org/download.php
+
+直接下载 ftp://ftp.vim.org/pub/vim/unix/vim-7.2.tar.bz2
+
+或者通过 svn checkout 源码:
+svn co https://vim.svn.sourceforge.net/svnroot/vim/vim7 或者通过hg取得源码：
+hg clone https://vim.googlecode.com/hg/ vim 最后一步编译 vim ./configure --with-features=huge --enable-cscope --enable-pythoninterp --enable-rubyinterp --enable-perlinterp  --enable-tclinterp   --enable-multibyte --enable-cscope --disable-gui
+make 
+make install
+2.通过 macports 安装 vim
+先安装好macports
+再执行一下命令安装vim: sudo port install vim +python +ruby 3.编译 macvim
+下载macvim ，直接去  http://code.google.com/p/macvim/ 下载
+或者通过 git 取得 源码: git clone git://repo.or.cz/MacVim.git vim7
+ 
+进到 MacVim的  vim7 目录 。执行 
+/configure  --enable-pythoninterp=yes  --enable-rubyinterp=yes --with-python=/usr/bin/python make 
+make 成功后。 会有一个目录提示，进到次目录后就可以看到编译好的 MacVim.app, 把MacVim.app复制到你想放的目录就可以了。
+不过在Snow Leopard中默认的python 是2.6版本的。 如果在MacVim使用python2.5. 请记得 把python 的Current设为2.5. 使用以下命令
+cd /System/Library/Frameworks/Python.framework/Versions/
+rm Current
+ln -s /System/Library/Frameworks/Python.framework/Versions/2.5 /System/Library/Frameworks/Python.framework/Versions/Current
+99. 上面介绍了3种vim的编译方法。 下面测试vim是否成功支持python。
+进到vim
+按 esc 输入  :python import sys  回车
+按 esc 输入  :python print sys.version   回车
+如果成功打印python版本，说明你的vim已经支持python了。
+
+下一步可以为vim 安装omnicomplete。然后就可以在vim 通过
+
+ctrl+x ctrl+o 进行自动完成了。
 ## clang_complete
 ### Install Problems:
 1. two ways to use clang_complete:
