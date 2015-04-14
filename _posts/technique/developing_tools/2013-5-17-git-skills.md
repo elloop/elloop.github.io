@@ -1,4 +1,8 @@
-#
+---
+layout: post
+title: Git Skills
+---
+{{page.title}}
 
 ##  git 错误 fatal: loose object...is corrupt
 questions:

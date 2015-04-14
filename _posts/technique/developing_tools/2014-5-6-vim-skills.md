@@ -1,4 +1,8 @@
-#Vim Skills
+---
+layout: post
+title: Vim Skills
+---
+{{page.title}}
 
 # Learning VimScript
 ---

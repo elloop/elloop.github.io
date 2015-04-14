@@ -1,3 +1,9 @@
+---
+layout: post
+title: MarkDown Skills
+---
+{{page.title}}
+
 # 使用MarkDown
 ---
 ## Keywords

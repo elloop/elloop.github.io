@@ -1,3 +1,8 @@
+---
+layout: post
+title: linux commands
+category: linux
+---
 # Linux 常用命令行
 ---
 ## linux按照时间查找文件

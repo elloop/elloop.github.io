@@ -1,4 +1,8 @@
-#My Using of Makefile
+---
+layout: post
+title: Makefile Template Update
+---
+{{page.title}}
 
 ## new version of makefile on 1/12/2015
 ```

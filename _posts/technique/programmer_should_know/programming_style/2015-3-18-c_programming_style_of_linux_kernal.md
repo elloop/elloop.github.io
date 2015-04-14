@@ -1,3 +1,7 @@
+---
+layout:post
+title:Linux kernel coding style
+---
 
 
 Annotation from Chris Lott:

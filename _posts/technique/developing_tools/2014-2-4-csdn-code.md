@@ -1,3 +1,9 @@
+---
+layout: post
+title: Use CSDN Code
+---
+{{page.title}}
+
 # How to Use `Code`
 - clone
 - push

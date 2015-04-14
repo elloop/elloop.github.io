@@ -1,4 +1,9 @@
-# IOS Common Sense
+---
+layout: post
+title: IOS Common Sense
+category: iOS
+---
+{{page.title}}
 ---
 
 ## How to find your device's UDID ?

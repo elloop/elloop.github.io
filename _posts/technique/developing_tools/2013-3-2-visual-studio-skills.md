@@ -1,3 +1,8 @@
+---
+layout: post
+title: Visual Studio Skills
+---
+{{page.title}}
 #常犯错误
 1.  key: 函数声明、定义都存在且正确，却总是发生链接错误？
   value: 检查.h和.cpp是否忘记添加到工程了，这可能是别人挖的坑，他没有提交vcproj. 
