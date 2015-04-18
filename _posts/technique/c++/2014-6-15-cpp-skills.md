@@ -2,25 +2,22 @@
 layout: post
 title: c++ programming skills
 ---
-
 {{ page.title }}
-## Latest Questions
+#Traps
+- dynamic_cast<*> or dynamic_cast<&> need RTTI, so if base class has no virtual functions, will cause compile error.
+    - dynamic_cast<*> return normal pointer or nullptr(when fail).
+    - dynamic_cast<&> return normal reference or throw an exception(when fail).
+
+# Latest Questions
 - 2014-12-4 父类和子类同时又一个同名文件的时候，通过父类接口改变同名变量，改变的是父类的还是子类的？如AdventureBase的setInitData().
+- 没有多态性质的继承体系，在向下转型指针或引用的时候，使用static_cast<>安全吗，无论对单继承还是多继承都会成功转换成功吗？
 
-## Language skills
+---
+#Language skills
 
-## 12/12/2014
-陈硕，Linux C++程序员，muduo 网络库作者
-查灏巍、Linux、邹晓航 等人赞同
-只有含 reserve()/capacity() 成员函数的容器才需要用 swap idiom 来释放空间，而 C++ 里只有 vector 和 string 这两个符合条件。在 C++11 中可以直接使用 shrink_to_fit()。
+- 只有含 reserve()/capacity() 成员函数的容器才需要用 swap idiom 来释放空间，而 C++ 里只有 vector 和 string 这两个符合条件。在 C++11 中可以直接使用 shrink_to_fit()。 list/deque/set/map 等容器是没有 reserve() 和 capacity() 这两个成员函数的，因此 swap 是无用功（除非用户代码使用了定制的 per-object allocator）。 check google's chromium source codes to learn technique of managing memory of stl utils.  [chromium codes: stl_util.h](http://src.chromium.org/viewvc/chrome/trunk/src/base/stl_util.h)
 
-list/deque/set/map 等容器是没有 reserve() 和 capacity() 这两个成员函数的，因此 swap 是无用功（除非用户代码使用了定制的 per-object allocator）。
-
-check google's chromium source codes to learn technique of managing memory of stl utils.
-[chromium codes: stl_util.h](http://src.chromium.org/viewvc/chrome/trunk/src/base/stl_util.h)
-
-## before 12/12/2014
-- 1. DISALLOW_COPY_AND_ASSIGN
+- DISALLOW_COPY_AND_ASSIGN (or boost::noncopyable)
 
 ```c++
 \#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
@@ -37,7 +34,7 @@ class Foo {
 };
 ```
 
-- 2. big_endian or little_endian
+- big_endian or little_endian
 
 ```c++
 // return 0 for big_endian
@@ -56,8 +53,8 @@ int check_cpu_endian()
 }
 ```
 
+---
 #基础知识
-
 ##浅谈C/C++中运算符的优先级、运算符的结合性以及操作数的求值顺序
 (我的总结：在优先级相同的情况下，结合性决定了谁和谁在一起计算，但是不规定谁先算)
 一.运算符的优先级
@@ -108,6 +105,7 @@ int check_cpu_endian()
 
 ## anonymous namespace's function?
 
-
+---
 #STL
+
 
