@@ -11,6 +11,7 @@ title: Cocos Optimize
 - tablereader
 - physics 
 - rich text and freetype font
+- resource name alias, use md5 as the unique resource name, save only one copy of resource, use alias to config the table.
 
 
 ## questions.
