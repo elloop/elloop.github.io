@@ -11,8 +11,6 @@ title: Cocos Optimize
 - tablereader
 - physics 
 - rich text and freetype font
-- resource name alias, use md5 as the unique resource name, save only one copy of resource, use alias to config the table.
-
 
 ## questions.
 *baopeng*
@@ -22,6 +20,30 @@ title: Cocos Optimize
 
 *cocos*
 - dragon bone and spine
+- what's the meanings of the FPS labels?
+
+*CCTextureCache::getTextrueTotalBytes*
+
+```c++
+if(infoDirty)
+	{
+		infoDirty = false;
+		info_totalBytes = 0;
+		CCDictElement* pElement = NULL;
+		CCDICT_FOREACH(m_pTextures, pElement)
+		{
+			CCTexture2D* tex = (CCTexture2D*)pElement->getObject();
+			unsigned int bpp = tex->bitsPerPixelForFormat();
+			//unsigned int bytes = tex->getPixelsWide() * tex->getPixelsHigh() * bpp / 8;
+            // WHY!! pow 2 ??
+			unsigned int bytes = getPowsize(tex->getPixelsWide()) * getPowsize(tex->getPixelsHigh()) * bpp / 8;
+			info_totalBytes += bytes;
+			info_max_totalBytes = info_max_totalBytes > info_totalBytes? info_max_totalBytes : info_totalBytes;
+		}
+	}
+	return info_totalBytes/* / (1024.0f*1024.0f)*/;
+```
+
 
 ## Performance.
 1. ccscrollview
@@ -37,6 +59,20 @@ title: Cocos Optimize
 4. removeunusedtexture and spriteframe.
     - CCSpriteFrameCache.cpp 's update() every frame, check elems to remove.
     - CCTextureCache.cpp's update every frame, ...
+5. autorelease pool
+    - not all things should be put in.
+    - new autorelease pool when need.
+6. resource unique with md5
+    - [ ] resource name alias, use md5 as the unique resource name, save only one copy of resource, use alias to config the table.
+
+7. table reader.
+    - [ ] 
+8. pet fight
+    - [ ]
+9. rich text
+    - [ ] dfont freetype
+    - [ ] chat page
+
 
 
 ## Experience.
