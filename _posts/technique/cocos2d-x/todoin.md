@@ -11,3 +11,28 @@
     - fightpage add defence and big hit.(todo)
     - chatpage(rich lable) and pet system(todo), instruction,
     - table reader for lua, configManager.(todo), nodehelper, commonpage.
+    - local server php.
+
+
+
+    - android 5 font  const char* get_system_helvetica_fontfile() { return "MTLmr3m.ttf";}
+
+
+    tonight:
+        - screen 
+        -
+
+
+
+
+
+- for ali
+    - mac
+        - mac talk
+    - cpp
+        - stl
+        - design pattern
+    - algorithms
+        - sort
+        - tree/map
+        - combo and rank.
