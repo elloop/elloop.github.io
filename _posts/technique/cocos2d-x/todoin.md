@@ -1,7 +1,13 @@
-1. md5 in python
-2. make a summary of the knowledge about cocos optimization i master.
-    - fightpage
-    - chatpage and pet system
-    - remove how many texture and solve when the threshold is
-    -
 
+- responsibility
+    - hotupdate and tools and big version update.
+    - resource unique md5 todo.
+    - texture optimize
+        - texturecahce/spriteframecache remove unused, when 1.perFrame, 2.by function, 3.threshold(todo)
+    - perframe optimize
+        - scrollview item
+        - batch operation, change to perframe.
+    - autorelease pool for ccbi and memory leak parts.
+    - fightpage add defence and big hit.(todo)
+    - chatpage(rich lable) and pet system(todo), instruction,
+    - table reader for lua, configManager.(todo), nodehelper, commonpage.
