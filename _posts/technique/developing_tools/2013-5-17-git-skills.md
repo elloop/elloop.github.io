@@ -76,6 +76,23 @@ Switched to a new branch 'dev'
 
 现在你的本地分支 dev 会自动将推送和抓取数据的位置定位到 origin/develop 了。
 
+- 推送到远程分支
+本地的visual-studio 分支推送到远程仓库，新建了一个远程分支
+**git push origin visual-studio:visual-studio**
+
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/elloop/TotalSTL.git
+ * [new branch]      visual-studio -> visual-studio
+
+- 删除远程分支
+手误创建了一个origin/visual-studio远程分支，现在想把它删掉
+
+**git push origin :origin/visual-studio**
+
+To https://github.com/elloop/TotalSTL.git
+ - [deleted]         origin/visual-studio
+
+linadeMacBook-Pro:TotalSTL lina$ 
 ---
 ## how to stage deleted files?
 git add -u
