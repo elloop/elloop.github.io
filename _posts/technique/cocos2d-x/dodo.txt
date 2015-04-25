@@ -12,6 +12,11 @@
 	local serverphp.
 	
 2. 性能优化
+    Appdeleage
+        purgeCachedData
+        max_cache_size  MAX_TEXTURE_MSIZE (135*1024*1024) use to check memeroy warning.
+        hookWin32: T,O dumpTextureInfo.
+
 	资源重复利用
 		！！！！！！！！！！！！ md5检测工具，检测重复资源。
 		
@@ -37,3 +42,7 @@
 	python版本，Qt版本
 	屏幕适配：资源分辨率 - 缩放因子(RH/DH高度保留，RW/DW宽度保留）-》设计分辨率 - (SH/SW = asp) noborder, showall.
 	winszie = designsize	framesize = screensize	fix——height makes winsize = visiblesize 	scale9sprite.
+
+4. Questions
+    1. libos avalibleMemory() 单位是多少？
+    2. fps meaning ?
