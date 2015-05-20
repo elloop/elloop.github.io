@@ -15,6 +15,8 @@ title: using NDK
                         world.cpp \
                         ... \
                         hello.cpp
+- apk安装失败提示：“已安装更高版本的”
+    修改AndroidManifest.xml: 修改`versionCode`, `versionName`是显示用，不起到比较大小的作用。
 
 
 # 编写Android.mk
