@@ -1,3 +1,8 @@
+---
+layout: post
+title: Basic Concepts of cocos2d-x
+---
+
 # cocos2d-x 基础概念学习
 
 ##coordinate

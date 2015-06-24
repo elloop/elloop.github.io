@@ -1,9 +1,7 @@
 ---
-layout:post
-title:Linux kernel coding style
+layout: post
+title: Linux kernel coding style
 ---
-
-
 Annotation from Chris Lott:
 
 This is file 'CodingStyle' from the Linux kernel source area.

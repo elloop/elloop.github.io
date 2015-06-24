@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Cocos Optimize
+title: AutoReleasePool
 ---
 {{ page.title }}
 
