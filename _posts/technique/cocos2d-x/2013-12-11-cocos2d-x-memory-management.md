@@ -3,7 +3,6 @@ layout: post
 title: "[掌握Cocos2d-x系列]-2 cocos2d-x 内存管理"
 category: [c++, cocos2d-x]
 tags: [c++, cocos2d-x]
-description: "cocos2d-x学习"
 ---
 
 #AutoReleasePool

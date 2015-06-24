@@ -1,9 +1,15 @@
 ---
 layout: post
-title: Basic Concepts of cocos2d-x
+title: "[掌握Cocos2d-x系列]-1 Cocos2d-x 基本概念"
+category: [c++, cocos2d-x]
+tags: [c++, cocos2d-x, OpenGL ES ]
+description: "cocos2d-x学习"
 ---
 
 # cocos2d-x 基础概念学习
+
+## 渲染
+- OpenGL ES 2.0
 
 ##coordinate
 - 第一种划分方式

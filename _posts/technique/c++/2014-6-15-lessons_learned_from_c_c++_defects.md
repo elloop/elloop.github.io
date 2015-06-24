@@ -1,8 +1,11 @@
 ---
 layout: post
-title: Lessons learned from c/c++ defects
+title: "Lessons learned from c/c++ defects"
+category: c++
+tags: [c++, programming skills]
 ---
-{{ page.title }}
+
+#summary of book "Lessons Learned From c/c++ Defects"
 
 ## basic question
 1. n << 1 + 1 == 4*n , not 2*n + 1

@@ -1,8 +1,11 @@
 ---
 layout: post
-title: google cpp programming style gain
+title: "google cpp programming style gain"
+category: c++
+tags: [c++, programming skills]
 ---
-{{ page.title }}
+
+#[summary url](http://zh-google-styleguide.readthedocs.org/en/latest/google-cpp-styleguide/contents/#c)
 
 - 1. DISALLOW_COPY_AND_ASSIGN
 

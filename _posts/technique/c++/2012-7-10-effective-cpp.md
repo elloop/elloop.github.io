@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Effective cpp (3rd Edition)
+title: summary of book "Effective C++"
 category: c++
-tags: [c++, programming skills]
+tags: [c++, programming skills, book note]
 description: "guide from classical c++ progamming book"
 ---
 {% include JB/setup %}

@@ -1,8 +1,11 @@
 ---
 layout: post
-title: c++ programming skills
+title: "c++ accumulation"
+category: c++
+tags: [c++, programming skills]
+description: "programming things about c++"
 ---
-{{ page.title }}
+
 #Traps
 - dynamic_cast<*> or dynamic_cast<&> need RTTI, so if base class has no virtual functions, will cause compile error.
     - dynamic_cast<*> return normal pointer or nullptr(when fail).

@@ -1,12 +1,15 @@
 ---
 layout: post
-title: Windows Programming
+title: Windows Programming Accumulation
+category: c++
+tags: [c++, programming skills, windows]
+description: "windows programming summary"
 ---
-{{ page.title }}
 
 # Unicode in windows
 ## _T and __T
-```
+
+```c++
 #ifdef UNICODE
 #define __T(x)      L ## x
 #else
@@ -15,11 +18,13 @@ title: Windows Programming
 
 #define _T(x) __T(x)
 ```
+
 ## how to define UNICODE in VS.
 In Project setting -> common -> character set : Unicdoe or Mutibytes.
 
 ## an example of command line args parsing, with Unicode support.
- ```
+
+ ```c++
  auto args = elloop_test::StringUtil::split(cmd_line, ' ');
     //auto args = GameMaths::tokenize(cmd_line, _T" ");
     auto iter = args.begin();
@@ -74,3 +79,4 @@ In Project setting -> common -> character set : Unicdoe or Mutibytes.
         }
     }
  ```
+
