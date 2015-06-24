@@ -1,6 +1,8 @@
 ---
 layout: post
 title: framework-plan
+category: framework
+tags: [framework]
 ---
 {{ page.title }}
 #Basic Component.

@@ -1,13 +1,11 @@
 ---
 layout: post
-title: Date-03-22
----
-
-{{ page.title }}
+title: Thinking-20150322
+category: diary
+tags: [todo, question, summary]
 ---
 
 #Todo
-
 - [ ] reading codes about version update. 
 - [ ] understanding-cpp11 repos update.
 - [ ] placement new grammar.

@@ -1,10 +1,11 @@
 ---
 layout: post
 title: Xcode Skill
+category: tools
+tags: [c++, Xcode]
+description: "Xcode skills"
 ---
-{{ page.title }}
 
----
 # 常用快捷键
 **简称：command == cm, shift == /s, control = /c, option(alt) == /a**
 用空格代替+, left = mouse left
