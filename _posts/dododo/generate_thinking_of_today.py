@@ -45,7 +45,7 @@ def generateThinkingToday(templateFileName):
     allLines = fileObj.readlines()
     fileObj.close()
     #write
-    outputFileName = "{year}-{month}-{day}-Thinking-{year}-{month}-{day}.md".format(year=templateDict["year"], month=templateDict["month"], day=templateDict["day"])
+    outputFileName = "{year}-{month}-{day}-Thinking.md".format(year=templateDict["year"], month=templateDict["month"], day=templateDict["day"])
     fileObj = open(outputFileName, "w")
     for line in allLines:
         line = formatTemplate(line)
