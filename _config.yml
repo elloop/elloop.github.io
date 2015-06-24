@@ -2,7 +2,12 @@
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /:categories/:year-:month-:day/:title
 
-markdown: kramdown
+#markdown: kramdown
+markdown: redcarpet
+markdown_ext:  md
+redcarpet:
+    extensions: [no_intra_emphasis,tables,autolink,disable_indented_code_blocks,fenced_code_blocks]
+    
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 highlighter: pygments
 #highlighter_style: monokai
