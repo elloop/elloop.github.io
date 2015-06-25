@@ -1,8 +1,9 @@
 ---
 layout: post
 title: Thinking-2015-5-15
+category: diary
+tags: [todo, question, summary]
 ---
-{{ page.title }}
 
 ##questions
 - alloc的字节数组, unsigned char* data, 使用delete[] data可以吗？

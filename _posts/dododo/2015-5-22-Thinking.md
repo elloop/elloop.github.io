@@ -1,8 +1,9 @@
 ---
 layout: post
 title: Thinking-2015-5-22
+category: diary
+tags: [todo, question, summary]
 ---
-{{ page.title }}
 
 ##questions
 

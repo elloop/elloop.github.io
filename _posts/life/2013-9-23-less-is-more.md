@@ -1,9 +1,11 @@
 ---
 layout: post
 title: less is more
+category: [life thinking]
+tags: [life thinking]
+description: ""
 ---
 
-h1. {{ page.title }}
 # 多则惑，少则明 -- `知止`
 
 ## 从学技术上来说，专注于某一领域，某一方向，争取做到精通。不要眼前的东西还一知半解的，又开始去看别东西

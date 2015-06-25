@@ -1,8 +1,9 @@
 ---
 layout: post
 title: Thinking-2015-6-9
+category: diary
+tags: [todo, question, summary]
 ---
-{{ page.title }}
 
 ##questions
 - 挂机大版本更新，内更新目录没有清空，为什么？

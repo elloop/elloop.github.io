@@ -1,8 +1,10 @@
 ---
 layout: post
 title: Learning Make (GNU make)
----
-{{page.title}}
+highlighter_style: monokai
+category: make
+tags: [c++, make]
+description: ""
 ---
 
 ## questions:

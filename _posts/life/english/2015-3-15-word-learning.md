@@ -1,9 +1,11 @@
 ---
 layout: post
 title: English Words Learning
+category: english
+tags: [english, life]
+description: ""
 ---
-{{ page.title }}
----
+
 Words copied from `Merriam-Webster.com`
 
 word            meanings

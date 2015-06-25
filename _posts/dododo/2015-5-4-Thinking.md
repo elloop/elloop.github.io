@@ -1,8 +1,9 @@
 ---
 layout: post
 title: Thinking-2015-5-4
+category: diary
+tags: [todo, question, summary]
 ---
-{{ page.title }}
 
 ##questions
 1. is retain() needed or not ? in following two situations: pNode and sender.

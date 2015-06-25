@@ -1,3 +1,13 @@
+---
+layout: post
+title: A Makefile Template
+highlighter_style: monokai
+category: make
+tags: [c++, make]
+description: ""
+---
+
+```make
 #===============================================================================
 #
 #     Filename: Makefile
@@ -202,3 +212,5 @@ zip:
 
 # ==============================================================================
 # vim: set tabstop=2: set shiftwidth=2:
+```
+

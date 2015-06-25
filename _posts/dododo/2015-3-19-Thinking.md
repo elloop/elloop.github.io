@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Date-03-19
----
-
-{{ page.title }}
+category: diary
+tags: [todo, question, summary]
 ---
 
 #Todo

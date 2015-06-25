@@ -1,16 +1,17 @@
 ---
 layout: post
-title: Hzw Share
+title: Hzw Share 2
+published: true
 category: c++
-tags: [c++, programming skills]
+tags: [c++, programming]
 description: "technique conference"
 ---
 
-#《海贼王项目组技术会议-2》-编程修养及c++基础
+#《海贼王项目组技术会议》-编程修养及c++基础回顾
 ---
 
 |时间|内容|主讲人|
-|---|-----|------|
+|:---|:-----:|------:|
 |2015年6月16日|海贼客户端c++技术分享|季宝鹏|
 
 

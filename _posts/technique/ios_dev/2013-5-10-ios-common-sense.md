@@ -2,8 +2,8 @@
 layout: post
 title: IOS Common Sense
 category: iOS
----
-{{page.title}}
+tags: [iOS]
+description: ""
 ---
 
 ## How to find your device's UDID ?

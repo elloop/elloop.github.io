@@ -1,8 +1,11 @@
 ---
 layout: post
 title: Vim Skills
+highlighter_style: monokai
+category: vim
+tags: [vim, book note]
+description: "Learn Vimscript the hard way"
 ---
-{{page.title}}
 
 # Learning VimScript
 ---
@@ -66,7 +69,8 @@ to force you use shortcut, map occord keys to <nop>
 3. `setlocal` can change setting of current buffer.
 
 4. shadowing: like program in c,
-```
+
+```Vim 
 int flag = 1;
 void f(int flag)
 {
@@ -76,6 +80,7 @@ void f(int flag)
     }
 }
 ```
+
 flag in f() will hide the global flag.
 in vim, you set following mapings:
 :noremap <buffer> Q dd
@@ -109,7 +114,8 @@ more events: help autocmd-events.
 
 ## 10. Autocommand Groups
 1. in order to avoid duplicate cmds, define autocmd using Autocommand Groups, like this:
-```
+
+```Vim
 :augroup group_name
 :autocmd!
 :autocmd BufWrite * :echom "write success"
@@ -118,7 +124,8 @@ more events: help autocmd-events.
 ```
 
 another example:
-```
+
+```Vim
 :augroup filetype_html
 :autocmd!
 :autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
@@ -129,7 +136,7 @@ another example:
 1. :onoremap p i( = cp will be same with ci(, that is cp will change content in parentheses and dp will be same with di(......
 2. :onoremap <buffer> b /return<cr> = notice <buffer> used like inoremap, nnoremap and vnoremap.
 
-```
+```Vim 
 void f() {
     int i(0);
     int j(1);
@@ -137,6 +144,7 @@ void f() {
     return 0;
 }
 ```
+
 put cursor in i, and press db, will delete lines until return.
 
 3. Change the Start

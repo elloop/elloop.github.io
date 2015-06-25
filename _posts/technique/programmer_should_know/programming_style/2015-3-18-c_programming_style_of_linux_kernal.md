@@ -1,7 +1,12 @@
 ---
 layout: post
 title: Linux kernel coding style
+highlighter_style: monokai
+category: c++
+tags: [c++, coding style]
+description: ""
 ---
+
 Annotation from Chris Lott:
 
 This is file 'CodingStyle' from the Linux kernel source area.

@@ -1,18 +1,23 @@
 ---
 layout: post
 title: Git Skills
+highlighter_style: monokai
+category: git
+tags: [git, programming skills]
+description: ""
 ---
-{{page.title}}
-=======
 
 ##  git 错误 fatal: loose object...is corrupt
 questions:
-```
+
+```bash
 error: object file .git/objects/9a/83e9c5b3d697d12a2e315e1777ceaf27ea1bab is empty
 fatal: loose object 9a83e9c5b3d697d12a2e315e1777ceaf27ea1bab (stored in .git/objects/9a/83e9c5b3d697d12a2e315e1777ceaf27ea1bab) is corrupt
 ```
+
 solution:
-```
+
+```bash
 $ rm -fr .git
 $ git init
 $ git remote add origin your-git-remote-url

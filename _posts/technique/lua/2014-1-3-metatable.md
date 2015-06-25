@@ -2,7 +2,10 @@
 layout: post
 title: metatable
 category: lua
+tags: [lua, programming skills]
+description: ""
 ---
+
 # Metatable
 - lua中的每一个表都有metatable
 - 任何一个表都可以是其他一个表的metatable，一组相关的表可以共享一个metatable

@@ -1,11 +1,15 @@
 ---
 layout: post
 title: Makefile Template Update
+highlighter_style: monokai
+category: make
+tags: [c++, make]
+description: ""
 ---
-{{page.title}}
 
 ## new version of makefile on 1/12/2015
-```
+
+``` make
 # this makefile shows how to locate src dependancies. use VPATH.
 # src tree:
 #
@@ -138,7 +142,8 @@ Well, then, what the heck is VPATH good for, anyway? As described in Paul's Thir
 ## Basic
 
 ### example 1
-```
+
+{% highlight make %}
 objs = Vehicle.o LoadVehicle.o PassengerVehicle.o EmergencyEquipment.o EmergecyVehicle.o Decision.o main.o
 
 v : $(objs)
@@ -155,5 +160,5 @@ main.o : main.cpp
 .PHONY : clean
 clean : 
 			-rm v $(objs) *.orig
-```
+{% endhighlight %}
 

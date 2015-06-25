@@ -1,8 +1,9 @@
 ---
 layout: post
 title: MarkDown Skills
+category: markdown
+tags: [markdown]
 ---
-{{page.title}}
 
 # 使用MarkDown
 ---

@@ -11,7 +11,7 @@ description: "Xcode skills"
 用空格代替+, left = mouse left
 
 |                   *cmd*              |              *function*               |
---------------------------------------------------------------------------------
+|--------------------------------------|------------------------------------------|
 | cm 0(1~8)               |toggle left(swith between left sub windows) |
 | /c (1~6)                |     swith between jumpbar |
 | cm /a 0                 |     toggle utility panel         |

@@ -9,7 +9,6 @@ Then, I customize the theme using [Solar Theme](http://mattvh.github.io/solar-th
 
 Also, I changed the code highlight to Solarized-Dark theme, using [pygments-style-solarized](https://pypi.python.org/pypi/pygments-style-solarized/0.1.1)
 
-
 License
 ===
 The following directories and their contents are Copyright elloop. You may not reuse anything therein without my permission:
@@ -20,6 +19,9 @@ The following directories and their contents are Copyright elloop. You may not r
 Remind Myself
 ===
 ![Evil Screen](http://7xi3zl.com1.z0.glb.clouddn.com/blogremind_me.jpg "Evil Screen")
+
+#todo
+- [ ] seo
 - [ ] Time consume log.
 - [ ] LaTex support.
 - [ ] table format.

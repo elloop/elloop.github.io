@@ -1,3 +1,13 @@
+---
+layout: post
+title: Multi-target Makefile Template
+highlighter_style: monokai
+category: make
+tags: [c++, make]
+description: ""
+---
+
+```make
 #===============================================================================
 #
 #         File: Makefile
@@ -67,4 +77,5 @@ zip:
 #---------- clear up -------------------------------------
 clean:
 				rm  --force  $(EXECUTABLE) $(OBJECTS) $(PREREQUISITES)
- 
+```
+
