@@ -46,9 +46,21 @@ body {
 
 
 /* Jekyll Bootstrap Colors */
-h1, h2, h3, h4 {
+h1 {
   /* color: #f22430; */
   color: #cb4b16;
+}
+
+h2 {
+	color: #ff8c5b;
+}
+
+h3 {
+	color: #ffccbb;
+}
+
+h4 {
+	color: #fdd9f9;
 }
 
 .container {
