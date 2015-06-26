@@ -10,7 +10,7 @@ description: "install jekyll on windows"
 
 #步骤
 
-## 1. 安装ruby和ruby DevKit
+## 1. 安装ruby和ruby DevKit [下载地址](http://rubyinstaller.org/downloads/), 本人使用2.0版本可行。
 
 ## 2. 安装Jekyll: gem install jekyll
 
