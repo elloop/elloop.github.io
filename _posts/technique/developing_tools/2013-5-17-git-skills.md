@@ -7,8 +7,8 @@ tags: [git, programming skills]
 description: ""
 ---
 
-##  git 错误 fatal: loose object...is corrupt
-questions:
+##  git 错误 
+### Problem 1
 
 ```bash
 error: object file .git/objects/9a/83e9c5b3d697d12a2e315e1777ceaf27ea1bab is empty
@@ -26,7 +26,37 @@ $ git reset --hard origin/master
 $ git branch --set-upstream-to=origin/master master 
 ```
 
+### P2
+
+今天忽然git push到github失败，报如下错误, 本地也没有修改git相关配置，一直没使用代理也是好好的，看到github的主页图标改版了，应该是它那边修改了什么，重新安装了Github For Windows也不起作用，尝试了别人说的关闭代理，`git config --global --unset http.proxy`也没有作用，最后通过切换连接方式解决了问题：HTTPS -> SSH.
+
+```bash
+fatal: unable to access 'https://github.com/elloop/TankPongPongPong.git/': Failed connect to github.com:443; No error
+```
+
+*solution*
+
+```bash
+#查看原来的URLs
+git remote -v
+#下面的输出是HTTPS
+origin  https://github.com/<username>/<reponame>.git (fetch)
+origin  https://github.com/<username>/<reponame>.git (push)
+
+# 切换
+git remote set-url origin git@github.com:<username>/<reponame>.git
+
+#修改之后，查看是否生效
+git remote -v
+#看到下面的输出就是修改成SSH了
+origin  git@github.com:<username>/<reponame>.git (fetch)
+origin  git@github.com:<username>/<reponame>.git (push)
+```
+
+>[参考链接](https://help.github.com/articles/changing-a-remote-s-url/)
+
 ---
+
 ## Branch
 从clone说起，git clone <url>, 
 
@@ -98,13 +128,16 @@ To https://github.com/elloop/TotalSTL.git
  - [deleted]         origin/visual-studio
 
 linadeMacBook-Pro:TotalSTL lina$ 
+
 ---
+
 ## how to stage deleted files?
 git add -u
 or
 try to enter sub-system of git add by typing : git add -i and following the prompt.
 
 ---
+
 ## git pull conflict
 solve:
 >
@@ -115,6 +148,7 @@ solve:
 5. git commit
 
 ---
+
 ## difference between `git pull` and `git fetch`
 solve:
 - `git pull` == `git fetch` && `git merge`
