@@ -13,3 +13,6 @@ description: "common sense"
 - remote connect
     win+r : mstsc
 
+- Turn on Telnet
+控制面板 -》程序和功能 -》开启或关闭windows功能 -》telnet客户端
+
