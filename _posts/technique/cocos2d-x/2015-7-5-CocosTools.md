@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cocos¹¤¾ßºÍ×ÊÔ´»ã×Ü"
+title: "Cocoså·¥å…·å’Œèµ„æºæ±‡æ€»"
 highlighter_style: solarizeddark
 category: [cocos2d-x]
 tags: [tools, cocos2d-x, game]
@@ -8,10 +8,10 @@ description: ""
 published: true
 ---
 
-# ÓÎÏ·×ÊÔ´
+# æ¸¸æˆèµ„æº
 
 
-# Á£×Ó±à¼­Æ÷
-- 1 ÔÚÏßÁ£×Ó±à¼­Æ÷£º[EffectHub](http://www.effecthub.com/particle2dx)
+# ç²’å­ç¼–è¾‘å™¨
+- 1 åœ¨çº¿ç²’å­ç¼–è¾‘å™¨ï¼š[EffectHub](http://www.effecthub.com/particle2dx)
 
 
