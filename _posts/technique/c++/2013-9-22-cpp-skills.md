@@ -10,33 +10,33 @@ description: "programming things about c++"
 
 ## 类的static member variables不能在构造函数的初始化列表里初始化
 
-    {% highlight c++ %}
-    class CustomParticleTest : public cocos2d::ParticleSystemQuad {
+{% highlight c++ %}
+class CustomParticleTest : public cocos2d::ParticleSystemQuad {
 
-        public:
-            // fail to compile.
-            // CustomParticleTest(int particleNum = 350) : s_particleNum(particleNum) {}
+    public:
+        // fail to compile.
+        // CustomParticleTest(int particleNum = 350) : s_particleNum(particleNum) {}
 
-            // this is ok.
-            CustomParticleTest(int particleNum = 350) {
-                s_particleNum = particleNum;
-            }
+        // this is ok.
+        CustomParticleTest(int particleNum = 350) {
+            s_particleNum = particleNum;
+        }
 
-            ~CustomParticleTest() {}
-            static CustomParticleTest * create();
-            bool initWithTotalParticles(int numberOfParticles);
-        private:
-            static int s_particleNum;
-    };
-    {% endhighlight %}
+        ~CustomParticleTest() {}
+        static CustomParticleTest * create();
+        bool initWithTotalParticles(int numberOfParticles);
+    private:
+        static int s_particleNum;
+};
+{% endhighlight %}
 
 ## 关于dynamic_cast
 
-    - dynamic_cast<*> or dynamic_cast<&> need RTTI, so if base class has no virtual functions, will cause compile error.
-        - dynamic_cast<*> return normal pointer or nullptr(when fail).
-        - dynamic_cast<&> return normal reference or throw an exception(when fail).
-    - dynamic_cast<A*>(nullptr) 会崩溃吗？
-        - visual studio 2013 测试不会崩溃
+- dynamic_cast<*> or dynamic_cast<&> need RTTI, so if base class has no virtual functions, will cause compile error. 
+    - dynamic_cast<*> return normal pointer or nullptr(when fail).
+    - dynamic_cast<&> return normal reference or throw an exception(when fail). 
+- dynamic_cast<A*>(nullptr) 会崩溃吗？
+    - visual studio 2013 测试不会崩溃
 
 # Latest Questions
 - 2014-12-4 父类和子类同时又一个同名文件的时候，通过父类接口改变同名变量，改变的是父类的还是子类的？如AdventureBase的setInitData().

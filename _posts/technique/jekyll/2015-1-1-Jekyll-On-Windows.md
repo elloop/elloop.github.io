@@ -3,7 +3,7 @@ layout: post
 title: Install Jekyll on Windows
 category: blog
 highlighter_style: monokai
-tags: [jekyll, blog]
+tags: [jekyll]
 description: "install jekyll on windows"
 ---
 {% include JB/setup %}
