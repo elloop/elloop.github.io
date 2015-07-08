@@ -51,10 +51,6 @@ tagline: Programming Things
 <h2 id="sample-posts">Posts</h2>
 
 <ul class="posts">
-  \{% for post in paginator.posts %\} 
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-    {% comment %} <p>{{ post.excerpt }}</p> {% endcomment %}
-  {% endfor %}
 </ul>
 ```
 **todo**
@@ -72,5 +68,5 @@ tagline: Programming Things
 **todo**
 
 # FAQ
-## 1.如何在文章中输入liquid语法的文本，比如{% highlight c++ %}, {{ post.data }}这种原文，而不给转义？
+## 1.如何在文章中输入liquid语法的文本，比如\{\% highlight c++ \%\}, \{\{ post.data }\}这种原文，而不给转义？
 

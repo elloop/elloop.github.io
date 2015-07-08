@@ -23,7 +23,7 @@ paginate_path: "/page:num"
 #gems:
  # - jekyll-redirect-from
  # - jekyll-sitemap
-title : 跬步
+title : 首页
 tagline: Site Tagline
 author :
   name : elloop
