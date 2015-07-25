@@ -21,7 +21,9 @@ Remind Myself
 ![Evil Screen](http://7xi3zl.com1.z0.glb.clouddn.com/blogremind_me.jpg "Evil Screen")
 
 #todo
-- [ ] seo
+
+- [ ] link to github repos
+- [ ] seo, copyright remark.
 - [ ] Time consume log.
 - [ ] LaTex support.
 - [ ] table format.

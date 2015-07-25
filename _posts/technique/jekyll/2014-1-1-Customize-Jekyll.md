@@ -8,6 +8,35 @@ description: ""
 published: true
 ---
 
+#Useful Links
+- [Jekyll-Bootstrap repo](https://github.com/plusjade/jekyll-bootstrap)*
+- [Jekyll-Bootstrap Home Page](http://jekyllbootstrap.com/)
+
+Developers like Jekyll because we can write content like we write code:
+
+Ability to write content in markdown or textile in your favorite text-editor.
+Ability to write and preview your content via localhost.
+No internet connection required.
+Ability to publish via git.
+Ability to host your blog on a static web-server.
+Ability to host freely on GitHub Pages.
+No database required.
+
+#一组Jekyll帮助链接：
+## Grammar
+- [Front Matter](http://jekyllrb.com/docs/frontmatter/)
+
+#Recommended Pages
+
+- index.html
+    You will always want to define the root index.html page as this will display on your root URL.
+- 404.html
+     Create a root 404.html page and GitHub Pages will serve it as your 404 response.
+- sitemap.html
+    Generating a sitemap is good practice for SEO.
+- about.html
+    A nice about page is easy to do and gives the human perspective to your website.
+
 **jekyll version: 2.5.3**
 
 # 关键文件介绍

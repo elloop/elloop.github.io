@@ -2,7 +2,7 @@
 layout: post
 title: "working 4 hours everyday"
 highlighter_style: solarizeddark
-category: [ժ¼]
+category: [life, thinking]
 tags: [life, work]
 description: ""
 published: true
