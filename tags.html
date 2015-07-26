@@ -13,9 +13,18 @@ group: navigation
 
 
 {% for tag in site.tags %} 
-  <h2 id="{{ tag[0] }}-ref">{{ tag[0] }}</h2>
-  <ul>
-    {% assign pages_list = tag[1] %}  
-    {% include JB/pages_list %}
-  </ul>
+  {% assign ignore_tag = 0 %}
+  {% for ignore_name in site.JB.tags_list.ignores %}
+    {% if tag[0] == ignore_name %}
+        {% assign ignore_tag = 1 %}
+        {% break %}
+    {% endif %}
+  {% endfor %}
+  {% if ignore_tag == 0 %}
+    <h2 id="{{ tag[0] }}-ref">{{ tag[0] }}</h2>
+    <ul>
+        {% assign pages_list = tag[1] %}  
+        {% include JB/pages_list %}
+    </ul>
+  {% endif %}
 {% endfor %}
