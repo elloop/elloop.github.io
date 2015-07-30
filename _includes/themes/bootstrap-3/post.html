@@ -8,7 +8,8 @@
       <span>{{ page.date | date_to_long_string }}</span>
     </div>
     <div class="content">
-      {{ content }}
+        <span><b style="color: #ff8c5b"><i>{{ site.post.content_copyright}}</i></b></span> <br></br>
+       {{ content }}
     </div>
 
   {% unless page.categories == empty %}
