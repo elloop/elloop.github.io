@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Windows Programming Accumulation
-category: c++
-tags: [c++, programming skills, windows]
+category: windows
+tags: [c++, windows]
 description: "windows programming summary"
 ---
 

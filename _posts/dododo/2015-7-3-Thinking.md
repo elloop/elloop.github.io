@@ -3,7 +3,7 @@ layout: post
 title: "Thinking-7-3"
 highlighter_style: solarizeddark
 category: [diary]
-tags: [thinking, todo, questions]
+tags: [todo, question, summary]
 description: ""
 published: false
 ---

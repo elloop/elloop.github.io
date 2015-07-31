@@ -1,8 +1,8 @@
 ---
 layout: post
 title: windows skills
-category: programming
-tags: [programming, windows]
+category: windows
+tags: [windows]
 description: "common sense"
 ---
 

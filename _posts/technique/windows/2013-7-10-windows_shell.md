@@ -2,8 +2,8 @@
 layout: post
 title: windows skills
 highlighter_style: monokai
-category: programming
-tags: [programming, windows, shell]
+category: windows 
+tags: [windows, shell]
 description: ""
 ---
 # 例子
