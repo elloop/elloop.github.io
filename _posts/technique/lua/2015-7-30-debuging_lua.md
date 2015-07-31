@@ -21,7 +21,7 @@ published: true
 
 一个一个来，第一个问题我觉得不难，因为cocos2d-x官方的示例都是很容易就能在Mac上和iOS模拟器上跑起来的，我们的Xcode工程是好几个工程组成的，并且集成了一些渠道SDK, SDK组的兄弟在维护，我折腾不明白可以找他们解决。项目组里所有的客户端开发都是windows，还没有人在Mac上调试lua，因此第二个问题是重点。
 
-在网上随便一搜, 其实早就有解决方案了，那就是： ZeroBrane Studio.
+在网上随便一搜, 其实早就有解决方案了，那就是： [ZeroBrane Studio]()
 
 它是一个跨平台的lua调试工具，并且可以结合luasocket实现远程调试cocos2d-x的lua代码。
 
