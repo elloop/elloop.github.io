@@ -11,7 +11,7 @@ published: true
 昨天看了Rust大牛[Elton的采访](http://www.tuicool.com/articles/URzueiN)，他在被问到有什么好的建议或者工具推荐给技术人员的时候讲到了3点，第1点是:
 >"政治不正确地讲，我觉得先要有一台MacBook。程序员的工作大多都对着代码，Retina屏幕对于显示文字方面实在是无可挑剔"
 
-我看了觉得很有道理，因此把家里的MBP拿来公司，决定正式转换到以Mac为主要工具的工作模式下。
+我觉得还挺有道理的，加上之前有几个月在Mac上的开发经验，它又是基于unix的，因此把家里的MBP拿来公司，决定正式转换到以Mac为主要工具的工作模式下。
 早上刚一到公司，就把双显示器的左边那个挪到左边的小桌子上用几本大厚书把它垫到和另一个差不多的高度，中间腾出来一个24寸显示器的宽度来安置Mac。下载代码库、装企业QQ、UI编辑器、接好机械键盘，全部搞定了, 看着Retina清澈的样子，我已经迫不及待开始Coding了。可是当我刚打开vim的时候, 就突然意识到一个非常严重的问题，Mac怎么调试lua？？ (这几天要搞的功能是由lua来写) 在windows上，能用lua studio、decoda、vs的BabeLua插件。可是Mac上要怎么搞，我至少要解决两个问题：
 
 - 在windows上可以把游戏编程win32的可执行程序，作为lua的宿主程序，那么在Mac上这个宿主程序怎么搞？用iOS模拟器来跑iOS版本的游戏还是编一个Mac版本的？
@@ -21,9 +21,40 @@ published: true
 
 一个一个来，第一个问题我觉得不难，因为cocos2d-x官方的示例都是很容易就能在Mac上和iOS模拟器上跑起来的，我们的Xcode工程是好几个工程组成的，并且集成了一些渠道SDK, SDK组的兄弟在维护，我折腾不明白可以找他们解决。项目组里所有的客户端开发都是windows，还没有人在Mac上调试lua，因此第二个问题是重点。
 
-在网上随便一搜, 其实早就有解决方案了，那就是： [ZeroBrane Studio]()
+在网上随便一搜, 其实早就有解决方案了，那就是： [ZeroBrane Studio](http://studio.zerobrane.com/), 以下简称zb.
 
-它是一个跨平台的lua调试工具，并且可以结合luasocket实现远程调试cocos2d-x的lua代码。
+它是一个跨平台的lua IDE, 用lua写成, 想了解更多可以点链接进去看看。这里只要确定它可以用来在Mac上调试lua，并且是cocos2d-x的项目就ok了。
+
+## 现在Windows上跑起来试试 
+既然是跨平台的，我先在windows上试试，因为windows上有现成的可执行程序。我下载了zip包版本的zb，参考了[这篇文章](http://notebook.kulchenko.com/zerobrane/cocos2d-x-simulator-and-on-device-debugging-with-zerobrane-studio)，实现了在windows上使用zb进行lua的断点调试。要点如下：
+
+- s1. 复制mobdebug.lua到lua代码目录，在lua程序启动的地方加入下面这句代码：
+
+    ```lua
+    require("mobdebug").start()
+    ```
+
+- s2. 把luasocket和lua51.dll分别放在了lua的package.path和package.cpath的搜索范围内。(这是因为zb调试用到了luasocket，进入mobdebug.lua里面就会看到，里面会require("socket"), 而luasocket用到了lua51.dll。), 以我的路径为例，我的zb解压在了 D:\zb\, 我在项目里的main.lua里面(在调用require("mobdebug")之前), 加入了如下的代码来设置lua和dll的搜索路径：
+
+    ```lua
+    local zb = "D:\\zb\\"
+    package.path = package.path .. ";" .. zb .. "lualibs\?.lua;" .. zb .. "lualibs\socket\?.lua;"
+    package.cpath = package.cpath .. ";" .. zb .. "bin\?.dll;" .. zb .. "bin\clibs\?.dll;"
+    ```
+
+- s3. 启动zb，把项目中的lua源代码加入到zb，在Project菜单，勾选 "Start Debug Server"以启动调试器。找个地方设置个断点。
+
+经过这三步，就可以在VS中，或者直接运行游戏的exe文件了，正常的话，zb中的断点就会被触发。一旦成功断点，就可以使用zb的堆栈和watch等窗口跟踪运行流程和实时查看变量的值了。
+
+>*可能会遇到的问题*
+    - require("socket") 处报错：no module "socket.core", 这是因为lua51.dll有问题。先来分析一下到报错之前的执行流程: 
+
+        ```lua
+        require("mobdebug").start() -----> require("socket") ------> require("socket.core")
+        ```
+    
+        涉及到的文件从mobdebug.lua到socket.lua, require("socket.core")这句是在socket.lua里面调用的，这说明lua解释器已经找到了mobdebug.lua并且执行到了require("socket")那一句代码(package.path的设置生效了)。为什么找不到socket.core ? 在zb\lualibs\socket\下面并没有找到core.lua, 也就是说不是package.path里, 那么到cpath里找找。在zb\bin\clibs\socket\下发现了core.dll, 看来就是加载这个dll失败了。我在cmd里面以交互的方式启动lua，并且重复了上面的操作：1 设置path和cpath；2 require("socket"), 看到了如下的报错信息，意思是我的lua没有开启加载动态链接库的功能。因此解决方案就是重编一个带加载动态库功能的lua就可以了。如果还不行，就像我一样，到LuaBinary网站下载一个编译好的lua包，解压拿来用。
+
 
 
 ## 遇到的问题
