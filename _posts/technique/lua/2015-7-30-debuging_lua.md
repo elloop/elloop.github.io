@@ -21,7 +21,7 @@ published: true
 
 一个一个来，第一个问题我觉得不难，因为cocos2d-x官方的示例都是很容易就能在Mac上和iOS模拟器上跑起来的，我们的Xcode工程是好几个工程组成的，并且集成了一些渠道SDK, SDK组的兄弟在维护，我折腾不明白可以找他们解决。项目组里所有的客户端开发都是windows，还没有人在Mac上调试lua，因此第二个问题是重点。
 
-在网上随便一搜, 其实早就有解决方案了，那就是： [ZeroBrane Studio](http://studio.zerobrane.com/), 以下简称zb.
+在网上随便一搜, 其实早就有解决方案了，那就是： [ZeroBrane Studio](http://studio.zerobrane.com/), 以下简称`zb`.
 
 它是一个跨平台的lua IDE, 用lua写成, 想了解更多可以点链接进去看看。这里只要确定它可以用来在Mac上调试lua，并且是cocos2d-x的项目就ok了。
 
@@ -46,14 +46,14 @@ published: true
 
 经过这三步，就可以在VS中，或者直接运行游戏的exe文件了，正常的话，zb中的断点就会被触发。一旦成功断点，就可以使用zb的堆栈和watch等窗口跟踪运行流程和实时查看变量的值了。
 
->*可能会遇到的问题*
-    - require("socket") 处报错：no module "socket.core", 这是因为lua51.dll有问题。先来分析一下到报错之前的执行流程: 
+###可能会遇到的问题
+- require("socket") 处报错：no module "socket.core", 这是因为lua51.dll有问题。先来分析一下到报错之前的执行流程: 
 
-        ```lua
-        require("mobdebug").start() -----> require("socket") ------> require("socket.core")
-        ```
-    
-        涉及到的文件从mobdebug.lua到socket.lua, require("socket.core")这句是在socket.lua里面调用的，这说明lua解释器已经找到了mobdebug.lua并且执行到了require("socket")那一句代码(package.path的设置生效了)。为什么找不到socket.core ? 在zb\lualibs\socket\下面并没有找到core.lua, 也就是说不是package.path里, 那么到cpath里找找。在zb\bin\clibs\socket\下发现了core.dll, 看来就是加载这个dll失败了。我在cmd里面以交互的方式启动lua，并且重复了上面的操作：1 设置path和cpath；2 require("socket"), 看到了如下的报错信息，意思是我的lua没有开启加载动态链接库的功能。因此解决方案就是重编一个带加载动态库功能的lua就可以了。如果还不行，就像我一样，到LuaBinary网站下载一个编译好的lua包，解压拿来用。
+    ```lua
+    require("mobdebug").start() -----> require("socket") ------> require("socket.core")
+    ```
+
+    涉及到的文件从mobdebug.lua到socket.lua, require("socket.core")这句是在socket.lua里面调用的，这说明lua解释器已经找到了mobdebug.lua并且执行到了require("socket")那一句代码(package.path的设置生效了)。为什么找不到socket.core ? 在zb\lualibs\socket\下面并没有找到core.lua, 也就是说不是package.path里, 那么到cpath里找找。在zb\bin\clibs\socket\下发现了core.dll, 看来就是加载这个dll失败了。我在cmd里面以交互的方式启动lua，并且重复了上面的操作：1 设置path和cpath；2 require("socket"), 看到了如下的报错信息，意思是我的lua没有开启加载动态链接库的功能。因此解决方案就是重编一个带加载动态库功能的lua就可以了。如果还不行，就像我一样，到LuaBinary网站下载一个编译好的lua包，解压拿来用。
 
 
 
