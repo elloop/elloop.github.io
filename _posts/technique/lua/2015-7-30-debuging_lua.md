@@ -25,7 +25,7 @@ published: true
 
 它是一个跨平台的lua IDE, 用lua写成, 想了解更多可以点链接进去看看。这里只要确定它可以用来在Mac上调试lua，并且是cocos2d-x的项目就ok了。
 
-## 现在Windows上跑起来试试 
+## 先在Windows上跑起来试试 
 既然是跨平台的，我先在windows上试试，因为windows上有现成的可执行程序。我下载了zip包版本的zb，参考了[这篇文章](http://notebook.kulchenko.com/zerobrane/cocos2d-x-simulator-and-on-device-debugging-with-zerobrane-studio)，实现了在windows上使用zb进行lua的断点调试。要点如下：
 
 - s1. 复制mobdebug.lua到lua代码目录，在lua程序启动的地方加入下面这句代码：
@@ -38,8 +38,8 @@ published: true
 
     ```lua
     local zb = "D:\\zb\\"
-    package.path = package.path .. ";" .. zb .. "lualibs\?.lua;" .. zb .. "lualibs\socket\?.lua;"
-    package.cpath = package.cpath .. ";" .. zb .. "bin\?.dll;" .. zb .. "bin\clibs\?.dll;"
+    package.path = package.path .. ";" .. zb .. "lualibs\\?.lua;" .. zb .. "lualibs\\socket\\?.lua;"
+    package.cpath = package.cpath .. ";" .. zb .. "bin\\?.dll;" .. zb .. "bin\\clibs\\?.dll;"
     ```
 
 - s3. 启动zb，把项目中的lua源代码加入到zb，在Project菜单，勾选 "Start Debug Server"以启动调试器。找个地方设置个断点。
