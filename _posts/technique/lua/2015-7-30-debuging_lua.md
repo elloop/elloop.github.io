@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "使用ZeroBraneStudio调试lua"
+title: "在Mac上调试lua--使用ZeroBrane Studio"
 highlighter_style: solarizeddark
 category: [lua]
 tags: [lua]
 description: ""
 published: true
 ---
+## 内容概述
+这篇文章讲述了如何使用ZeroBrane Studio在Mac上调试cocosd-x游戏的lua代码。
+作者机器的软件环境是：
+- cocos2d-x 2.2.3, lua 5.1
+- ZeroBrane Studio 1.10
+- Mac 10.10.10, Xcode 6.3
+
 ## 缘起
 昨天看了Rust大牛[Elton的采访](http://www.tuicool.com/articles/URzueiN)，他在被问到有什么好的建议或者工具推荐给技术人员的时候讲到了3点，第1点是:
 >"政治不正确地讲，我觉得先要有一台MacBook。程序员的工作大多都对着代码，Retina屏幕对于显示文字方面实在是无可挑剔"
@@ -34,7 +41,7 @@ published: true
     require("mobdebug").start()
     ```
 
-- s2. 把luasocket和lua51.dll分别放在了lua的package.path和package.cpath的搜索范围内。(这是因为zb调试用到了luasocket，进入mobdebug.lua里面就会看到，里面会require("socket"), 而luasocket用到了lua51.dll。), 以我的路径为例，我的zb解压在了 D:\zb\, 我在项目里的main.lua里面(在调用require("mobdebug")之前), 加入了如下的代码来设置lua和dll的搜索路径：
+- s2. 把luasocket和lua51.dll的路径分别添加在lua的[package.path](http://www.lua.org/manual/5.1/manual.html#pdf-package.path)和[package.cpath](http://www.lua.org/manual/5.1/manual.html#pdf-package.cpath)的搜索范围内。(这是因为zb调试用到了luasocket，进入mobdebug.lua里面就会看到，里面会require("socket"), 而luasocket用到了lua51.dll。), 以我的路径为例，我的zb解压在了 D:\zb\, 我在项目里的main.lua里面(在调用require("mobdebug")之前), 加入了如下的代码来设置lua和dll的搜索路径：
 
     ```lua
     local zb = "D:\\zb\\"
@@ -55,6 +62,19 @@ published: true
 
     涉及到的文件从mobdebug.lua到socket.lua, require("socket.core")这句是在socket.lua里面调用的，这说明lua解释器已经找到了mobdebug.lua并且执行到了require("socket")那一句代码(package.path的设置生效了)。为什么找不到socket.core ? 在zb\lualibs\socket\下面并没有找到core.lua, 也就是说不是package.path里, 那么到cpath里找找。在zb\bin\clibs\socket\下发现了core.dll, 看来就是加载这个dll失败了。我在cmd里面以交互的方式启动lua，并且重复了上面的操作：1 设置path和cpath；2 require("socket"), 看到了如下的报错信息，意思是我的lua没有开启加载动态链接库的功能。因此解决方案就是重编一个带加载动态库功能的lua就可以了。如果还不行，就像我一样，到LuaBinary网站下载一个编译好的lua包，解压拿来用。
 
+## 开始在Mac上调试
+通过在windows上的探索，我对zb调试的必备条件有了基本的了解：
+- 拷贝mobdebug.lua到游戏目录，加入require("mobdebug").start()
+- 提供lua51.dll和luasocket以实现和zb调试器的通讯
+
+mobdebug.lua是在zb的lualibs/mobdebug/路径就能拿到，很简单。关键问题还是socket, Mac上会有对应的版本吗？加上我们在上面分析的第一个问题
+我要解决如下两个问题就可以了：1. 如何提供一个宿主程序来挂接lua代码"; 2. 找到合适的luasocket动态库；
+
+### Mac上的宿主程序
+我们的Xcode项目是仅针对iPhone的, 因此不能像windows上拿vs直接跑起来exe挂上lua就开调。是不是就宣告行动失败，没法调试了呢？好在zb还支持模拟器和真机调试。我不想搞个真机来还要签名什么的，于是我把项目在iOS模拟器上跑了起来，只差最后一步了，怎么把它和zb的调试器关联起来呢?
+
+## 在游戏里集成luasocket扩展
+zb在真机和模拟器上的调试叫做远程调试，还是通过luasocket来通信。因此这一步的本质还是集成luasocket，zb那边
 
 
 ## 遇到的问题
