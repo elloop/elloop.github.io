@@ -7,9 +7,21 @@
     <div class="date">
       <span>{{ page.date | date_to_long_string }}</span>
     </div>
+
+    
     <div class="content">
-        <span><b style="color: #ff8c5b"><i>{{ site.post.content_copyright}}</i></b></span> <br></br>
-       {{ content }}
+        <!-- copyright -->
+        {% if page.from_others == nil or page.from_others == false %}
+            <span><b style="color: #ff8c5b"><i>{{ site.post.content_copyright}}</i></b></span> <br></br>
+        {% else %}
+            {% if page.original_url == nil %}
+                <span><b style="color: #ff8c5b"><i>原文地址找不到了</i></b></span> <br></br>
+            {% else %}
+                <a href="{{page.original_url}}">[原文地址在这里]</a> <br></br>
+            {% endif %}
+        {% endif %}
+
+        {{ content }}
     </div>
 
   {% unless page.categories == empty %}

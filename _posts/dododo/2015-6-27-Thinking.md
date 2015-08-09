@@ -1,9 +1,10 @@
 ---
 layout: post
 title: Thinking-2015-6-27
-category: diary
-tags: [todo, question, summary]
+category: life
+tags: [diary]
 description: "daily summary of 2015-6-27"
+published: false
 ---
 
 ##questions

@@ -1,8 +1,9 @@
 ---
 layout: post
 title: Thinking-20150318
-category: diary
-tags: [todo, question, summary]
+category: life
+tags: [diary]
+published: false
 ---
 
 ##Todo

@@ -7,12 +7,33 @@ tagline: 不积跬步无以至千里，不积小流无以成江海
 
 <h2 id="sample-posts">Posts</h2>
 
+<!--
 <ul class="posts">
   {% for post in paginator.posts %} 
     <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-    {% comment %} <p>{{ post.excerpt }}</p> {% endcomment %}
+    {% comment %} here is post.excerpt <p>{{ post.excerpt }}</p> {% endcomment %}
+    <p style="background: color">{{ post.excerpt }}</p>
   {% endfor %}
 </ul>
+-->
+
+
+{% for post in paginator.posts %}
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="{{ post.url }}">{{ post.title }}</a>
+    	</h2>
+    	{{ post.date | date: "%A %d %B %Y" }}
+        <!-- <p>{{ post.content | strip_html | truncatewords: 35 }}</p> -->
+        <p>{{ post.excerpt | strip_html }}...</p>
+    	<p><a href="{{ post.url }}">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
+{% endfor %}
+
 
 {% if paginator.total_pages > 1 %}
 <ul class="pagination">

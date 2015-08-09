@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #!/sh/bin
 
 import os

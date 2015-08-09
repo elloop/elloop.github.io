@@ -2,13 +2,13 @@
 layout: post
 title: "Words In STL(2nd Edition)"
 highlighter_style: solarizeddark
-category: [english]
-tags: [english, stl, c++]
+category: life
+tags: [english]
 description: ""
 published: true
 ---
 
-# Words && Sentences
+## Words && Sentences
 
 - c++ compiler vendor : c++编译器提供商
 
@@ -19,6 +19,8 @@ published: true
 
 - mandatory: 强制的 [ˈmændətɔ:ri]
 >All of them are optional, but if one of them occurs, the parentheses([pə'renθəsi:z]) for parameters are mandatory.
+
+<!--more-->
 
 - in term of 依据，按照
 >Note that default template arguments may be defined in terms of previous arguments.

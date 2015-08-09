@@ -2,18 +2,21 @@
 layout: post
 title: "working 4 hours everyday"
 highlighter_style: solarizeddark
-category: [life, thinking]
-tags: [life, work]
+from_others: true
+original_url: http://www.oschina.net/news/29667/daily-routine-of-a-4-hour-programmer 
+category: [life]
+tags: [work]
 description: ""
 published: true
 ---
-*[原文地址](http://www.oschina.net/news/29667/daily-routine-of-a-4-hour-programmer)*
 
 每个人都熟悉这种作息规律：早上9点去上班，坐在电脑前面，编一天的程序，下午5点下班回家。如今，非常感谢蒂莫西·费里斯 (Timothy Ferriss)的《每周工作4小时》，我开始重新思考应该如何工作，如何让自己变成更有效率的程序员。
 
 最近，我把我的从周一到周五的作息规律做了一次较大的调整。很长时间以来，我一直像所有其他程序员那样工作、休息。但就在2011年的下半年，我开 始了一项试验，想看看究竟什么样的作息时间能让我更有效率。这项实验目前仍在进行中，我并不是像军人那样严格遵守实验规定——例如，我也想会早20分钟、 或晚20分钟起床——但当前制定的作息规律是这样的：
 
 早上4：30 到 7 点：冥想，写作，目标复查，和家人吃早餐
+
+<!--more-->
 
 早上4：30起床其实并不是你想象的那么难。每个人的个人情况都多少有些不同，但人的身体基本上需要每天7到9小时的睡眠时间。保证你睡眠充足的一个方法是不用闹钟自然醒。你只需要早点睡觉，你就可以在早上4：30醒来。
 

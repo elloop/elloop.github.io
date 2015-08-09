@@ -1,8 +1,8 @@
 ---
 layout: post
 title: less is more
-category: [life thinking]
-tags: [life thinking]
+category: [life]
+tags: [thinking]
 description: ""
 ---
 

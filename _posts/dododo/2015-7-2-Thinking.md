@@ -2,8 +2,8 @@
 layout: post
 title: Thinking-7-2
 highlighter_style: solarizeddark
-category: [diary]
-tags: [todo, question, summary]
+category: life
+tags: [diary]
 description: ""
 published: false
 ---
