@@ -1,14 +1,24 @@
 ---
 layout: post
-title: linux commands
+title: "常用Shell命令总结"
 highlighter_style: monokai
 category: linux
-tags: [linux]
+tags: [shell]
 description: ""
 ---
 
-# Linux 常用命令行
----
+*本文总结的命令均以zsh为操作环境*
+
+# 终极解决方案 man <command>
+
+# 文件目录操作类
+
+# 查看、预览
+
+# 日期、时间
+
+
+ 
 ## linux按照时间查找文件
 需要用到一个根据最后修改时间来处理的脚本。 
 
