@@ -1,11 +1,9 @@
 ---
 layout: post
-title: summary of book "Effective C++"
+title: "Effective C++ 笔记"
 category: c++
-tags: [c++, programming skills, book note]
+tags: [notes]
 description: "guide from classical c++ progamming book"
----
-{% include JB/setup %}
 ---
 
 ## item2: Prefer consts, enums, and inlines to #defines.
@@ -28,6 +26,8 @@ void f() {
 
 - 常量：使用const或enum代替
 - 函数形式的宏：改用inline函数代替
+
+<!--more-->
 
 --- 
 

@@ -1,17 +1,18 @@
 ---
 layout: post
-title: "Deal With Memory Leak"
+title: "关于c++的内存泄露"
 highlighter_style: solarizeddark
-category: [c++]
-tags: [c++, programming skills]
+category: c++
+tags: [memory]
 description: ""
-published: false
+published: true
 ---
 
-# Tools
-## in IDE
+## 工具
 
-## standalone
+### 与IDE集成的
+
+### 独立使用的
 - BoundsChecker
 - cppcheck
 
