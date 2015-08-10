@@ -1,12 +1,10 @@
 ---
 layout: post
-title: "[掌握Cocos2d-x系列]-1 Cocos2d-x 基本概念"
+title: "掌握Cocos2d-x--1.基本概念"
 category: [c++, cocos2d-x]
-tags: [c++, cocos2d-x, OpenGL ES ]
+tags: [cocos2d-x]
 description: "cocos2d-x学习"
 ---
-
-# cocos2d-x 基础概念学习
 
 ## 渲染
 - OpenGL ES 2.0
@@ -24,6 +22,8 @@ description: "cocos2d-x学习"
         - Touch: 
             - getLocation() : 获得GL坐标
             - getLocatinInView(): 获得UI坐标
+
+<!--more-->
 
 - 第二种划分方式
     - *节点坐标系*

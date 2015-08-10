@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Lessons learned from c/c++ defects"
+title: "《Lessons learned from c/c++ defects》总结"
 category: c++
-tags: [c++, programming skills]
+tags: [notes]
 description: summary of book "Lessons Learned From c/c++ Defects"
 ---
 
@@ -28,6 +28,8 @@ volume = perimeter(x, y) * high
 #define map __gnu_cxx::hash_map // in a.cpp
 // files which include 'a.cpp' will be polluted by map define.
 ```
+
+<!--more-->
 
 ### item4: 多语句宏使用错误，应该用{}把多语句宏括起来，或者最好是用inline函数代替宏.
 

@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "google cpp programming style gain"
+title: "Google C++编程风格"
+from_others: true
+original_url: "http://zh-google-styleguide.readthedocs.org/en/latest/google-cpp-styleguide/contents/#c"
 category: c++
-tags: [c++, programming skills]
+tags: [notes]
 ---
-
-#[summary url](http://zh-google-styleguide.readthedocs.org/en/latest/google-cpp-styleguide/contents/#c)
 
 - 1. DISALLOW_COPY_AND_ASSIGN
 
@@ -24,3 +24,5 @@ class Foo {
         DISALLOW_COPY_AND_ASSIGN(Foo);
 };
 ```
+
+<!--more-->
