@@ -49,9 +49,18 @@ stack traceback:
 修改test.lua如下:
 
 ```lua
+-- ~/lua/test.lua
 -- 把helper.lua放入package.path路径里
 package.path = package.path .. ";./module/?.lua;"
 local helper = require("helper")
 ```
+
+第二种解决办法：修改helper.lua, 使用module("helper")代替module(...), 即:
+
+```lua
+-- ~/lua/module/helper.lua
+module("helper")
+```
+
 
 
