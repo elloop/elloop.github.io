@@ -8,7 +8,24 @@ description: ""
 
 ## [OpenGL ES 2.0 Reference Card](https://www.khronos.org/opengles/sdk/docs/reference_cards/OpenGL-ES-2_0-Reference-card.pdf)
 
+## Shader Program
+### 两种shader脚本
+- glsl: short name for OpenGL Shader Language, is a high-level shading language based on the syntax of the C programming language. It was created by the OpenGL ARB (OpenGL Architecture Review Board) to give developers more direct control of the graphics pipeline without having to use ARB assembly language or hardware-specific languages.
+
+- hlsl: Hihg Level Shader Language, from Microfost against OpenGL
+
+
+### shader脚本文件的后缀名
+- vertex shader: .glsl, .vs(in OpenGL Shader Builder)
+- fragment shader: .glsl, .fs(in OpenGL Shader Builder)
+- geometry shader: .glsl, .gs(in OpenGL Shader Builder)
+
+
+
+# 下面的总结是《opengl es 2.0 实践指南》上代码总结，现在已经不参考那本书了，因为用java写opengl程序感觉太别扭.
 ## 第一个ES2.0程序
+
+---
 
 ## 学到的东西
 

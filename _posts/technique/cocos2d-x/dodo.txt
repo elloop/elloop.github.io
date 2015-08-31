@@ -22,7 +22,7 @@
 		
 	内存
 		autorelease pool 和 内存泄露检查
-		cppcheck、instrument、crtDbg.h #define new new( _CLIENT_BLOCK, __FILE__, __LINE__)_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+		Valgrind, clk, cppcheck、instrument、crtDbg.h #define new new( _CLIENT_BLOCK, __FILE__, __LINE__)_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 		
 	纹理
 		texturecache

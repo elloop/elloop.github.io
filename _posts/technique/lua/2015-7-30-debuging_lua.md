@@ -11,8 +11,8 @@ published: true
 这篇文章讲述了如何使用ZeroBrane Studio在Mac上调试cocosd-x游戏的lua代码。
 作者机器的软件环境是：
 - cocos2d-x 2.2.3, lua 5.1
-- ZeroBrane Studio 1.10
-- Mac 10.10.10, Xcode 6.3
+- ZeroBrane Studio 1.10 (mobdebug 0.63)
+- Mac 10.10.5, Xcode 6.3
 
 ## 缘起
 昨天看了Rust大牛[Elton的采访](http://www.tuicool.com/articles/URzueiN)，他在被问到有什么好的建议或者工具推荐给技术人员的时候讲到了3点，第1点是:
@@ -23,6 +23,8 @@ published: true
 
 - 在windows上可以把游戏编程win32的可执行程序，作为lua的宿主程序，那么在Mac上这个宿主程序怎么搞？用iOS模拟器来跑iOS版本的游戏还是编一个Mac版本的？
 - 搞定了宿主程序的话，用什么工具能把lua代码加进去，打断点、看Stack、加Watch？
+
+<!--more-->
 
 于是午饭过后，我开始折腾这俩问题，我要在Mac上调试lua代码，完成功能开发！
 
@@ -35,7 +37,7 @@ published: true
 ## 先在Windows上跑起来试试 
 既然是跨平台的，我先在windows上试试，因为windows上有现成的可执行程序。我下载了zip包版本的zb，参考了[这篇文章](http://notebook.kulchenko.com/zerobrane/cocos2d-x-simulator-and-on-device-debugging-with-zerobrane-studio)，实现了在windows上使用zb进行lua的断点调试。要点如下：
 
-- s1. 复制mobdebug.lua到lua代码目录，在lua程序启动的地方加入下面这句代码：
+- s1. 复制mobdebug.lua到lua代码目录(在zb/lualibs/mobdebug/下面能找到它)，在lua程序启动的地方加入下面这句代码：
 
     ```lua
     require("mobdebug").start()
@@ -45,7 +47,7 @@ published: true
 
     ```lua
     local zb = "D:\\zb\\"
-    package.path = package.path .. ";" .. zb .. "lualibs\\?.lua;" .. zb .. "lualibs\\socket\\?.lua;"
+    package.path = package.path .. ";" .. zb .. "lualibs\\?\\?.lua;" .. zb .. "lualibs\\?.lua;"
     package.cpath = package.cpath .. ";" .. zb .. "bin\\?.dll;" .. zb .. "bin\\clibs\\?.dll;"
     ```
 
@@ -68,17 +70,17 @@ published: true
 - 提供lua51.dll和luasocket以实现和zb调试器的通讯
 
 mobdebug.lua是在zb的lualibs/mobdebug/路径就能拿到，很简单。关键问题还是socket, Mac上会有对应的版本吗？加上我们在上面分析的第一个问题
-我要解决如下两个问题就可以了：1. 如何提供一个宿主程序来挂接lua代码"; 2. 找到合适的luasocket动态库；
+我要解决如下两个问题就可以了：1. 如何提供一个宿主程序来挂接lua代码; 2. 找到合适的luasocket动态库；
 
 ### Mac上的宿主程序
 我们的Xcode项目是仅针对iPhone的, 因此不能像windows上拿vs直接跑起来exe挂上lua就开调。是不是就宣告行动失败，没法调试了呢？好在zb还支持模拟器和真机调试。我不想搞个真机来还要签名什么的，于是我把项目在iOS模拟器上跑了起来，只差最后一步了，怎么把它和zb的调试器关联起来呢?
 
 ## 在游戏里集成luasocket扩展
-zb在真机和模拟器上的调试叫做远程调试，还是通过luasocket来通信。因此这一步的本质还是集成luasocket，zb那边
+zb在真机和模拟器上的调试叫做远程调试，还是通过luasocket来通信。因此这一步的本质还是集成luasocket，cocos2d-x
 
 
-## 遇到的问题
-What to do when a _CrtIsValidHeapPointer assertion failure happens?
+# 遇到的问题
+- 在windows上程序退出后，触发断言失败： _CrtIsValidHeapPointer assertion failure ?
 
 When doing Lua embedding, sometimes if you didn't clean the stack correctly, it might cause a _CrtIsValidHeapPointer assertion failure.
 As the comment of the function _CrtIsValidHeapPointer says: "verify pointer is not only a valid pointer but also that it is from the 'local' heap. Pointers from another copy of the C runtime (even in the same process) will be caught."
