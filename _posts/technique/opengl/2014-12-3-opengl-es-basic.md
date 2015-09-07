@@ -21,6 +21,9 @@ description: ""
 - geometry shader: .glsl, .gs(in OpenGL Shader Builder)
 
 
+## 两种投影
+- 正交投影, 2D
+- 透视投影, 3D
 
 # 下面的总结是《opengl es 2.0 实践指南》上代码总结，现在已经不参考那本书了，因为用java写opengl程序感觉太别扭.
 ## 第一个ES2.0程序
