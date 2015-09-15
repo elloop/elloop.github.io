@@ -2,8 +2,8 @@
 layout: post
 title: Learning Make (GNU make)
 highlighter_style: monokai
-category: make
-tags: [c++, make]
+category: c++
+tags: make
 description: ""
 ---
 
@@ -12,10 +12,12 @@ description: ""
   CPPFLAGS is supposed to be for flags for the C PreProcessor; CXXFLAGS is for flags for the C++ compiler.
   The default rules in make (on my machine, at any rate) pass CPPFLAGS to just about everything, CFLAGS is only passed when compiling and linking C, and CXXFLAGS is only passed when compiling and linking C++.
 
+<!--more-->
+
 ## compile cpp program with make
 - Implicit Rules
   - predefined variables.
-    To see the complete list of predefined variables for your instance of GNU make you can run ‘make -p’ in a directory with no makefiles.
+    To see the complete list of predefined variables for your instance of GNU make you can run `make -p` in a directory with no makefiles.
 
   - Compiling C++ programs
     n.o is made automatically from n.cc, n.cpp, or n.C with a recipe of the form ‘$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c’. We encourage you to use the suffix ‘.cc’ for C++ source files instead of ‘.C’.
@@ -26,6 +28,7 @@ description: ""
 
   - Yacc for C programs
     n.c is made automatically from n.y by running Yacc with the recipe ‘$(YACC) $(YFLAGS)’.
+
   - Lex for C programs
     n.c is made automatically from n.l by running Lex. The actual recipe is ‘$(LEX) $(LFLAGS)’.
 
@@ -42,6 +45,7 @@ others see GNU Make Manual.
 
 ## vpath - searching for source files
 - what people say
+
 > [GNU make](http://make.mad-scientist.net/papers/how-not-to-use-vpath/)
 Well, then, what the heck is VPATH good for, anyway? As described in Paul's Third Rule of Makefiles, VPATH is good for finding sources, not for finding targets.
 
@@ -60,8 +64,10 @@ Well, then, what the heck is VPATH good for, anyway? As described in Paul's Thir
   - var := val, var::=val (::== is the posix standard form).
 
   - difference:
+
     - foo = $(foo) bar will cause a dead loop. because $(foo) will be expanded recursively.
       "=" form also has some performance problems.
+
     - foo := $(foo) bar will be expanded verbatim.
       "::=" form is useful when use shell function in makefile.
 

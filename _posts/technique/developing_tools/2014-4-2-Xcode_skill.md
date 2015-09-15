@@ -2,11 +2,11 @@
 layout: post
 title: Xcode Skill
 category: tools
-tags: [c++, Xcode]
+tags: Xcode
 description: "Xcode skills"
 ---
 
-# 常用快捷键
+## 常用快捷键
 **简称：command == cm, shift == /s, control = /c, option(alt) == /a**
 用空格代替+, left = mouse left
 
@@ -19,7 +19,9 @@ description: "Xcode skills"
 | cm /c /a (1~4)          |     switch between libraries |
 | /a left                 |     open in assistant editor          |
 
-# 使用陷阱
+<!--more-->
+
+## 使用陷阱
 
 - 区分逻辑分组与Finder中实际存在的文件夹
 

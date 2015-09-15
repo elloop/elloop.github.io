@@ -1,13 +1,14 @@
 ---
 layout: post
-title: Git Skills
+title: "从出错中学习Git"
 highlighter_style: monokai
-category: git
-tags: [git, programming skills]
+category: tools
+tags: [git]
 description: ""
 ---
 
-##  git 错误 
+## 从出错中学习Git
+
 ### Problem 1
 
 ```bash
@@ -26,7 +27,9 @@ $ git reset --hard origin/master
 $ git branch --set-upstream-to=origin/master master 
 ```
 
-### P2
+<!--more-->
+
+### Problem 2
 
 今天忽然git push到github失败，报如下错误, 本地也没有修改git相关配置，一直没使用代理也是好好的，看到github的主页图标改版了，应该是它那边修改了什么，重新安装了Github For Windows也不起作用，尝试了别人说的关闭代理，`git config --global --unset http.proxy`也没有作用，最后通过切换连接方式解决了问题：HTTPS -> SSH.
 
@@ -57,7 +60,7 @@ origin  git@github.com:<username>/<reponame>.git (push)
 
 ---
 
-## Branch
+## Branch相关命令
 从clone说起，git clone <url>, 
 
 - 查看本地分支: 
@@ -131,15 +134,17 @@ linadeMacBook-Pro:TotalSTL lina$
 
 ---
 
-## how to stage deleted files?
+## 其他使用Git中遇到的问题
+
+### how to stage deleted files?
 git add -u
 or
 try to enter sub-system of git add by typing : git add -i and following the prompt.
 
----
 
-## git pull conflict
+### git pull conflict
 solve:
+
 >
 1. git stash (solve: commit your changes or stash them before you can merge)
 2. git pull
@@ -147,16 +152,17 @@ solve:
 4. git add <modified files> (sovle: 'commit' is not possible because you have unmerged files)
 5. git commit
 
----
-
-## difference between `git pull` and `git fetch`
+### difference between `git pull` and `git fetch`
 solve:
+
 - `git pull` == `git fetch` && `git merge`
 
-# Useful Command
+### Useful Command
+
 1. git log --pretty=oneline
 2. git remote show [remote-name]
 3. git branch
     -no params: show all branches.
     -v: show recently records.
     -merged/-no-merged: show those branches which has been merged or (not merged) to current branch.
+

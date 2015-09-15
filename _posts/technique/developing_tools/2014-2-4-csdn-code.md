@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Use CSDN Code
+title: "使用CSDN Code"
 highlighter_style: monokai
-category: [git, project]
-tags: [git, open-source]
+category: tools
+tags: csdn
 ---
 
-# How to Use `Code`
+## How to Use `Code`
 - clone
 - push
 
@@ -20,6 +20,9 @@ tags: [git, open-source]
  $ ssh-keygen -t rsa -C “您的邮箱地址”
 ```
 
+<!--more-->
+
 #Questions
 - 1. 一个公钥只能用在一个项目吗？
+
 

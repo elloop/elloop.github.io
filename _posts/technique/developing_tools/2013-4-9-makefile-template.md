@@ -1,13 +1,15 @@
 ---
 layout: post
-title: Makefile Template Update
+title: "我的Makefile写法的演变"
 highlighter_style: monokai
-category: make
-tags: [c++, make]
+category: c++
+tags: make
 description: ""
 ---
 
 ## new version of makefile on 1/12/2015
+
+<!--more-->
 
 ``` make
 # this makefile shows how to locate src dependancies. use VPATH.

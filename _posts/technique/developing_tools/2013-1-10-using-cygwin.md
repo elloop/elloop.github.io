@@ -1,8 +1,8 @@
 ---
 layout: post
-title: using cygwin
+title: "使用cygwin"
 category: [linux, windows]
-tags: [cygwin, linux, windows]
+tags: [cygwin]
 description: ""
 ---
 
@@ -11,3 +11,6 @@ description: ""
 
 # Check Component Status
 - cygcheck -c <command>
+
+<!--more-->
+

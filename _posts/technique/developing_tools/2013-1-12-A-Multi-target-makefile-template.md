@@ -2,10 +2,14 @@
 layout: post
 title: Multi-target Makefile Template
 highlighter_style: monokai
-category: make
-tags: [c++, make]
+category: c++
+tags: make
 description: ""
 ---
+
+一个多目标的GNU Makefile的示例
+
+<!--more-->
 
 ```make
 #===============================================================================

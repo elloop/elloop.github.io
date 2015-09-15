@@ -2,8 +2,8 @@
 layout: post
 title: Vim Skills
 highlighter_style: monokai
-category: vim
-tags: [vim, book note]
+category: tools
+tags: vim 
 description: "Learn Vimscript the hard way"
 ---
 
@@ -18,6 +18,8 @@ description: "Learn Vimscript the hard way"
 1. boolean options: :set *name* / :set no*name* / set *name*!
 2. query: :set *command*? (e.g. :set numberwidth? can check the width of line number.)
 3. multiple options - :set number numberwidth=6
+
+<!--more-->
 
 ## 4. Basic Mapping
 1. map - x / map - dd     = basic

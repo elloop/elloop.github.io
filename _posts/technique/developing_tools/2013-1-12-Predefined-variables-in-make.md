@@ -1,13 +1,18 @@
 ---
 layout: post
-title: Predefined Variables in my Make.
+title: "如何查看make预定义的变量"
 highlighter_style: monokai
-category: make
-tags: [c++, make]
+category: c++
+tags: make
 description: ""
 ---
 
-following are output of "make -p".
+在一个没有makefile的目录，执行`make -p`命令，输出信息将会告诉一些预定以变量的值。
+
+以我的机器为例，输出如下：
+
+<!--more-->
+
 
 ```bash
 # GNU Make 3.81

@@ -1,11 +1,11 @@
 ---
 layout: post
-title: MarkDown Skills
-category: markdown
-tags: [markdown]
+title: "使用Markdown"
+category: tools
+tags: markdown
 ---
 
-# 使用MarkDown
+## 使用MarkDown
 ---
 ## Keywords
 > # > # #, ##, ######, -, >, ---, *, `html tags`, `![]()`, 
@@ -37,6 +37,7 @@ tags: [markdown]
 
 - \! exclamation mark
 
+<!--more-->
 
 ---
-# Tips
+## Tips
