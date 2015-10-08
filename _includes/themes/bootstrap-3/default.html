@@ -1,3 +1,14 @@
+<style type="text/css">
+img.small 
+{
+    position:absolute;
+    top: 0;
+    right:0;
+    height: 5%;
+    border: 0
+}
+</style>
+
 <div id="wrap">
     <nav class="navbar navbar-default" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -16,6 +27,7 @@
             <ul class="nav navbar-nav">
                 {% assign pages_list = site.pages %} {% assign group = 'navigation' %} {% include JB/pages_list %}
             </ul>
+            <!--
             <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
                 <div class="form-group">
                     <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
@@ -23,7 +35,7 @@
                 <input value="Search" class="btn btn-default" type="submit">
                 <input style="display:none" value="{{ site.production_url }}" name="sitesearch" checked="" type="radio">{% comment %}You must specify the variable 'production_url' in your _config.yml file{% endcomment %}
             </form>
-
+            -->
         </div>
         <!-- /.navbar-collapse -->
     </nav>
@@ -34,6 +46,10 @@
 
 <nav class="footer">
     <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+<a href="http://github.com/elloop"><img class="small" src="assets/images/github-icon.png" alt="Star me on GitHub" /></a>
         <p>
         </p>
     </div>
