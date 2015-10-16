@@ -9,9 +9,13 @@ description: ""
 ## rapidjson简介
 
 rapidjson是腾讯的开源json解析框架，用c++实现。由于全部代码仅用header file实现，所以很容易集成到项目中。
+
 rapidjson的性能是很出色的，其作者[Milo Yipz](https://github.com/miloyip)做了28个C/C++ JSON库的评测，[这个链接](http://www.zhihu.com/question/23654513)里有测试的结果截图。
+
 rapidjson的另一个特点是对json的标准符合程度是100%的(在开启了full precision选项的情况下)。
+
 这里是官方教程：[rapidjson官方教程](http://rapidjson.org/zh-cn/md_doc_tutorial_8zh-cn.html)
+
 这里是原作者对rapidjson代码的剖析：[rapidjson代码剖析](http://miloyip.com/rapidjson/)
 
 <!--more-->
