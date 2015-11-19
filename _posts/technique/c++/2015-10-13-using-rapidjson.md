@@ -43,11 +43,11 @@ rapidjson的另一个特点是对json的标准符合程度是100%的(在开启�
 
 ```c++
 // test.cpp
+#include "rapidjson/document.h"
 #include <fstream>
 #include <string>
 #include <cassert>
 #include <iostream>
-#include "rapidjson/document.h"
 #define psln(x) std::cout << #x " = " << (x) << std::endl
 
 void testSimpleDoc() {
@@ -100,7 +100,6 @@ void testSimpleDoc() {
 ```
 
 
-## 与jsoncpp解析速度对比
 
 
 

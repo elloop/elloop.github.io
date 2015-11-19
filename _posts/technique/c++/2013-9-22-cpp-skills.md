@@ -109,9 +109,7 @@ class Foo {
 - big_endian or little_endian
 
 ```c++
-// return 0 for big_endian
-// return 1 for little_endian
-int check_cpu_endian()
+int is_big_endian()
 {
 	union
 	{
@@ -121,7 +119,7 @@ int check_cpu_endian()
 	//
 	c.a = 1;
 	//
-	return (c.b == 1);
+	return (c.b == 0);
 }
 ```
 
