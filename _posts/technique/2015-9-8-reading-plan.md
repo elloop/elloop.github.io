@@ -2,6 +2,7 @@
 layout: post
 title: "学而时习之"
 category: [programming]
+published: false
 tags: [notes]
 ---
 
@@ -108,5 +109,7 @@ tags: [notes]
 操作系统设计：《操作系统设计与实现》
 
 源代码分析：《Linux内核源代码情景分析》
+
+PS: 不写推荐理由等于没推荐呀！！
 
 
