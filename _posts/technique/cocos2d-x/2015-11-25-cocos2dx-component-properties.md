@@ -41,7 +41,7 @@ published: true
 
 |**类型**|**锚点**|**忽略锚点**|**contentSize**|**position**|**直接父类**|**备注**|
 |:-------|:-------|:-----------|:----|:---|:------|:------------|
-|CCSprite|(0.5, 0.5)|同CCNodeRGBA|同CCNodeRGBA|同CCNodeRGBA| CCNodeRGBA ||
+|CCSprite|(0.5, 0.5)|同CCNodeRGBA|pTexture->getContentSize()|同CCNodeRGBA| CCNodeRGBA ||
 |CCSpriteBatchNode|同CCNode|同CCNode|同CCNode|同CCNode| CCNode ||
 
 
@@ -66,6 +66,15 @@ published: true
 |CCMenuItemAtlasFont|同CCMenuItemLabel|同CCMenuItemLabel|同CCMenuItemLabel|同CCMenuItemLabel| CCMenuItemLabel ||
 |CCMenuItemSprite|同CCMenuItem|同CCMenuItem|m_pNormalImage contentSize|同CCMenuItem| CCMenuItem ||
 |CCMenuItemImage|同CCMenuItemSprite|同CCMenuItemSprite|m_pNormalImage contentSize|同CCMenuItemSprite| CCMenuItemSprite ||
+
+### extensions.
+
+|**类型**|**锚点**|**忽略锚点**|**contentSize**|**position**|**直接父类**|**备注**|
+|:-------|:-------|:-----------|:----|:---|:------|:------------|
+|CCScrollView|同CCLayer|同CCLayer|同CCLayer|同CCLayer| CCLayer |kCCScrollViewDirectionBoth|
+|CCScrollView.m_pContainer|(0, 0)|false|同CCLayer|(0, 0)| CCLayer ||
+|CCTableView|同CCScrollView|同CCScrollView|同CCScrollView|同CCScrollView| CCScrollView |kCCScrollViewDirectionVertical|
+
 
 ### CCTMXTiledMap
 
