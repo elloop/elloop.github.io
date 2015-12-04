@@ -25,6 +25,8 @@ published: true
 |CCDrawNode| 同CCNode | 同CCNode| 同CCNode|同CCNode| CCNode ||
 |CCAtlasNode| 同CCNode | 同CCNode| 同CCNode|同CCNode| CCNode ||
 
+<!--more-->
+
 ###Scene & Layer
 
 |**类型**|**锚点**|**忽略锚点**|**contentSize**|**position**|**直接父类**|**备注**|
@@ -61,7 +63,7 @@ published: true
 |CCMenu|(0.5, 0.5)|true|winSize|winSize/2| CCLayerRGBA ||
 |CCMenuItem|(0.5, 0.5)|同CCNodeRGBA|同CCNodeRGBA|同CCNodeRGBA| CCNodeRGBA ||
 |CCMenuItemToggle|同CCMenuItem|同CCMenuItem|同CCMenuItem|同CCMenuItem| CCMenuItem ||
-|CCMenuItemLabel|同CCMenuItem|同CCMenuItem|同CCMenuItem|同CCMenuItem| CCMenuItem ||
+|CCMenuItemLabel|同CCMenuItem|同CCMenuItem|lable->contentSize|同CCMenuItem| CCMenuItem ||
 |CCMenuItemFont|同CCMenuItemLabel|同CCMenuItemLabel|同CCMenuItemLabel|同CCMenuItemLabel| CCMenuItemLabel ||
 |CCMenuItemAtlasFont|同CCMenuItemLabel|同CCMenuItemLabel|同CCMenuItemLabel|同CCMenuItemLabel| CCMenuItemLabel ||
 |CCMenuItemSprite|同CCMenuItem|同CCMenuItem|m_pNormalImage contentSize|同CCMenuItem| CCMenuItem ||
