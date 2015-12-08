@@ -400,5 +400,354 @@ bool TouchableLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pE
 
 下面的小实例，演示了如何自定义响应触摸事件的类、触摸事件的分发顺序、单点触摸事件的吞噬.  
 
+![TouchTestPage](http://7xi3zl.com1.z0.glb.clouddn.com/TouchTestPage_副本.png)
+
+如图所示，一个父Layer中包含了1个小的彩色方块layer，和3只狗狗。(上面两个按钮分别是回测试主页和退出)
+
+Layer和三只狗都注册了触摸事件，注册的时间先后顺序是dog1, dog2, dog3, Layer. 其中dog1, dog2, dog3是从左至右的顺序编号的。
+
+这四个触摸代理注册的优先级只有dog1是-1，拥有最高优先级，dog2, dog3, Layer都是0. 4个代理都指定了swallow为true, 也就是说如果有一个代理处理了一个触摸事件，那么其它优先级低的代理就不会收到这个触摸事件
+
+按照上文所述的事件分发机制(优先级高的在前，相同优先级后注册的在前)可以知道, 它们4个的触摸响应顺序会是： dog1 > Layer > dog3 > dog2
+
+例子中的触摸代码逻辑是，如果触摸点在对应物体内部那么就处理该事件，否则不处理，即在ccTouchBegan()里面返回false.
+
+- 彩色方块：
+
+    - 点击在内部，并拖拽，会跟随鼠标移动, 且ccTouchBegan中返回true，吞噬掉该事件。
+
+    - 点击在外部，没反应。不吞噬
+
+- 3只狗：
+
+    - 点击在其内部，会旋转90度，并在ccTouchBegan中返回true，代表处理了该事件，吞噬掉。
+
+    - 否则，点击在外部, 收到touchBegan的消息时，会进行抖动，并在ccTouchBegan里返回false，代表不处理该事件，也不会吞噬。
+
+
+**操作1：触摸空白处**
+
+![TouchLayer](http://7xi3zl.com1.z0.glb.clouddn.com/TouchEmpty.gif)
+
+没有点在任何一只狗内，也没有触摸在彩色方块内，因此事件一直向下转发，三只狗均触发touch，发生抖动.
+
+**操作2：触摸dog1**
+
+![Touchdog1](http://7xi3zl.com1.z0.glb.clouddn.com/touchdog1.gif)
+
+触摸在dog1， dog1旋转并吞噬事件，其它2只狗没触发touch.
+
+**操作3：触摸彩色方块**
+
+![Touchcolor](http://7xi3zl.com1.z0.glb.clouddn.com/touchlayer.gif)
+
+根据优先级，dog1先触发事件发生抖动且不吞噬，接着彩色方块触发触摸可以拖动，同时吞噬触摸，dog2, dog3没有触发touch
+
+**操作4：触摸dog3**
+
+![Touchdog3](http://7xi3zl.com1.z0.glb.clouddn.com/touchdog3.gif)
+
+dog1优先级最高总是被触发发生抖动且不吞噬，dog3触发在内部，旋转且吞噬触摸, dog2没有触发touch
+
+
+**操作5：触摸dog2**
+
+![Touchdog2](http://7xi3zl.com1.z0.glb.clouddn.com/touchdog2.gif)
+
+dog1优先级最高总是被触发发生抖动且不吞噬，dog3触发并抖动不吞噬，dog2触发touch, 旋转，吞噬。
+
+**操作6：把彩色方块放在dog1下面，并拖拽**
+
+![dragdog1](http://7xi3zl.com1.z0.glb.clouddn.com/dragdog1.gif)
+
+因为触摸点在dog1内部，所以被dog1优先截获触摸并吞噬。彩色方块无法拖拽。dog2, dog3也不会触发touch.
+
+**操作6：把彩色方块放在dog2和dog3下面，并拖拽**
+
+![dragdog2_3](http://7xi3zl.com1.z0.glb.clouddn.com/dragdog2_3.gif)
+
+彩色方块的优先级 > dog3 > dog2, 所以虽然彩色方块显示在dog2和dog3的下面，但是触摸响应是优先于2只狗的，因此可以实现拖拽，且吞噬了触摸事件，dog2和dog3既不会旋转也不会抖动。同时能看到dog1还是能够触发touch，因为它的优先级是最高的
+
+下面是代码的实现
+
+**TouchTestPage.h**:
+
+```c++
+#ifndef CPP_DEMO_PAGES_MENU_PAGE_H
+#define CPP_DEMO_PAGES_MENU_PAGE_H
+
+// 忽略不认识的包含文件, 是Demo框架里的东西
+#include "cocos2d.h"
+#include "pages/SuperPage.h"
+#include "pages/RootPage.h"
+#include "util/StateMachine.h"
+#include "LogicDirector.h"
+#include "message/Message.h"
+
+// 父Layer
+class TouchTestPage 
+    : public SuperPage
+    , public State<RootPage>
+    , public cocos2d::CCTouchDelegate
+{
+public:
+    CREATE_FUNC(TouchTestPage);
+
+    void loadUI() override;
+    void unloadUI() override;
+
+    void onEnterState() override;
+    void onExecuteState() override;
+    void onExitState() override;
+
+    virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+protected:
+    TouchTestPage();
+    ~TouchTestPage();
+
+private:
+    bool                isTouchingColorLayer_;
+    cocos2d::CCPoint    touchBeginPoint_;
+};
+
+// 狗狗类，它是Touchable, 同时也是精灵
+class Dog : public cocos2d::CCTouchDelegate, public cocos2d::CCSprite
+{
+public:
+    static Dog* create(const char *name);
+    bool initWithString(const char *name);
+    cocos2d::CCRect rect() const;
+
+    virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+protected:
+    Dog();
+    ~Dog();
+};
+#endif
+```
+
+**TouchTestPage.cpp**:
+
+```c++
+#include "pages/TouchTestPage.h"
+#include "PageManager.h"
+#include "util/StringUtil.h"
+
+USING_NS_CC;
+
+bool touchTestPageRegistered = PageManager::getInstance()->registerPage(
+    "TouchTestPage", TouchTestPage::create());
+
+void TouchTestPage::loadUI()
+{
+    // 父Layer开启touch，它注册到CCTouchDispatcher是在loadUI执行完毕，因此父Layer的注册顺序是最后一个.
+    setTouchEnabled(true);
+    setTouchMode(kCCTouchesOneByOne);
+
+    auto winSize = CocosWindow::size();
+    auto origin = CocosWindow::origin();
+
+    CCSize colorLayerSize(winSize.width / 4, winSize.height / 4);
+    auto colorLayer = CCLayerColor::create(CocosUtil::randomC4b());
+    colorLayer->setContentSize(colorLayerSize);
+    colorLayer->setPosition(CocosWindow::center() -
+                            CCPoint(colorLayerSize.width / 2, colorLayerSize.height / 2));
+    ADD_CHILD(colorLayer);
+
+    // 从左到右，三只狗
+    for ( int i = 1; i < 4; ++i )
+    {
+        auto dog = Dog::create("DemoIcon/dog_160.png");
+        CCAssert(dog, "");
+        dog->setTag(i);
+        auto dogSize = dog->getContentSize();
+        dog->setPosition(origin +
+                         CCPoint(dogSize.width / 2 + ( i - 1 ) * dogSize.width, dogSize.height / 2));
+
+        CocosUtil::markCorners(dog);
+        // dog1, dog2, dog3.
+        addChild(dog, "dog" + StringUtil::toString(i));
+    }
+
+    // 注册三只狗狗的触摸事件，注意，三者均响应单点触摸，优先级分别为为-1, 0, 0, 均吞噬触摸
+    auto touchDispatcher = CCDirector::sharedDirector()->getTouchDispatcher();
+    touchDispatcher->addTargetedDelegate(getChild<Dog>("dog1"), -1, true);
+    touchDispatcher->addTargetedDelegate(getChild<Dog>("dog2"), 0, true);
+    touchDispatcher->addTargetedDelegate(getChild<Dog>("dog3"), 0, true);
+}
+
+void TouchTestPage::unloadUI()
+{
+    // 移除触摸监听
+    auto touchDispatcher = CCDirector::sharedDirector()->getTouchDispatcher();
+    touchDispatcher->removeDelegate(getChild<Dog>("dog1"));
+    touchDispatcher->removeDelegate(getChild<Dog>("dog2"));
+    touchDispatcher->removeDelegate(getChild<Dog>("dog3"));
+
+    removeAllChildren();
+}
+
+void TouchTestPage::onEnterState()
+{
+    loadUI();
+}
+
+void TouchTestPage::onExecuteState()
+{}
+
+void TouchTestPage::onExitState()
+{
+    unloadUI();
+}
+
+TouchTestPage::TouchTestPage()
+: isTouchingColorLayer_(false)
+, touchBeginPoint_(CCPointZero)
+{}
+
+TouchTestPage::~TouchTestPage()
+{}
+
+// 父Layer的触摸响应函数
+bool TouchTestPage::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+    auto pos = pTouch->getLocation();
+    CCLOG("(%.2f, %.2f)", pos.x, pos.y);
+    auto colorLayer = getChild<CCLayerColor>("colorLayer");
+    if ( colorLayer )
+    {
+        auto posInLayer = colorLayer->convertToNodeSpace(pos) * colorLayer->getScale();
+        CCLOG("in color layer: (%.2f, %.2f)", posInLayer.x, posInLayer.y);
+
+        // 判断是否点击在彩色方块内部，如果在内部就吞噬触摸
+        CCRect rect;
+        rect.origin = CCPointZero;
+        rect.size = colorLayer->getContentSize();
+        if ( rect.containsPoint(posInLayer) )
+        {
+            touchBeginPoint_ = pTouch->getLocation();
+            isTouchingColorLayer_ = true;
+            CCLOG("touch swallowed by color layer");
+            return true;    // 吞噬掉触摸事件，比父Layer优先级低的dog3， dog2将不会触发此次触摸
+        }
+    }
+    return false;
+}
+
+void TouchTestPage::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+    if ( isTouchingColorLayer_ )
+    {
+        auto colorLayer = getChild<CCLayerColor>("colorLayer");
+        if ( colorLayer )
+        {
+            auto posDiff = pTouch->getLocation() - pTouch->getPreviousLocation();
+            colorLayer->setPosition(colorLayer->getPosition() + posDiff);
+        }
+    }
+}
+
+void TouchTestPage::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+    isTouchingColorLayer_ = false;
+}
+
+void TouchTestPage::ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+    isTouchingColorLayer_ = false;
+}
+
+//----------------------------------- Dog Imp ---------------------------------
+Dog::~Dog()
+{}
+
+Dog::Dog()
+{}
+
+Dog* Dog::create(const char *name)
+{
+    auto self = new Dog();
+    if ( self && self->initWithString(name) )
+    {
+        self->autorelease();
+        return self;
+    }
+    CC_SAFE_DELETE(self);
+    return nullptr;
+}
+
+bool Dog::initWithString(const char *name)
+{
+    if ( CCSprite::initWithFile(name) )
+    {
+        return true;
+    }
+    return false;
+}
+
+cocos2d::CCRect Dog::rect() const
+{
+    CCRect rect;
+    rect.origin = CCPointZero;
+    rect.size = getContentSize();
+    return rect;
+}
+
+// 狗狗的触摸响应函数
+bool Dog::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{
+    auto pos = pTouch->getLocation();
+    CCLOG("(%.2f, %.2f)", pos.x, pos.y);
+    CCLOG("in dog%d: (%.2f, %.2f)\n", getTag(),
+          convertToNodeSpace(pos).x * getScaleX(), getScaleY()*convertToNodeSpace(pos).y);
+
+    // 判断是否点在狗狗内部, 是，则旋转狗狗，同时吞噬本次触摸
+    if ( rect().containsPoint(convertToNodeSpace(pos)) )
+    {
+        auto act = CCRotateBy::create(0.5, 90);
+        runAction(act);
+        CCLOG("touch swallowed by dog%d\n", getTag());
+        return true;
+    }
+    else
+    {
+        // 不是点在内部，仅仅旋转狗狗
+        auto shake = CCShaky3D::create(0.5, CCSize(20, 20), 5, false);
+        runAction(shake);
+    }
+    return false;
+}
+
+void Dog::ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{}
+
+void Dog::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{}
+
+void Dog::ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
+{}
+```
+
+注意：
+
+- 对某一个代理来说，比如dog1：
+
+    - ccTouchBegan() { return true;} 表示dog1对此次触摸感兴趣，会继续监听touchMoved, touchEnded等，即会继续回调到ccTouchMoved等. 
+
+    - ccTouchBegan() {return false;} 表示dog1对此次触摸不感兴趣， 不会继续回调到ccTouchMoved等函数。
+
+- 对不同代理之间来说，比如dog1和dog3：
+
+    - 如果dog1在CCTouchDispatcher::addTargetedDelegate(...)里面指定了，swallow为true，且在dog1的ccTouchBegan返回了true，那么这个触摸事件就会被dog1吞噬掉，dog3及比dog3更低优先级的代理都不会收到触摸事件。
+
+    - 否则，如果dog1在addTargetedDelegate()没有指定swallow为true， 或者在ccTouchBegan里返回了false，那么触摸事件就会继续像下分发到dog3.
+
+**源代码仓库地址: [cocos2d-x-cpp-demos-2.x](https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp), 是本人写的一个小型Demo框架，方便添加测试代码或者用来开发游戏，如果觉得有用请帮忙点个Star，谢谢**
 
 
