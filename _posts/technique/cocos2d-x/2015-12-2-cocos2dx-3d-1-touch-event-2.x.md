@@ -162,7 +162,7 @@ CCTouchHandler就像一个适配器，它内部含有一个Touchable, 同时添�
 
 下面的类图给出了触摸事件分发过程中三个主要类之间的关系:
 
-![触摸事件类图](http://7xi3zl.com1.z0.glb.clouddn.com/CCTouch.png)
+![触摸事件类图](http://7xi3zl.com1.z0.glb.clouddn.com/CCTouch3.png)
 
 这个过程的重点是CCTouchDispatcher, 它的内部保存两个触摸处理器队列，一个m_pStandardHandlers保存所有注册来的标准触摸处理器；另一个m_pTargetedHandlers保存单点触摸处理器。
 
@@ -747,6 +747,10 @@ void Dog::ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
     - 如果dog1在CCTouchDispatcher::addTargetedDelegate(...)里面指定了，swallow为true，且在dog1的ccTouchBegan返回了true，那么这个触摸事件就会被dog1吞噬掉，dog3及比dog3更低优先级的代理都不会收到触摸事件。
 
     - 否则，如果dog1在addTargetedDelegate()没有指定swallow为true， 或者在ccTouchBegan里返回了false，那么触摸事件就会继续像下分发到dog3.
+
+
+## 点击会变大的菜单按钮
+
 
 **源代码仓库地址: [cocos2d-x-cpp-demos-2.x](https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp), 是本人写的一个小型Demo框架，方便添加测试代码或者用来开发游戏，如果觉得有用请帮忙点个Star，谢谢**
 
