@@ -11,7 +11,7 @@ published: true
 前言
 ---
 
-本文回顾了cocos2d-x 2.x中触摸事件的使用方法和注意事项，并给出一个带有点击缩放功能的自定义菜单类的实现。
+本文回顾了cocos2d-x 2.x中触摸事件的使用方法和注意事项，侧重于单点触摸事件。
 
 <!--more-->
 
@@ -468,6 +468,8 @@ dog1优先级最高总是被触发发生抖动且不吞噬，dog3触发并抖动
 
 彩色方块的优先级 > dog3 > dog2, 所以虽然彩色方块显示在dog2和dog3的下面，但是触摸响应是优先于2只狗的，因此可以实现拖拽，且吞噬了触摸事件，dog2和dog3既不会旋转也不会抖动。同时能看到dog1还是能够触发touch，因为它的优先级是最高的
 
+触摸代理的优先级，是可以通过`CCTouchDispatcher的setPriority(int nPriority, CCTouchDelegate *pDelegate)`接口来动态改变的, 在`CCMenu::setHandlerPriority(int newPriority)`函数里能看到setPriority使用.
+
 下面是代码的实现
 
 **TouchTestPage.h**:
@@ -751,7 +753,20 @@ void Dog::ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 
 ## 点击会变大的菜单按钮
 
+点击缩放功能的菜单按钮放在下一篇说吧，这一篇已经很长了。
+
+## 总结
+
+本文回顾了cocos中单点触摸的用法和触摸事件分发机制、优先级控制等内容. 关于多点触摸没怎么用，后面用了再总结。
+
+在触摸事件当中，还有一些其他常见问题，比如如何定制自己的Menu实现点击缩放节省美术资源、点击穿透问题、如何在拖拽Scrollview上的按钮时候也能让Scrollview滚动等。这些问题将会在后面的文章中总结。
+
+## source codes
 
 **源代码仓库地址: [cocos2d-x-cpp-demos-2.x](https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp), 是本人写的一个小型Demo框架，方便添加测试代码或者用来开发游戏，如果觉得有用请帮忙点个Star，谢谢**
 
+---------------------------
+**作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
+
+**欢迎访问[CSDN博客](http://blog.csdn.net/elloop)，与本站同步更新**
 
