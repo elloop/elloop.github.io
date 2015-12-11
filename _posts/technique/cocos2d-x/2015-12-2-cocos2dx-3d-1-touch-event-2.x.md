@@ -755,6 +755,10 @@ void Dog::ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 
 点击缩放功能的菜单按钮放在下一篇说吧，这一篇已经很长了。
 
+## ccTouchCancelled什么时候会被调用？
+
+在win32上没有试验出来，网上说是在非正常的触摸结束情况下会触发，比如在触摸过程中突然来电话。通常情况下，ccTouchCancelled函数里的处理方式和ccTouchEnded(正常触摸结束)保持一致就好。
+
 ## 总结
 
 本文回顾了cocos中单点触摸的用法和触摸事件分发机制、优先级控制等内容. 关于多点触摸没怎么用，后面用了再总结。

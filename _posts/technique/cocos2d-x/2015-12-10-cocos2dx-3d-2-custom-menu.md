@@ -385,7 +385,6 @@ void CCMenu::ccTouchEnded(CCTouch *touch, CCEvent* event)
     m_eState = kCCMenuStateWaiting;
 }
 
-// cancel在什么情况下被触发？
 void CCMenu::ccTouchCancelled(CCTouch *touch, CCEvent* event)
 {
     CC_UNUSED_PARAM(touch);
@@ -839,11 +838,11 @@ void CCMenuItemLabel::unselected()
 
 按照相同的处理方式，我可以copy一份CCMenuItemImage的实现，改个名字，然后按照CCMenuItemLabel的方式重写selected和unselected方法就可以实现和CCMenuItemLabel同样的缩放效果，但是这里会有一个问题，我实现了一个新的CCMenuItemImage达到了缩放的效果，那对于它的父类CCMenuItemSprite呢，其实跟CCMenuItemImage是一个东西，只是创建方式是传入Sprite，而不是纹理的名字，对于它也要缩放，那还要实现一遍CCMenuItemSprite的翻版，对于新定义的按钮，要缩放也要重写selected和unseleceted，加入的内容也都是相同的，即CCScaleTo的action动作。与其每个CCMenuItem的子类都重写一遍加入缩放代码，还不如在顶层只搞一次。顶层在哪里，我们从CCMenu的源码中已经看到，是CCMenu的触摸响应里调用的CCMenuItem的selected和unseleceted等方法，那么干脆在CCMenu里加上缩放行不行。
 
-下面我自己copy了一份CCMenu的实现，改名为Menu，为避免名字冲突放在一个单独的命名空间里，暂且叫这个namespace为elloop.
+下面我自己copy了一份CCMenu的实现，改名为Menu，为避免名字冲突放在一个单独的命名空间里，暂且叫这个namespace为`elloop`.
 
 下面就是这个Menu类的实现代码：
 
-**Menu.h:**
+**自定义菜单类Menu.h, 仅列出改动的部分，其它部分跟CCMenu.h是一样的:**
 
 ```c++
 #ifndef CPP_DEMO_CUSTOM_MENU_H
@@ -852,286 +851,40 @@ void CCMenuItemLabel::unselected()
 #include "cocos2d.h"
 #include "cocos_include.h"
 
-NS_BEGIN(elloop);
 
+NS_BEGIN(elloop);           // namespace elloop {
+
+
+// 这枚举去掉了 CC， 避免与CCMenu中同名枚举混淆
 typedef enum  
 {
-    kMenuStateWaiting,
+    kMenuStateWaiting,          
     kMenuStateTrackingTouch
 } tMenuState;
 
+
 enum {
-    kMenuHandlerPriority = -128,
+    kMenuHandlerPriority = -128,            // 去掉了kCCMenuHandlerPriority里面的CC
 };
 
 class Menu : public cocos2d::CCLayerRGBA
 {
-    bool m_bEnabled;
-    
 public:
+    // 添加了一个缩放成员变量, 其它部分跟CCMenu.h内容完全一致
     Menu() : m_pSelectedItem(NULL), itemOriginScale_(1.f) {}
-    virtual ~Menu(){}
-
-    static Menu* create();
-
-    static Menu* create(cocos2d::CCMenuItem* item, ...);
-
-    static Menu* createWithArray(cocos2d::CCArray* pArrayOfItems);
-
-    static Menu* createWithItem(cocos2d::CCMenuItem* item);
-    
-    static Menu* createWithItems(cocos2d::CCMenuItem *firstItem, va_list args);
-
-    bool init();
-
-    bool initWithArray(cocos2d::CCArray* pArrayOfItems);
-
-    void alignItemsVerticallyWithPadding(float padding);
-
-    void alignItemsHorizontallyWithPadding(float padding);
-
-    void alignItemsInColumns(unsigned int columns, ...);
-    void alignItemsInColumns(unsigned int columns, va_list args);
-    void alignItemsInColumnsWithArray(cocos2d::CCArray* rows);
-
-    void alignItemsInRows(unsigned int rows, ...);
-    void alignItemsInRows(unsigned int rows, va_list args);
-    void alignItemsInRowsWithArray(cocos2d::CCArray* columns);
-
-    void setHandlerPriority(int newPriority);
-
-    //super methods
-    virtual void addChild(cocos2d::CCNode * child);
-    virtual void addChild(cocos2d::CCNode * child, int zOrder);
-    virtual void addChild(cocos2d::CCNode * child, int zOrder, int tag);
-    virtual void registerWithTouchDispatcher();
-    virtual void removeChild(cocos2d::CCNode* child, bool cleanup);
-
-    bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) override;
-    void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) override;
-    void ccTouchCancelled(cocos2d::CCTouch *touch, cocos2d::CCEvent* event) override;
-    void ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) override;
-
-    virtual void onExit();
-
-    virtual void setOpacityModifyRGB(bool bValue) {CC_UNUSED_PARAM(bValue);}
-    virtual bool isOpacityModifyRGB(void) { return false;}
-    
-    virtual bool isEnabled() { return m_bEnabled; }
-    virtual void setEnabled(bool value) { m_bEnabled = value; };
-
 protected:
-    cocos2d::CCMenuItem*    itemForTouch(cocos2d::CCTouch * touch);
-    tMenuState              m_eState;
-    cocos2d::CCMenuItem     *m_pSelectedItem;
     float                   itemOriginScale_;
 };
 
-NS_END(elloop);
+NS_END(elloop);    // }  end of namespace elloop
 
 #endif//CPP_DEMO_CUSTOM_MENU_H
 ```
 
-
-**Menu.cpp:**
+**自定义缩放按钮实现文件：Menu.cpp, 也仅列出改变的部分**
 
 ```c++
-#include "customs/Menu.h"
-#include "CCDirector.h"
-#include "CCApplication.h"
-#include "support/CCPointExtension.h"
-#include "touch_dispatcher/CCTouchDispatcher.h"
-#include "touch_dispatcher/CCTouch.h"
-#include "CCStdC.h"
-#include "cocoa/CCInteger.h"
-
-#include <vector>
-#include <stdarg.h>
-using namespace std;
-USING_NS_CC;
-
 NS_BEGIN(elloop);
-
-static std::vector<unsigned int> ccarray_to_std_vector(CCArray* pArray)
-{
-    std::vector<unsigned int> ret;
-    CCObject* pObj;
-    CCARRAY_FOREACH(pArray, pObj)
-    {
-        CCInteger* pInteger = (CCInteger*)pObj;
-        ret.push_back((unsigned int)pInteger->getValue());
-    }
-    return ret;
-}
-
-enum
-{
-    kDefaultPadding = 5,
-};
-
-Menu* Menu::create()
-{
-    return Menu::create(NULL, NULL);
-}
-
-Menu * Menu::create(CCMenuItem* item, ...)
-{
-    va_list args;
-    va_start(args, item);
-
-    Menu *pRet = Menu::createWithItems(item, args);
-
-    va_end(args);
-
-    return pRet;
-}
-
-Menu* Menu::createWithArray(CCArray* pArrayOfItems)
-{
-    Menu *pRet = new Menu();
-    if (pRet && pRet->initWithArray(pArrayOfItems))
-    {
-        pRet->autorelease();
-    }
-    else
-    {
-        CC_SAFE_DELETE(pRet);
-    }
-
-    return pRet;
-}
-
-Menu* Menu::createWithItems(CCMenuItem* item, va_list args)
-{
-    CCArray* pArray = NULL;
-    if (item)
-    {
-        pArray = CCArray::create(item, NULL);
-        CCMenuItem *i = va_arg(args, CCMenuItem*);
-        while (i)
-        {
-            pArray->addObject(i);
-            i = va_arg(args, CCMenuItem*);
-        }
-    }
-
-    return Menu::createWithArray(pArray);
-}
-
-Menu* Menu::createWithItem(CCMenuItem* item)
-{
-    return Menu::create(item, NULL);
-}
-
-bool Menu::init()
-{
-    return initWithArray(NULL);
-}
-
-bool Menu::initWithArray(CCArray* pArrayOfItems)
-{
-    if (CCLayer::init())
-    {
-        setTouchPriority(kMenuHandlerPriority);
-        setTouchMode(kCCTouchesOneByOne);
-        setTouchEnabled(true);
-
-        m_bEnabled = true;
-        // menu in the center of the screen
-        CCSize s = CCDirector::sharedDirector()->getWinSize();
-
-        this->ignoreAnchorPointForPosition(true);
-        setAnchorPoint(ccp(0.5f, 0.5f));
-        this->setContentSize(s);
-
-        setPosition(ccp(s.width / 2, s.height / 2));
-
-        if (pArrayOfItems != NULL)
-        {
-            int z = 0;
-            CCObject* pObj = NULL;
-            CCARRAY_FOREACH(pArrayOfItems, pObj)
-            {
-                CCMenuItem* item = (CCMenuItem*)pObj;
-                this->addChild(item, z);
-                z++;
-            }
-        }
-
-        //    [self alignItemsVertically];
-        m_pSelectedItem = NULL;
-        m_eState = kMenuStateWaiting;
-
-        // enable cascade color and opacity on menus
-        setCascadeColorEnabled(true);
-        setCascadeOpacityEnabled(true);
-
-        return true;
-    }
-    return false;
-}
-
-/*
-* override add:
-*/
-void Menu::addChild(CCNode * child)
-{
-    CCLayer::addChild(child);
-}
-
-void Menu::addChild(CCNode * child, int zOrder)
-{
-    CCLayer::addChild(child, zOrder);
-}
-
-void Menu::addChild(CCNode * child, int zOrder, int tag)
-{
-    CCAssert(dynamic_cast<CCMenuItem*>(child) != NULL, "Menu only supports MenuItem objects as children");
-    CCLayer::addChild(child, zOrder, tag);
-}
-
-void Menu::onExit()
-{
-    if (m_eState == kMenuStateTrackingTouch)
-    {
-        if (m_pSelectedItem)
-        {
-            m_pSelectedItem->unselected();
-            m_pSelectedItem = NULL;
-        }
-
-        m_eState = kMenuStateWaiting;
-    }
-
-    CCLayer::onExit();
-}
-
-void Menu::removeChild(CCNode* child, bool cleanup)
-{
-    CCMenuItem *pMenuItem = dynamic_cast<CCMenuItem*>(child);
-    CCAssert(pMenuItem != NULL, "Menu only supports MenuItem objects as children");
-
-    if (m_pSelectedItem == pMenuItem)
-    {
-        m_pSelectedItem = NULL;
-    }
-
-    CCNode::removeChild(child, cleanup);
-}
-
-//Menu - Events
-
-void Menu::setHandlerPriority(int newPriority)
-{
-    CCTouchDispatcher* pDispatcher = CCDirector::sharedDirector()->getTouchDispatcher();
-    pDispatcher->setPriority(newPriority, this);
-}
-
-void Menu::registerWithTouchDispatcher()
-{
-    CCDirector* pDirector = CCDirector::sharedDirector();
-    pDirector->getTouchDispatcher()->addTargetedDelegate(this, this->getTouchPriority(), true);
-}
 
 bool Menu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
@@ -1154,9 +907,12 @@ bool Menu::ccTouchBegan(CCTouch* touch, CCEvent* event)
     {
         m_eState = kMenuStateTrackingTouch;
         m_pSelectedItem->selected();
-        // 缩放的代码
+
+        // begin : 控制CCMenuItem缩放的代码
         itemOriginScale_ = m_pSelectedItem->getScale();
         m_pSelectedItem->setScale(itemOriginScale_ * 1.2);
+        // end
+
         return true;
     }
     return false;
@@ -1171,8 +927,10 @@ void Menu::ccTouchEnded(CCTouch *touch, CCEvent* event)
     {
         m_pSelectedItem->unselected();
         m_pSelectedItem->activate();
-        // 缩放代码
+
+        // begin : 控制CCMenuItem缩放的代码
         m_pSelectedItem->setScale(itemOriginScale_);
+        // end
     }
     m_eState = kMenuStateWaiting;
 }
@@ -1185,8 +943,10 @@ void Menu::ccTouchCancelled(CCTouch *touch, CCEvent* event)
     if (m_pSelectedItem)
     {
         m_pSelectedItem->unselected();
-        // 缩放代码
+
+        // begin : 控制CCMenuItem缩放的代码
         m_pSelectedItem->setScale(itemOriginScale_);
+        // end
     }
     m_eState = kMenuStateWaiting;
 }
@@ -1201,359 +961,73 @@ void Menu::ccTouchMoved(CCTouch* touch, CCEvent* event)
         if (m_pSelectedItem)
         {
             m_pSelectedItem->unselected();
-            // 缩放代码
+
+            // begin : 控制CCMenuItem缩放的代码
             m_pSelectedItem->setScale(itemOriginScale_);
+            // end
         }
         m_pSelectedItem = currentItem;
         if (m_pSelectedItem)
         {
             m_pSelectedItem->selected();
-            // 缩放代码
+
+            // begin : 控制CCMenuItem缩放的代码
             itemOriginScale_ = m_pSelectedItem->getScale();
             m_pSelectedItem->setScale(itemOriginScale_ * 1.2);
+            // end
         }
     }
-}
-
-//Menu - Alignment
-void Menu::alignItemsVertically()
-{
-    this->alignItemsVerticallyWithPadding(kDefaultPadding);
-}
-
-void Menu::alignItemsVerticallyWithPadding(float padding)
-{
-    float height = -padding;
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCNode* pChild = dynamic_cast<CCNode*>(pObject);
-            if (pChild)
-            {
-                height += pChild->getContentSize().height * pChild->getScaleY() + padding;
-            }
-        }
-    }
-
-    float y = height / 2.0f;
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCNode* pChild = dynamic_cast<CCNode*>(pObject);
-            if (pChild)
-            {
-                pChild->setPosition(ccp(0, y - pChild->getContentSize().height * pChild->getScaleY() / 2.0f));
-                y -= pChild->getContentSize().height * pChild->getScaleY() + padding;
-            }
-        }
-    }
-}
-
-void Menu::alignItemsHorizontally(void)
-{
-    this->alignItemsHorizontallyWithPadding(kDefaultPadding);
-}
-
-void Menu::alignItemsHorizontallyWithPadding(float padding)
-{
-
-    float width = -padding;
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCNode* pChild = dynamic_cast<CCNode*>(pObject);
-            if (pChild)
-            {
-                width += pChild->getContentSize().width * pChild->getScaleX() + padding;
-            }
-        }
-    }
-
-    float x = -width / 2.0f;
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCNode* pChild = dynamic_cast<CCNode*>(pObject);
-            if (pChild)
-            {
-                pChild->setPosition(ccp(x + pChild->getContentSize().width * pChild->getScaleX() / 2.0f, 0));
-                x += pChild->getContentSize().width * pChild->getScaleX() + padding;
-            }
-        }
-    }
-}
-
-void Menu::alignItemsInColumns(unsigned int columns, ...)
-{
-    va_list args;
-    va_start(args, columns);
-
-    this->alignItemsInColumns(columns, args);
-
-    va_end(args);
-}
-
-void Menu::alignItemsInColumns(unsigned int columns, va_list args)
-{
-    CCArray* rows = CCArray::create();
-    while (columns)
-    {
-        rows->addObject(CCInteger::create(columns));
-        columns = va_arg(args, unsigned int);
-    }
-    alignItemsInColumnsWithArray(rows);
-}
-
-void Menu::alignItemsInColumnsWithArray(CCArray* rowsArray)
-{
-    vector<unsigned int> rows = ccarray_to_std_vector(rowsArray);
-
-    int height = -5;
-    unsigned int row = 0;
-    unsigned int rowHeight = 0;
-    unsigned int columnsOccupied = 0;
-    unsigned int rowColumns;
-
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCNode* pChild = dynamic_cast<CCNode*>(pObject);
-            if (pChild)
-            {
-                CCAssert(row < rows.size(), "");
-
-                rowColumns = rows[row];
-                // can not have zero columns on a row
-                CCAssert(rowColumns, "");
-
-                float tmp = pChild->getContentSize().height;
-                rowHeight = (unsigned int)((rowHeight >= tmp || isnan(tmp)) ? rowHeight : tmp);
-
-                ++columnsOccupied;
-                if (columnsOccupied >= rowColumns)
-                {
-                    height += rowHeight + 5;
-
-                    columnsOccupied = 0;
-                    rowHeight = 0;
-                    ++row;
-                }
-            }
-        }
-    }
-
-    // check if too many rows/columns for available menu items
-    CCAssert(!columnsOccupied, "");
-
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-
-    row = 0;
-    rowHeight = 0;
-    rowColumns = 0;
-    float w = 0.0;
-    float x = 0.0;
-    float y = (float)(height / 2);
-
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCNode* pChild = dynamic_cast<CCNode*>(pObject);
-            if (pChild)
-            {
-                if (rowColumns == 0)
-                {
-                    rowColumns = rows[row];
-                    w = winSize.width / (1 + rowColumns);
-                    x = w;
-                }
-
-                float tmp = pChild->getContentSize().height;
-                rowHeight = (unsigned int)((rowHeight >= tmp || isnan(tmp)) ? rowHeight : tmp);
-
-                pChild->setPosition(ccp(x - winSize.width / 2,
-                    y - pChild->getContentSize().height / 2));
-
-                x += w;
-                ++columnsOccupied;
-
-                if (columnsOccupied >= rowColumns)
-                {
-                    y -= rowHeight + 5;
-
-                    columnsOccupied = 0;
-                    rowColumns = 0;
-                    rowHeight = 0;
-                    ++row;
-                }
-            }
-        }
-    }
-}
-
-void Menu::alignItemsInRows(unsigned int rows, ...)
-{
-    va_list args;
-    va_start(args, rows);
-
-    this->alignItemsInRows(rows, args);
-
-    va_end(args);
-}
-
-void Menu::alignItemsInRows(unsigned int rows, va_list args)
-{
-    CCArray* pArray = CCArray::create();
-    while (rows)
-    {
-        pArray->addObject(CCInteger::create(rows));
-        rows = va_arg(args, unsigned int);
-    }
-    alignItemsInRowsWithArray(pArray);
-}
-
-void Menu::alignItemsInRowsWithArray(CCArray* columnArray)
-{
-    vector<unsigned int> columns = ccarray_to_std_vector(columnArray);
-
-    vector<unsigned int> columnWidths;
-    vector<unsigned int> columnHeights;
-
-    int width = -10;
-    int columnHeight = -5;
-    unsigned int column = 0;
-    unsigned int columnWidth = 0;
-    unsigned int rowsOccupied = 0;
-    unsigned int columnRows;
-
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCNode* pChild = dynamic_cast<CCNode*>(pObject);
-            if (pChild)
-            {
-                // check if too many menu items for the amount of rows/columns
-                CCAssert(column < columns.size(), "");
-
-                columnRows = columns[column];
-                // can't have zero rows on a column
-                CCAssert(columnRows, "");
-
-                // columnWidth = fmaxf(columnWidth, [item contentSize].width);
-                float tmp = pChild->getContentSize().width;
-                columnWidth = (unsigned int)((columnWidth >= tmp || isnan(tmp)) ? columnWidth : tmp);
-
-                columnHeight += (int)(pChild->getContentSize().height + 5);
-                ++rowsOccupied;
-
-                if (rowsOccupied >= columnRows)
-                {
-                    columnWidths.push_back(columnWidth);
-                    columnHeights.push_back(columnHeight);
-                    width += columnWidth + 10;
-
-                    rowsOccupied = 0;
-                    columnWidth = 0;
-                    columnHeight = -5;
-                    ++column;
-                }
-            }
-        }
-    }
-
-    // check if too many rows/columns for available menu items.
-    CCAssert(!rowsOccupied, "");
-
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-
-    column = 0;
-    columnWidth = 0;
-    columnRows = 0;
-    float x = (float)(-width / 2);
-    float y = 0.0;
-
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCNode* pChild = dynamic_cast<CCNode*>(pObject);
-            if (pChild)
-            {
-                if (columnRows == 0)
-                {
-                    columnRows = columns[column];
-                    y = (float)columnHeights[column];
-                }
-
-                // columnWidth = fmaxf(columnWidth, [item contentSize].width);
-                float tmp = pChild->getContentSize().width;
-                columnWidth = (unsigned int)((columnWidth >= tmp || isnan(tmp)) ? columnWidth : tmp);
-
-                pChild->setPosition(ccp(x + columnWidths[column] / 2,
-                    y - winSize.height / 2));
-
-                y -= pChild->getContentSize().height + 10;
-                ++rowsOccupied;
-
-                if (rowsOccupied >= columnRows)
-                {
-                    x += columnWidth + 5;
-                    rowsOccupied = 0;
-                    columnRows = 0;
-                    columnWidth = 0;
-                    ++column;
-                }
-            }
-        }
-    }
-}
-
-CCMenuItem* Menu::itemForTouch(CCTouch *touch)
-{
-    CCPoint touchLocation = touch->getLocation();
-
-    if (m_pChildren && m_pChildren->count() > 0)
-    {
-        CCObject* pObject = NULL;
-        CCARRAY_FOREACH(m_pChildren, pObject)
-        {
-            CCMenuItem* pChild = dynamic_cast<CCMenuItem*>(pObject);
-            if (pChild && pChild->isVisible() && pChild->isEnabled())
-            {
-                CCPoint local = pChild->convertToNodeSpace(touchLocation);
-                CCRect r = pChild->rect();
-                r.origin = CCPointZero;
-
-                if (r.containsPoint(local))
-                {
-                    return pChild;
-                }
-            }
-        }
-    }
-
-    return NULL;
 }
 
 NS_END(elloop);
 ```
 
+**自定义菜单类的使用方法**
 
-**源代码仓库地址: [cocos2d-x-cpp-demos-2.x](https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp), 是本人写的一个小型Demo框架，方便添加测试代码或者用来开发游戏，如果觉得有用请帮忙点个Star，谢谢**
+```c++
+
+// 正常的方式来创建三个CCMenuItem, 两个CCMenuItemImage, 一个CCMenuItemLabel
+// 从左到右水平排列
+
+auto menuItemImage1 = CCMenuItemImage::create(
+        "DemoIcon/home_small.png", "DemoIcon/home_small.png",
+        this,menu_selector(TouchTestPage::menuCallback));
+
+auto menuItemImage2 = CCMenuItemImage::create(
+        "DemoIcon/home_small.png", "DemoIcon/home_small.png",
+        this, menu_selector(TouchTestPage::menuCallback));
+
+menuItemImage2->setPosition(CCPoint(menuItemImage1->getContentSize().width, 
+            0));
+
+auto label = CCLabelTTF::create("hello", "arial.ttf", 20);
+auto menuItemLabel = CCMenuItemLabel::create(label);
+menuItemLabel->setPosition(CCPoint(menuItemImage2->getPositionX() + menuItemImage1->getContentSize().width, 0));
+
+// 指定使用elloop命名空间下的Menu.
+using elloop::Menu;
+// Menu的创建方式跟CCMenu的创建方式完全一样
+Menu *menu = Menu::create(menuItemImage1, menuItemImage2, menuItemLabel, nullptr);
+ADD_CHILD(menu);
+```
+
+代码中之所以加上一个CCMenuItemLabel类型的按钮是为了测试，本身就带有缩放功能的CCMenuItem会不会和带有缩放功能的Menu父容器产生冲突，是否会产生叠加放大的效果？
+
+下面是运行截图：
+
+![CustomMenu](http://7xi3zl.com1.z0.glb.clouddn.com/CustomMenu.gif)
+
+从图中能看到，两个CCMenuItemImage是可以实现自动缩放效果的，CCMenuItemLabel的缩放动作也没有与Menu的缩放发生冲突(这是为什么？涉及到Action的更新，在后面总结到动作系统的时候再做出分析)。
+
+此外，如果觉得Menu固定的把CCMenuItem放大到1.2不够灵活，可以把数字抽离成一个成员变量，并设置setter来灵活控制缩放比例.
+
+测试的代码，跟上一篇文章的代码放在了一起，在TouchTestPage.cpp中。感兴趣的朋友可以到代码仓库瞅瞅。
+
+## <font color="red">源码</font>
+
+- [缩放按钮Menu的实现](https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/customs/Menu.cpp)
+
+- [缩放按钮Menu的使用范例](https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp)
 
 ---------------------------
 **作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
