@@ -329,7 +329,7 @@ void CCMenu::registerWithTouchDispatcher()
     pDirector->getTouchDispatcher()->addTargetedDelegate(this, this->getTouchPriority(), true);
 }
 
-// 开始触摸j
+// 开始触摸
 bool CCMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
     CC_UNUSED_PARAM(event);

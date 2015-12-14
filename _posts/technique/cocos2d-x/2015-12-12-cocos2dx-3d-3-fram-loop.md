@@ -142,7 +142,7 @@ int CCApplication::run()
 
 // todo: add 3.x
 
-## <font color="red">帧循环中做了什么 CCDirector::mainLoop()
+## <font color="red">帧循环中做了什么 CCDirector::mainLoop()</font>
 
 ### <font color="blue">in 2.X (2.2.3)</font>
 
