@@ -315,7 +315,7 @@ void CCMenu::removeChild(CCNode* child, bool cleanup)
     CCNode::removeChild(child, cleanup);
 }
 
-/**************************触摸事件先关代码********************************/
+/**************************触摸事件相关代码********************************/
 void CCMenu::setHandlerPriority(int newPriority)
 {
     CCTouchDispatcher* pDispatcher = CCDirector::sharedDirector()->getTouchDispatcher();
