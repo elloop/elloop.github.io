@@ -183,6 +183,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -219,6 +223,13 @@
 
 <!--
 <ul class="posts">
+   
+    <li><span>12 Dec 2015</span> &raquo; <a href="/cocos2d-x/2015-12-12/cocos2dx-3d-3-fram-loop">【cocos2d-x 3D游戏开发】3: 游戏帧循环</a></li>
+    
+    <p style="background: color"><h2>前言</h2>
+
+<p>高实时性是游戏区别于传统软件、应用的一个重要特征，游戏里通常有一个比较高频率的循环在处理用户输入、物理逻辑更新、业务逻辑更新以及图形渲染等工作, 以保证这种实时性的要求。我们把每一次循环叫做一帧，把每秒钟游戏更新的帧数称作“帧率(Frame Per Second)”, 也就是常说的FPS。电影的帧率通常是24FPS，cocos2d-x默认的帧率是60FPS, VR游戏中对帧率的要求则更高,通常至少要达到70~80FPS. cocos在默认情况下，每秒会进行60次游戏循环。本文将对cocos2d-x引擎中每一帧里面做了哪些事情进行介绍，总结每一帧中的几个关键操作，及它们在时间上的先后顺序。以win32环境为例，讲解一个游戏的主循环的控制流程。</p>
+</p>
    
     <li><span>10 Dec 2015</span> &raquo; <a href="/cocos2d-x/2015-12-10/cocos2dx-3d-2-custom-menu">【cocos2d-x 3D游戏开发】2: 2D基础回顾---理解CCMenu类的实现, 实现点击放大的菜单按钮</a></li>
     
@@ -257,27 +268,29 @@
 
 <p>本文回顾了cocos2d-x 2.x中触摸事件的使用方法和注意事项，侧重于单点触摸事件。</p>
 </p>
-   
-    <li><span>28 Nov 2015</span> &raquo; <a href="/c++/2015-11-28/never-proficient-cpp-vaargs">【永远不会精通的C++】1: 两种变长参数函数比较</a></li>
-    
-    <p style="background: color"><h2>前言</h2>
-
-<p>本文要讨论的两种变长参数函数的形式分别为：</p>
-
-<ol>
-<li> c语言的方式</li>
-<li> c++11的变长模板参数</li>
-</ol>
-
-<h2>c语言的方式</h2>
-
-<p>在C++中, 通过包含<code>&lt;cstdarg&gt;</code>就能够使用c语言中<code>&lt;stdarg.h&gt;</code>里面定义的几个宏来完成变长参数的处理，先看一个实例：</p>
-</p>
   
 </ul>
 -->
 
 
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/cocos2d-x/2015-12-12/cocos2dx-3d-3-fram-loop">【cocos2d-x 3D游戏开发】3: 游戏帧循环</a>
+    	</h2>
+        <!-- Saturday 12 December 2015 -->
+        12 Dec 2015
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p><h2>前言</h2>
+
+高实时性是游戏区别于传统软件、应用的一个重要特征，游戏里通常有一个比较高频率的循环在处理用户输入、物理逻辑更新、业务逻辑更新以及图形渲染等工作, 以保证这种实时性的要求。我们把每一次循环叫做一帧，把每秒钟游戏更新的帧数称作“帧率(Frame Per Second)”, 也就是常说的FPS。电影的帧率通常是24FPS，cocos2d-x默认的帧率是60FPS, VR游戏中对帧率的要求则更高,通常至少要达到70~80FPS. cocos在默认情况下，每秒会进行60次游戏循环。本文将对cocos2d-x引擎中每一帧里面做了哪些事情进行介绍，总结每一帧中的几个关键操作，及它们在时间上的先后顺序。以win32环境为例，讲解一个游戏的主循环的控制流程。
+...</p>
+    	<p><a href="/cocos2d-x/2015-12-12/cocos2dx-3d-3-fram-loop">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
 
 <!-- <div class="hero-unit"> -->
   <div class="posts">
@@ -361,33 +374,6 @@
     <hr/>
   </div>
 
-<!-- <div class="hero-unit"> -->
-  <div class="posts">
-    <p>
-    	<h2>
-    		<a href="/c++/2015-11-28/never-proficient-cpp-vaargs">【永远不会精通的C++】1: 两种变长参数函数比较</a>
-    	</h2>
-        <!-- Saturday 28 November 2015 -->
-        28 Nov 2015
-        <!-- { post.content | strip_html | truncatewords: 35 }}-->
-        <p><h2>前言</h2>
-
-本文要讨论的两种变长参数函数的形式分别为：
-
-<ol>
-<li> c语言的方式</li>
-<li> c++11的变长模板参数</li>
-</ol>
-
-<h2>c语言的方式</h2>
-
-在C++中, 通过包含<code>&lt;cstdarg&gt;</code>就能够使用c语言中<code>&lt;stdarg.h&gt;</code>里面定义的几个宏来完成变长参数的处理，先看一个实例：
-...</p>
-    	<p><a href="/c++/2015-11-28/never-proficient-cpp-vaargs">阅读全文 ...</a></p> 
-    </p>
-    <hr/>
-  </div>
-
 
 
 
@@ -455,6 +441,10 @@
   
     
       <li><a href="/page15">15</a></li>
+    
+  
+    
+      <li><a href="/page16">16</a></li>
     
   
 

@@ -183,6 +183,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -219,6 +223,21 @@
 
 <!--
 <ul class="posts">
+   
+    <li><span>10 Jan 2013</span> &raquo; <a href="/linux/windows/2013-01-10/using-cygwin">使用cygwin</a></li>
+    
+    <p style="background: color"><h1>Install and Update</h1>
+
+<ul>
+<li>use <code>setup.exe</code></li>
+</ul>
+
+<h1>Check Component Status</h1>
+
+<ul>
+<li>cygcheck -c <command></li>
+</ul>
+</p>
    
     <li><span>13 Jul 2012</span> &raquo; <a href="/programming/2012-07-13/OS-X-Skils">OS-X 使用经验总结</a></li>
     
@@ -393,66 +412,37 @@
 
 <p>本文从整体上对STL的内容和功能做了一个概览，并根据其组成部分功能的不同对STL的组件进行分类。</p>
 </p>
-   
-    <li><span>25 Mar 2012</span> &raquo; <a href="/python/2012-03-25/python-basic">Learning Python 1: basic</a></li>
-    
-    <p style="background: color"><p><strong>注意：本系列文章均以linux为主</strong></p>
-
-<p><em>实际操作之前，请确保已经安装Python并且将python添加到环境变量</em></p>
-
-<h1>让Python跑起来的几种方式</h1>
-
-<ul>
-<li><p>way1 REPL模式：打开终端，敲入<code>python</code></p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> <span class="n">python</span>
-<span class="n">Python</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">6</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Sep</span>  <span class="mi">9</span> <span class="mi">2014</span><span class="p">,</span> <span class="mi">15</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span> 
-<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span> <span class="n">Compatible</span> <span class="n">Apple</span> <span class="n">LLVM</span> <span class="mf">6.0</span> <span class="p">(</span><span class="n">clang</span><span class="o">-</span><span class="mf">600.0</span><span class="o">.</span><span class="mi">39</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
-<span class="n">Type</span> <span class="s">&quot;help&quot;</span><span class="p">,</span> <span class="s">&quot;copyright&quot;</span><span class="p">,</span> <span class="s">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">hi</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">hi</span><span class="p">)</span>
-<span class="n">hello</span> <span class="n">world</span>
-<span class="o">&gt;&gt;&gt;</span> 
-</code></pre></div></li>
-<li><p>way2 <code>python &lt;python-script-name&gt;.py</code>
-创建一个以py结尾的文件，输入下面的内容，保存为hello.py, 它就成为了一个python脚本 </p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#hello.py</span>
-<span class="n">hi</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span>
-<span class="k">print</span><span class="p">(</span><span class="n">hi</span><span class="p">)</span>
-</code></pre></div>
-<p>保存之后，在终端敲入：</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> <span class="n">python</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span> 
-<span class="n">hello</span> <span class="n">world</span>
-<span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> 
-</code></pre></div>
-<p>这样脚本就执行完成了</p></li>
-<li><p>way3 可执行脚本 可执行脚本也是以py结尾的文件</p>
-
-<ul>
-<li>windows上不需要特别处理，把py文件的打开方式和python.exe进行关联即可。</li>
-<li>unix风格脚本需要:1.在文件的第一行加入#!+python解释器的路径; 2.给文件添加可执行权限</li>
-</ul>
-
-<p>创建一个hello.py</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
-<span class="n">hi</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span>
-<span class="k">print</span><span class="p">(</span><span class="n">hi</span><span class="p">)</span>
-</code></pre></div>
-<p>添加可执行权限：</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span>
-<span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> <span class="o">./</span><span class="n">hello</span><span class="o">.</span><span class="n">py</span> 
-<span class="n">hello</span> <span class="n">world</span>
-<span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> 
-</code></pre></div>
-<blockquote>
-<p><code>#!/usr/bin/env python</code>的意思是到环境变量中查找python解释器的路径，这种写法比<code>#!/usr/local/bin/python</code>的写法更有可移植性</p>
-</blockquote></li>
-</ul>
-</p>
   
 </ul>
 -->
 
 
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/linux/windows/2013-01-10/using-cygwin">使用cygwin</a>
+    	</h2>
+        <!-- Thursday 10 January 2013 -->
+        10 Jan 2013
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p><h1>Install and Update</h1>
+
+<ul>
+<li>use <code>setup.exe</code></li>
+</ul>
+
+<h1>Check Component Status</h1>
+
+<ul>
+<li>cygcheck -c <command></li>
+</ul>
+...</p>
+    	<p><a href="/linux/windows/2013-01-10/using-cygwin">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
 
 <!-- <div class="hero-unit"> -->
   <div class="posts">
@@ -672,72 +662,6 @@
     <hr/>
   </div>
 
-<!-- <div class="hero-unit"> -->
-  <div class="posts">
-    <p>
-    	<h2>
-    		<a href="/python/2012-03-25/python-basic">Learning Python 1: basic</a>
-    	</h2>
-        <!-- Sunday 25 March 2012 -->
-        25 Mar 2012
-        <!-- { post.content | strip_html | truncatewords: 35 }}-->
-        <p><strong>注意：本系列文章均以linux为主</strong>
-
-<em>实际操作之前，请确保已经安装Python并且将python添加到环境变量</em>
-
-<h1>让Python跑起来的几种方式</h1>
-
-<ul>
-<li>way1 REPL模式：打开终端，敲入<code>python</code>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> <span class="n">python</span>
-<span class="n">Python</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">6</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Sep</span>  <span class="mi">9</span> <span class="mi">2014</span><span class="p">,</span> <span class="mi">15</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span> 
-<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span> <span class="n">Compatible</span> <span class="n">Apple</span> <span class="n">LLVM</span> <span class="mf">6.0</span> <span class="p">(</span><span class="n">clang</span><span class="o">-</span><span class="mf">600.0</span><span class="o">.</span><span class="mi">39</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
-<span class="n">Type</span> <span class="s">&quot;help&quot;</span><span class="p">,</span> <span class="s">&quot;copyright&quot;</span><span class="p">,</span> <span class="s">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">hi</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">hi</span><span class="p">)</span>
-<span class="n">hello</span> <span class="n">world</span>
-<span class="o">&gt;&gt;&gt;</span> 
-</code></pre></div></li>
-<li>way2 <code>python &lt;python-script-name&gt;.py</code>
-创建一个以py结尾的文件，输入下面的内容，保存为hello.py, 它就成为了一个python脚本 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#hello.py</span>
-<span class="n">hi</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span>
-<span class="k">print</span><span class="p">(</span><span class="n">hi</span><span class="p">)</span>
-</code></pre></div>
-保存之后，在终端敲入：
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> <span class="n">python</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span> 
-<span class="n">hello</span> <span class="n">world</span>
-<span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> 
-</code></pre></div>
-这样脚本就执行完成了</li>
-<li>way3 可执行脚本 可执行脚本也是以py结尾的文件
-
-<ul>
-<li>windows上不需要特别处理，把py文件的打开方式和python.exe进行关联即可。</li>
-<li>unix风格脚本需要:1.在文件的第一行加入#!+python解释器的路径; 2.给文件添加可执行权限</li>
-</ul>
-
-创建一个hello.py
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/env python</span>
-<span class="n">hi</span> <span class="o">=</span> <span class="s">&quot;hello world&quot;</span>
-<span class="k">print</span><span class="p">(</span><span class="n">hi</span><span class="p">)</span>
-</code></pre></div>
-添加可执行权限：
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span>
-<span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> <span class="o">./</span><span class="n">hello</span><span class="o">.</span><span class="n">py</span> 
-<span class="n">hello</span> <span class="n">world</span>
-<span class="n">linadeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">:</span><span class="n">Downloads</span> <span class="n">lina</span><span class="err">$</span> 
-</code></pre></div>
-<blockquote>
-<code>#!/usr/bin/env python</code>的意思是到环境变量中查找python解释器的路径，这种写法比<code>#!/usr/local/bin/python</code>的写法更有可移植性
-</blockquote></li>
-</ul>
-...</p>
-    	<p><a href="/python/2012-03-25/python-basic">阅读全文 ...</a></p> 
-    </p>
-    <hr/>
-  </div>
-
 
 
 
@@ -807,9 +731,13 @@
       <li class="active"><span>15</span></li>
     
   
+    
+      <li><a href="/page16">16</a></li>
+    
+  
 
   
-    <li class="disabled"><span>Next &raquo;</span></li>
+    <li><a href="/page16">Next &raquo;</a></li>
   
 </ul>
 

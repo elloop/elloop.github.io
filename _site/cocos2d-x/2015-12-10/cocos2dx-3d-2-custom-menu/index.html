@@ -184,6 +184,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -269,6 +273,7 @@ var _hmt = _hmt || [];
     <span class="n">kCCMenuHandlerPriority</span> <span class="o">=</span> <span class="o">-</span><span class="mi">128</span><span class="p">,</span> 
 <span class="p">};</span>
 
+<span class="c1">// CCMenu是个Layer.</span>
 <span class="k">class</span> <span class="nc">CC_DLL</span> <span class="nl">CCMenu</span> <span class="p">:</span> <span class="k">public</span> <span class="n">CCLayerRGBA</span>
 <span class="p">{</span>
     <span class="kt">bool</span> <span class="n">m_bEnabled</span><span class="p">;</span>    <span class="c1">// 禁用了吗</span>
@@ -300,7 +305,7 @@ var _hmt = _hmt || [];
     <span class="kt">void</span> <span class="nf">alignItemsInRows</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rows</span><span class="p">,</span> <span class="kt">va_list</span> <span class="n">args</span><span class="p">);</span>
     <span class="kt">void</span> <span class="nf">alignItemsInRowsWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">columns</span><span class="p">);</span>
 
-    <span class="cm">/** set event handler priority. By default it is: kCCMenuTouchPriority */</span>
+    <span class="c1">// 菜单触摸响应的优先级 默认是kCCMenuHandlerPriority(-128)</span>
     <span class="kt">void</span> <span class="nf">setHandlerPriority</span><span class="p">(</span><span class="kt">int</span> <span class="n">newPriority</span><span class="p">);</span>
 
     <span class="c1">// 重写CCNode的这一堆方法为了什么？ 就为了判断你是不是往菜单里塞了不是CCMenuItem*类型的东西.</span>
@@ -318,7 +323,7 @@ var _hmt = _hmt || [];
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ccTouchCancelled</span><span class="p">(</span><span class="n">CCTouch</span> <span class="o">*</span><span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">);</span>
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ccTouchMoved</span><span class="p">(</span><span class="n">CCTouch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">);</span>
 
-    <span class="c1">// 状态机</span>
+    <span class="c1">// 状态机, 在被removeChild的时候被调用</span>
     <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">onExit</span><span class="p">();</span>
 
     <span class="c1">// 暂时忽略</span>
@@ -339,9 +344,901 @@ var _hmt = _hmt || [];
 
 <span class="cp">#endif</span><span class="c1">//__CCMENU_H_</span>
 </code></pre></div>
-<h2>source codes</h2>
+<p><strong>CCMenu.cpp</strong></p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &quot;CCMenu.h&quot;</span>
+<span class="cp">#include &quot;CCDirector.h&quot;</span>
+<span class="cp">#include &quot;CCApplication.h&quot;</span>
+<span class="cp">#include &quot;support/CCPointExtension.h&quot;</span>
+<span class="cp">#include &quot;touch_dispatcher/CCTouchDispatcher.h&quot;</span>
+<span class="cp">#include &quot;touch_dispatcher/CCTouch.h&quot;</span>
+<span class="cp">#include &quot;CCStdC.h&quot;</span>
+<span class="cp">#include &quot;cocoa/CCInteger.h&quot;</span>
 
-<p><strong>源代码仓库地址: <a href="https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp">cocos2d-x-cpp-demos-2.x</a>, 是本人写的一个小型Demo框架，方便添加测试代码或者用来开发游戏，如果觉得有用请帮忙点个Star，谢谢</strong></p>
+<span class="cp">#include &lt;vector&gt;</span>
+<span class="cp">#include &lt;stdarg.h&gt;</span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="n">NS_CC_BEGIN</span>
+
+<span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">ccarray_to_std_vector</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">pArray</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObj</span><span class="p">;</span>
+    <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">pArray</span><span class="p">,</span> <span class="n">pObj</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCInteger</span><span class="o">*</span> <span class="n">pInteger</span> <span class="o">=</span> <span class="p">(</span><span class="n">CCInteger</span><span class="o">*</span><span class="p">)</span><span class="n">pObj</span><span class="p">;</span>
+        <span class="n">ret</span><span class="p">.</span><span class="n">push_back</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">pInteger</span><span class="o">-&gt;</span><span class="n">getValue</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">enum</span> 
+<span class="p">{</span>
+    <span class="n">kDefaultPadding</span> <span class="o">=</span>  <span class="mi">5</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="cm">/***********************创建类方法*******************************/</span>
+<span class="n">CCMenu</span><span class="o">*</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">create</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">CCMenu</span> <span class="o">*</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">item</span><span class="p">,</span> <span class="p">...)</span>
+<span class="p">{</span>
+    <span class="kt">va_list</span> <span class="n">args</span><span class="p">;</span>
+    <span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="n">item</span><span class="p">);</span>
+
+    <span class="n">CCMenu</span> <span class="o">*</span><span class="n">pRet</span> <span class="o">=</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">createWithItems</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+
+    <span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">pRet</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">CCMenu</span><span class="o">*</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">createWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">pArrayOfItems</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CCMenu</span> <span class="o">*</span><span class="n">pRet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CCMenu</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pRet</span> <span class="o">&amp;&amp;</span> <span class="n">pRet</span><span class="o">-&gt;</span><span class="n">initWithArray</span><span class="p">(</span><span class="n">pArrayOfItems</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">pRet</span><span class="o">-&gt;</span><span class="n">autorelease</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">CC_SAFE_DELETE</span><span class="p">(</span><span class="n">pRet</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">pRet</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">CCMenu</span><span class="o">*</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">createWithItems</span><span class="p">(</span><span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">item</span><span class="p">,</span> <span class="kt">va_list</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CCArray</span><span class="o">*</span> <span class="n">pArray</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">item</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">pArray</span> <span class="o">=</span> <span class="n">CCArray</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">CCMenuItem</span> <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">CCMenuItem</span><span class="o">*</span><span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">pArray</span><span class="o">-&gt;</span><span class="n">addObject</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">CCMenuItem</span><span class="o">*</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">createWithArray</span><span class="p">(</span><span class="n">pArray</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">CCMenu</span><span class="o">*</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">createWithItem</span><span class="p">(</span><span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">item</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">init</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">initWithArray</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**********************初始化方法***************************/</span>
+<span class="kt">bool</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">initWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">pArrayOfItems</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">CCLayer</span><span class="o">::</span><span class="n">init</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="c1">// 设置触摸响应优先级 </span>
+        <span class="n">setTouchPriority</span><span class="p">(</span><span class="n">kCCMenuHandlerPriority</span><span class="p">);</span>
+        <span class="c1">// 单点触摸</span>
+        <span class="n">setTouchMode</span><span class="p">(</span><span class="n">kCCTouchesOneByOne</span><span class="p">);</span>
+        <span class="c1">// 开启触摸</span>
+        <span class="n">setTouchEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+
+        <span class="c1">// 创建即启用</span>
+        <span class="n">m_bEnabled</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+        <span class="n">CCSize</span> <span class="n">s</span> <span class="o">=</span> <span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getWinSize</span><span class="p">();</span>
+
+        <span class="c1">// 忽略锚点</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">ignoreAnchorPointForPosition</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+        <span class="n">setAnchorPoint</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mf">0.5f</span><span class="p">,</span> <span class="mf">0.5f</span><span class="p">));</span>
+
+        <span class="c1">// Menu的默认大小是整个可视窗口的大小</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">setContentSize</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+
+        <span class="c1">// 初始位置在屏幕中心, 因为忽略了锚点，所以通过它的左下角(0,0)点来定位，放在了屏幕中心</span>
+        <span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span><span class="p">));</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">pArrayOfItems</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+            <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObj</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+            <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">pArrayOfItems</span><span class="p">,</span> <span class="n">pObj</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// 添加“零件”，都是CCMenuItem类型的，在addChild里面会做RTTI类型检查。</span>
+                <span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">item</span> <span class="o">=</span> <span class="p">(</span><span class="n">CCMenuItem</span><span class="o">*</span><span class="p">)</span><span class="n">pObj</span><span class="p">;</span>
+                <span class="k">this</span><span class="o">-&gt;</span><span class="n">addChild</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+                <span class="n">z</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 默认没有选中任何“零件”</span>
+        <span class="n">m_pSelectedItem</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+        <span class="c1">// 初始状态为等待被摸</span>
+        <span class="n">m_eState</span> <span class="o">=</span> <span class="n">kCCMenuStateWaiting</span><span class="p">;</span>
+
+        <span class="c1">// 开启级联透明和颜色</span>
+        <span class="n">setCascadeColorEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+        <span class="n">setCascadeOpacityEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 重写addChild, 防止用户往CCMenu里塞不是CCMenuItem的东西</span>
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">addChild</span><span class="p">(</span><span class="n">CCNode</span> <span class="o">*</span> <span class="n">child</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CCLayer</span><span class="o">::</span><span class="n">addChild</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">addChild</span><span class="p">(</span><span class="n">CCNode</span> <span class="o">*</span> <span class="n">child</span><span class="p">,</span> <span class="kt">int</span> <span class="n">zOrder</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CCLayer</span><span class="o">::</span><span class="n">addChild</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">zOrder</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">addChild</span><span class="p">(</span><span class="n">CCNode</span> <span class="o">*</span> <span class="n">child</span><span class="p">,</span> <span class="kt">int</span> <span class="n">zOrder</span><span class="p">,</span> <span class="kt">int</span> <span class="n">tag</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 重写addChild, 防止用户往CCMenu里塞不是CCMenuItem的东西</span>
+    <span class="n">CCAssert</span><span class="p">(</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCMenuItem</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="s">&quot;Menu only supports MenuItem objects as children&quot;</span><span class="p">);</span>
+    <span class="n">CCLayer</span><span class="o">::</span><span class="n">addChild</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">zOrder</span><span class="p">,</span> <span class="n">tag</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">onExit</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// 在触摸过程中被移除，清空“零件”的选中状态</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_eState</span> <span class="o">==</span> <span class="n">kCCMenuStateTrackingTouch</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">unselected</span><span class="p">();</span>
+            <span class="n">m_pSelectedItem</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">m_eState</span> <span class="o">=</span> <span class="n">kCCMenuStateWaiting</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">CCLayer</span><span class="o">::</span><span class="n">onExit</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">removeChild</span><span class="p">(</span><span class="n">CCNode</span><span class="o">*</span> <span class="n">child</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">cleanup</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 移除时候也在检查是不是CCMenuItem</span>
+    <span class="n">CCMenuItem</span> <span class="o">*</span><span class="n">pMenuItem</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCMenuItem</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="n">pMenuItem</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="s">&quot;Menu only supports MenuItem objects as children&quot;</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span> <span class="o">==</span> <span class="n">pMenuItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_pSelectedItem</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">CCNode</span><span class="o">::</span><span class="n">removeChild</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">cleanup</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**************************触摸事件相关代码********************************/</span>
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">setHandlerPriority</span><span class="p">(</span><span class="kt">int</span> <span class="n">newPriority</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CCTouchDispatcher</span><span class="o">*</span> <span class="n">pDispatcher</span> <span class="o">=</span> <span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTouchDispatcher</span><span class="p">();</span>
+    <span class="n">pDispatcher</span><span class="o">-&gt;</span><span class="n">setPriority</span><span class="p">(</span><span class="n">newPriority</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 注册单点触摸，吞噬</span>
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">registerWithTouchDispatcher</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">CCDirector</span><span class="o">*</span> <span class="n">pDirector</span> <span class="o">=</span> <span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">();</span>
+    <span class="n">pDirector</span><span class="o">-&gt;</span><span class="n">getTouchDispatcher</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addTargetedDelegate</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getTouchPriority</span><span class="p">(),</span> <span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 开始触摸</span>
+<span class="kt">bool</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">ccTouchBegan</span><span class="p">(</span><span class="n">CCTouch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+    <span class="c1">// 已经开始触摸，或不可见，或被禁用，直接返回. 注意：此时触摸没被吞噬，其它节点能够响应此次触摸</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_eState</span> <span class="o">!=</span> <span class="n">kCCMenuStateWaiting</span> <span class="o">||</span> <span class="o">!</span> <span class="n">m_bVisible</span> <span class="o">||</span> <span class="o">!</span><span class="n">m_bEnabled</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 在它的祖先中，任何一个是不可见的，意味着它自己也不可见，不响应触摸事件</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">CCNode</span> <span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">m_pParent</span><span class="p">;</span> <span class="n">c</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">getParent</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">isVisible</span><span class="p">()</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 检查通过，可以进行进一步判断了</span>
+
+    <span class="c1">// 判断摸在哪个“零件”上</span>
+    <span class="n">m_pSelectedItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">itemForTouch</span><span class="p">(</span><span class="n">touch</span><span class="p">);</span>
+    <span class="c1">// 真的摸在了“零件”上</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 置触摸状态为： 正在被摸</span>
+        <span class="n">m_eState</span> <span class="o">=</span> <span class="n">kCCMenuStateTrackingTouch</span><span class="p">;</span>
+        <span class="c1">// 触发零件的selected方法</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">selected</span><span class="p">();</span>
+        <span class="c1">// 吞噬触摸，继续监听touchMoved等事件</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 松开手指，触摸结束</span>
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">ccTouchEnded</span><span class="p">(</span><span class="n">CCTouch</span> <span class="o">*</span><span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">touch</span><span class="p">);</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+    <span class="c1">// 校验触摸状态</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="n">m_eState</span> <span class="o">==</span> <span class="n">kCCMenuStateTrackingTouch</span><span class="p">,</span> <span class="s">&quot;[Menu ccTouchEnded] -- invalid state&quot;</span><span class="p">);</span>
+
+    <span class="c1">// 最后的触摸点是否落在了某个“零件”上？</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 松开按钮，调用其unselected方法</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">unselected</span><span class="p">();</span>
+        <span class="c1">// activate将调用CCMenuItem的回调函数</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">activate</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="c1">// 重置触摸状态</span>
+    <span class="n">m_eState</span> <span class="o">=</span> <span class="n">kCCMenuStateWaiting</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">ccTouchCancelled</span><span class="p">(</span><span class="n">CCTouch</span> <span class="o">*</span><span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">touch</span><span class="p">);</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="n">m_eState</span> <span class="o">==</span> <span class="n">kCCMenuStateTrackingTouch</span><span class="p">,</span> <span class="s">&quot;[Menu ccTouchCancelled] -- invalid state&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">unselected</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">m_eState</span> <span class="o">=</span> <span class="n">kCCMenuStateWaiting</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 在菜单上移动手指</span>
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">ccTouchMoved</span><span class="p">(</span><span class="n">CCTouch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+    <span class="c1">// 校验状态</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="n">m_eState</span> <span class="o">==</span> <span class="n">kCCMenuStateTrackingTouch</span><span class="p">,</span> <span class="s">&quot;[Menu ccTouchMoved] -- invalid state&quot;</span><span class="p">);</span>
+
+    <span class="c1">// 现在，触摸点移动到哪个“零件”了？</span>
+    <span class="n">CCMenuItem</span> <span class="o">*</span><span class="n">currentItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">itemForTouch</span><span class="p">(</span><span class="n">touch</span><span class="p">);</span>
+
+    <span class="c1">// 如果新的“零件”和刚才选中的“零件”不一样</span>
+    <span class="c1">// 不一样包括多种情形：</span>
+    <span class="c1">// 1. 从一个“零件”移动到了空白处；</span>
+    <span class="c1">// 2. 从空白处，移动到了某个“零件”</span>
+    <span class="c1">// 3. 从一个“零件”移动到另一个“零件”</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">currentItem</span> <span class="o">!=</span> <span class="n">m_pSelectedItem</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 第1种或第3种情形</span>
+            <span class="c1">// 取消当前“零件”的选中状态</span>
+            <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">unselected</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 更新新的“零件”选中状态，可能变为空</span>
+        <span class="n">m_pSelectedItem</span> <span class="o">=</span> <span class="n">currentItem</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 第2或3种情形，新“零件”选中</span>
+            <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">selected</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/************************排列“零件”**********************************/</span>
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsVertically</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">alignItemsVerticallyWithPadding</span><span class="p">(</span><span class="n">kDefaultPadding</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsVerticallyWithPadding</span><span class="p">(</span><span class="kt">float</span> <span class="n">padding</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">height</span> <span class="o">=</span> <span class="o">-</span><span class="n">padding</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCNode</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCNode</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">height</span> <span class="o">+=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">height</span> <span class="o">*</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getScaleY</span><span class="p">()</span> <span class="o">+</span> <span class="n">padding</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">float</span> <span class="n">y</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCNode</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCNode</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">height</span> <span class="o">*</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getScaleY</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="p">));</span>
+                <span class="n">y</span> <span class="o">-=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">height</span> <span class="o">*</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getScaleY</span><span class="p">()</span> <span class="o">+</span> <span class="n">padding</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsHorizontally</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">alignItemsHorizontallyWithPadding</span><span class="p">(</span><span class="n">kDefaultPadding</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsHorizontallyWithPadding</span><span class="p">(</span><span class="kt">float</span> <span class="n">padding</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">width</span> <span class="o">=</span> <span class="o">-</span><span class="n">padding</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCNode</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCNode</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">width</span> <span class="o">+=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span> <span class="o">*</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getScaleX</span><span class="p">()</span> <span class="o">+</span> <span class="n">padding</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">float</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCNode</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCNode</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span> <span class="o">*</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getScaleX</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+                 <span class="n">x</span> <span class="o">+=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span> <span class="o">*</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getScaleX</span><span class="p">()</span> <span class="o">+</span> <span class="n">padding</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsInColumns</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">columns</span><span class="p">,</span> <span class="p">...)</span>
+<span class="p">{</span>
+    <span class="kt">va_list</span> <span class="n">args</span><span class="p">;</span>
+    <span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">columns</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">alignItemsInColumns</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+
+    <span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsInColumns</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">columns</span><span class="p">,</span> <span class="kt">va_list</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CCArray</span><span class="o">*</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">CCArray</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">rows</span><span class="o">-&gt;</span><span class="n">addObject</span><span class="p">(</span><span class="n">CCInteger</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">columns</span><span class="p">));</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">alignItemsInColumnsWithArray</span><span class="p">(</span><span class="n">rows</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsInColumnsWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">rowsArray</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">ccarray_to_std_vector</span><span class="p">(</span><span class="n">rowsArray</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rowHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">columnsOccupied</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rowColumns</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCNode</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCNode</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">CCAssert</span><span class="p">(</span><span class="n">row</span> <span class="o">&lt;</span> <span class="n">rows</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+                <span class="n">rowColumns</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="n">row</span><span class="p">];</span>
+                <span class="c1">// can not have zero columns on a row</span>
+                <span class="n">CCAssert</span><span class="p">(</span><span class="n">rowColumns</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+                <span class="kt">float</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">height</span><span class="p">;</span>
+                <span class="n">rowHeight</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)((</span><span class="n">rowHeight</span> <span class="o">&gt;=</span> <span class="n">tmp</span> <span class="o">||</span> <span class="n">isnan</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="o">?</span> <span class="nl">rowHeight</span> <span class="p">:</span> <span class="n">tmp</span><span class="p">);</span>
+
+                <span class="o">++</span><span class="n">columnsOccupied</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">columnsOccupied</span> <span class="o">&gt;=</span> <span class="n">rowColumns</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">height</span> <span class="o">+=</span> <span class="n">rowHeight</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+
+                    <span class="n">columnsOccupied</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">rowHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="o">++</span><span class="n">row</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>    
+
+    <span class="c1">// check if too many rows/columns for available menu items</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="o">!</span> <span class="n">columnsOccupied</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+    <span class="n">CCSize</span> <span class="n">winSize</span> <span class="o">=</span> <span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getWinSize</span><span class="p">();</span>
+
+    <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">rowHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">rowColumns</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)(</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCNode</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCNode</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">rowColumns</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">rowColumns</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="n">row</span><span class="p">];</span>
+                    <span class="n">w</span> <span class="o">=</span> <span class="n">winSize</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rowColumns</span><span class="p">);</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="kt">float</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">height</span><span class="p">;</span>
+                <span class="n">rowHeight</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)((</span><span class="n">rowHeight</span> <span class="o">&gt;=</span> <span class="n">tmp</span> <span class="o">||</span> <span class="n">isnan</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="o">?</span> <span class="nl">rowHeight</span> <span class="p">:</span> <span class="n">tmp</span><span class="p">);</span>
+
+                <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">winSize</span><span class="p">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                                       <span class="n">y</span> <span class="o">-</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">));</span>
+
+                <span class="n">x</span> <span class="o">+=</span> <span class="n">w</span><span class="p">;</span>
+                <span class="o">++</span><span class="n">columnsOccupied</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">columnsOccupied</span> <span class="o">&gt;=</span> <span class="n">rowColumns</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">y</span> <span class="o">-=</span> <span class="n">rowHeight</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+
+                    <span class="n">columnsOccupied</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">rowColumns</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">rowHeight</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="o">++</span><span class="n">row</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>    
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsInRows</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rows</span><span class="p">,</span> <span class="p">...)</span>
+<span class="p">{</span>
+    <span class="kt">va_list</span> <span class="n">args</span><span class="p">;</span>
+    <span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">rows</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">alignItemsInRows</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+
+    <span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsInRows</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rows</span><span class="p">,</span> <span class="kt">va_list</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CCArray</span><span class="o">*</span> <span class="n">pArray</span> <span class="o">=</span> <span class="n">CCArray</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">pArray</span><span class="o">-&gt;</span><span class="n">addObject</span><span class="p">(</span><span class="n">CCInteger</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">rows</span><span class="p">));</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">alignItemsInRowsWithArray</span><span class="p">(</span><span class="n">pArray</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">alignItemsInRowsWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">columnArray</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">ccarray_to_std_vector</span><span class="p">(</span><span class="n">columnArray</span><span class="p">);</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">columnWidths</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">columnHeights</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">columnHeight</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">columnWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rowsOccupied</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">columnRows</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCNode</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCNode</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// check if too many menu items for the amount of rows/columns</span>
+                <span class="n">CCAssert</span><span class="p">(</span><span class="n">column</span> <span class="o">&lt;</span> <span class="n">columns</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+                <span class="n">columnRows</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[</span><span class="n">column</span><span class="p">];</span>
+                <span class="c1">// can&#39;t have zero rows on a column</span>
+                <span class="n">CCAssert</span><span class="p">(</span><span class="n">columnRows</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+                <span class="c1">// columnWidth = fmaxf(columnWidth, [item contentSize].width);</span>
+                <span class="kt">float</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span><span class="p">;</span>
+                <span class="n">columnWidth</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)((</span><span class="n">columnWidth</span> <span class="o">&gt;=</span> <span class="n">tmp</span> <span class="o">||</span> <span class="n">isnan</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="o">?</span> <span class="nl">columnWidth</span> <span class="p">:</span> <span class="n">tmp</span><span class="p">);</span>
+
+                <span class="n">columnHeight</span> <span class="o">+=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">height</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
+                <span class="o">++</span><span class="n">rowsOccupied</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">rowsOccupied</span> <span class="o">&gt;=</span> <span class="n">columnRows</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">columnWidths</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">columnWidth</span><span class="p">);</span>
+                    <span class="n">columnHeights</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">columnHeight</span><span class="p">);</span>
+                    <span class="n">width</span> <span class="o">+=</span> <span class="n">columnWidth</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+
+                    <span class="n">rowsOccupied</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">columnWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">columnHeight</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>
+                    <span class="o">++</span><span class="n">column</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// check if too many rows/columns for available menu items.</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="o">!</span> <span class="n">rowsOccupied</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+    <span class="n">CCSize</span> <span class="n">winSize</span> <span class="o">=</span> <span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getWinSize</span><span class="p">();</span>
+
+    <span class="n">column</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">columnWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">columnRows</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)(</span><span class="o">-</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCNode</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCNode</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">columnRows</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">columnRows</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[</span><span class="n">column</span><span class="p">];</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span> <span class="n">columnHeights</span><span class="p">[</span><span class="n">column</span><span class="p">];</span>
+                <span class="p">}</span>
+
+                <span class="c1">// columnWidth = fmaxf(columnWidth, [item contentSize].width);</span>
+                <span class="kt">float</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span><span class="p">;</span>
+                <span class="n">columnWidth</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)((</span><span class="n">columnWidth</span> <span class="o">&gt;=</span> <span class="n">tmp</span> <span class="o">||</span> <span class="n">isnan</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span> <span class="o">?</span> <span class="nl">columnWidth</span> <span class="p">:</span> <span class="n">tmp</span><span class="p">);</span>
+
+                <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">ccp</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">columnWidths</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                                       <span class="n">y</span> <span class="o">-</span> <span class="n">winSize</span><span class="p">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">));</span>
+
+                <span class="n">y</span> <span class="o">-=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">height</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+                <span class="o">++</span><span class="n">rowsOccupied</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">rowsOccupied</span> <span class="o">&gt;=</span> <span class="n">columnRows</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">x</span> <span class="o">+=</span> <span class="n">columnWidth</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+                    <span class="n">rowsOccupied</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">columnRows</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">columnWidth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="o">++</span><span class="n">column</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 判断触摸点落在哪个“零件”上</span>
+<span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">CCMenu</span><span class="o">::</span><span class="n">itemForTouch</span><span class="p">(</span><span class="n">CCTouch</span> <span class="o">*</span><span class="n">touch</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 获得当前触摸点的OpenGL坐标</span>
+    <span class="n">CCPoint</span> <span class="n">touchLocation</span> <span class="o">=</span> <span class="n">touch</span><span class="o">-&gt;</span><span class="n">getLocation</span><span class="p">();</span>
+
+    <span class="c1">// 遍历所有“零件”</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pChildren</span> <span class="o">&amp;&amp;</span> <span class="n">m_pChildren</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCObject</span><span class="o">*</span> <span class="n">pObject</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="c1">// m_pChildren是所有“零件”的集合，他们是如何排序的呢？在CCNode中，是按照zOrder从大到小排序的，zOrder大的“零件”在前面; zOrder相同的，后添加的在前面，优先判断被摸状态</span>
+        <span class="n">CCARRAY_FOREACH</span><span class="p">(</span><span class="n">m_pChildren</span><span class="p">,</span> <span class="n">pObject</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">pChild</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">CCMenuItem</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pObject</span><span class="p">);</span>
+
+            <span class="c1">// 忽略掉不可见或者被禁用的“零件”</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pChild</span> <span class="o">&amp;&amp;</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">isVisible</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">isEnabled</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="c1">// 将触摸点坐标转换到该“零件”的节点坐标系下</span>
+                <span class="n">CCPoint</span> <span class="n">local</span> <span class="o">=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">convertToNodeSpace</span><span class="p">(</span><span class="n">touchLocation</span><span class="p">);</span>
+
+                <span class="c1">// 得到“零件”的矩形轮廓, (0, 0, width, height)</span>
+                <span class="n">CCRect</span> <span class="n">r</span> <span class="o">=</span> <span class="n">pChild</span><span class="o">-&gt;</span><span class="n">rect</span><span class="p">();</span>
+                <span class="n">r</span><span class="p">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">CCPointZero</span><span class="p">;</span>
+
+                <span class="c1">// 判断触摸点转换为“零件”的节点坐标之后，是否在矩形轮廓内</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">containsPoint</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="c1">// 在，那就是这个“零件”被摸了，返回它</span>
+                    <span class="k">return</span> <span class="n">pChild</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">NS_CC_END</span>
+</code></pre></div>
+<p>可以看到CCMenu的实现还是比较清晰、简单的，它本身作为一个CCMenuItem的容器，响应单点触摸事件，判断哪个item被点击，并调用其对应方法完成菜单消息响应，核心在于对触摸事件的处理，坐标点的判断。</p>
+
+<h2>点击缩放功能的菜单按钮</h2>
+
+<p>在实际的游戏开发中，最常用的CCMenuItem要属CCMenuItemImage了，在HelloWorld的Demo中可以看到，要创建一个关闭按钮通常是这样写：</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">CCMenuItemImage</span> <span class="o">*</span><span class="n">pCloseItem</span> <span class="o">=</span> <span class="n">CCMenuItemImage</span><span class="o">::</span><span class="n">create</span><span class="p">(</span>
+                                        <span class="s">&quot;CloseNormal.png&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;CloseSelected.png&quot;</span><span class="p">,</span>
+                                        <span class="k">this</span><span class="p">,</span>
+                                        <span class="n">menu_selector</span><span class="p">(</span><span class="n">HelloWorld</span><span class="o">::</span><span class="n">menuCloseCallback</span><span class="p">));</span>
+</code></pre></div>
+<p>其中用到了两张图片，第一张是按钮在正常状态下的图片，第二张是被点击时候的选中状态的图片。如果两种状态下按钮的图片是相近的那最好就只用一张，正常和选中都用同一个图片，然后在按钮被按下的时候让它有一个放大的效果，恢复正常之后再自动恢复原来的缩放。这样就节省了一张图片素材。</p>
+
+<p>那么如果要实现一个点击缩放的菜单按钮该如何做呢？</p>
+
+<p>我们知道CCMenuItemLabel在被选中的时候是有一个缩放效果的，它的selected和unselected方法是这样：</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">CCMenuItemLabel</span><span class="o">::</span><span class="n">selected</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">m_bEnabled</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCMenuItem</span><span class="o">::</span><span class="n">selected</span><span class="p">();</span>
+
+        <span class="n">CCAction</span> <span class="o">*</span><span class="n">action</span> <span class="o">=</span> <span class="n">getActionByTag</span><span class="p">(</span><span class="n">kZoomActionTag</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">stopAction</span><span class="p">(</span><span class="n">action</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">m_fOriginalScale</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getScale</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 缩放到原始尺寸的1.2倍</span>
+        <span class="n">CCAction</span> <span class="o">*</span><span class="n">zoomAction</span> <span class="o">=</span> <span class="n">CCScaleTo</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mf">0.1f</span><span class="p">,</span> <span class="n">m_fOriginalScale</span> <span class="o">*</span> <span class="mf">1.2f</span><span class="p">);</span>
+        <span class="n">zoomAction</span><span class="o">-&gt;</span><span class="n">setTag</span><span class="p">(</span><span class="n">kZoomActionTag</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">zoomAction</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">CCMenuItemLabel</span><span class="o">::</span><span class="n">unselected</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">m_bEnabled</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">CCMenuItem</span><span class="o">::</span><span class="n">unselected</span><span class="p">();</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">stopActionByTag</span><span class="p">(</span><span class="n">kZoomActionTag</span><span class="p">);</span>
+        <span class="c1">// 缩放回原来的尺寸</span>
+        <span class="n">CCAction</span> <span class="o">*</span><span class="n">zoomAction</span> <span class="o">=</span> <span class="n">CCScaleTo</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mf">0.1f</span><span class="p">,</span> <span class="n">m_fOriginalScale</span><span class="p">);</span>
+        <span class="n">zoomAction</span><span class="o">-&gt;</span><span class="n">setTag</span><span class="p">(</span><span class="n">kZoomActionTag</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">zoomAction</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>按照相同的处理方式，我可以copy一份CCMenuItemImage的实现，改个名字，然后按照CCMenuItemLabel的方式重写selected和unselected方法就可以实现和CCMenuItemLabel同样的缩放效果，但是这里会有一个问题，我实现了一个新的CCMenuItemImage达到了缩放的效果，那对于它的父类CCMenuItemSprite呢，其实跟CCMenuItemImage是一个东西，只是创建方式是传入Sprite，而不是纹理的名字，对于它也要缩放，那还要实现一遍CCMenuItemSprite的翻版，对于新定义的按钮，要缩放也要重写selected和unseleceted，加入的内容也都是相同的，即CCScaleTo的action动作。与其每个CCMenuItem的子类都重写一遍加入缩放代码，还不如在顶层只搞一次。顶层在哪里，我们从CCMenu的源码中已经看到，是CCMenu的触摸响应里调用的CCMenuItem的selected和unseleceted等方法，那么干脆在CCMenu里加上缩放行不行。</p>
+
+<p>下面我自己copy了一份CCMenu的实现，改名为Menu，为避免名字冲突放在一个单独的命名空间里，暂且叫这个namespace为<code>elloop</code>.</p>
+
+<p>下面就是这个Menu类的实现代码：</p>
+
+<p><strong>自定义菜单类Menu.h, 仅列出改动的部分，其它部分跟CCMenu.h是一样的:</strong></p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#ifndef CPP_DEMO_CUSTOM_MENU_H</span>
+<span class="cp">#define CPP_DEMO_CUSTOM_MENU_H</span>
+
+<span class="cp">#include &quot;cocos2d.h&quot;</span>
+<span class="cp">#include &quot;cocos_include.h&quot;</span>
+
+
+<span class="n">NS_BEGIN</span><span class="p">(</span><span class="n">elloop</span><span class="p">);</span>           <span class="c1">// namespace elloop {</span>
+
+
+<span class="c1">// 这枚举去掉了 CC， 避免与CCMenu中同名枚举混淆</span>
+<span class="k">typedef</span> <span class="k">enum</span>  
+<span class="p">{</span>
+    <span class="n">kMenuStateWaiting</span><span class="p">,</span>          
+    <span class="n">kMenuStateTrackingTouch</span>
+<span class="p">}</span> <span class="n">tMenuState</span><span class="p">;</span>
+
+
+<span class="k">enum</span> <span class="p">{</span>
+    <span class="n">kMenuHandlerPriority</span> <span class="o">=</span> <span class="o">-</span><span class="mi">128</span><span class="p">,</span>            <span class="c1">// 去掉了kCCMenuHandlerPriority里面的CC</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Menu</span> <span class="o">:</span> <span class="k">public</span> <span class="n">cocos2d</span><span class="o">::</span><span class="n">CCLayerRGBA</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// 添加了一个缩放成员变量, 其它部分跟CCMenu.h内容完全一致</span>
+    <span class="n">Menu</span><span class="p">()</span> <span class="o">:</span> <span class="n">m_pSelectedItem</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">itemOriginScale_</span><span class="p">(</span><span class="mf">1.f</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">protected</span><span class="o">:</span>
+    <span class="kt">float</span>                   <span class="n">itemOriginScale_</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">NS_END</span><span class="p">(</span><span class="n">elloop</span><span class="p">);</span>    <span class="c1">// }  end of namespace elloop</span>
+
+<span class="cp">#endif</span><span class="c1">//CPP_DEMO_CUSTOM_MENU_H</span>
+</code></pre></div>
+<p><strong>自定义缩放按钮实现文件：Menu.cpp, 也仅列出改变的部分</strong></p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">NS_BEGIN</span><span class="p">(</span><span class="n">elloop</span><span class="p">);</span>
+
+<span class="kt">bool</span> <span class="n">Menu</span><span class="o">::</span><span class="n">ccTouchBegan</span><span class="p">(</span><span class="n">CCTouch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_eState</span> <span class="o">!=</span> <span class="n">kMenuStateWaiting</span> <span class="o">||</span> <span class="o">!</span><span class="n">m_bVisible</span> <span class="o">||</span> <span class="o">!</span><span class="n">m_bEnabled</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">CCNode</span> <span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">m_pParent</span><span class="p">;</span> <span class="n">c</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">getParent</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">isVisible</span><span class="p">()</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">m_pSelectedItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">itemForTouch</span><span class="p">(</span><span class="n">touch</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_eState</span> <span class="o">=</span> <span class="n">kMenuStateTrackingTouch</span><span class="p">;</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">selected</span><span class="p">();</span>
+
+        <span class="c1">// begin : 控制CCMenuItem缩放的代码</span>
+        <span class="n">itemOriginScale_</span> <span class="o">=</span> <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">getScale</span><span class="p">();</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">itemOriginScale_</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">);</span>
+        <span class="c1">// end</span>
+
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Menu</span><span class="o">::</span><span class="n">ccTouchEnded</span><span class="p">(</span><span class="n">CCTouch</span> <span class="o">*</span><span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">touch</span><span class="p">);</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="n">m_eState</span> <span class="o">==</span> <span class="n">kMenuStateTrackingTouch</span><span class="p">,</span> <span class="s">&quot;[Menu ccTouchEnded] -- invalid state&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">unselected</span><span class="p">();</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">activate</span><span class="p">();</span>
+
+        <span class="c1">// begin : 控制CCMenuItem缩放的代码</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">itemOriginScale_</span><span class="p">);</span>
+        <span class="c1">// end</span>
+    <span class="p">}</span>
+    <span class="n">m_eState</span> <span class="o">=</span> <span class="n">kMenuStateWaiting</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Menu</span><span class="o">::</span><span class="n">ccTouchCancelled</span><span class="p">(</span><span class="n">CCTouch</span> <span class="o">*</span><span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">touch</span><span class="p">);</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="n">m_eState</span> <span class="o">==</span> <span class="n">kMenuStateTrackingTouch</span><span class="p">,</span> <span class="s">&quot;[Menu ccTouchCancelled] -- invalid state&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">unselected</span><span class="p">();</span>
+
+        <span class="c1">// begin : 控制CCMenuItem缩放的代码</span>
+        <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">itemOriginScale_</span><span class="p">);</span>
+        <span class="c1">// end</span>
+    <span class="p">}</span>
+    <span class="n">m_eState</span> <span class="o">=</span> <span class="n">kMenuStateWaiting</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Menu</span><span class="o">::</span><span class="n">ccTouchMoved</span><span class="p">(</span><span class="n">CCTouch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+    <span class="n">CCAssert</span><span class="p">(</span><span class="n">m_eState</span> <span class="o">==</span> <span class="n">kMenuStateTrackingTouch</span><span class="p">,</span> <span class="s">&quot;[Menu ccTouchMoved] -- invalid state&quot;</span><span class="p">);</span>
+    <span class="n">CCMenuItem</span> <span class="o">*</span><span class="n">currentItem</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">itemForTouch</span><span class="p">(</span><span class="n">touch</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">currentItem</span> <span class="o">!=</span> <span class="n">m_pSelectedItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">unselected</span><span class="p">();</span>
+
+            <span class="c1">// begin : 控制CCMenuItem缩放的代码</span>
+            <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">itemOriginScale_</span><span class="p">);</span>
+            <span class="c1">// end</span>
+        <span class="p">}</span>
+        <span class="n">m_pSelectedItem</span> <span class="o">=</span> <span class="n">currentItem</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_pSelectedItem</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">selected</span><span class="p">();</span>
+
+            <span class="c1">// begin : 控制CCMenuItem缩放的代码</span>
+            <span class="n">itemOriginScale_</span> <span class="o">=</span> <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">getScale</span><span class="p">();</span>
+            <span class="n">m_pSelectedItem</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">itemOriginScale_</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">);</span>
+            <span class="c1">// end</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">NS_END</span><span class="p">(</span><span class="n">elloop</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>自定义菜单类的使用方法</strong></p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// 正常的方式来创建三个CCMenuItem, 两个CCMenuItemImage, 一个CCMenuItemLabel</span>
+<span class="c1">// 从左到右水平排列</span>
+
+<span class="k">auto</span> <span class="n">menuItemImage1</span> <span class="o">=</span> <span class="n">CCMenuItemImage</span><span class="o">::</span><span class="n">create</span><span class="p">(</span>
+        <span class="s">&quot;DemoIcon/home_small.png&quot;</span><span class="p">,</span> <span class="s">&quot;DemoIcon/home_small.png&quot;</span><span class="p">,</span>
+        <span class="k">this</span><span class="p">,</span><span class="n">menu_selector</span><span class="p">(</span><span class="n">TouchTestPage</span><span class="o">::</span><span class="n">menuCallback</span><span class="p">));</span>
+
+<span class="k">auto</span> <span class="n">menuItemImage2</span> <span class="o">=</span> <span class="n">CCMenuItemImage</span><span class="o">::</span><span class="n">create</span><span class="p">(</span>
+        <span class="s">&quot;DemoIcon/home_small.png&quot;</span><span class="p">,</span> <span class="s">&quot;DemoIcon/home_small.png&quot;</span><span class="p">,</span>
+        <span class="k">this</span><span class="p">,</span> <span class="n">menu_selector</span><span class="p">(</span><span class="n">TouchTestPage</span><span class="o">::</span><span class="n">menuCallback</span><span class="p">));</span>
+
+<span class="n">menuItemImage2</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">CCPoint</span><span class="p">(</span><span class="n">menuItemImage1</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span><span class="p">,</span> 
+            <span class="mi">0</span><span class="p">));</span>
+
+<span class="k">auto</span> <span class="n">label</span> <span class="o">=</span> <span class="n">CCLabelTTF</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;arial.ttf&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<span class="k">auto</span> <span class="n">menuItemLabel</span> <span class="o">=</span> <span class="n">CCMenuItemLabel</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">label</span><span class="p">);</span>
+<span class="n">menuItemLabel</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">CCPoint</span><span class="p">(</span><span class="n">menuItemImage2</span><span class="o">-&gt;</span><span class="n">getPositionX</span><span class="p">()</span> <span class="o">+</span> <span class="n">menuItemImage1</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+
+<span class="c1">// 指定使用elloop命名空间下的Menu.</span>
+<span class="k">using</span> <span class="n">elloop</span><span class="o">::</span><span class="n">Menu</span><span class="p">;</span>
+<span class="c1">// Menu的创建方式跟CCMenu的创建方式完全一样</span>
+<span class="n">Menu</span> <span class="o">*</span><span class="n">menu</span> <span class="o">=</span> <span class="n">Menu</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">menuItemImage1</span><span class="p">,</span> <span class="n">menuItemImage2</span><span class="p">,</span> <span class="n">menuItemLabel</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+<span class="n">ADD_CHILD</span><span class="p">(</span><span class="n">menu</span><span class="p">);</span>
+</code></pre></div>
+<p>代码中之所以加上一个CCMenuItemLabel类型的按钮是为了测试，本身就带有缩放功能的CCMenuItem会不会和带有缩放功能的Menu父容器产生冲突，是否会产生叠加放大的效果？</p>
+
+<p>下面是运行截图：</p>
+
+<p><img src="http://7xi3zl.com1.z0.glb.clouddn.com/CustomMenu.gif" alt="CustomMenu"></p>
+
+<p>从图中能看到，两个CCMenuItemImage是可以实现自动缩放效果的，CCMenuItemLabel的缩放动作也没有与Menu的缩放发生冲突(这是为什么？涉及到Action的更新，在后面总结到动作系统的时候再做出分析)。</p>
+
+<p>此外，如果觉得Menu固定的把CCMenuItem放大到1.2不够灵活，可以把数字抽离成一个成员变量，并设置setter来灵活控制缩放比例.</p>
+
+<p>测试的代码，跟上一篇文章的代码放在了一起，在TouchTestPage.cpp中。感兴趣的朋友可以到代码仓库瞅瞅。</p>
+
+<h2><font color="red">源码</font></h2>
+
+<ul>
+<li><p><a href="https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/customs/Menu.cpp">缩放按钮Menu的实现</a></p></li>
+<li><p><a href="https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp">缩放按钮Menu的使用范例</a></p></li>
+</ul>
 
 <hr>
 
@@ -361,7 +1258,7 @@ var _hmt = _hmt || [];
   
      
     	<li><a href="/categories.html#cocos2d-x-ref">
-    		cocos2d-x <span>12</span>
+    		cocos2d-x <span>13</span>
     	</a></li>
     
   
@@ -380,9 +1277,9 @@ var _hmt = _hmt || [];
   
   
      
-    	<li><a href="/tags.html#cocos2d-x-ref">cocos2d-x <span>12</span></a></li>
+    	<li><a href="/tags.html#cocos2d-x-ref">cocos2d-x <span>13</span></a></li>
      
-    	<li><a href="/tags.html#game-ref">game <span>5</span></a></li>
+    	<li><a href="/tags.html#game-ref">game <span>6</span></a></li>
     
   
 
@@ -401,7 +1298,7 @@ var _hmt = _hmt || [];
     
       <li><a href="/archive.html">Archive</a></li>
     
-      <li class="next disabled"><a>Next &rarr;</a>
+      <li class="next"><a href="/cocos2d-x/2015-12-12/cocos2dx-3d-3-fram-loop" title="【cocos2d-x 3D游戏开发】3: 游戏帧循环">Next &raquo;</a></li>
     
     </ul>
     <hr>

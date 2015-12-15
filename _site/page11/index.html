@@ -183,6 +183,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -220,6 +224,40 @@
 <!--
 <ul class="posts">
    
+    <li><span>01 Dec 2013</span> &raquo; <a href="/c++/cocos2d-x/2013-12-01/cocos2d-x-basic">掌握Cocos2d-x--1.基本概念</a></li>
+    
+    <p style="background: color"><h2>渲染</h2>
+
+<ul>
+<li>OpenGL ES 2.0</li>
+</ul>
+
+<h2>coordinate</h2>
+
+<ul>
+<li><p>第一种划分方式</p>
+
+<ul>
+<li><em>OpenGL坐标系</em>
+cocos2d-x使用的是OpenGL坐标系，跟数学里的数轴x，y方向一致。</li>
+<li><em>屏幕坐标系</em>
+x轴向右，y轴向下。注意：触摸时间Touch传入的位置信息使用的是屏幕坐标，cocos会把触摸点坐标转换为OpenGL坐标。</li>
+<li><em>转换</em>
+
+<ul>
+<li>convertToUI(): GL -&gt; UI屏幕</li>
+<li>convertToGL(): UI屏幕 -&gt; GL</li>
+<li>Touch: 
+
+<ul>
+<li>getLocation() : 获得GL坐标</li>
+<li>getLocatinInView(): 获得UI坐标</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</p>
+   
     <li><span>25 Nov 2013</span> &raquo; <a href="/cocos2d-x/2013-11-25/cocos2d-x-faq">Cocos2d-x 常见问题及解决方案</a></li>
     
     <p style="background: color"><h2>总论</h2>
@@ -234,9 +272,15 @@
 
 <h2>界面渲染</h2>
 
-<p><strong>Q1</strong>: removeAllChildren()和removeAllChildrenWithCleanup(bool)有何区别？</p>
+<p><strong>1</strong>: removeAllChildren()和removeAllChildrenWithCleanup(bool)有何区别？</p>
 
-<p><strong>A1</strong>: removeAllChildren() == removeAllChildrenWithCleanup(true).</p>
+<p><strong>A</strong>: removeAllChildren() == removeAllChildrenWithCleanup(true).</p>
+
+<p><strong>2.  帧循环过程及同步、异步调用何时何地发生</strong></p>
+
+<p>比如，我对一个子节点调用一个函数f(), 在f内，让子节点runAction(ScaleTo(0.1, 1.2)), 紧接着在调用f()下面的代码里设置子节点的缩放到1.5, 那么最后的缩放会是多大？1.2 还是1.5, runAction的动作执行一定是在f()调用发生后那段代码之后执行吗？它是在下一帧才开始执行scaleto动作吗？</p>
+
+<p><strong>A:</strong> </p>
 </p>
    
     <li><span>19 Oct 2013</span> &raquo; <a href="/windows/2013-10-19/windows-programming">Windows Programming Accumulation</a></li>
@@ -377,35 +421,56 @@
 
 <h2>勤于<code>总结</code>，尽早开始<code>写博客</code>，知识是总结、积累起来的。</h2>
 </p>
-   
-    <li><span>22 Sep 2013</span> &raquo; <a href="/c++/2013-09-22/cpp-skills">c++零散知识总结</a></li>
-    
-    <p style="background: color"><h2>Traps</h2>
-
-<h3>类的static member variables不能在构造函数的初始化列表里初始化</h3>
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">CustomParticleTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">cocos2d</span><span class="o">::</span><span class="n">ParticleSystemQuad</span> <span class="p">{</span>
-
-    <span class="k">public</span><span class="o">:</span>
-        <span class="c1">// fail to compile.</span>
-        <span class="c1">// CustomParticleTest(int particleNum = 350) : s_particleNum(particleNum) {}</span>
-
-        <span class="c1">// this is ok.</span>
-        <span class="n">CustomParticleTest</span><span class="p">(</span><span class="kt">int</span> <span class="n">particleNum</span> <span class="o">=</span> <span class="mi">350</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">s_particleNum</span> <span class="o">=</span> <span class="n">particleNum</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="o">~</span><span class="n">CustomParticleTest</span><span class="p">()</span> <span class="p">{}</span>
-        <span class="k">static</span> <span class="n">CustomParticleTest</span> <span class="o">*</span> <span class="n">create</span><span class="p">();</span>
-        <span class="kt">bool</span> <span class="nf">initWithTotalParticles</span><span class="p">(</span><span class="kt">int</span> <span class="n">numberOfParticles</span><span class="p">);</span>
-    <span class="k">private</span><span class="o">:</span>
-        <span class="k">static</span> <span class="kt">int</span> <span class="n">s_particleNum</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div></p>
   
 </ul>
 -->
 
 
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/c++/cocos2d-x/2013-12-01/cocos2d-x-basic">掌握Cocos2d-x--1.基本概念</a>
+    	</h2>
+        <!-- Sunday 01 December 2013 -->
+        01 Dec 2013
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p><h2>渲染</h2>
+
+<ul>
+<li>OpenGL ES 2.0</li>
+</ul>
+
+<h2>coordinate</h2>
+
+<ul>
+<li>第一种划分方式
+
+<ul>
+<li><em>OpenGL坐标系</em>
+cocos2d-x使用的是OpenGL坐标系，跟数学里的数轴x，y方向一致。</li>
+<li><em>屏幕坐标系</em>
+x轴向右，y轴向下。注意：触摸时间Touch传入的位置信息使用的是屏幕坐标，cocos会把触摸点坐标转换为OpenGL坐标。</li>
+<li><em>转换</em>
+
+<ul>
+<li>convertToUI(): GL -&gt; UI屏幕</li>
+<li>convertToGL(): UI屏幕 -&gt; GL</li>
+<li>Touch: 
+
+<ul>
+<li>getLocation() : 获得GL坐标</li>
+<li>getLocatinInView(): 获得UI坐标</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+...</p>
+    	<p><a href="/c++/cocos2d-x/2013-12-01/cocos2d-x-basic">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
 
 <!-- <div class="hero-unit"> -->
   <div class="posts">
@@ -428,9 +493,15 @@
 
 <h2>界面渲染</h2>
 
-<strong>Q1</strong>: removeAllChildren()和removeAllChildrenWithCleanup(bool)有何区别？
+<strong>1</strong>: removeAllChildren()和removeAllChildrenWithCleanup(bool)有何区别？
 
-<strong>A1</strong>: removeAllChildren() == removeAllChildrenWithCleanup(true).
+<strong>A</strong>: removeAllChildren() == removeAllChildrenWithCleanup(true).
+
+<strong>2.  帧循环过程及同步、异步调用何时何地发生</strong>
+
+比如，我对一个子节点调用一个函数f(), 在f内，让子节点runAction(ScaleTo(0.1, 1.2)), 紧接着在调用f()下面的代码里设置子节点的缩放到1.5, 那么最后的缩放会是多大？1.2 还是1.5, runAction的动作执行一定是在f()调用发生后那段代码之后执行吗？它是在下一帧才开始执行scaleto动作吗？
+
+<strong>A:</strong> 
 ...</p>
     	<p><a href="/cocos2d-x/2013-11-25/cocos2d-x-faq">阅读全文 ...</a></p> 
     </p>
@@ -609,41 +680,6 @@ sizeof 是一个语言内置的操作符，返回一个对象或者类型所占�
     <hr/>
   </div>
 
-<!-- <div class="hero-unit"> -->
-  <div class="posts">
-    <p>
-    	<h2>
-    		<a href="/c++/2013-09-22/cpp-skills">c++零散知识总结</a>
-    	</h2>
-        <!-- Sunday 22 September 2013 -->
-        22 Sep 2013
-        <!-- { post.content | strip_html | truncatewords: 35 }}-->
-        <p><h2>Traps</h2>
-
-<h3>类的static member variables不能在构造函数的初始化列表里初始化</h3>
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">CustomParticleTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">cocos2d</span><span class="o">::</span><span class="n">ParticleSystemQuad</span> <span class="p">{</span>
-
-    <span class="k">public</span><span class="o">:</span>
-        <span class="c1">// fail to compile.</span>
-        <span class="c1">// CustomParticleTest(int particleNum = 350) : s_particleNum(particleNum) {}</span>
-
-        <span class="c1">// this is ok.</span>
-        <span class="n">CustomParticleTest</span><span class="p">(</span><span class="kt">int</span> <span class="n">particleNum</span> <span class="o">=</span> <span class="mi">350</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">s_particleNum</span> <span class="o">=</span> <span class="n">particleNum</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="o">~</span><span class="n">CustomParticleTest</span><span class="p">()</span> <span class="p">{}</span>
-        <span class="k">static</span> <span class="n">CustomParticleTest</span> <span class="o">*</span> <span class="n">create</span><span class="p">();</span>
-        <span class="kt">bool</span> <span class="nf">initWithTotalParticles</span><span class="p">(</span><span class="kt">int</span> <span class="n">numberOfParticles</span><span class="p">);</span>
-    <span class="k">private</span><span class="o">:</span>
-        <span class="k">static</span> <span class="kt">int</span> <span class="n">s_particleNum</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>...</p>
-    	<p><a href="/c++/2013-09-22/cpp-skills">阅读全文 ...</a></p> 
-    </p>
-    <hr/>
-  </div>
-
 
 
 
@@ -711,6 +747,10 @@ sizeof 是一个语言内置的操作符，返回一个对象或者类型所占�
   
     
       <li><a href="/page15">15</a></li>
+    
+  
+    
+      <li><a href="/page16">16</a></li>
     
   
 

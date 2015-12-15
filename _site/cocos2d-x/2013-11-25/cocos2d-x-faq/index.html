@@ -184,6 +184,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -248,9 +252,15 @@ var _hmt = _hmt || [];
 
 <h2>界面渲染</h2>
 
-<p><strong>Q1</strong>: removeAllChildren()和removeAllChildrenWithCleanup(bool)有何区别？</p>
+<p><strong>1</strong>: removeAllChildren()和removeAllChildrenWithCleanup(bool)有何区别？</p>
 
-<p><strong>A1</strong>: removeAllChildren() == removeAllChildrenWithCleanup(true).</p>
+<p><strong>A</strong>: removeAllChildren() == removeAllChildrenWithCleanup(true).</p>
+
+<p><strong>2.  帧循环过程及同步、异步调用何时何地发生</strong></p>
+
+<p>比如，我对一个子节点调用一个函数f(), 在f内，让子节点runAction(ScaleTo(0.1, 1.2)), 紧接着在调用f()下面的代码里设置子节点的缩放到1.5, 那么最后的缩放会是多大？1.2 还是1.5, runAction的动作执行一定是在f()调用发生后那段代码之后执行吗？它是在下一帧才开始执行scaleto动作吗？</p>
+
+<p><strong>A:</strong> </p>
 
     </div>
 
@@ -264,7 +274,7 @@ var _hmt = _hmt || [];
   
      
     	<li><a href="/categories.html#cocos2d-x-ref">
-    		cocos2d-x <span>12</span>
+    		cocos2d-x <span>13</span>
     	</a></li>
     
   
@@ -283,7 +293,7 @@ var _hmt = _hmt || [];
   
   
      
-    	<li><a href="/tags.html#cocos2d-x-ref">cocos2d-x <span>12</span></a></li>
+    	<li><a href="/tags.html#cocos2d-x-ref">cocos2d-x <span>13</span></a></li>
     
   
 

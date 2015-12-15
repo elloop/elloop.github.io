@@ -183,6 +183,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -219,6 +223,30 @@
 
 <!--
 <ul class="posts">
+   
+    <li><span>22 Sep 2013</span> &raquo; <a href="/c++/2013-09-22/cpp-skills">c++零散知识总结</a></li>
+    
+    <p style="background: color"><h2>Traps</h2>
+
+<h3>类的static member variables不能在构造函数的初始化列表里初始化</h3>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">CustomParticleTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">cocos2d</span><span class="o">::</span><span class="n">ParticleSystemQuad</span> <span class="p">{</span>
+
+    <span class="k">public</span><span class="o">:</span>
+        <span class="c1">// fail to compile.</span>
+        <span class="c1">// CustomParticleTest(int particleNum = 350) : s_particleNum(particleNum) {}</span>
+
+        <span class="c1">// this is ok.</span>
+        <span class="n">CustomParticleTest</span><span class="p">(</span><span class="kt">int</span> <span class="n">particleNum</span> <span class="o">=</span> <span class="mi">350</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">s_particleNum</span> <span class="o">=</span> <span class="n">particleNum</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="o">~</span><span class="n">CustomParticleTest</span><span class="p">()</span> <span class="p">{}</span>
+        <span class="k">static</span> <span class="n">CustomParticleTest</span> <span class="o">*</span> <span class="n">create</span><span class="p">();</span>
+        <span class="kt">bool</span> <span class="nf">initWithTotalParticles</span><span class="p">(</span><span class="kt">int</span> <span class="n">numberOfParticles</span><span class="p">);</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="k">static</span> <span class="kt">int</span> <span class="n">s_particleNum</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></p>
    
     <li><span>21 Sep 2013</span> &raquo; <a href="/c++/2013-09-21/google-cpp-styles">Google C++编程风格</a></li>
     
@@ -271,50 +299,46 @@
 xcopy /Y /Q <span class="s2">&quot;$(EngineRoot)external\websockets\prebuilt\win32\*.*&quot;</span> <span class="s2">&quot;$(OutDir)&quot;</span>
 xcopy <span class="s2">&quot;$(ProjectDir)..\Resources&quot;</span> <span class="s2">&quot;$(OutDir)&quot;</span> /D /E /I /F /Y
 </code></pre></div></p>
-   
-    <li><span>10 Jun 2013</span> &raquo; <a href="/linux/2013-06-10/shell-command">常用Shell命令总结</a></li>
-    
-    <p style="background: color"><p><em>本文总结的命令均以zsh为操作环境</em></p>
-
-<h1>终极解决方案 man <command></h1>
-
-<h1>文件目录操作类</h1>
-
-<h1>查看、预览</h1>
-
-<h1>日期、时间</h1>
-
-<h2>linux按照时间查找文件</h2>
-
-<p>需要用到一个根据最后修改时间来处理的脚本。 </p>
-
-<p>linux 文件的三种时间(以 find 为例): 
-atime 最后一次访问时间, 如 ls, more 等, 但 chmod, chown, ls, stat 等不会修改些时间, 使用 ls -utl 可以按此时间顺序查看; 
-ctime 最后一次状态修改时间, 如 chmod, chown 等状态时间改变但修改时间不会改变, 使用 stat file 可以查看; 
-mtime 最后一次内容修改时间, 如 vi 保存后等, 修改时间发生改变的话, atime 和 ctime 也相应跟着发生改变. </p>
-
-<p>综上，只要文件有修改，那么ctime就会变。 
-find ./ -ctime -1 当前目录一天之内修改过的文件 
-find ./ -cmin -5 当前目录5分钟内修改过的文件 </p>
-
-<p>再加强下，统计当前目录20分钟内修改过的css文件的行数 
-find ./ -cmin -20 -name &quot;*.css&quot; |wc -l </p>
-
-<p>然后有时候，你在find的时候，不想查找某些子目录，比如图片 
-单个目录   <a href="http://www.2cto.com">www.2cto.com</a><br>
-find /web -path &quot;/web/picture&quot;  -prune -o -name &quot;<em>.jsp&quot; 
-两个目录 
-find /web ( -path /web/picture -o -path /web/p2 ) -prune -o -name &quot;</em>.jsp&quot; 
-多个目录 
-find /web ( -path /web/picture -o -path /web/p2 -o -path /web/p3 ) -prune -o -name &quot;*.jsp&quot;</p>
-
-<hr>
-</p>
   
 </ul>
 -->
 
 
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/c++/2013-09-22/cpp-skills">c++零散知识总结</a>
+    	</h2>
+        <!-- Sunday 22 September 2013 -->
+        22 Sep 2013
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p><h2>Traps</h2>
+
+<h3>类的static member variables不能在构造函数的初始化列表里初始化</h3>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">CustomParticleTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">cocos2d</span><span class="o">::</span><span class="n">ParticleSystemQuad</span> <span class="p">{</span>
+
+    <span class="k">public</span><span class="o">:</span>
+        <span class="c1">// fail to compile.</span>
+        <span class="c1">// CustomParticleTest(int particleNum = 350) : s_particleNum(particleNum) {}</span>
+
+        <span class="c1">// this is ok.</span>
+        <span class="n">CustomParticleTest</span><span class="p">(</span><span class="kt">int</span> <span class="n">particleNum</span> <span class="o">=</span> <span class="mi">350</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">s_particleNum</span> <span class="o">=</span> <span class="n">particleNum</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="o">~</span><span class="n">CustomParticleTest</span><span class="p">()</span> <span class="p">{}</span>
+        <span class="k">static</span> <span class="n">CustomParticleTest</span> <span class="o">*</span> <span class="n">create</span><span class="p">();</span>
+        <span class="kt">bool</span> <span class="nf">initWithTotalParticles</span><span class="p">(</span><span class="kt">int</span> <span class="n">numberOfParticles</span><span class="p">);</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="k">static</span> <span class="kt">int</span> <span class="n">s_particleNum</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>...</p>
+    	<p><a href="/c++/2013-09-22/cpp-skills">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
 
 <!-- <div class="hero-unit"> -->
   <div class="posts">
@@ -412,56 +436,6 @@ xcopy <span class="s2">&quot;$(ProjectDir)..\Resources&quot;</span> <span class=
     <hr/>
   </div>
 
-<!-- <div class="hero-unit"> -->
-  <div class="posts">
-    <p>
-    	<h2>
-    		<a href="/linux/2013-06-10/shell-command">常用Shell命令总结</a>
-    	</h2>
-        <!-- Monday 10 June 2013 -->
-        10 Jun 2013
-        <!-- { post.content | strip_html | truncatewords: 35 }}-->
-        <p><em>本文总结的命令均以zsh为操作环境</em>
-
-<h1>终极解决方案 man <command></h1>
-
-<h1>文件目录操作类</h1>
-
-<h1>查看、预览</h1>
-
-<h1>日期、时间</h1>
-
-<h2>linux按照时间查找文件</h2>
-
-需要用到一个根据最后修改时间来处理的脚本。 
-
-linux 文件的三种时间(以 find 为例): 
-atime 最后一次访问时间, 如 ls, more 等, 但 chmod, chown, ls, stat 等不会修改些时间, 使用 ls -utl 可以按此时间顺序查看; 
-ctime 最后一次状态修改时间, 如 chmod, chown 等状态时间改变但修改时间不会改变, 使用 stat file 可以查看; 
-mtime 最后一次内容修改时间, 如 vi 保存后等, 修改时间发生改变的话, atime 和 ctime 也相应跟着发生改变. 
-
-综上，只要文件有修改，那么ctime就会变。 
-find ./ -ctime -1 当前目录一天之内修改过的文件 
-find ./ -cmin -5 当前目录5分钟内修改过的文件 
-
-再加强下，统计当前目录20分钟内修改过的css文件的行数 
-find ./ -cmin -20 -name &quot;*.css&quot; |wc -l 
-
-然后有时候，你在find的时候，不想查找某些子目录，比如图片 
-单个目录   <a href="http://www.2cto.com">www.2cto.com</a><br>
-find /web -path &quot;/web/picture&quot;  -prune -o -name &quot;<em>.jsp&quot; 
-两个目录 
-find /web ( -path /web/picture -o -path /web/p2 ) -prune -o -name &quot;</em>.jsp&quot; 
-多个目录 
-find /web ( -path /web/picture -o -path /web/p2 -o -path /web/p3 ) -prune -o -name &quot;*.jsp&quot;
-
-<hr>
-...</p>
-    	<p><a href="/linux/2013-06-10/shell-command">阅读全文 ...</a></p> 
-    </p>
-    <hr/>
-  </div>
-
 
 
 
@@ -529,6 +503,10 @@ find /web ( -path /web/picture -o -path /web/p2 -o -path /web/p3 ) -prune -o -na
   
     
       <li><a href="/page15">15</a></li>
+    
+  
+    
+      <li><a href="/page16">16</a></li>
     
   
 

@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>【cocos2d-x 3D游戏开发】3: 游戏帧循环</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>【cocos2d-x 3D游戏开发】3: 游戏帧循环 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>12 December 2015</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h2>前言</h2>
+
+<p>高实时性是游戏区别于传统软件、应用的一个重要特征，游戏里通常有一个比较高频率的循环在处理用户输入、物理逻辑更新、业务逻辑更新以及图形渲染等工作, 以保证这种实时性的要求。我们把每一次循环叫做一帧，把每秒钟游戏更新的帧数称作“帧率(Frame Per Second)”, 也就是常说的FPS。电影的帧率通常是24FPS，cocos2d-x默认的帧率是60FPS, VR游戏中对帧率的要求则更高,通常至少要达到70~80FPS. cocos在默认情况下，每秒会进行60次游戏循环。本文将对cocos2d-x引擎中每一帧里面做了哪些事情进行介绍，总结每一帧中的几个关键操作，及它们在时间上的先后顺序。以win32环境为例，讲解一个游戏的主循环的控制流程。</p>
+
+<!--more-->
+
+<h2><font color="red">窗口的创建及OpenGL初始化</font></h2>
+
+<h3><font color="blue">in 2.X (2.2.3)</font></h3>
+
+<p>在win32平台上的cocos游戏其实就是一个win32窗口程序，跟其他应用程序一样，游戏的启动点也是在main函数里，所以要从main.cpp为起点，查看游戏的启动过程：</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="n">APIENTRY</span> <span class="nf">_tWinMain</span><span class="p">(</span><span class="n">HINSTANCE</span> <span class="n">hInstance</span><span class="p">,</span>
+                       <span class="n">HINSTANCE</span> <span class="n">hPrevInstance</span><span class="p">,</span>
+                       <span class="n">LPTSTR</span>    <span class="n">lpCmdLine</span><span class="p">,</span>
+                       <span class="kt">int</span>       <span class="n">nCmdShow</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">UNREFERENCED_PARAMETER</span><span class="p">(</span><span class="n">hPrevInstance</span><span class="p">);</span>
+    <span class="n">UNREFERENCED_PARAMETER</span><span class="p">(</span><span class="n">lpCmdLine</span><span class="p">);</span>
+
+    <span class="c1">// 创建一个CCApplication(子类)对象app</span>
+    <span class="n">AppDelegate</span> <span class="n">app</span><span class="p">;</span>
+
+    <span class="c1">// 创建windows窗口，在窗口的创建过程中会初始化OpenGL.</span>
+    <span class="n">CCEGLView</span><span class="o">*</span> <span class="n">eglView</span> <span class="o">=</span> <span class="n">CCEGLView</span><span class="o">::</span><span class="n">sharedOpenGLView</span><span class="p">();</span>
+    <span class="n">eglView</span><span class="o">-&gt;</span><span class="n">setViewName</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span>
+    <span class="n">eglView</span><span class="o">-&gt;</span><span class="n">setFrameSize</span><span class="p">(</span><span class="mi">480</span><span class="p">,</span> <span class="mi">320</span><span class="p">);</span>
+
+    <span class="c1">// 调用app的run方法，启动游戏循环</span>
+    <span class="k">return</span> <span class="n">CCApplication</span><span class="o">::</span><span class="n">sharedApplication</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>AppDelegate app</li>
+</ul>
+
+<p>这一行代码，创建了游戏中唯一的一个CCApplication单例，这个单例声明的是CCApplication*类型，但是绑定到的是子类Appdelegate app这个对象，是典型的“声明父类，new子类”的多态方式，可以从CCApplication的构造函数看到这一过程：</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// sharedApplication pointer    一个父类对象的指针 CCApplication*</span>
+<span class="n">CCApplication</span> <span class="o">*</span> <span class="n">CCApplication</span><span class="o">::</span><span class="n">sm_pSharedApplication</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="n">CCApplication</span><span class="o">::</span><span class="n">CCApplication</span><span class="p">()</span>
+<span class="o">:</span> <span class="n">m_hInstance</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span>
+<span class="p">,</span> <span class="n">m_hAccelTable</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">m_hInstance</span>    <span class="o">=</span> <span class="n">GetModuleHandle</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">m_nAnimationInterval</span><span class="p">.</span><span class="n">QuadPart</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">CC_ASSERT</span><span class="p">(</span><span class="o">!</span> <span class="n">sm_pSharedApplication</span><span class="p">);</span>
+    <span class="c1">// 在构造的时候，单例指针指向了this, </span>
+    <span class="c1">// 由于代码里只是显示创建了Appdelegate app这个对象，而没有创建CCApplication类型的对象，因此这个this其实是在创建子类对象的地址</span>
+    <span class="c1">// 相当于这样写，CCApplication * app = new Appdelegate();</span>
+    <span class="n">sm_pSharedApplication</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>           
+<span class="p">}</span>
+</code></pre></div>
+<p>所以游戏中唯一的CCApplication对象是其子类Appdelegate类型的. 对其虚函数的调用也都将在运行时绑定到对Appdelegate方法的调用.</p>
+
+<ul>
+<li>CCEGLView的创建</li>
+</ul>
+
+<p>如果你写过win32窗口程序的话，CCEGLView这个类的结构你就会一目了然，它创建了一个windows窗口(CCEGLView::Create方法)，并在其窗口过程函数中(CCEGLView::WindowProc)处理鼠标、键盘等操作，以完成触摸模拟等事件。同时，它作为游戏的窗口部分，负责OpenGL相关的操作: 初始化, 销毁OpenGL(CCEGLView::initGL, CCEGLView::destroyGL), 交换缓冲区swapBuffers, 设置openGL视口setViewPortInPoints, 设置OpenGL裁减setScissorInPoints, 以及对缩放因子和屏幕分辨率的设置.</p>
+
+<p>其中对OpenGL的功能用到了: <strong>1. wgl API</strong>: windows系统上的OpenGL与窗口系统之间的API接口<strong>; **2. glew</strong>: OpenGL扩展功能检测库，glew提供了一种高效的运行时机制来判断目标平台是否支持某些OpenGL扩展功能**</p>
+
+<ul>
+<li>游戏启动，显示窗口, CCApplication::sharedApplication()-&gt;run()</li>
+</ul>
+
+<p>游戏窗口的展示以及消息循环是在CCApplication的run函数里面：</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="n">CCApplication</span><span class="o">::</span><span class="n">run</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">PVRFrameEnableControlWindow</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+
+    <span class="c1">// Main message loop:</span>
+    <span class="n">MSG</span> <span class="n">msg</span><span class="p">;</span>
+    <span class="n">LARGE_INTEGER</span> <span class="n">nFreq</span><span class="p">;</span>
+    <span class="n">LARGE_INTEGER</span> <span class="n">nLast</span><span class="p">;</span>
+    <span class="n">LARGE_INTEGER</span> <span class="n">nNow</span><span class="p">;</span>
+
+    <span class="n">QueryPerformanceFrequency</span><span class="p">(</span><span class="o">&amp;</span><span class="n">nFreq</span><span class="p">);</span>
+    <span class="n">QueryPerformanceCounter</span><span class="p">(</span><span class="o">&amp;</span><span class="n">nLast</span><span class="p">);</span>
+
+    <span class="c1">// Initialize instance and cocos2d.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">applicationDidFinishLaunching</span><span class="p">())</span>    <span class="c1">// Appdelegate::applicationDidFinishLaunching</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">CCEGLView</span><span class="o">*</span> <span class="n">pMainWnd</span> <span class="o">=</span> <span class="n">CCEGLView</span><span class="o">::</span><span class="n">sharedOpenGLView</span><span class="p">();</span>
+    <span class="n">pMainWnd</span><span class="o">-&gt;</span><span class="n">centerWindow</span><span class="p">();</span>
+    <span class="n">ShowWindow</span><span class="p">(</span><span class="n">pMainWnd</span><span class="o">-&gt;</span><span class="n">getHWnd</span><span class="p">(),</span> <span class="n">SW_SHOW</span><span class="p">);</span>       <span class="c1">// 显示游戏窗口</span>
+
+    <span class="c1">// 游戏循环 窗口消息循环</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="n">PeekMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PM_REMOVE</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="c1">// Get current time tick.</span>
+            <span class="n">QueryPerformanceCounter</span><span class="p">(</span><span class="o">&amp;</span><span class="n">nNow</span><span class="p">);</span>
+
+            <span class="c1">// 离下一帧还有没有剩余时间，有的话就睡一会.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">nNow</span><span class="p">.</span><span class="n">QuadPart</span> <span class="o">-</span> <span class="n">nLast</span><span class="p">.</span><span class="n">QuadPart</span> <span class="o">&gt;</span> <span class="n">m_nAnimationInterval</span><span class="p">.</span><span class="n">QuadPart</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">nLast</span><span class="p">.</span><span class="n">QuadPart</span> <span class="o">=</span> <span class="n">nNow</span><span class="p">.</span><span class="n">QuadPart</span><span class="p">;</span>
+                <span class="n">CCDirector</span><span class="o">::</span><span class="n">sharedDirector</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">mainLoop</span><span class="p">();</span>       <span class="c1">// 游戏里的操作在CCDirector的mainLoop方法里</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">Sleep</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">WM_QUIT</span> <span class="o">==</span> <span class="n">msg</span><span class="p">.</span><span class="n">message</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Quit message loop.</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Deal with windows message.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="n">m_hAccelTable</span> <span class="o">||</span> <span class="o">!</span> <span class="n">TranslateAccelerator</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">hwnd</span><span class="p">,</span> <span class="n">m_hAccelTable</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">msg</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">TranslateMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+            <span class="n">DispatchMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">msg</span><span class="p">.</span><span class="n">wParam</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3><font color="blue">in 3.X (3.9)</font></h3>
+
+<p>// todo: add 3.x</p>
+
+<h2><font color="red">帧循环中做了什么 CCDirector::mainLoop()</font></h2>
+
+<h3><font color="blue">in 2.X (2.2.3)</font></h3>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">CCDisplayLinkDirector</span><span class="o">::</span><span class="n">mainLoop</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_bPurgeDirecotorInNextLoop</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_bPurgeDirecotorInNextLoop</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">purgeDirector</span><span class="p">();</span>                                <span class="c1">// 游戏结束，销毁director</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="n">m_bInvalid</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="n">drawScene</span><span class="p">();</span>                                   <span class="c1">// 绘制</span>
+
+         <span class="n">CCPoolManager</span><span class="o">::</span><span class="n">sharedPoolManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">pop</span><span class="p">();</span>     <span class="c1">// 释放自动对象</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>mainLoop里做了两件事情：1. 绘制；2.释放自动释放池里的对象</p>
+
+<p>自动释放池那部分不必细说，它是在释放那些调用了autorelease()方法的CCObject对象，每一帧结束的时候都会调.</p>
+
+<p>drawScene()是帧循环中的重头戏：</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">void</span> <span class="n">CCDirector</span><span class="o">::</span><span class="n">drawScene</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">calculateDeltaTime</span><span class="p">();</span>  <span class="c1">// 计算帧时间间隔</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="n">m_bPaused</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_pScheduler</span><span class="o">-&gt;</span><span class="n">update</span><span class="p">(</span><span class="n">m_fDeltaTime</span><span class="p">);</span>     <span class="c1">// 调度器 CCScheduler的update</span>
+    <span class="p">}</span>
+
+    <span class="n">glClear</span><span class="p">(</span><span class="n">GL_COLOR_BUFFER_BIT</span> <span class="o">|</span> <span class="n">GL_DEPTH_BUFFER_BIT</span><span class="p">);</span>     <span class="c1">// opengl 状态重置</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pNextScene</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">setNextScene</span><span class="p">();</span>                         <span class="c1">// 是否切换新Scene? 退出当前Scene， 显示下一Scene</span>
+    <span class="p">}</span>
+
+    <span class="n">kmGLPushMatrix</span><span class="p">();</span>                           <span class="c1">// 复制当前栈顶的模型视图矩阵MV </span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pRunningScene</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_pRunningScene</span><span class="o">-&gt;</span><span class="n">visit</span><span class="p">();</span>               <span class="c1">// 绘制当前Scene</span>
+    <span class="p">}</span>
+
+    <span class="c1">// draw the notifications node</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pNotificationNode</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_pNotificationNode</span><span class="o">-&gt;</span><span class="n">visit</span><span class="p">();</span>           <span class="c1">// 绘制通知节点</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_bDisplayStats</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">showStats</span><span class="p">();</span>                            <span class="c1">// 显示drawCall次数，FPS，SPF三个数值label</span>
+    <span class="p">}</span>
+
+    <span class="n">kmGLPopMatrix</span><span class="p">();</span>                            <span class="c1">// 弹出栈顶模型视图矩阵MV</span>
+
+    <span class="n">m_uTotalFrames</span><span class="o">++</span><span class="p">;</span>
+
+    <span class="c1">// swap buffers</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_pobOpenGLView</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_pobOpenGLView</span><span class="o">-&gt;</span><span class="n">swapBuffers</span><span class="p">();</span>         <span class="c1">// 绘制完成，交换缓冲区</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">m_bDisplayStats</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">calculateMPF</span><span class="p">();</span>                         <span class="c1">// 计算SPF， 即每帧消耗的时间</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在drawScene函数中最主要的两个部分是：</p>
+
+<p><strong>1. CCScheduler调度器的update</strong> : update中会涉及到动作的更新，及一些自定义scheduler的更新, 我们通常的业务逻辑就是在第二部分自定义的scheduler中完成的。动作(CCActionManager)更新具有最高的优先级，因为它在注册scheduler的时候，<code>m_pScheduler-&gt;scheduleUpdateForTarget(m_pActionManager, kCCPrioritySystem, false);</code>, 使用了kCCPrioritySystem, 它被定义为最小整数，因此也就最先被调度.</p>
+
+<p><strong>2. m_pRunningScene-&gt;visit()</strong> : 在处理完动作、用户逻辑之后，在当前帧，界面上的元素位置已经确定，此时，调用m_pRunningScene-&gt;visit()绘制当前的Scene，遍历这个Scene的UI树，对每个节点进行绘制. 绘制结束交换缓冲区从而完成界面渲染工作。</p>
+
+<p>下面这张图总结了一帧循环中的主要工作：</p>
+
+<p><img src="http://7xi3zl.com1.z0.glb.clouddn.com/GameFrameLoop.png" alt="GameFrameLoop.png"></p>
+
+<h3><font color="blue">in 3.X (3.9)</font></h3>
+
+<p>// todo: add 3.x.</p>
+
+<hr>
+
+<p><strong>作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！</strong></p>
+
+<p><strong>欢迎访问<a href="http://elloop.github.io">github博客</a>，与本站同步更新</strong></p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#cocos2d-x-ref">
+    		cocos2d-x <span>13</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#cocos2d-x-ref">cocos2d-x <span>13</span></a></li>
+     
+    	<li><a href="/tags.html#game-ref">game <span>6</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/cocos2d-x/2015-12-10/cocos2dx-3d-2-custom-menu" title="【cocos2d-x 3D游戏开发】2: 2D基础回顾---理解CCMenu类的实现, 实现点击放大的菜单按钮">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>
