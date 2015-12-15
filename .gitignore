@@ -1,5 +1,6 @@
 *.temp
 _drafts/
 _site/
+_posts/
 .DS_Store
 *.swp
