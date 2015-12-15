@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】1: STL概览和分类"
+title: "【C++ STL学习与应用总结】12: std::bind"
 category: c++
 tags: [stl]
 description: ""
@@ -56,10 +56,4 @@ description: ""
 
 
 ## 函数子-functor
-
----------------------------
-**作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
-
-**欢迎访问[github博客](http://elloop.github.io)，与本站同步更新**
-
 
