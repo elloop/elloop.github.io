@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Effective C++ 笔记</title>
+    
+    <meta name="description" content="guide from classical c++ progamming book">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>Effective C++ 笔记 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>10 July 2012</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h2>item2: Prefer consts, enums, and inlines to #defines.</h2>
+
+<p><em>reason</em></p>
+
+<ul>
+<li>define会造成代码膨胀，目标代码里替换所有define为同一个东西，重复。</li>
+<li>define通常没有scope的概念，也没有封装的概念</li>
+<li>define出来的函数有隐含的出错风险。 </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#define MAX(a, b) (a) &gt; (b) ? (a) : (b);</span>
+<span class="kt">void</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">MAX</span><span class="p">(</span><span class="o">++</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>       <span class="c1">// a 被累加两次</span>
+    <span class="n">MAX</span><span class="p">(</span><span class="o">++</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">+</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// a 被累加1次</span>
+<span class="p">}</span></code></pre></div>
+
+<p><em>conclusion</em> </p>
+
+<ul>
+<li>常量：使用const或enum代替</li>
+<li>函数形式的宏：改用inline函数代替</li>
+</ul>
+
+<!--more-->
+
+<hr>
+
+<h2>item3: Use const whenever possible.</h2>
+
+<p><em>reason</em></p>
+
+<ul>
+<li>避免不必要的错误，帮助编译器侦测出错误的用法。对象、函数参数、返回类型、成员函数，都可以用const来修饰。</li>
+<li>对于member function，const 函数可以使const对象可以调用。</li>
+</ul>
+
+<p><em>conclusion</em></p>
+
+<ul>
+<li>编译器只保证bitwise constness，程序员应该做到logical constness(const成员函数不应该返回可以修改对象内部状态的引用或指针）</li>
+<li>当const和non-const版本的函数有等价的实现的时候，让non-const版本调用const版本</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">).</span><span class="n">value</span><span class="p">());</span>
+<span class="p">}</span></code></pre></div>
+
+<hr>
+
+<h2>item4: Make sure that objects are initialized before they are used.</h2>
+
+<p><em>conclusion</em></p>
+
+<ul>
+<li><p>使用member initialization list初始化类成员，以声明次数为准。</p></li>
+<li><p>“跨编译单元的初始化次序”问题，把non-local static对象替换为local static对象。使用reference-returning函数。</p></li>
+</ul>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">//---------------------------- use local static ----------------------------</span>
+<span class="c1">// non-local static object in A.cpp</span>
+<span class="k">static</span> <span class="n">Object</span> <span class="n">a</span><span class="p">;</span>
+<span class="c1">// used in B.cpp</span>
+<span class="k">static</span> <span class="n">ObjectB</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">getB</span><span class="p">();</span> <span class="c1">// a may be uninitialized.</span>
+
+<span class="c1">//---------------------------- reference-returning: local static ----------------------------</span>
+<span class="n">Object</span><span class="o">&amp;</span> <span class="n">getA</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="n">Object</span> <span class="n">a</span><span class="p">;</span>
+   <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">ObjectB</span><span class="o">&amp;</span> <span class="n">getB</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="n">ObjectB</span> <span class="n">b</span> <span class="o">=</span> <span class="n">getA</span><span class="p">().</span><span class="n">getB</span><span class="p">();</span>
+   <span class="k">return</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<hr>
+
+<h2>item7: Declare destructors virtual in polymorphic base class.</h2>
+
+<p><em>reason</em></p>
+
+<ul>
+<li>avoid resource leak.</li>
+</ul>
+
+<p><em>conclusion</em></p>
+
+<ul>
+<li>为polymorphic base class声明一个virtual析构函数。如果base class带有任何的virtual函数，它就应该有一个virtual析构函数</li>
+</ul>
+
+<blockquote>
+<p>polymorphic base class是指：为实现“要通过base class接口来调用derived class对象”而设计的基类。</p>
+</blockquote>
+
+<ul>
+<li>不是为了继承而定义的base class就不需要声明virtual析构函数，浪费空间（带virtual函数需要该class有vtbl）。并且不要继承这种不带虚析构函数的类（比如stl里面的容器）。</li>
+</ul>
+
+<hr>
+
+<h2>item9: Never call virtual functions during construction or destruction.</h2>
+
+<p><em>reason</em></p>
+
+<ul>
+<li>在base class构造（析构）期间，virtual函数不是virtual函数。</li>
+</ul>
+
+<hr>
+
+<h2>item10: Have assignment operators return a reference to *this.</h2>
+
+<p><em>reason</em></p>
+
+<ul>
+<li>可以实现连锁赋值的效果。非强制，但是这样可以与内置类型和stl保持一致。</li>
+</ul>
+
+<hr>
+
+<h2>item11： Hanle assignment to self in operator=.</h2>
+
+<p><em>conclusion</em></p>
+
+<ul>
+<li>使用证同测试(identity test), ( <code>if (this == &amp;rhs) return *this;</code>)</li>
+<li>为了异常安全性(exception safety)，调整语句执行顺序</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="n">Object</span><span class="o">&amp;</span> <span class="n">Object</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Object</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Mem</span> <span class="o">*</span> <span class="n">pOrig</span> <span class="o">=</span> <span class="n">mem_</span><span class="p">;</span>           <span class="c1">// save original mem;</span>
+    <span class="n">mem_</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mem</span><span class="p">(</span><span class="o">*</span><span class="n">rhs</span><span class="p">.</span><span class="n">mem_</span><span class="p">);</span>    <span class="c1">// if throw exception here, mem_ is still available.</span>
+    <span class="k">delete</span> <span class="n">pOrig</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<ul>
+<li>copy-and-swap 技术</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Object</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">Object</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="n">Object</span><span class="o">&amp;</span> <span class="n">Object</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Object</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Object</span> <span class="n">temp</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<hr>
+
+<h2>item13: Use objects to manage resource</h2>
+
+<blockquote>
+<p>resource 包括内存、文件描述器(file description)、互斥锁、字型和画刷、数据库连接、网络sockets。</p>
+</blockquote>
+
+<p><em>reason</em></p>
+
+<ul>
+<li>程序员会容易忘记delete obj;</li>
+</ul>
+
+<p><em>conclusion</em></p>
+
+<ul>
+<li>使用RAII对象来防止资源泄露</li>
+</ul>
+
+<blockquote>
+<p>RAII: Resource Acquisition Is Initialization. 获得资源的同时立刻放进管理对象中。
+管理对象析构的时候，资源会同时被释放。（如果析构函数抛出异常，参见条款8（不要让异常逃离析构函数）进行处理）</p>
+</blockquote>
+
+<p>example:</p>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// nake, without RAII.</span>
+<span class="kt">void</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Object</span> <span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
+    <span class="c1">// ... forget to delete p;</span>
+<span class="p">}</span>
+
+<span class="c1">// use shared_ptr&lt;T&gt; as a RAII object.</span>
+<span class="kt">void</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">rP</span><span class="p">(</span><span class="k">new</span> <span class="n">Object</span><span class="p">);</span>
+    <span class="c1">// when f() return , rP is destructed and the resource it managed is freed.</span>
+<span class="p">}</span></code></pre></div>
+
+<p><strong>ps: shared_ptr is a <code>RCSP</code>: reference-counting smart pointer</strong></p>
+
+<hr>
+
+<h2>item14: Think carefully about copying behaviour in resource-managing classes.</h2>
+
+<p><em>conclusion</em></p>
+
+<ul>
+<li>禁止复制：让RAII对象继承noncopyable。</li>
+<li>RCSP: 对底层资源使用引用计数。</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">class</span> <span class="nc">Lock</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">explicit</span> <span class="n">Lock</span><span class="p">(</span><span class="n">Mutex</span><span class="o">*</span> <span class="n">pm</span><span class="p">)</span> 
+    <span class="o">:</span> <span class="n">mutexPtr</span><span class="p">(</span><span class="n">pm</span><span class="p">,</span> <span class="n">unlock</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// 指定shared_ptr的deleter为unlock。</span>
+        <span class="n">lock</span><span class="p">(</span><span class="n">mutexPtr</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Mutex</span><span class="o">&gt;</span> <span class="n">mutexPtr</span><span class="p">;</span>
+<span class="p">};</span></code></pre></div>
+
+<ul>
+<li>复制底部资源,深拷贝</li>
+<li>转移底部资源所有权，如auto_ptr.</li>
+</ul>
+
+<p><em>常用的是前两种方法</em></p>
+
+<hr>
+
+<h2>item20: Prefer pass-by-reference-to-const to pass-by-value.</h2>
+
+<p><em>reason</em></p>
+
+<ul>
+<li>节省开销，避免不必要的copy constructor 和 destructor。</li>
+<li>避免对象切割(slicing)</li>
+</ul>
+
+<p><em>conclusion</em></p>
+
+<ul>
+<li>尽量使用pass-by-reference-to-const代替pass-by-value，高效，避免slicing。</li>
+<li>pass-by-reference-to-const的方式不适用于：内置类型、stl的迭代器和函数对象，这些类型使用pass-by-value更为适当。</li>
+</ul>
+
+<blockquote>
+<p>ps: references往往以指针实现，因此pass by reference通常意味着真正传递的是指针。因此内置类型使用pass by value往往比使用pass by reference更为高效。stl的迭代器和函数对象习惯上都被设计为pass by value。</p>
+</blockquote>
+
+<hr>
+
+<h2>关于封装</h2>
+
+<blockquote>
+<p>如果某些东西被封装，它就不再可见。越多东西被封装，越少人可以看到它。而越少人看到它，我们就有越大的弹性去改变它，因为我们的改变仅仅直接影响看到改变的那些人事物。因此，愈多东西被封装，我们改变那些东西的能力也愈大。这就是我们推崇封装的原因：它使我们能够改变事物而只影响到有限客户。</p>
+</blockquote>
+
+<hr>
+
+<h2>item22: Declare data members private.</h2>
+
+<p><em>reason</em></p>
+
+<ul>
+<li>private == 不可见 == 封装 （除了friend，member function）</li>
+<li>public意味着不封装，不封装意味着不可改变，因为改变了就会直接影响到class的用户。</li>
+<li>protected并不比public的封装性好，如果修改或删掉一个protected的成员，那么所有derived class都会被破坏，因此protected的成员变量也意味着不封装。</li>
+</ul>
+
+<p><em>conclusion</em></p>
+
+<ul>
+<li>从封装的角度来看，class的访问类型其实只有两种：private == 封装；protected，public == 不封装；</li>
+<li>应该将成员变量声明为private。这样做，可赋予客户访问数据的一致性、可细微划分访问控制、允诺约束条件获得保证，并提供class作者充分的实现弹性。</li>
+</ul>
+
+<h2>item23: Prefer non-member non-friend functions to member functions.</h2>
+
+<p><em>reason</em></p>
+
+<ul>
+<li><p>non-member non-friend functions 不增加private成员的访问次数，意味着更好的封装性（较之于member function和friend function）。
+<em>conclusion</em></p></li>
+<li><p>从封装角度来看，尽量使用non-member non-friend函数替换member函数。这样不破坏封装性，增加包裹弹性和技能扩充性。</p></li>
+</ul>
+
+<blockquote>
+<p>为什么non-member non-friend functions的封装性更好呢？ 
+从item22说起，成员变量应该是private的，因为如果不是，就有无限量的函数可以访问它们，它们也就毫无封装性。我们可以这样来衡量封装性：能直接访问（private）数据成员的函数越多，我们就说数据的封装性越低。能够访问private成员的函数只有两种，friend和member函数。而non-member non-friend函数并没有增加private直接被访问的次数，因此说它有更好的封装性。也正因为如此，在firend和member函数，与non-member non-friend函数之间选择，后者更受欢迎。</p>
+</blockquote>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#c++-ref">
+    		c++ <span>28</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#notes-ref">notes <span>4</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/c++/2012-06-12/learning-using-stl-1-classify" title="【c++ STL学习与应用】1: STL概览和分类">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/c++/2012-07-10/learning-using-stl-2-container-set" title="【c++ STL学习与应用】2: 容器set">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

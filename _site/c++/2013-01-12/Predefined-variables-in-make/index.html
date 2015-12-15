@@ -1,0 +1,1562 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>如何查看make预定义的变量</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/monokai.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>如何查看make预定义的变量 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>12 January 2013</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <p>在一个没有makefile的目录，执行<code>make -p</code>命令，输出信息将会告诉一些预定以变量的值。</p>
+
+<p>以我的机器为例，输出如下：</p>
+
+<!--more-->
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># GNU Make 3.81</span>
+<span class="c"># Copyright (C) 2006  Free Software Foundation, Inc.</span>
+<span class="c"># This is free software; see the source for copying conditions.</span>
+<span class="c"># There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A</span>
+<span class="c"># PARTICULAR PURPOSE.</span>
+
+<span class="c"># This program built for i386-apple-darwin11.3.0</span>
+make: *** No targets specified and no makefile found.  Stop.
+
+<span class="c"># Make data base, printed on Sun Apr 26 15:08:26 2015</span>
+
+<span class="c"># Variables</span>
+
+<span class="c"># automatic</span>
+&lt;<span class="nv">D</span> <span class="o">=</span> <span class="k">$(</span>patsubst %/,%,<span class="k">$(</span>dir <span class="nv">$&lt;</span><span class="k">))</span>
+<span class="c"># environment</span>
+<span class="nv">RUBY_VERSION</span> <span class="o">=</span> ruby-2.1.2
+<span class="c"># automatic</span>
+?F <span class="o">=</span> <span class="k">$(</span>notdir <span class="nv">$?</span><span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">CWEAVE</span> <span class="o">=</span> cweave
+<span class="c"># automatic</span>
+?D <span class="o">=</span> <span class="k">$(</span>patsubst %/,%,<span class="k">$(</span>dir <span class="nv">$?</span><span class="k">))</span>
+<span class="c"># environment</span>
+<span class="nv">rvm_path</span> <span class="o">=</span> /Users/sunyongjian1/.rvm
+<span class="c"># automatic</span>
+@D <span class="o">=</span> <span class="k">$(</span>patsubst %/,%,<span class="k">$(</span>dir <span class="nv">$@</span><span class="k">))</span>
+<span class="c"># automatic</span>
+@F <span class="o">=</span> <span class="k">$(</span>notdir <span class="nv">$@</span><span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">PC</span> <span class="o">=</span> pc
+<span class="c"># makefile</span>
+CURDIR :<span class="o">=</span> /Users/sunyongjian1/git_projects
+<span class="c"># makefile</span>
+<span class="nv">SHELL</span> <span class="o">=</span> /bin/sh
+<span class="c"># default</span>
+<span class="nv">RM</span> <span class="o">=</span> rm -f
+<span class="c"># default</span>
+<span class="nv">CO</span> <span class="o">=</span> co
+<span class="c"># environment</span>
+<span class="nv">_</span> <span class="o">=</span> /usr/bin/make
+<span class="c"># default</span>
+PREPROCESS.F <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span> <span class="k">$(</span>FFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -F
+<span class="c"># default</span>
+LINK.m <span class="o">=</span> <span class="k">$(</span>LINK.c<span class="k">)</span>
+<span class="c"># default</span>
+LINK.o <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">OUTPUT_OPTION</span> <span class="o">=</span> -o <span class="nv">$@</span>
+<span class="c"># default</span>
+COMPILE.cpp <span class="o">=</span> <span class="k">$(</span>COMPILE.cc<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">_system_version</span> <span class="o">=</span> 10.10
+<span class="c"># makefile</span>
+MAKEFILE_LIST :<span class="o">=</span> 
+<span class="c"># default</span>
+LINK.p <span class="o">=</span> <span class="k">$(</span>PC<span class="k">)</span> <span class="k">$(</span>PFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">CC</span> <span class="o">=</span> cc
+<span class="c"># default</span>
+CHECKOUT,v <span class="o">=</span> +<span class="k">$(if</span> <span class="k">$(</span>wildcard <span class="nv">$@</span><span class="k">)</span>,,<span class="k">$(</span>CO<span class="k">)</span> <span class="k">$(</span>COFLAGS<span class="k">)</span> <span class="nv">$&lt;</span> <span class="nv">$@</span><span class="k">)</span>
+<span class="c"># default</span>
+LEX.m <span class="o">=</span> <span class="k">$(</span>LEX<span class="k">)</span> <span class="k">$(</span>LFLAGS<span class="k">)</span> -t
+<span class="c"># default</span>
+<span class="nv">CPP</span> <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> -E
+<span class="c"># environment</span>
+<span class="nv">Apple_PubSub_Socket_Render</span> <span class="o">=</span> /private/tmp/com.apple.launchd.SUpTdDMUDt/Render
+<span class="c"># default</span>
+LINK.cc <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">DYLD_FRAMEWORK_PATH</span> <span class="o">=</span> 
+<span class="c"># environment</span>
+<span class="nv">PATH</span> <span class="o">=</span> /opt/local/bin:/opt/local/sbin:/Users/sunyongjian1/.rvm/gems/ruby-2.1.2/bin:/Users/sunyongjian1/.rvm/gems/ruby-2.1.2@global/bin:/Users/sunyongjian1/.rvm/rubies/ruby-2.1.2/bin:/usr/local/bin:/usr/local/bin/lua-5.2.3/src:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/sunyongjian1/.rvm/bin
+<span class="c"># default</span>
+<span class="nv">LD</span> <span class="o">=</span> ld
+<span class="c"># default</span>
+<span class="nv">TEXI2DVI</span> <span class="o">=</span> texi2dvi
+<span class="c"># default</span>
+<span class="nv">YACC</span> <span class="o">=</span> yacc
+<span class="c"># default</span>
+COMPILE.mod <span class="o">=</span> <span class="k">$(</span>M2C<span class="k">)</span> <span class="k">$(</span>M2FLAGS<span class="k">)</span> <span class="k">$(</span>MODFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">ARFLAGS</span> <span class="o">=</span> rv
+<span class="c"># default</span>
+LINK.r <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span> <span class="k">$(</span>FFLAGS<span class="k">)</span> <span class="k">$(</span>RFLAGS<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">LINT</span> <span class="o">=</span> lint
+<span class="c"># default</span>
+COMPILE.f <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span> <span class="k">$(</span>FFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+<span class="c"># default</span>
+LINT.c <span class="o">=</span> <span class="k">$(</span>LINT<span class="k">)</span> <span class="k">$(</span>LINTFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># default</span>
+YACC.m <span class="o">=</span> <span class="k">$(</span>YACC<span class="k">)</span> <span class="k">$(</span>YFLAGS<span class="k">)</span>
+<span class="c"># default</span>
+YACC.y <span class="o">=</span> <span class="k">$(</span>YACC<span class="k">)</span> <span class="k">$(</span>YFLAGS<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">_system_name</span> <span class="o">=</span> OSX
+<span class="c"># default</span>
+<span class="nv">AR</span> <span class="o">=</span> ar
+<span class="c"># default</span>
+.FEATURES :<span class="o">=</span> target-specific order-only second-expansion <span class="k">else</span>-if archives jobserver check-symlink
+<span class="c"># default</span>
+<span class="nv">TANGLE</span> <span class="o">=</span> tangle
+<span class="c"># environment</span>
+<span class="nv">SSH_AUTH_SOCK</span> <span class="o">=</span> /private/tmp/com.apple.launchd.nZsmOBU8lx/Listeners
+<span class="c"># default</span>
+<span class="nv">GET</span> <span class="o">=</span> get
+<span class="c"># automatic</span>
+%F <span class="o">=</span> <span class="k">$(</span>notdir <span class="nv">$%</span><span class="k">)</span>
+<span class="c"># default</span>
+COMPILE.F <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span> <span class="k">$(</span>FFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+<span class="c"># default</span>
+<span class="nv">CTANGLE</span> <span class="o">=</span> ctangle
+<span class="c"># default</span>
+.LIBPATTERNS <span class="o">=</span> lib%.so lib%.a
+<span class="c"># environment</span>
+<span class="nv">rvm_bin_path</span> <span class="o">=</span> /Users/sunyongjian1/.rvm/bin
+<span class="c"># environment</span>
+<span class="nv">PWD</span> <span class="o">=</span> /Users/sunyongjian1/git_projects
+<span class="c"># default</span>
+LINK.S <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>ASFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_MACH<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">GEM_HOME</span> <span class="o">=</span> /Users/sunyongjian1/.rvm/gems/ruby-2.1.2
+<span class="c"># default</span>
+PREPROCESS.r <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span> <span class="k">$(</span>FFLAGS<span class="k">)</span> <span class="k">$(</span>RFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -F
+<span class="c"># default</span>
+LINK.c <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># default</span>
+LINK.s <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>ASFLAGS<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_MACH<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">HOME</span> <span class="o">=</span> /Users/sunyongjian1
+<span class="c"># default</span>
+MAKEFILEPATH :<span class="o">=</span> /Applications/Xcode.app/Contents/Developer/Makefiles
+<span class="c"># environment</span>
+<span class="nv">LOGNAME</span> <span class="o">=</span> lina
+<span class="c"># automatic</span>
+^D <span class="o">=</span> <span class="k">$(</span>patsubst %/,%,<span class="k">$(</span>dir <span class="nv">$^</span><span class="k">))</span>
+<span class="c"># environment</span>
+<span class="nv">GEM_PATH</span> <span class="o">=</span> /Users/sunyongjian1/.rvm/gems/ruby-2.1.2:/Users/sunyongjian1/.rvm/gems/ruby-2.1.2@global
+<span class="c"># default</span>
+COMPILE.m <span class="o">=</span> <span class="k">$(</span>COMPILE.c<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">XPC_FLAGS</span> <span class="o">=</span> 0x0
+<span class="c"># default</span>
+<span class="nv">MAKE</span> <span class="o">=</span> <span class="k">$(</span>MAKE_COMMAND<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">IRBRC</span> <span class="o">=</span> /Users/sunyongjian1/.rvm/rubies/ruby-2.1.2/.irbrc
+<span class="c"># environment</span>
+<span class="nv">SHLVL</span> <span class="o">=</span> 1
+<span class="c"># default</span>
+<span class="nv">AS</span> <span class="o">=</span> as
+<span class="c"># default</span>
+PREPROCESS.S <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> -E <span class="k">$(</span>CPPFLAGS<span class="k">)</span>
+<span class="c"># default</span>
+COMPILE.p <span class="o">=</span> <span class="k">$(</span>PC<span class="k">)</span> <span class="k">$(</span>PFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+<span class="c"># default</span>
+MAKE_VERSION :<span class="o">=</span> 3.81
+<span class="c"># environment</span>
+<span class="nv">USER</span> <span class="o">=</span> lina
+<span class="c"># default</span>
+<span class="nv">FC</span> <span class="o">=</span> f77
+<span class="c"># makefile</span>
+.DEFAULT_GOAL :<span class="o">=</span> 
+<span class="c"># environment</span>
+<span class="nv">TERM_SESSION_ID</span> <span class="o">=</span> 3A6EE009-3E1E-4363-9AA1-614DE6006B92
+<span class="c"># environment</span>
+<span class="nv">rvm_version</span> <span class="o">=</span> 1.25.29 <span class="o">(</span>stable<span class="o">)</span>
+<span class="c"># automatic</span>
+%D <span class="o">=</span> <span class="k">$(</span>patsubst %/,%,<span class="k">$(</span>dir <span class="nv">$%</span><span class="k">))</span>
+<span class="c"># default</span>
+<span class="nv">WEAVE</span> <span class="o">=</span> weave
+<span class="c"># default</span>
+MAKE_COMMAND :<span class="o">=</span> /Applications/Xcode.app/Contents/Developer/usr/bin/make
+<span class="c"># default</span>
+LINK.cpp <span class="o">=</span> <span class="k">$(</span>LINK.cc<span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">F77</span> <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">OLDPWD</span> <span class="o">=</span> /Users/sunyongjian1/git/blog/_posts/technique/developing_tools
+<span class="c"># environment</span>
+<span class="nv">TERM_PROGRAM</span> <span class="o">=</span> Apple_Terminal
+<span class="c"># default</span>
+.VARIABLES :<span class="o">=</span> 
+<span class="c"># environment</span>
+<span class="nv">TMPDIR</span> <span class="o">=</span> /var/folders/ck/7m2yhpqj07156ybqd6b_n7b80000gn/T/
+<span class="c"># automatic</span>
+*F <span class="o">=</span> <span class="k">$(</span>notdir <span class="nv">$*</span><span class="k">)</span>
+<span class="c"># default</span>
+COMPILE.def <span class="o">=</span> <span class="k">$(</span>M2C<span class="k">)</span> <span class="k">$(</span>M2FLAGS<span class="k">)</span> <span class="k">$(</span>DEFFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">LEX</span> <span class="o">=</span> lex
+<span class="c"># makefile</span>
+<span class="nv">MAKEFLAGS</span> <span class="o">=</span> p
+<span class="c"># environment</span>
+define BASH_FUNC_rvm_debug%%
+<span class="o">()</span> <span class="o">{</span>  <span class="o">((</span> <span class="k">${</span><span class="nv">rvm_debug_flag</span><span class="k">:-</span><span class="nv">0</span><span class="k">}</span> <span class="o">))</span> <span class="o">||</span> <span class="k">return</span> 0<span class="p">;</span>
+ <span class="k">if</span> rvm_pretty_print stderr<span class="p">;</span> <span class="k">then</span>
+ <span class="nb">printf</span> <span class="s2">&quot;%b&quot;</span> <span class="s2">&quot;${rvm_debug_clr:-}$*${rvm_reset_clr:-}\n&quot;</span><span class="p">;</span>
+ <span class="k">else</span>
+ <span class="nb">printf</span> <span class="s2">&quot;%b&quot;</span> <span class="s2">&quot;$*\n&quot;</span><span class="p">;</span>
+ <span class="k">fi</span> 1&gt;<span class="p">&amp;</span>2
+<span class="o">}</span>
+endef
+<span class="c"># environment</span>
+<span class="nv">MFLAGS</span> <span class="o">=</span> -p
+<span class="c"># automatic</span>
+*D <span class="o">=</span> <span class="k">$(</span>patsubst %/,%,<span class="k">$(</span>dir <span class="nv">$*</span><span class="k">))</span>
+<span class="c"># environment</span>
+<span class="nv">TERM_PROGRAM_VERSION</span> <span class="o">=</span> 343.6
+<span class="c"># default</span>
+LEX.l <span class="o">=</span> <span class="k">$(</span>LEX<span class="k">)</span> <span class="k">$(</span>LFLAGS<span class="k">)</span> -t
+<span class="c"># environment</span>
+<span class="nv">XPC_SERVICE_NAME</span> <span class="o">=</span> 0
+<span class="c"># automatic</span>
++D <span class="o">=</span> <span class="k">$(</span>patsubst %/,%,<span class="k">$(</span>dir <span class="nv">$+</span><span class="k">))</span>
+<span class="c"># default</span>
+COMPILE.r <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span> <span class="k">$(</span>FFLAGS<span class="k">)</span> <span class="k">$(</span>RFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+<span class="c"># automatic</span>
++F <span class="o">=</span> <span class="k">$(</span>notdir <span class="nv">$+</span><span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">M2C</span> <span class="o">=</span> m2c
+<span class="c"># environment</span>
+<span class="nv">__CF_USER_TEXT_ENCODING</span> <span class="o">=</span> 0x1F5:0x19:0x34
+<span class="c"># default</span>
+MAKEFILES :<span class="o">=</span> 
+<span class="c"># environment</span>
+<span class="nv">_system_type</span> <span class="o">=</span> Darwin
+<span class="c"># default</span>
+COMPILE.cc <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+<span class="c"># automatic</span>
+&lt;<span class="nv">F</span> <span class="o">=</span> <span class="k">$(</span>notdir <span class="nv">$&lt;</span><span class="k">)</span>
+<span class="c"># default</span>
+<span class="nv">CXX</span> <span class="o">=</span> c++
+<span class="c"># default</span>
+<span class="nv">COFLAGS</span> <span class="o">=</span> 
+<span class="c"># default</span>
+LINK.C <span class="o">=</span> <span class="k">$(</span>LINK.cc<span class="k">)</span>
+<span class="c"># default</span>
+COMPILE.C <span class="o">=</span> <span class="k">$(</span>COMPILE.cc<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">SECURITYSESSIONID</span> <span class="o">=</span> 186a6
+<span class="c"># automatic</span>
+^F <span class="o">=</span> <span class="k">$(</span>notdir <span class="nv">$^</span><span class="k">)</span>
+<span class="c"># default</span>
+COMPILE.S <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>ASFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_MACH<span class="k">)</span> -c
+<span class="c"># default</span>
+LINK.F <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span> <span class="k">$(</span>FFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">rvm_prefix</span> <span class="o">=</span> /Users/sunyongjian1
+<span class="c"># environment</span>
+<span class="nv">QUICK_V3_ROOT</span> <span class="o">=</span> /Users/sunyongjian1/Documents/quick-3.3rc1
+<span class="c"># default</span>
+SUFFIXES :<span class="o">=</span> .out .a .ln .o .c .cc .C .cpp .p .f .F .m .r .y .l .ym .lm .s .S .mod .sym .def .h .info .dvi .tex .texinfo .texi .txinfo .w .ch .web .sh .elc .el
+<span class="c"># default</span>
+COMPILE.c <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+<span class="c"># environment</span>
+<span class="nv">_system_arch</span> <span class="o">=</span> x86_64
+<span class="c"># default</span>
+COMPILE.s <span class="o">=</span> <span class="k">$(</span>AS<span class="k">)</span> <span class="k">$(</span>ASFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_MACH<span class="k">)</span>
+<span class="c"># default</span>
+.INCLUDE_DIRS <span class="o">=</span> /usr/include /usr/local/include /usr/include
+<span class="c"># environment</span>
+MAKELEVEL :<span class="o">=</span> 0
+<span class="c"># default</span>
+<span class="nv">MAKEINFO</span> <span class="o">=</span> makeinfo
+<span class="c"># default</span>
+<span class="nv">TEX</span> <span class="o">=</span> tex
+<span class="c"># environment</span>
+<span class="nv">LANG</span> <span class="o">=</span> zh_CN.UTF-8
+<span class="c"># environment</span>
+<span class="nv">TERM</span> <span class="o">=</span> xterm-256color
+<span class="c"># default</span>
+<span class="nv">F77FLAGS</span> <span class="o">=</span> <span class="k">$(</span>FFLAGS<span class="k">)</span>
+<span class="c"># default</span>
+LINK.f <span class="o">=</span> <span class="k">$(</span>FC<span class="k">)</span> <span class="k">$(</span>FFLAGS<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+<span class="c"># environment</span>
+<span class="nv">MY_RUBY_HOME</span> <span class="o">=</span> /Users/sunyongjian1/.rvm/rubies/ruby-2.1.2
+<span class="c"># default</span>
+<span class="nv">GNUMAKE</span> <span class="o">=</span> YES
+<span class="c"># variable set hash-table stats:</span>
+<span class="c"># Load=129/1024=13%, Rehash=0, Collisions=12/153=8%</span>
+
+<span class="c"># Pattern-specific Variable Values</span>
+
+<span class="c"># No pattern-specific variable values.</span>
+
+<span class="c"># Directories</span>
+
+<span class="c"># SCCS: could not be stat&#39;d.</span>
+<span class="c"># . (device 16777218, inode 16123454): 8 files, 60 impossibilities.</span>
+<span class="c"># RCS: could not be stat&#39;d.</span>
+
+<span class="c"># 8 files, 60 impossibilities in 3 directories.</span>
+
+<span class="c"># Implicit Rules</span>
+
+%.out:
+
+%.a:
+
+%.ln:
+
+%.o:
+
+%: %.o
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.o<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.c:
+
+%: %.c
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.c<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.ln: %.c
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINT.c<span class="k">)</span> -C<span class="nv">$*</span> <span class="nv">$&lt;</span>
+
+%.o: %.c
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.c<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.cc:
+
+%: %.cc
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.cc<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.cc
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.cc<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.C:
+
+%: %.C
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.C<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.C
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.C<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.cpp:
+
+%: %.cpp
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.cpp<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.cpp
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.p:
+
+%: %.p
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.p<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.p
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.p<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.f:
+
+%: %.f
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.f<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.f
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.f<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.F:
+
+%: %.F
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.F<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.F
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.F<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.f: %.F
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>PREPROCESS.F<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.m:
+
+%: %.m
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.m<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.m
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.m<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.r:
+
+%: %.r
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.r<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.r
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.r<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.f: %.r
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>PREPROCESS.r<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.y:
+
+%.ln: %.y
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>YACC.y<span class="k">)</span> <span class="nv">$&lt;</span> 
+    <span class="k">$(</span>LINT.c<span class="k">)</span> -C<span class="nv">$*</span> y.tab.c 
+    <span class="k">$(</span>RM<span class="k">)</span> y.tab.c
+
+%.c: %.y
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>YACC.y<span class="k">)</span> <span class="nv">$&lt;</span> 
+    mv -f y.tab.c <span class="nv">$@</span>
+
+%.l:
+
+%.ln: %.l
+<span class="c">#  commands to execute (built-in):</span>
+    @<span class="k">$(</span>RM<span class="k">)</span> <span class="nv">$*</span>.c
+    <span class="k">$(</span>LEX.l<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$*</span>.c
+    <span class="k">$(</span>LINT.c<span class="k">)</span> -i <span class="nv">$*</span>.c -o <span class="nv">$@</span>
+    <span class="k">$(</span>RM<span class="k">)</span> <span class="nv">$*</span>.c
+
+%.c: %.l
+<span class="c">#  commands to execute (built-in):</span>
+    @<span class="k">$(</span>RM<span class="k">)</span> <span class="nv">$@</span> 
+    <span class="k">$(</span>LEX.l<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$@</span>
+
+%.r: %.l
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LEX.l<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$@</span> 
+    mv -f lex.yy.r <span class="nv">$@</span>
+
+%.ym:
+
+%.m: %.ym
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>YACC.m<span class="k">)</span> <span class="nv">$&lt;</span> 
+    mv -f y.tab.c <span class="nv">$@</span>
+
+%.lm:
+
+%.m: %.lm
+<span class="c">#  commands to execute (built-in):</span>
+    @<span class="k">$(</span>RM<span class="k">)</span> <span class="nv">$@</span> 
+    <span class="k">$(</span>LEX.m<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$@</span>
+
+%.s:
+
+%: %.s
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.s<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.s
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.s<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+%.S:
+
+%: %.S
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.S<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+%.o: %.S
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.S<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+%.s: %.S
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>PREPROCESS.S<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$@</span>
+
+%.mod:
+
+%: %.mod
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.mod<span class="k">)</span> -o <span class="nv">$@</span> -e <span class="nv">$@</span> <span class="nv">$^</span>
+
+%.o: %.mod
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.mod<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+%.sym:
+
+%.def:
+
+%.sym: %.def
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.def<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+%.h:
+
+%.info:
+
+%.dvi:
+
+%.tex:
+
+%.dvi: %.tex
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TEX<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.texinfo:
+
+%.info: %.texinfo
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>MAKEINFO<span class="k">)</span> <span class="k">$(</span>MAKEINFO_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span> -o <span class="nv">$@</span>
+
+%.dvi: %.texinfo
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TEXI2DVI<span class="k">)</span> <span class="k">$(</span>TEXI2DVI_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.texi:
+
+%.info: %.texi
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>MAKEINFO<span class="k">)</span> <span class="k">$(</span>MAKEINFO_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span> -o <span class="nv">$@</span>
+
+%.dvi: %.texi
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TEXI2DVI<span class="k">)</span> <span class="k">$(</span>TEXI2DVI_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.txinfo:
+
+%.info: %.txinfo
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>MAKEINFO<span class="k">)</span> <span class="k">$(</span>MAKEINFO_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span> -o <span class="nv">$@</span>
+
+%.dvi: %.txinfo
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TEXI2DVI<span class="k">)</span> <span class="k">$(</span>TEXI2DVI_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.w:
+
+%.c: %.w
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CTANGLE<span class="k">)</span> <span class="nv">$&lt;</span> - <span class="nv">$@</span>
+
+%.tex: %.w
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CWEAVE<span class="k">)</span> <span class="nv">$&lt;</span> - <span class="nv">$@</span>
+
+%.ch:
+
+%.web:
+
+%.p: %.web
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TANGLE<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.tex: %.web
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>WEAVE<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%.sh:
+
+%: %.sh
+<span class="c">#  commands to execute (built-in):</span>
+    cat <span class="nv">$&lt;</span> &gt;<span class="nv">$@</span> 
+    chmod a+x <span class="nv">$@</span>
+
+%.elc:
+
+%.el:
+
+<span class="o">(</span>%<span class="o">)</span>: %
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>AR<span class="k">)</span> <span class="k">$(</span>ARFLAGS<span class="k">)</span> <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+%.out: %
+<span class="c">#  commands to execute (built-in):</span>
+    @rm -f <span class="nv">$@</span> 
+    cp <span class="nv">$&lt;</span> <span class="nv">$@</span>
+
+%.c: %.w %.ch
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CTANGLE<span class="k">)</span> <span class="nv">$^</span> <span class="nv">$@</span>
+
+%.tex: %.w %.ch
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CWEAVE<span class="k">)</span> <span class="nv">$^</span> <span class="nv">$@</span>
+
+%:: %,v
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CHECKOUT,v<span class="k">)</span>
+
+%:: RCS/%,v
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CHECKOUT,v<span class="k">)</span>
+
+%:: RCS/%
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CHECKOUT,v<span class="k">)</span>
+
+%:: s.%
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>GET<span class="k">)</span> <span class="k">$(</span>GFLAGS<span class="k">)</span> <span class="k">$(</span>SCCS_OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+%:: SCCS/s.%
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>GET<span class="k">)</span> <span class="k">$(</span>GFLAGS<span class="k">)</span> <span class="k">$(</span>SCCS_OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># 93 implicit rules, 5 (5.4%) terminal.</span>
+
+<span class="c"># Files</span>
+
+<span class="c"># Not a target:</span>
+.web.p:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TANGLE<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.l.r:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LEX.l<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$@</span> 
+    mv -f lex.yy.r <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.dvi:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.ym:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.F.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.F<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.l:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.m:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.m<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.y.ln:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>YACC.y<span class="k">)</span> <span class="nv">$&lt;</span> 
+    <span class="k">$(</span>LINT.c<span class="k">)</span> -C<span class="nv">$*</span> y.tab.c 
+    <span class="k">$(</span>RM<span class="k">)</span> y.tab.c
+
+<span class="c"># Not a target:</span>
+.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.o<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.y:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.def.sym:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.def<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.p.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.p<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.p:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.p<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.txinfo.dvi:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TEXI2DVI<span class="k">)</span> <span class="k">$(</span>TEXI2DVI_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.a:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.l.ln:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    @<span class="k">$(</span>RM<span class="k">)</span> <span class="nv">$*</span>.c
+    <span class="k">$(</span>LEX.l<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$*</span>.c
+    <span class="k">$(</span>LINT.c<span class="k">)</span> -i <span class="nv">$*</span>.c -o <span class="nv">$@</span>
+    <span class="k">$(</span>RM<span class="k">)</span> <span class="nv">$*</span>.c
+
+<span class="c"># Not a target:</span>
+.w.c:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CTANGLE<span class="k">)</span> <span class="nv">$&lt;</span> - <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.texi.dvi:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TEXI2DVI<span class="k">)</span> <span class="k">$(</span>TEXI2DVI_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.sh:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    cat <span class="nv">$&lt;</span> &gt;<span class="nv">$@</span> 
+    chmod a+x <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.m.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.m<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.cc:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.cc<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.cc.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.cc<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.def:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.SUFFIXES: .out .a .ln .o .c .cc .C .cpp .p .f .F .m .r .y .l .ym .lm .s .S .mod .sym .def .h .info .dvi .tex .texinfo .texi .txinfo .w .ch .web .sh .elc .el
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.c.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.c<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+Makefile:
+<span class="c">#  A default, MAKEFILES, or -include/sinclude makefile.</span>
+<span class="c">#  Implicit rule search has been done.</span>
+<span class="c">#  File does not exist.</span>
+<span class="c">#  File has been updated.</span>
+<span class="c">#  Failed to be updated.</span>
+<span class="c"># variable set hash-table stats:</span>
+<span class="c"># Load=0/32=0%, Rehash=0, Collisions=0/0=0%</span>
+
+<span class="c"># Not a target:</span>
+.r.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.r<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.r:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.r<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.lm:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.ym.m:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>YACC.m<span class="k">)</span> <span class="nv">$&lt;</span> 
+    mv -f y.tab.c <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+makefile:
+<span class="c">#  A default, MAKEFILES, or -include/sinclude makefile.</span>
+<span class="c">#  Implicit rule search has been done.</span>
+<span class="c">#  File does not exist.</span>
+<span class="c">#  File has been updated.</span>
+<span class="c">#  Failed to be updated.</span>
+<span class="c"># variable set hash-table stats:</span>
+<span class="c"># Load=0/32=0%, Rehash=0, Collisions=0/0=0%</span>
+
+<span class="c"># Not a target:</span>
+.info:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.elc:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.l.c:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    @<span class="k">$(</span>RM<span class="k">)</span> <span class="nv">$@</span> 
+    <span class="k">$(</span>LEX.l<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.out:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.C:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.C<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.r.f:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>PREPROCESS.r<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.S:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.S<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.texinfo.info:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>MAKEINFO<span class="k">)</span> <span class="k">$(</span>MAKEINFO_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.c:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.c<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.w.tex:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>CWEAVE<span class="k">)</span> <span class="nv">$&lt;</span> - <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.c.ln:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINT.c<span class="k">)</span> -C<span class="nv">$*</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.s.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.s<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.s:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.s<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.texinfo.dvi:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TEXI2DVI<span class="k">)</span> <span class="k">$(</span>TEXI2DVI_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.el:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.texinfo:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.lm.m:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    @<span class="k">$(</span>RM<span class="k">)</span> <span class="nv">$@</span> 
+    <span class="k">$(</span>LEX.m<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.y.c:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>YACC.y<span class="k">)</span> <span class="nv">$&lt;</span> 
+    mv -f y.tab.c <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.web.tex:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>WEAVE<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.texi.info:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>MAKEINFO<span class="k">)</span> <span class="k">$(</span>MAKEINFO_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.DEFAULT:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.h:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.tex.dvi:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>TEX<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.cpp.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.cpp:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.cpp<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.C.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.C<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.ln:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.texi:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.txinfo:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.tex:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.txinfo.info:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>MAKEINFO<span class="k">)</span> <span class="k">$(</span>MAKEINFO_FLAGS<span class="k">)</span> <span class="nv">$&lt;</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.ch:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+GNUmakefile:
+<span class="c">#  A default, MAKEFILES, or -include/sinclude makefile.</span>
+<span class="c">#  Implicit rule search has been done.</span>
+<span class="c">#  File does not exist.</span>
+<span class="c">#  File has been updated.</span>
+<span class="c">#  Failed to be updated.</span>
+<span class="c"># variable set hash-table stats:</span>
+<span class="c"># Load=0/32=0%, Rehash=0, Collisions=0/0=0%</span>
+
+<span class="c"># Not a target:</span>
+.S.s:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>PREPROCESS.S<span class="k">)</span> <span class="nv">$&lt;</span> &gt; <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.mod:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.mod<span class="k">)</span> -o <span class="nv">$@</span> -e <span class="nv">$@</span> <span class="nv">$^</span>
+
+<span class="c"># Not a target:</span>
+.mod.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.mod<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.F.f:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>PREPROCESS.F<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.w:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.S.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.S<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$&lt;</span>
+
+<span class="c"># Not a target:</span>
+.F:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.F<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.web:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.sym:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+
+<span class="c"># Not a target:</span>
+.f:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>LINK.f<span class="k">)</span> <span class="nv">$^</span> <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+
+<span class="c"># Not a target:</span>
+.f.o:
+<span class="c">#  Implicit rule search has not been done.</span>
+<span class="c">#  Modification time never checked.</span>
+<span class="c">#  File has not been updated.</span>
+<span class="c">#  commands to execute (built-in):</span>
+    <span class="k">$(</span>COMPILE.f<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> <span class="nv">$&lt;</span>
+
+<span class="c"># files hash-table stats:</span>
+<span class="c"># Load=75/1024=7%, Rehash=0, Collisions=445/1794=25%</span>
+<span class="c"># VPATH Search Paths</span>
+
+<span class="c"># No `vpath&#39; search paths.</span>
+
+<span class="c"># No general (`VPATH&#39; variable) search path.</span>
+
+<span class="c"># # of strings in strcache: 0</span>
+<span class="c"># # of strcache buffers: 0</span>
+<span class="c"># strcache size: total = 0 / max = 0 / min = 4096 / avg = 0</span>
+<span class="c"># strcache free: total = 0 / max = 0 / min = 4096 / avg = 0</span>
+
+<span class="c"># Finished Make data base on Sun Apr 26 15:08:26 2015</span>
+</code></pre></div>
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#c++-ref">
+    		c++ <span>28</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#make-ref">make <span>5</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/c++/2013-01-12/A-Multi-target-makefile-template" title="Multi-target Makefile Template">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/tools/2013-03-02/visual-studio-skills" title="Visual Studio Skills">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

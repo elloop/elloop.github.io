@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>从出错中学习Git</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/monokai.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>从出错中学习Git </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>17 May 2013</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h2>从出错中学习Git</h2>
+
+<h3>Problem 1</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">error: object file .git/objects/9a/83e9c5b3d697d12a2e315e1777ceaf27ea1bab is empty
+fatal: loose object 9a83e9c5b3d697d12a2e315e1777ceaf27ea1bab <span class="o">(</span>stored in .git/objects/9a/83e9c5b3d697d12a2e315e1777ceaf27ea1bab<span class="o">)</span> is corrupt
+</code></pre></div>
+<p>solution:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>rm -fr .git
+<span class="nv">$ </span>git init
+<span class="nv">$ </span>git remote add origin your-git-remote-url
+<span class="nv">$ </span>git fetch
+<span class="nv">$ </span>git reset --hard origin/master
+<span class="nv">$ </span>git branch --set-upstream-to<span class="o">=</span>origin/master master 
+</code></pre></div>
+<!--more-->
+
+<h3>Problem 2</h3>
+
+<p>今天忽然git push到github失败，报如下错误, 本地也没有修改git相关配置，一直没使用代理也是好好的，看到github的主页图标改版了，应该是它那边修改了什么，重新安装了Github For Windows也不起作用，尝试了别人说的关闭代理，<code>git config --global --unset http.proxy</code>也没有作用，最后通过切换连接方式解决了问题：HTTPS -&gt; SSH.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">fatal: unable to access <span class="s1">&#39;https://github.com/elloop/TankPongPongPong.git/&#39;</span>: Failed connect to github.com:443<span class="p">;</span> No error
+</code></pre></div>
+<p><em>solution</em></p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#查看原来的URLs</span>
+git remote -v
+<span class="c">#下面的输出是HTTPS</span>
+origin  https://github.com/&lt;username&gt;/&lt;reponame&gt;.git <span class="o">(</span>fetch<span class="o">)</span>
+origin  https://github.com/&lt;username&gt;/&lt;reponame&gt;.git <span class="o">(</span>push<span class="o">)</span>
+
+<span class="c"># 切换</span>
+git remote <span class="nb">set</span>-url origin git@github.com:&lt;username&gt;/&lt;reponame&gt;.git
+
+<span class="c">#修改之后，查看是否生效</span>
+git remote -v
+<span class="c">#看到下面的输出就是修改成SSH了</span>
+origin  git@github.com:&lt;username&gt;/&lt;reponame&gt;.git <span class="o">(</span>fetch<span class="o">)</span>
+origin  git@github.com:&lt;username&gt;/&lt;reponame&gt;.git <span class="o">(</span>push<span class="o">)</span>
+</code></pre></div>
+<blockquote>
+<p><a href="https://help.github.com/articles/changing-a-remote-s-url/">参考链接</a></p>
+</blockquote>
+
+<hr>
+
+<h2>Branch相关命令</h2>
+
+<p>从clone说起，git clone <url>, </p>
+
+<ul>
+<li><p>查看本地分支: 
+<strong>git branch</strong></p>
+
+<p>* master</p>
+
+<p>clone之后本地只有一个master分支. master自动被创建为跟踪分支(详见下面说明, 它跟踪了origin/master, 使用git remote -v 查看origin的定义).</p>
+
+<p>本地修改、提交内容之后，执行：</p>
+
+<p><strong>git push origin master</strong></p>
+
+<p>会把本地的master分支同步到remote.</p></li>
+<li><p>查看所有分支
+<strong>git branch -a</strong>
+* master
+remotes/origin/HEAD -&gt; origin/master
+remotes/origin/develop
+remotes/origin/master</p></li>
+<li><p>切换(建立)分支：
+<strong>git checkout origin/develop</strong>
+Note: checking out &#39;origin/develop&#39;.</p>
+
+<p>You are in &#39;detached HEAD&#39; state. You can look around, make experimental changes and commit them, and you can discard any commits you make in this state without impacting any branches by performing another checkout.</p>
+
+<p>If you want to create a new branch to retain commits you create, you may do so (now or later) by using -b with the checkout command again. Example:</p>
+
+<p>git checkout -b new_branch_name</p>
+
+<p>HEAD is now at 075e05b... update suffix_tree</p>
+
+<p>正如提示所说，这仅仅是experimental的，就是你可以切到这个临时分支玩一玩，等你checkout到别的分支，在这里的所有提交都会丢失（不影响任何分支）, 要想建立一个本地分支：</p>
+
+<p><strong>git checkout -b local_develop</strong></p>
+
+<p>Switched to a new branch &#39;local_develop&#39;</p></li>
+<li><p>跟踪远程分支
+从远程分支 checkout 出来的本地分支，称为 跟踪分支 (tracking branch)。跟踪分支是一种和某个远程分支有直接联系的本地分支。在跟踪分支里输入 git push，Git 会自行推断应该向哪个服务器的哪个分支推送数据。同样，在这些分支里运行 git pull 会获取所有远程索引，并把它们的数据都合并到本地分支中来。</p>
+
+<p>在克隆仓库时，Git 通常会自动创建一个名为 master 的分支来跟踪 origin/master。这正是 git push 和 git pull 一开始就能正常工作的原因。当然，你可以随心所欲地设定为其它跟踪分支，比如 origin 上除了 master 之外的其它分支。刚才我们已经看到了这样的一个例子：git checkout -b [分支名] [远程名]/[分支名]。如果你有 1.6.2 以上版本的 Git，还可以用 --track 选项简化：</p>
+
+<p><strong>git checkout --track origin/develop</strong></p>
+
+<p>Branch develop set up to track remote branch develop from origin.
+Switched to a new branch &#39;develop&#39;</p>
+
+<p>要为本地分支设定不同于远程分支的名字，只需在第一个版本的命令里换个名字：</p>
+
+<p><strong>git checkout -b dev origin/develop</strong></p>
+
+<p>Branch dev set up to track remote branch develop from origin.
+Switched to a new branch &#39;dev&#39;</p>
+
+<p>现在你的本地分支 dev 会自动将推送和抓取数据的位置定位到 origin/develop 了。</p></li>
+<li><p>推送到远程分支
+本地的visual-studio 分支推送到远程仓库，新建了一个远程分支</p>
+
+<p><strong>git push origin visual-studio:visual-studio</strong></p>
+
+<p>Total 0 (delta 0), reused 0 (delta 0)
+To <a href="https://github.com/elloop/TotalSTL.git">https://github.com/elloop/TotalSTL.git</a></p>
+
+<ul>
+<li>[new branch]      visual-studio -&gt; visual-studio</li>
+</ul></li>
+<li><p>删除远程分支
+手误创建了一个origin/visual-studio远程分支，现在想把它删掉</p>
+
+<p><strong>git push origin :origin/visual-studio</strong></p>
+
+<p>To <a href="https://github.com/elloop/TotalSTL.git">https://github.com/elloop/TotalSTL.git</a></p>
+
+<ul>
+<li>[deleted]         origin/visual-studio</li>
+</ul>
+
+<p>linadeMacBook-Pro:TotalSTL lina$ </p></li>
+<li><p>使用某分支(如：develop)直接覆盖另一分支(如：master)</p>
+
+<h2><strong>git push origin develop:master -f</strong></h2></li>
+</ul>
+
+<h2>其他使用Git中遇到的问题</h2>
+
+<h3>how to stage deleted files?</h3>
+
+<p>git add -u
+or
+try to enter sub-system of git add by typing : git add -i and following the prompt.</p>
+
+<h3>git pull conflict</h3>
+
+<p>solve:</p>
+
+<blockquote>
+<ol>
+<li>git stash (solve: commit your changes or stash them before you can merge)</li>
+<li>git pull</li>
+<li>git stash pop [stash@{0}]</li>
+<li>git add <modified files> (sovle: &#39;commit&#39; is not possible because you have unmerged files)</li>
+<li>git commit</li>
+</ol>
+</blockquote>
+
+<h3>difference between <code>git pull</code> and <code>git fetch</code></h3>
+
+<p>solve:</p>
+
+<ul>
+<li><code>git pull</code> == <code>git fetch</code> &amp;&amp; <code>git merge</code></li>
+</ul>
+
+<h3>Useful Command</h3>
+
+<ol>
+<li>git log --pretty=oneline</li>
+<li>git remote show [remote-name]</li>
+<li>git branch
+-no params: show all branches.
+-v: show recently records.
+-merged/-no-merged: show those branches which has been merged or (not merged) to current branch.</li>
+</ol>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#tools-ref">
+    		tools <span>9</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#git-ref">git <span>2</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/ios/2013-05-10/ios-common-sense" title="IOS Common Sense">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/tools/2013-06-09/git-sshkey" title="Mac上为github生成SSH Key">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

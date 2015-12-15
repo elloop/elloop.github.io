@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Windows Programming Accumulation</title>
+    
+    <meta name="description" content="windows programming summary">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>Windows Programming Accumulation </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>19 October 2013</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h1>Unicode in windows</h1>
+
+<h2><em>T and _</em>T</h2>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#ifdef UNICODE</span>
+<span class="cp">#define __T(x)      L ## x</span>
+<span class="cp">#else</span>
+<span class="cp">#define __T(x)      x</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#define _T(x) __T(x)</span>
+</code></pre></div>
+<h2>how to define UNICODE in VS.</h2>
+
+<p>In Project setting -&gt; common -&gt; character set : Unicdoe or Mutibytes.</p>
+
+<h2>an example of command line args parsing, with Unicode support.</h2>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"> <span class="k">auto</span> <span class="n">args</span> <span class="o">=</span> <span class="n">elloop_test</span><span class="o">::</span><span class="n">StringUtil</span><span class="o">::</span><span class="n">split</span><span class="p">(</span><span class="n">cmd_line</span><span class="p">,</span> <span class="sc">&#39; &#39;</span><span class="p">);</span>
+    <span class="c1">//auto args = GameMaths::tokenize(cmd_line, _T&quot; &quot;);</span>
+    <span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">args</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">iter</span> <span class="o">!=</span> <span class="n">args</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">iter</span> <span class="o">==</span> <span class="n">_T</span><span class="p">(</span><span class="s">&quot;--no-console&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">use_console</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="o">++</span><span class="n">iter</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">iter</span> <span class="o">==</span> <span class="n">_T</span><span class="p">(</span><span class="s">&quot;--window-size&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="n">args</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">iter</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">!=</span> <span class="n">args</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
+                <span class="k">auto</span> <span class="n">width</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="cp">#ifdef UNICODE</span>
+                <span class="n">DWORD</span> <span class="n">len</span> <span class="o">=</span> <span class="n">WideCharToMultiByte</span><span class="p">(</span><span class="n">CP_OEMCP</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">width</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">FALSE</span><span class="p">);</span>
+                <span class="kt">char</span> <span class="o">*</span><span class="n">width_val</span><span class="p">;</span>
+                <span class="n">width_val</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">len</span><span class="p">];</span>
+                <span class="n">WideCharToMultiByte</span><span class="p">(</span><span class="n">CP_OEMCP</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">width</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">width_val</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">);</span>
+                <span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">StringConverter</span><span class="o">::</span><span class="n">parseInt</span><span class="p">(</span><span class="n">width_val</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">w</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">win_width</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">delete</span> <span class="p">[]</span> <span class="n">width_val</span><span class="p">;</span>
+                <span class="cp">#else</span>
+                <span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">StringConverter</span><span class="o">::</span><span class="n">parseInt</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">w</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">win_width</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="cp">#endif</span>
+
+                <span class="k">auto</span> <span class="n">height</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">iter</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+                <span class="cp">#ifdef UNICODE</span>
+                <span class="n">len</span> <span class="o">=</span> <span class="n">WideCharToMultiByte</span><span class="p">(</span><span class="n">CP_OEMCP</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">height</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">);</span>
+                <span class="kt">char</span> <span class="o">*</span> <span class="n">height_val</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">len</span><span class="p">];</span>
+                <span class="n">WideCharToMultiByte</span><span class="p">(</span><span class="n">CP_OEMCP</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">height</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">height_val</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">);</span>
+                <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">StringConverter</span><span class="o">::</span><span class="n">parseInt</span><span class="p">(</span><span class="n">height_val</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">win_height</span> <span class="o">=</span> <span class="n">h</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">delete</span><span class="p">[]</span> <span class="n">height_val</span><span class="p">;</span>
+                <span class="cp">#else</span>
+                <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">StringConverter</span><span class="o">::</span><span class="n">parseInt</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">win_height</span> <span class="o">=</span> <span class="n">h</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="cp">#endif</span>
+
+                <span class="n">iter</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="o">++</span><span class="n">iter</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+<h2>获得当前可执行文件路径</h2>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// 获取 _wpgmptr 全局变量的当前值, </span>
+<span class="c1">// _wpgmptr 全局变量以宽字符字符串形式包含通向与该过程关联的可执行文件的完整路径</span>
+<span class="kt">errno_t</span> <span class="nf">_get_wpgmptr</span><span class="p">(</span>     <span class="kt">wchar_t</span> <span class="o">**</span><span class="n">pValue</span>  <span class="p">);</span>
+
+<span class="c1">// example: cocos2d-x CCFileUtils-win32.cpp, 初始化win32资源搜索根目录</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_checkPath</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">s_resourcePath</span><span class="p">.</span><span class="n">length</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">WCHAR</span> <span class="o">*</span><span class="n">pUtf16ExePath</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+        <span class="n">_get_wpgmptr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pUtf16ExePath</span><span class="p">);</span>
+
+        <span class="c1">// We need only directory part without exe</span>
+        <span class="n">WCHAR</span> <span class="o">*</span><span class="n">pUtf16DirEnd</span> <span class="o">=</span> <span class="n">wcsrchr</span><span class="p">(</span><span class="n">pUtf16ExePath</span><span class="p">,</span> <span class="sc">L&#39;\\&#39;</span><span class="p">);</span>
+
+        <span class="kt">char</span> <span class="n">utf8ExeDir</span><span class="p">[</span><span class="n">CC_MAX_PATH</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+        <span class="kt">int</span> <span class="n">nNum</span> <span class="o">=</span> <span class="n">WideCharToMultiByte</span><span class="p">(</span><span class="n">CP_UTF8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pUtf16ExePath</span><span class="p">,</span> <span class="n">pUtf16DirEnd</span><span class="o">-</span><span class="n">pUtf16ExePath</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">utf8ExeDir</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">utf8ExeDir</span><span class="p">),</span> <span class="k">nullptr</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+
+        <span class="n">s_resourcePath</span> <span class="o">=</span> <span class="n">convertPathFormatToUnixStyle</span><span class="p">(</span><span class="n">utf8ExeDir</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2>获得当前工作目录</h2>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// GetCurrentDirectoryW (Unicode) and GetCurrentDirectoryA (ANSI)</span>
+
+<span class="c1">// example: cocos2d-x CCFileUtils</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">_checkPath</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="n">s_pszResourcePath</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="p">{</span>
+        <span class="n">WCHAR</span>  <span class="n">wszPath</span><span class="p">[</span><span class="n">MAX_PATH</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+        <span class="kt">int</span> <span class="n">nNum</span> <span class="o">=</span> <span class="n">WideCharToMultiByte</span><span class="p">(</span><span class="n">CP_ACP</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">wszPath</span><span class="p">,</span>
+            <span class="n">GetCurrentDirectoryW</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">wszPath</span><span class="p">),</span> <span class="n">wszPath</span><span class="p">),</span>
+            <span class="n">s_pszResourcePath</span><span class="p">,</span> <span class="n">MAX_PATH</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">s_pszResourcePath</span><span class="p">[</span><span class="n">nNum</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\\&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#windows-ref">
+    		windows <span>4</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#c++-ref">c++ <span>9</span></a></li>
+     
+    	<li><a href="/tags.html#windows-ref">windows <span>3</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/c++/2013-09-28/about-sizeof" title="关于sizeof">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/cocos2d-x/2013-11-25/cocos2d-x-faq" title="Cocos2d-x 常见问题及解决方案">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

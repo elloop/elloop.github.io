@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>lua面向对象编程</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>lua面向对象编程 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>01 February 2014</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h2>lua面向对象编程风格代码示例</h2>
+
+<blockquote>
+<p>下面这段lua代码转载自<a href="http://blog.codingnow.com/cloud/LuaOO">云风的wiki</a>，是一种使用lua进行OOP的方法尝试</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">_class</span><span class="o">=</span><span class="p">{}</span>
+
+<span class="k">function</span> <span class="nf">class</span><span class="p">(</span><span class="n">super</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">class_type</span><span class="o">=</span><span class="p">{}</span>
+    <span class="n">class_type</span><span class="p">.</span><span class="n">ctor</span><span class="o">=</span><span class="kc">false</span>
+    <span class="n">class_type</span><span class="p">.</span><span class="n">super</span><span class="o">=</span><span class="n">super</span>
+    <span class="n">class_type</span><span class="p">.</span><span class="n">new</span><span class="o">=</span><span class="k">function</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> 
+            <span class="kd">local</span> <span class="n">obj</span><span class="o">=</span><span class="p">{}</span>
+            <span class="k">do</span>
+                <span class="kd">local</span> <span class="n">create</span>
+                <span class="n">create</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="o">...</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">c</span><span class="p">.</span><span class="n">super</span> <span class="k">then</span>
+                        <span class="n">create</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">super</span><span class="p">,</span><span class="o">...</span><span class="p">)</span>
+                    <span class="k">end</span>
+                    <span class="k">if</span> <span class="n">c</span><span class="p">.</span><span class="n">ctor</span> <span class="k">then</span>
+                        <span class="n">c</span><span class="p">.</span><span class="n">ctor</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="o">...</span><span class="p">)</span>
+                    <span class="k">end</span>
+                <span class="k">end</span>
+
+                <span class="n">create</span><span class="p">(</span><span class="n">class_type</span><span class="p">,</span><span class="o">...</span><span class="p">)</span>
+            <span class="k">end</span>
+            <span class="nb">setmetatable</span><span class="p">(</span><span class="n">obj</span><span class="p">,{</span> <span class="n">__index</span><span class="o">=</span><span class="n">_class</span><span class="p">[</span><span class="n">class_type</span><span class="p">]</span> <span class="p">})</span>
+            <span class="k">return</span> <span class="n">obj</span>
+        <span class="k">end</span>
+    <span class="kd">local</span> <span class="n">vtbl</span><span class="o">=</span><span class="p">{}</span>
+    <span class="n">_class</span><span class="p">[</span><span class="n">class_type</span><span class="p">]</span><span class="o">=</span><span class="n">vtbl</span>
+
+    <span class="nb">setmetatable</span><span class="p">(</span><span class="n">class_type</span><span class="p">,{</span><span class="n">__newindex</span><span class="o">=</span>
+        <span class="k">function</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">vtbl</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">v</span>
+        <span class="k">end</span>
+    <span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">super</span> <span class="k">then</span>
+        <span class="nb">setmetatable</span><span class="p">(</span><span class="n">vtbl</span><span class="p">,{</span><span class="n">__index</span><span class="o">=</span>
+            <span class="k">function</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
+                <span class="kd">local</span> <span class="n">ret</span><span class="o">=</span><span class="n">_class</span><span class="p">[</span><span class="n">super</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
+                <span class="n">vtbl</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">ret</span>
+                <span class="k">return</span> <span class="n">ret</span>
+            <span class="k">end</span>
+        <span class="p">})</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">class_type</span>
+<span class="k">end</span>
+</code></pre></div>
+<!--more-->
+
+<h2>lua中OO方式的小结</h2>
+
+<blockquote>
+<p>下面对lua OO方式的小结节选自<a href="http://blog.codingnow.com/2006/06/oo_lua.html">云风博客的一篇评论</a></p>
+</blockquote>
+
+<p>lua里面实现class机制，比较关键的地方就是class的继承机制，以及class实例化的过程。</p>
+
+<p>class继承机制的关键是怎么让子类拥有父类的方法集：</p>
+
+<ul>
+<li><p>1.完全使用setmetatable()的方式实现，每继承一次，都把父类的方法集设置为子类方法集的metatable。这样做应该最符合class的继承的思想，尽可能的复用逻辑，而且可以做到动态更新父类的方法集后，所有子类都会焙蛳碛姓庀罡碌奶匦?比如满足某些特殊的动态更新需求)。但随着class继承的层次加深，会生成一个复杂的class方法集table(n层的metatable)，毕竟metatable是有额外开销的，所以这个方法不一定是最完美的方案。</p></li>
+<li><p>2.将父类方法集copy到子类方法集来实现继承，即每当定义一个新的子类时，都将父类中方法集完整copy到子类方法集中。这种方法避免了使用metatable()带来的额外开销，但却造成了一些数据冗余(其实并不多)，并丧失了父类更新子类也会自动更新的特性。</p></li>
+<li><p>3.方案2的改进版本(也就是云风这里使用的比较强悍的方式:P pf),即同样是采用copy父类方法集的方案，但却改进了copy的机制。将原本在class定义期执行的方法集copy工作转移到实例的运行期间，采用copy-on-use(等同于copy-on-write的设计思路)的方式，在子类实例用到父类的某个方法时，才将其copy到子类的方法集中。由于这种copy只发生一次，而且不见得子类会用到父类方法集中的所有内容(事实如此)，所以这个方案相对于方案2来说减少了冗余数据，但却几乎没有增加任何额外开销。</p></li>
+</ul>
+
+<p>class实例化关键是实例如何享有class的方法集：</p>
+
+<ul>
+<li><p>1.最烂的方式，方法集copy，即class实例化时，将class的方法集直接copy给实例的数据table。这样的好处就是每个实例创建后，外界除非直接操作实例的数据table，否则其它行为都不会影响到这个实例的所有属性和特征(也许可以满足某些特殊的需求吧),同时也省掉了一次metatable的查找开销。缺点很明显，实例化过程低效，而且产生大量的冗余信息(或者这里也采用copy-on-use的思想? :p)。</p></li>
+<li><p>2.采用将class方法集设置为实例的metatable的方式，使实例享有class的方法集(这要求实例的数据类型必须可以拥有自己的metatable，即只能是table或userdata)。这个方案更优雅一些，而且符合class的共享思想并且实例化开销很小，应该是实现实例化的最佳方案了。在实现子类的初始化函数时，一般的思路都是先生成一个父类的实例，再强制将当前子类的方法集设置为这个实例的metatable。</p></li>
+</ul>
+
+<p>目前我们采用的class机制就是上述的两个2号方案(考虑更新到云风的3号方案),自己实现了两个接口class_define()、class_inherit()，其实完成的功能等同于以上代码中的class()。还是很pf lua的作者，估计在设计lua时就考虑到了面向对象的实现问题，很class的多关键机制(如隐式self参数、metatable机制)都已实现，这为自己实现class机制提供了强有力的支持。加上脚本的弱数据类型特性，只要思路清晰，在C++中可以实现的class机制lua中基本都能实现一个翻版，也许下个版本的lua可能会显示支持class:)</p>
+
+<h2>相关链接</h2>
+
+<ul>
+<li><a href="http://www.lua.org/pil/16.html">PIL</a></li>
+<li><a href="http://www.cnblogs.com/stephen-liu74/archive/2012/07/06/2421656.html">博客园</a></li>
+</ul>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#lua-ref">
+    		lua <span>5</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#lua-ref">lua <span>5</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/lua/2014-01-10/lua-module" title="lua模块module的使用">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/tools/2014-02-04/csdn-code" title="使用CSDN Code">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>【永远不会精通的C++】1: 两种变长参数函数比较</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>【永远不会精通的C++】1: 两种变长参数函数比较 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>28 November 2015</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h2>前言</h2>
+
+<p>本文要讨论的两种变长参数函数的形式分别为：</p>
+
+<ol>
+<li> c语言的方式</li>
+<li> c++11的变长模板参数</li>
+</ol>
+
+<h2>c语言的方式</h2>
+
+<p>在C++中, 通过包含<code>&lt;cstdarg&gt;</code>就能够使用c语言中<code>&lt;stdarg.h&gt;</code>里面定义的几个宏来完成变长参数的处理，先看一个实例：</p>
+
+<!--more-->
+
+<p><strong>例1</strong>：使用变长参数函数求和 </p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#include &lt;cstdarg&gt;</span>
+
+<span class="kt">int</span> <span class="nf">vsum</span><span class="p">(</span><span class="kt">int</span> <span class="n">count</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+
+    <span class="c1">// 定义一个变长参数类型的指针变量：ap （Argument Pointer）</span>
+    <span class="kt">va_list</span> <span class="n">ap</span><span class="p">;</span>
+
+    <span class="c1">// 初始化指针变量ap. </span>
+    <span class="c1">// 第二个参数count是用来确定ap的起始位置的，count是vsum的第一个参数，</span>
+    <span class="c1">// 注意： 如果vsum在count参数后，还有一个命名的参数叫abc, 那么就要va_start(ap, abc)来初始化ap了</span>
+    <span class="c1">// 后边的变长参数是根据count的地址来计算出来</span>
+    <span class="n">va_start</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="c1">// 遍历变长参数内容，通过ap。</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// va_arg的第一个参数是va_list定义的变长参数指针ap，</span>
+        <span class="c1">// 第二个参数指明了当前位置变长参数的类型。va_arg会自动改变ap的指针位置。</span>
+        <span class="c1">// 下次再调用va_arg它就自动取下一个参数了，这里ap就像个迭代器</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">val</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 清理工作</span>
+    <span class="n">va_end</span><span class="p">(</span><span class="n">ap</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//---------------------- begin of new test case ----------------------</span>
+<span class="n">RUN_GTEST</span><span class="p">(</span><span class="n">GrammarTest</span><span class="p">,</span> <span class="n">VA_Args</span><span class="p">,</span> <span class="err">@@</span><span class="p">);</span>
+
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+
+<span class="n">END_TEST</span><span class="p">;</span>
+</code></pre></div>
+<p>运行结果： 测试通过</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="p">[</span><span class="o">==========</span><span class="p">]</span> <span class="n">Running</span> <span class="mi">1</span> <span class="n">test</span> <span class="n">from</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span><span class="p">.</span>
+<span class="p">[</span><span class="o">----------</span><span class="p">]</span> <span class="n">Global</span> <span class="n">test</span> <span class="n">environment</span> <span class="n">set</span><span class="o">-</span><span class="n">up</span><span class="p">.</span>
+<span class="p">[</span><span class="o">----------</span><span class="p">]</span> <span class="mi">1</span> <span class="n">test</span> <span class="n">from</span> <span class="n">GrammarTest</span>
+<span class="p">[</span> <span class="n">RUN</span>      <span class="p">]</span> <span class="n">GrammarTest</span><span class="p">.</span><span class="n">VA_Args</span>
+<span class="err">@@@@@@@@@@@@@@@@@@@@</span> <span class="n">GrammarTest</span> <span class="o">---&gt;</span> <span class="n">VA_Args</span> <span class="err">@@@@@@@@@@@@@@@@@@@@</span>
+<span class="p">[</span>       <span class="n">OK</span> <span class="p">]</span> <span class="n">GrammarTest</span><span class="p">.</span><span class="n">VA_Args</span> <span class="p">(</span><span class="mi">4</span> <span class="n">ms</span><span class="p">)</span>
+<span class="p">[</span><span class="o">----------</span><span class="p">]</span> <span class="mi">1</span> <span class="n">test</span> <span class="n">from</span> <span class="n">GrammarTest</span> <span class="p">(</span><span class="mi">4</span> <span class="n">ms</span> <span class="n">total</span><span class="p">)</span>
+
+<span class="p">[</span><span class="o">----------</span><span class="p">]</span> <span class="n">Global</span> <span class="n">test</span> <span class="n">environment</span> <span class="n">tear</span><span class="o">-</span><span class="n">down</span>
+<span class="p">[</span><span class="o">==========</span><span class="p">]</span> <span class="mi">1</span> <span class="n">test</span> <span class="n">from</span> <span class="mi">1</span> <span class="n">test</span> <span class="k">case</span> <span class="n">ran</span><span class="p">.</span> <span class="p">(</span><span class="mi">4</span> <span class="n">ms</span> <span class="n">total</span><span class="p">)</span>
+<span class="p">[</span>  <span class="n">PASSED</span>  <span class="p">]</span> <span class="mi">1</span> <span class="n">test</span><span class="p">.</span>
+</code></pre></div>
+<p>使用va_list这种处理方式很早以前就有了，而且资料也比较多，在此不再多说，下面给出一个表格总结下几个关键宏（va_list是一个类型，不是宏）的作用：</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>名称</strong></th>
+<th style="text-align: left"><strong>参数</strong></th>
+<th style="text-align: left"><strong>作用</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">va_list</td>
+<td style="text-align: left">无</td>
+<td style="text-align: left">定义变长参数指针类型</td>
+</tr>
+<tr>
+<td style="text-align: left">va_start(ap, paramN)</td>
+<td style="text-align: left">ap: va_list类型的变量, 用来获取变长参数列表，基于paramN进行计算。</br> paramN: 函数参数列表里最后一个有名字的参数，比如vsum里的count。</td>
+<td style="text-align: left">初始化va_list类型的变量ap,使其获得到变长参数列表</td>
+</tr>
+<tr>
+<td style="text-align: left">va_end(ap)</td>
+<td style="text-align: left">ap: va_list类型的变量, 之前应该用va_start初始化过</td>
+<td style="text-align: left">结束使用变长参数列表，应该在调用了va_start的函数返回之前调用va_end</td>
+</tr>
+<tr>
+<td style="text-align: left">va_arg(ap, type)</td>
+<td style="text-align: left">ap: va_list类型的变量, 保存了变长参数列表的当前状态 </br> type: ap中当前位置的变量类型</td>
+<td style="text-align: left">返回ap当前位置的参数类型为type，同时修改ap的状态，使它的当前状态指向下一个变长参数列表里的参数。</td>
+</tr>
+<tr>
+<td style="text-align: left">va_copy(dst, src)</td>
+<td style="text-align: left">dst : 未经初始化的va_list类型的变量; </br> src要被复制的va_list变量</td>
+<td style="text-align: left">复制src，保持其当前状态到dst，之后对dst的变长参数处理操作将会与操作src一样。操作结束后，要使用va_end(dst)来做清理工作</td>
+</tr>
+</tbody></table>
+
+<hr>
+
+<p>c++11中引入了变长模板参数这一功能，包括类模板和函数模板都可以使用变长模板参数</p>
+
+<p>下面就演示一下如何使用变长模板参数来实现例子1中的变长参数求和。</p>
+
+<h2>使用c++11的变长模板函数</h2>
+
+<p><strong>例2</strong>：</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">vsum</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">T</span> <span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">t</span><span class="p">;</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">vsum</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
+    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">vsum</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">t</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">//---------------------- begin of new test case ----------------------</span>
+<span class="n">RUN_GTEST</span><span class="p">(</span><span class="n">GrammarTest</span><span class="p">,</span> <span class="n">VA_Args</span><span class="p">,</span> <span class="err">@@</span><span class="p">);</span>
+
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+
+<span class="n">END_TEST</span><span class="p">;</span>
+</code></pre></div>
+<p>测试结果：通过</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="p">[</span><span class="o">----------</span><span class="p">]</span> <span class="mi">1</span> <span class="n">test</span> <span class="n">from</span> <span class="n">GrammarTest</span>
+<span class="p">[</span> <span class="n">RUN</span>      <span class="p">]</span> <span class="n">GrammarTest</span><span class="p">.</span><span class="n">VA_Args</span>
+<span class="err">@@@@@@@@@@@@@@@@@@@@</span> <span class="n">GrammarTest</span> <span class="o">---&gt;</span> <span class="n">VA_Args</span> <span class="err">@@@@@@@@@@@@@@@@@@@@</span>
+<span class="p">[</span>       <span class="n">OK</span> <span class="p">]</span> <span class="n">GrammarTest</span><span class="p">.</span><span class="n">VA_Args</span> <span class="p">(</span><span class="mi">16</span> <span class="n">ms</span><span class="p">)</span>
+<span class="p">[</span><span class="o">----------</span><span class="p">]</span> <span class="mi">1</span> <span class="n">test</span> <span class="n">from</span> <span class="n">GrammarTest</span> <span class="p">(</span><span class="mi">16</span> <span class="n">ms</span> <span class="n">total</span><span class="p">)</span>
+</code></pre></div>
+<p>代码分析:</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// 定义一个函数模板，接受可变数量参数, 且每个参数的类型可以不一样</span>
+<span class="c1">// 这里面是一个递归调用的形式来定义的，比如：</span>
+<span class="c1">// vsum(1, 2, 3) 会返回 1 + vsum(2, 3)</span>
+<span class="c1">// vsum(2, 3)    返回 2 + vsum(3)</span>
+<span class="c1">// vsum(3)       返回 3</span>
+<span class="c1">// 递归的出口就是第二个函数模板，它只接受一个参数，并返回参数本身, 递归到这一点就开始回溯，累加结果</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">vsum</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">T</span> <span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">t</span><span class="p">;</span>
+    <span class="c1">// 递归调用 vsum, 把参数args，拆分为(head, tail...), tail越来越短，最后变为一个参数的版本vsum(t).</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">vsum</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>  
+    <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 函数模板递归出口</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">vsum</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">t</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<p>与va_list的实现方式比较：</p>
+
+<ol>
+<li> 模板函数更加灵活，不需要指定参数个数count，且参数类型可以不同. va_list方案中必须都是同一种类型int才能统一处理.</li>
+<li> 不必显示指定参数类型(va_list方案中需要va_arg(ap, type)来指定type), 函数模板的版本中不需要对类型进行判断，只要支持“+”操作的类型即可被当做参数传入vsum.</li>
+<li> 灵活性大也意味着容易犯错, 对于函数模板的vsum：</br>
+请分析vsum(1, 2.5, 3)的返回值是多少？ 它和vsum(1.5, 2, 3)的结果一样吗，都是6.5？</br>
+vsum(1, 2.5, 3) 将返回6, 而vsum(1.5, 2, 3)将返回6.5. </br>
+这是因为vsum的返回值被定义为第一个参数的返回类型(int)，也就是说vsum(1, 2.5, 3)的6.5在返回时被转为6.</li>
+</ol>
+
+<p>可以使用如下测试代码，来确定vsum(1, 2.5, 3) 和 vsum(1.5, 2, 3)的返回类型.</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="n">string</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">typeid</span><span class="p">(</span> <span class="k">decltype</span><span class="p">(</span> <span class="n">vsum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="p">)</span> <span class="p">).</span><span class="n">name</span><span class="p">();</span>
+<span class="n">EXPECT_STREQ</span><span class="p">(</span><span class="s">&quot;int&quot;</span><span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+
+<span class="n">string</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">typeid</span><span class="p">(</span> <span class="k">decltype</span><span class="p">(</span> <span class="n">vsum</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="p">)</span> <span class="p">).</span><span class="n">name</span><span class="p">();</span>
+<span class="n">EXPECT_STREQ</span><span class="p">(</span><span class="s">&quot;double&quot;</span><span class="p">,</span> <span class="n">t2</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</code></pre></div>
+<h2>使用c++11的变长参数类模板来实现可变参数求和 vsum</h2>
+
+<p><strong>例3</strong>：使用模板类</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">long</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">vsum</span><span class="p">;</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="kt">long</span> <span class="n">d</span><span class="p">,</span> <span class="kt">long</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">vsum</span><span class="o">&lt;</span><span class="n">d</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">long</span> <span class="n">value</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">vsum</span><span class="o">&lt;</span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span> <span class="o">&lt;&gt;</span>
+<span class="k">class</span> <span class="nc">vsum</span><span class="o">&lt;&gt;</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">long</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="c1">//---------------------- begin of new test case ----------------------</span>
+<span class="n">RUN_GTEST</span><span class="p">(</span><span class="n">GrammarTest</span><span class="p">,</span> <span class="n">VA_Args</span><span class="p">,</span> <span class="err">@@</span><span class="p">);</span>
+
+<span class="kt">long</span> <span class="n">s</span> <span class="o">=</span> <span class="n">vsum</span><span class="o">&lt;&gt;::</span><span class="n">value</span><span class="p">;</span>                         <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">vsum</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>                          <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">vsum</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>                       <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">vsum</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>                    <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">vsum</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>  <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="n">END_TEST</span><span class="p">;</span>
+</code></pre></div>
+<p>测试结果： 通过</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="p">[</span><span class="o">----------</span><span class="p">]</span> <span class="mi">1</span> <span class="n">test</span> <span class="n">from</span> <span class="n">GrammarTest</span>
+<span class="p">[</span> <span class="n">RUN</span>      <span class="p">]</span> <span class="n">GrammarTest</span><span class="p">.</span><span class="n">VA_Args</span>
+<span class="err">@@@@@@@@@@@@@@@@@@@@</span> <span class="n">GrammarTest</span> <span class="o">---&gt;</span> <span class="n">VA_Args</span> <span class="err">@@@@@@@@@@@@@@@@@@@@</span>
+<span class="p">[</span>       <span class="n">OK</span> <span class="p">]</span> <span class="n">GrammarTest</span><span class="p">.</span><span class="n">VA_Args</span> <span class="p">(</span><span class="mi">0</span> <span class="n">ms</span><span class="p">)</span>
+<span class="p">[</span><span class="o">----------</span><span class="p">]</span> <span class="mi">1</span> <span class="n">test</span> <span class="n">from</span> <span class="n">GrammarTest</span> <span class="p">(</span><span class="mi">0</span> <span class="n">ms</span> <span class="n">total</span><span class="p">)</span>
+</code></pre></div>
+<p>代码分析：
+思路是通过模板元编程的方式，在编译期完成计算。类似经典的模板元编程求阶乘的方法。 模板参数类型使用了非类型模板(nontype template)参数:long。 变长模板的展开通常都是通过递归的方式。</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="c1">// (1) 模板类前置声明，用于下面 (3) 处那个模板的特化.</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="kt">long</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">vsum</span><span class="p">;</span>
+
+<span class="c1">// (2) 递归主体,  </span>
+<span class="c1">// vsum&lt;1, 2, 3&gt;::value = 1 + vsum&lt;2, 3&gt;::value</span>
+<span class="c1">// vsum&lt;2, 3&gt;::value    = 2 + vsum&lt;3&gt;::value</span>
+<span class="c1">// vsum&lt;3&gt;::value       = 3 + vsum&lt;&gt;::value</span>
+<span class="c1">// vsum&lt;&gt;               = 0 即递归出口在 (3) 模板类特化处。</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="kt">long</span> <span class="n">d</span><span class="p">,</span> <span class="kt">long</span> <span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">vsum</span><span class="o">&lt;</span><span class="n">d</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// 递归部分，类似例2中函数模板的递归展开</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">long</span> <span class="n">value</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="n">vsum</span><span class="o">&lt;</span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span> 
+<span class="p">};</span>
+
+<span class="c1">// (3) 模板类特化</span>
+<span class="k">template</span> <span class="o">&lt;&gt;</span>
+<span class="k">class</span> <span class="nc">vsum</span><span class="o">&lt;&gt;</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">long</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h2>总结，对比两种方式可以看出，</h2>
+
+<ol>
+<li> c语言中，va_list的方式写法比较直接、易懂，但是不是c++解决问题的方式，不够通用，限制太多， 且用到了宏(Effective c++里不推荐宏)。</li>
+<li> 变长模板参数和变长模板类能实现va_list的功能，且灵活性比较大，使用函数和类，解决方法更为通用。其中类模板的方式, 和的计算在编译期就已完成。</li>
+</ol>
+
+<h2>源代码</h2>
+
+<p>本文的测试代码使用了google的c++单元测试框架gtest，源码请到我的github仓库查看:</p>
+
+<ul>
+<li><p><a href="https://github.com/elloop/CS.cpp/blob/master/TrainingGround/grammar/va_args_test.h">源代码-头文件</a></p></li>
+<li><p><a href="https://github.com/elloop/CS.cpp/blob/master/TrainingGround/grammar/va_args_test.cpp">源代码-源文件</a></p></li>
+</ul>
+
+<p><code>git clone git@github.com:elloop/CS.cpp.git</code> 下来，使用vs2013打开CS.cpp.sln，设置TrainingGround为启动项目, 构建运行即可。</p>
+
+参考链接</h2>
+
+<ul>
+<li><a href="http://www.cplusplus.com/reference/cstdarg/va_list/?kw=va_list">va_list参考</a></li>
+<li><a href="http://blog.csdn.net/jackystudio/article/details/17523523">va_list方式更细致的讲解</a></li>
+<li><a href="http://book.douban.com/subject/24738301/">深入理解c++11</a></li>
+<li><a href="https://github.com/elloop/CS.cpp/tree/master/UnderstandingCpp11">深入理解c++11代码总结</a></li>
+</ul>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#c++-ref">
+    		c++ <span>28</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#c++-ref">c++ <span>9</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/cocos2d-x/2015-11-25/cocos2dx-component-properties" title="cocos2d-x: 常用组件默认参数">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/cocos2d-x/2015-12-02/cocos2dx-3d-1-touch-event-2.x" title="【cocos2d-x 3D游戏开发】1: 2D基础回顾---触摸事件(2.x)">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,844 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>cocos2d-x: 常用组件默认参数</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>cocos2d-x: 常用组件默认参数 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>25 November 2015</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h2>前言</h2>
+
+<p>本文总结了cocos2d-x常用渲染类的默认属性和它们之间的继承关系，并对比了2.x和3.x在相关方面之间的一些差别。
+<strong>注意</strong>：默认参数的含义是在使用create()方法返回的对象那个时间点的属性。</p>
+
+<h2>V2.X (conclude from 2.2.3 source codes)</h2>
+
+<h3>Node类</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left">(0,0)</td>
+<td style="text-align: left">false</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">CCObject</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCNodeRGBA</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCDrawNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCAtlasNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+
+<!--more-->
+
+<h3>Scene &amp; Layer</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCScene</td>
+<td style="text-align: left">(0.5, 0.5)</td>
+<td style="text-align: left">true</td>
+<td style="text-align: left">winSize</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCLayer</td>
+<td style="text-align: left">(0.5, 0,5)</td>
+<td style="text-align: left">true</td>
+<td style="text-align: left">winSize</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCLayerRGBA</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">CCLayer</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCLayerColor</td>
+<td style="text-align: left">同CCLayerRGBA</td>
+<td style="text-align: left">同CCLayerRGBA</td>
+<td style="text-align: left">默认winSize, 可指定大小create</td>
+<td style="text-align: left">同CCLayerRGBA</td>
+<td style="text-align: left">CCLayerRGBA</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCLayerGradient</td>
+<td style="text-align: left">同CCLayerColor</td>
+<td style="text-align: left">同CCLayerColor</td>
+<td style="text-align: left">同CCLayerColor</td>
+<td style="text-align: left">同CCLayerColor</td>
+<td style="text-align: left">CCLayerColor</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCLayerMultiplex</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">CCLayer</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+
+<h3>Sprite</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCSprite</td>
+<td style="text-align: left">(0.5, 0.5)</td>
+<td style="text-align: left">同CCNodeRGBA</td>
+<td style="text-align: left">pTexture-&gt;getContentSize()</td>
+<td style="text-align: left">同CCNodeRGBA</td>
+<td style="text-align: left">CCNodeRGBA</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCSpriteBatchNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+
+<h3>Label类</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCLabelAtlas</td>
+<td style="text-align: left">同CCAtlasNode</td>
+<td style="text-align: left">同CCAtlasNode</td>
+<td style="text-align: left">同CCAtlasNode</td>
+<td style="text-align: left">同CCAtlasNode</td>
+<td style="text-align: left">CCAtlasNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCLabelBMFont</td>
+<td style="text-align: left">(0.5, 0.5)</td>
+<td style="text-align: left">同CCSpriteBatchNode</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">同CCSpriteBatchNode</td>
+<td style="text-align: left">CCSpriteBatchNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCLabelTTF</td>
+<td style="text-align: left">同CCSprite</td>
+<td style="text-align: left">同CCSprite</td>
+<td style="text-align: left">同CCSprite</td>
+<td style="text-align: left">同CCSprite</td>
+<td style="text-align: left">CCSprite</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCTextFieldTTF</td>
+<td style="text-align: left">同CCLabelTTF</td>
+<td style="text-align: left">同CCLabelTTF</td>
+<td style="text-align: left">同CCLabelTTF</td>
+<td style="text-align: left">同CCLabelTTF</td>
+<td style="text-align: left">CCLabelTTF</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+
+<h3>Menu类</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCMenu</td>
+<td style="text-align: left">(0.5, 0.5)</td>
+<td style="text-align: left">true</td>
+<td style="text-align: left">winSize</td>
+<td style="text-align: left">winSize/2</td>
+<td style="text-align: left">CCLayerRGBA</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCMenuItem</td>
+<td style="text-align: left">(0.5, 0.5)</td>
+<td style="text-align: left">同CCNodeRGBA</td>
+<td style="text-align: left">同CCNodeRGBA</td>
+<td style="text-align: left">同CCNodeRGBA</td>
+<td style="text-align: left">CCNodeRGBA</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCMenuItemToggle</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">CCMenuItem</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCMenuItemLabel</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">lable-&gt;contentSize</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">CCMenuItem</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCMenuItemFont</td>
+<td style="text-align: left">同CCMenuItemLabel</td>
+<td style="text-align: left">同CCMenuItemLabel</td>
+<td style="text-align: left">同CCMenuItemLabel</td>
+<td style="text-align: left">同CCMenuItemLabel</td>
+<td style="text-align: left">CCMenuItemLabel</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCMenuItemAtlasFont</td>
+<td style="text-align: left">同CCMenuItemLabel</td>
+<td style="text-align: left">同CCMenuItemLabel</td>
+<td style="text-align: left">同CCMenuItemLabel</td>
+<td style="text-align: left">同CCMenuItemLabel</td>
+<td style="text-align: left">CCMenuItemLabel</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCMenuItemSprite</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">m_pNormalImage contentSize</td>
+<td style="text-align: left">同CCMenuItem</td>
+<td style="text-align: left">CCMenuItem</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCMenuItemImage</td>
+<td style="text-align: left">同CCMenuItemSprite</td>
+<td style="text-align: left">同CCMenuItemSprite</td>
+<td style="text-align: left">m_pNormalImage contentSize</td>
+<td style="text-align: left">同CCMenuItemSprite</td>
+<td style="text-align: left">CCMenuItemSprite</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+
+<h3>extensions.</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCScrollView</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">CCLayer</td>
+<td style="text-align: left">kCCScrollViewDirectionBoth</td>
+</tr>
+<tr>
+<td style="text-align: left">CCScrollView.m_pContainer</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">false</td>
+<td style="text-align: left">同CCLayer</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">CCLayer</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCTableView</td>
+<td style="text-align: left">同CCScrollView</td>
+<td style="text-align: left">同CCScrollView</td>
+<td style="text-align: left">同CCScrollView</td>
+<td style="text-align: left">同CCScrollView</td>
+<td style="text-align: left">CCScrollView</td>
+<td style="text-align: left">kCCScrollViewDirectionVertical</td>
+</tr>
+</tbody></table>
+
+<h3>CCTMXTiledMap</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCTMXTiledMap</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">max(childSize)</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+
+<h3>Particle</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCParticleSystem</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCParticleBatchNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCParticleSystemQuad</td>
+<td style="text-align: left">同CCParticleSystem</td>
+<td style="text-align: left">同CCParticleSystem</td>
+<td style="text-align: left">同CCParticleSystem</td>
+<td style="text-align: left">同CCParticleSystem</td>
+<td style="text-align: left">CCParticleSystem</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCParticleSun</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">winSize/2</td>
+<td style="text-align: left">CCParticleSystemQuad</td>
+<td style="text-align: left">太阳</td>
+</tr>
+<tr>
+<td style="text-align: left">CCParticleSpiral</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">winSize/2</td>
+<td style="text-align: left">CCParticleSystemQuad</td>
+<td style="text-align: left">螺旋</td>
+</tr>
+<tr>
+<td style="text-align: left">CCParticleSnow</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">同CCParticleSystemQuad</td>
+<td style="text-align: left">(winSize.width/2, winSize.height/2 + 10)</td>
+<td style="text-align: left">CCParticleSystemQuad</td>
+<td style="text-align: left">下雪</td>
+</tr>
+</tbody></table>
+
+<p>其它粒子效果属性请参考<a href="https://github.com/cocos2d/cocos2d-x/blob/cocos2d-x-2.2.3/cocos2dx/particle_nodes/CCParticleSystem.cpp">CCParticleExamples.h</a>.</p>
+
+<h3>CCTransitionScene</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCTransitionScene</td>
+<td style="text-align: left">同CCScene</td>
+<td style="text-align: left">同CCScene</td>
+<td style="text-align: left">同CCScene</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCScene</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCTransitionFade</td>
+<td style="text-align: left">同CCTransitionScene</td>
+<td style="text-align: left">同CCTransitionScene</td>
+<td style="text-align: left">同CCTransitionScene</td>
+<td style="text-align: left">同CCTransitionScene</td>
+<td style="text-align: left">CCTransitionScene</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+
+<p>其他过渡场景类请参考：<a href="https://github.com/cocos2d/cocos2d-x/blob/cocos2d-x-2.2.3/cocos2dx/layers_scenes_transitions_nodes/CCTransition.cpp">CCTransition.cpp</a></p>
+
+<h2>3.X 和 2.x 的主要不同 (以3.2为例)</h2>
+
+<ol>
+<li>NodeRGBA被标记为deprecated. 因此，之前继承自CCNodeRGBA的类都会有变化，比如下文将提到的Sprite, MenuItem.</li>
+<li>Scene可通过createWithSize指定contentSize的方式来创建. </li>
+<li>LayerColor不再继承LayerRGBA, 而是直接继承Layer. LayerRGBA被标记为deprecated. LayerColor与Layer一样，默认的contentSize是winSize, 其子类LayerGradient也是如此。</li>
+<li>Sprite不再继承自CCNodeRGBA, 而是直接继承Node。初始的锚点设置为(0.5, 0.5) (默认的变换锚点为中心), 是在initWithTexture这个初始化方法里做的属性赋值，其它几个初始化方法，最终调用的都是initWithTexture(Texture2D *texture, const Rect&amp; rect, bool rotated).</li>
+<li>LabelBMFont的初始contentSize为_label-&gt;getContentSize(). _label为其member变量，类型为Label.</li>
+<li>LabelTTF不再继承CCSprite, 而是继承Node. 内部包含一个Label类型的member变量_renderLabel.</li>
+<li>TextFieldTTF不再继承CCLabelTTF, 而是继承Label.</li>
+<li>Menu不再继承CCLayerRGBA, 而是继承Layer.</li>
+</ol>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#cocos2d-x-ref">
+    		cocos2d-x <span>12</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#cocos2d-x-ref">cocos2d-x <span>12</span></a></li>
+     
+    	<li><a href="/tags.html#game-ref">game <span>5</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/programming/2015-11-18/learn_coding_by_simulation" title="How Benjamin Franklin Would've Learned To Program">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/c++/2015-11-28/never-proficient-cpp-vaargs" title="【永远不会精通的C++】1: 两种变长参数函数比较">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

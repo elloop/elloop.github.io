@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>【cocos2d-x 3D游戏开发】2: 2D基础回顾---理解CCMenu类的实现, 实现点击放大的菜单按钮</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>【cocos2d-x 3D游戏开发】2: 2D基础回顾---理解CCMenu类的实现, 实现点击放大的菜单按钮 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>10 December 2015</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h2>前言</h2>
+
+<p>本文介绍了CCMenu类的实现原理，并在CCMenu的基础上稍加改造，实现了一个点击自动缩放的菜单类。</p>
+
+<!--more-->
+
+<h2>CCMenu的实现 -- 单点触摸事件很好的使用范例</h2>
+
+<p>在上一篇文中里回顾了cocos中单点触摸的用法和触摸事件分发机制、优先级控制等内容，也给出了自己写的小demo，其实在cocos本身就有很好的触摸事件的使用范例，其中就包括CCMenu的实现，下面我们结合引擎源代码来分析一下它的实现原理。</p>
+
+<p>CCMenu本质上就是一个Touchable，并且是单点触摸的。它身上挂满了各种“零件”（各种CCMenuItem的子类），你摸它的时候，假设你摸在A点，它就判断A点落在它的哪个“零件”上, 它就会叫那个“零件”做出反应, 完成那个“零件”应该完成的任务（调用你在创建CCMenuItem子类时绑定的handler）.</p>
+
+<p><strong>CCMenu.h:</strong></p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#ifndef __CCMENU_H_</span>
+<span class="cp">#define __CCMENU_H_</span>
+
+<span class="cp">#include &quot;CCMenuItem.h&quot;</span>
+<span class="cp">#include &quot;layers_scenes_transitions_nodes/CCLayer.h&quot;</span>
+
+<span class="n">NS_CC_BEGIN</span>
+
+<span class="c1">// 用于判断菜单被触摸的状态</span>
+<span class="k">typedef</span> <span class="k">enum</span>  
+<span class="p">{</span>
+    <span class="n">kCCMenuStateWaiting</span><span class="p">,</span>            <span class="c1">// 没被摸呢</span>
+    <span class="n">kCCMenuStateTrackingTouch</span>       <span class="c1">// 正在被摸</span>
+<span class="p">}</span> <span class="n">tCCMenuState</span><span class="p">;</span>
+
+<span class="k">enum</span> <span class="p">{</span>
+    <span class="c1">// 菜单的触摸优先级，-128, 一般人抢不过它，你要想比它先响应触摸事件，就要比-128还要小</span>
+    <span class="n">kCCMenuHandlerPriority</span> <span class="o">=</span> <span class="o">-</span><span class="mi">128</span><span class="p">,</span> 
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">CC_DLL</span> <span class="nl">CCMenu</span> <span class="p">:</span> <span class="k">public</span> <span class="n">CCLayerRGBA</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">m_bEnabled</span><span class="p">;</span>    <span class="c1">// 禁用了吗</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">CCMenu</span><span class="p">()</span> <span class="o">:</span> <span class="n">m_pSelectedItem</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">CCMenu</span><span class="p">(){}</span>
+
+    <span class="c1">// 创建方法，最后殊途同归到：createWithArray</span>
+    <span class="k">static</span> <span class="n">CCMenu</span><span class="o">*</span> <span class="n">create</span><span class="p">();</span>
+    <span class="k">static</span> <span class="n">CCMenu</span><span class="o">*</span> <span class="nf">create</span><span class="p">(</span><span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">item</span><span class="p">,</span> <span class="p">...);</span>
+    <span class="k">static</span> <span class="n">CCMenu</span><span class="o">*</span> <span class="nf">createWithItem</span><span class="p">(</span><span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">item</span><span class="p">);</span>
+    <span class="k">static</span> <span class="n">CCMenu</span><span class="o">*</span> <span class="nf">createWithItems</span><span class="p">(</span><span class="n">CCMenuItem</span> <span class="o">*</span><span class="n">firstItem</span><span class="p">,</span> <span class="kt">va_list</span> <span class="n">args</span><span class="p">);</span>
+    <span class="k">static</span> <span class="n">CCMenu</span><span class="o">*</span> <span class="nf">createWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">pArrayOfItems</span><span class="p">);</span>
+
+    <span class="kt">bool</span> <span class="nf">init</span><span class="p">();</span>
+    <span class="c1">// 真正的创建在这里完成，init() == initWithArray(nullptr)</span>
+    <span class="kt">bool</span> <span class="nf">initWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">pArrayOfItems</span><span class="p">);</span>
+
+
+    <span class="c1">// 如何摆放自己身上的“零件”， 垂直、水平、按列对齐、按行对齐</span>
+    <span class="kt">void</span> <span class="nf">alignItemsVertically</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="nf">alignItemsVerticallyWithPadding</span><span class="p">(</span><span class="kt">float</span> <span class="n">padding</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">alignItemsHorizontallyWithPadding</span><span class="p">(</span><span class="kt">float</span> <span class="n">padding</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">alignItemsInColumns</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">columns</span><span class="p">,</span> <span class="kt">va_list</span> <span class="n">args</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">alignItemsInColumnsWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">rows</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">alignItemsInRows</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rows</span><span class="p">,</span> <span class="p">...);</span>
+    <span class="kt">void</span> <span class="nf">alignItemsInRows</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">rows</span><span class="p">,</span> <span class="kt">va_list</span> <span class="n">args</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="nf">alignItemsInRowsWithArray</span><span class="p">(</span><span class="n">CCArray</span><span class="o">*</span> <span class="n">columns</span><span class="p">);</span>
+
+    <span class="cm">/** set event handler priority. By default it is: kCCMenuTouchPriority */</span>
+    <span class="kt">void</span> <span class="nf">setHandlerPriority</span><span class="p">(</span><span class="kt">int</span> <span class="n">newPriority</span><span class="p">);</span>
+
+    <span class="c1">// 重写CCNode的这一堆方法为了什么？ 就为了判断你是不是往菜单里塞了不是CCMenuItem*类型的东西.</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">addChild</span><span class="p">(</span><span class="n">CCNode</span> <span class="o">*</span> <span class="n">child</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">addChild</span><span class="p">(</span><span class="n">CCNode</span> <span class="o">*</span> <span class="n">child</span><span class="p">,</span> <span class="kt">int</span> <span class="n">zOrder</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">addChild</span><span class="p">(</span><span class="n">CCNode</span> <span class="o">*</span> <span class="n">child</span><span class="p">,</span> <span class="kt">int</span> <span class="n">zOrder</span><span class="p">,</span> <span class="kt">int</span> <span class="n">tag</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">removeChild</span><span class="p">(</span><span class="n">CCNode</span><span class="o">*</span> <span class="n">child</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">cleanup</span><span class="p">);</span>
+
+    <span class="c1">// CCLayer的方法，注册到触摸事件分发中心：CCTouchDispatcher</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">registerWithTouchDispatcher</span><span class="p">();</span>
+
+    <span class="c1">// 重点，响应单点触摸</span>
+    <span class="k">virtual</span> <span class="kt">bool</span> <span class="nf">ccTouchBegan</span><span class="p">(</span><span class="n">CCTouch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ccTouchEnded</span><span class="p">(</span><span class="n">CCTouch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ccTouchCancelled</span><span class="p">(</span><span class="n">CCTouch</span> <span class="o">*</span><span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">);</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">ccTouchMoved</span><span class="p">(</span><span class="n">CCTouch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">CCEvent</span><span class="o">*</span> <span class="n">event</span><span class="p">);</span>
+
+    <span class="c1">// 状态机</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">onExit</span><span class="p">();</span>
+
+    <span class="c1">// 暂时忽略</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">setOpacityModifyRGB</span><span class="p">(</span><span class="kt">bool</span> <span class="n">bValue</span><span class="p">)</span> <span class="p">{</span><span class="n">CC_UNUSED_PARAM</span><span class="p">(</span><span class="n">bValue</span><span class="p">);}</span>
+    <span class="k">virtual</span> <span class="kt">bool</span> <span class="nf">isOpacityModifyRGB</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;}</span>
+
+    <span class="c1">// 不用说了</span>
+    <span class="k">virtual</span> <span class="kt">bool</span> <span class="nf">isEnabled</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_bEnabled</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">setEnabled</span><span class="p">(</span><span class="kt">bool</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">m_bEnabled</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">protected</span><span class="o">:</span>
+    <span class="n">CCMenuItem</span><span class="o">*</span> <span class="n">itemForTouch</span><span class="p">(</span><span class="n">CCTouch</span> <span class="o">*</span> <span class="n">touch</span><span class="p">);</span>      <span class="c1">// 判断自身的哪个“零件”被摸到了</span>
+    <span class="n">tCCMenuState</span> <span class="n">m_eState</span><span class="p">;</span>                          <span class="c1">// 触摸状态，</span>
+    <span class="n">CCMenuItem</span> <span class="o">*</span><span class="n">m_pSelectedItem</span><span class="p">;</span>                    <span class="c1">// 被摸到的那个“零件”</span>
+<span class="p">};</span>
+
+<span class="n">NS_CC_END</span>
+
+<span class="cp">#endif</span><span class="c1">//__CCMENU_H_</span>
+</code></pre></div>
+<h2>source codes</h2>
+
+<p><strong>源代码仓库地址: <a href="https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp">cocos2d-x-cpp-demos-2.x</a>, 是本人写的一个小型Demo框架，方便添加测试代码或者用来开发游戏，如果觉得有用请帮忙点个Star，谢谢</strong></p>
+
+<hr>
+
+<p><strong>作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！</strong></p>
+
+<p><strong>欢迎访问<a href="http://elloop.github.io">github博客</a>，与本站同步更新</strong></p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#cocos2d-x-ref">
+    		cocos2d-x <span>12</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#cocos2d-x-ref">cocos2d-x <span>12</span></a></li>
+     
+    	<li><a href="/tags.html#game-ref">game <span>5</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/cocos2d-x/2015-12-09/cocos2dx-3d-0-cocos3d-or-unity3d" title="【cocos2d-x 3D游戏开发】0: 3D时代到来，学cocos3D还是Unity3D？">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

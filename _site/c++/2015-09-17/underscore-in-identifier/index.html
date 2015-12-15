@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>c++标识符中下划线的使用</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>c++标识符中下划线的使用 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>17 September 2015</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <p>今天在Code Review网站上看到了一个关于在宏定义中使用下划线的讨论 :</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#define _BasicFsmT_h</span>
+</code></pre></div>
+<p>这个宏定义有问题吗？</p>
+
+<!--more-->
+
+<p>是有问题的，证明它有问题的证据就是c++标准的规定：</p>
+
+<blockquote>
+<p>在任何作用域内，以一个下划线开头，并且紧接着一个大写字母是保留的标识符。</p>
+</blockquote>
+
+<hr>
+
+<p>下面的一个SOF的回答总结了更多的关于在标识符里使用下划线的规则:</p>
+
+<h2>The rules (which did not change in C++11):</h2>
+
+<blockquote>
+<ul>
+<li>Reserved in any scope, including for use as implementation macros:
+
+<ul>
+<li>identifiers beginning with an underscore followed immediately by an uppercase letter</li>
+<li>identifiers containing adjacent underscores (or &quot;double underscore&quot;)</li>
+</ul></li>
+<li>Reserved in the global namespaces:
+
+<ul>
+<li>identifiers beginning with an underscore</li>
+<li>Also, everything in the std namespace is reserved. (You are allowed to add template specializations, though.)</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<h2>From the 2003 C++ Standard:</h2>
+
+<blockquote>
+<ul>
+<li>17.4.3.2.1 Global names [lib.global.names]
+Certain sets of names and function signatures are always reserved to the implementation:</li>
+</ul>
+</blockquote>
+
+<p>- Each name that contains a double underscore (_ _) or begins with an underscore followed by an uppercase letter (2.11) is reserved to the implementation for any use.
+        - Each name that begins with an underscore is reserved to the implementation for use as a name in the global namespace. Such names are also reserved in namespace ::std (17.4.3.1).</p>
+
+<p>Because C++ is based on the C standard (1.1/2, C++03) and C99 is a normative reference (1.2/1, C++03) these also apply, from the 1999 C Standard:</p>
+
+<blockquote>
+<h2>7.1.3 Reserved identifiers</h2>
+
+<p>Each header declares or defines all identifiers listed in its associated subclause, and optionally declares or defines identifiers listed in its associated future library directions subclause and identifiers which are always reserved either for any use or for use as file scope identifiers.</p>
+
+<ul>
+<li>All identifiers that begin with an underscore and either an uppercase letter or another underscore are always reserved for any use.</li>
+<li>All identifiers that begin with an underscore are always reserved for use as identifiers with file scope in both the ordinary and tag name spaces.</li>
+<li>Each macro name in any of the following subclauses (including the future library directions) is reserved for use as specified if any of its associated headers is included; unless explicitly stated otherwise (see 7.1.4).</li>
+<li>All identifiers with external linkage in any of the following subclauses (including the future library directions) are always reserved for use as identifiers with external linkage.</li>
+<li>Each identifier with file scope listed in any of the following subclauses (including the future library directions) is reserved for use as a macro name and as an identifier with file scope in the same name space if any of its associated headers is included.</li>
+</ul>
+
+<p>No other identifiers are reserved. If the program declares or defines an identifier in a context in which it is reserved (other than as allowed by 7.1.4), or defines a reserved identifier as a macro name, the behavior is undefined.</p>
+
+<p>If the program removes (with #undef) any macro definition of an identifier in the first group listed above, the behavior is undefined.</p>
+
+<p>The list of reserved identifiers with external linkage includes errno, math_errhandling, setjmp, and va_end.</p>
+</blockquote>
+
+<p>Other restrictions might apply. For example:</p>
+
+<h2>the POSIX standard reserves a lot of identifiers that are likely to show up in normal code:</h2>
+
+<blockquote>
+<ul>
+<li>Names beginning with a capital &#39;E&#39; followed a digit or uppercase letter:
+may be used for additional error code names.</li>
+<li>Names that begin with either &#39;is&#39; or &#39;to&#39; followed by a lowercase letter
+may be used for additional character testing and conversion functions.</li>
+<li>Names that begin with &#39;LC_&#39; followed by an uppercase letter
+may be used for additional macros specifying locale attributes.</li>
+<li>Names of all existing mathematics functions suffixed with &#39;f&#39; or &#39;l&#39; are reserved
+for corresponding functions that operate on float and long double arguments, respectively.</li>
+<li>Names that begin with &#39;SIG&#39; followed by an uppercase letter are reserved
+for additional signal names.</li>
+<li>Names that begin with &#39;SIG_&#39; followed by an uppercase letter are reserved
+for additional signal actions.</li>
+<li>Names beginning with &#39;str&#39;, &#39;mem&#39;, or &#39;wcs&#39; followed by a lowercase letter are reserved
+for additional string and array functions.</li>
+<li>Names beginning with &#39;PRI&#39; or &#39;SCN&#39; followed by any lowercase letter or &#39;X&#39; are reserved
+for additional format specifier macros</li>
+<li>Names that end with &#39;_t&#39; are reserved
+for additional type names.</li>
+</ul>
+</blockquote>
+
+<p>While using these names for your own purposes right now might not cause a problem, they do raise the possibility of conflict with future versions of that standard.</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#c++-ref">
+    		c++ <span>28</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#grammar-ref">grammar <span>5</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/life/2015-09-17/new-habit" title="6条可以让习惯成自然的方法">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/c++/2015-10-13/using-rapidjson" title="rapidjson使用总结">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

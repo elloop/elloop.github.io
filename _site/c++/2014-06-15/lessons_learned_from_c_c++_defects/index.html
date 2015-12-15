@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>《Lessons learned from c/c++ defects》总结</title>
+    
+    <meta name="description" content="summary of book "Lessons Learned From c/c++ Defects"">
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>《Lessons learned from c/c++ defects》总结 </h1>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6c2d2406949a760f35302c8a793d54f6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>15 June 2014</span>
+    </div>
+
+    
+    <div class="content">
+        <!-- copyright -->
+        
+            <span><b style="color: #ff8c5b"><i>版权声明：本文基于署名 2.5 中国大陆许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名elloop(包含链接)</i></b></span> <br></br>
+        
+
+        <h2>basic question</h2>
+
+<h3>item1: n &lt;&lt; 1 + 1 == 4*n , not 2*n + 1</h3>
+
+<h3>item2: what will happen?</h3>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#define perimeter(x, y) 2*x + 2*y</span>
+<span class="n">volume</span> <span class="o">=</span> <span class="n">perimeter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">high</span>
+</code></pre></div>
+<p><em>correct</em></p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#define perimeter(x, y) (2*(x) + 2*(y))</span>
+</code></pre></div>
+<h3>item3: macro pollution:</h3>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#define map __gnu_cxx::hash_map </span><span class="c1">// in a.cpp</span>
+<span class="c1">// files which include &#39;a.cpp&#39; will be polluted by map define.</span>
+</code></pre></div>
+<!--more-->
+
+<h3>item4: 多语句宏使用错误，应该用{}把多语句宏括起来，或者最好是用inline函数代替宏.</h3>
+
+<h3>item5: what&#39;s wrong?</h3>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">c</span> <span class="p">;</span>
+    <span class="k">while</span> <span class="p">((</span><span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">())</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">putchar</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>correct</em> : <code>int c;</code></p>
+
+<ul>
+<li><p>item6: signed int 和 unsigned int比较时候，前者会转成后者，如果前者是负数，转换结果会影响比较结果。</p></li>
+<li><p>item7: see:</p></li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="n">data</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="nl">flag</span><span class="p">:</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="nl">other</span><span class="p">:</span> <span class="mi">31</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">status</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">data</span> <span class="n">test</span><span class="p">;</span>
+    <span class="n">test</span><span class="p">.</span><span class="n">flag</span> <span class="o">=</span> <span class="n">status</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">test</span><span class="p">.</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;true&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;false&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>correct</em>: flag is signed bit, value only be 0 or -1.  so change to unsigned int flag: 1;</p>
+
+<ul>
+<li>item8: compare float:</li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">f2</span> <span class="o">=</span> <span class="mf">0.333333</span><span class="p">;</span>
+<span class="c1">// wrong</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="n">f2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// same</span>
+<span class="p">}</span>
+
+<span class="c1">// right</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">f</span> <span class="o">-</span> <span class="n">f2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.00001</span><span class="p">)</span>
+    <span class="c1">// same</span>
+</code></pre></div>
+<ul>
+<li>item9: 求相反数</li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="n">minInt</span> <span class="o">=</span> <span class="mh">0xffffffff</span><span class="p">;</span>
+<span class="n">minInt</span> <span class="o">=</span> <span class="o">-</span><span class="n">minInt</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">minInt</span><span class="p">);</span>
+
+<span class="c1">// right: -1 最小负整数的相反数需要单独判断</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">minInt</span> <span class="o">==</span> <span class="mh">0xffffffff</span><span class="p">)</span> 
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>item10: right?</li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">size_t</span> <span class="n">size</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">size</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">size</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">retrun</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>correct</em>: --size &gt; 0</p>
+
+<ul>
+<li>item11: struct init style.</li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="n">rect</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="n">w</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// bad style.</span>
+<span class="k">struct</span> <span class="n">rect</span> <span class="n">r</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">};</span>
+
+<span class="c1">// good style.</span>
+<span class="k">struct</span> <span class="n">rect</span> <span class="n">r</span> <span class="o">=</span> <span class="p">{</span> <span class="n">r</span><span class="p">.</span><span class="n">l</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">20</span><span class="p">};</span>
+</code></pre></div>
+<ul>
+<li>item12: 模板的两段编译</li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+    <span class="k">protected</span><span class="o">:</span>
+        <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kt">void</span> <span class="n">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>won&#39;t compiling pass in latest complier
+but will pass in old complier
+新的编译器模板两段编译：
+1. 扫描所有非依赖名称
+2. (实例化模板)扫描所有依赖名称(只有实例化的时候才能消除歧义的名称)
+reason: num是一个非依赖参数, 但是但是定义在基类中的，目前的编译器还没有实现第一阶段到模板基类中查找名称，因此会报错：num undeclared.</p>
+
+<p>旧版的编译器没有实现两段编译，对模板类的语法解析时，所有的名字查找都留在了实例化的时候进行，所以可以通过编译</p>
+
+<p><em>correct</em>: this-&gt;num 将会使num变成依赖型名称</p>
+
+<h2>lib functions.</h2>
+
+<ul>
+<li>item1: sprintf: segmentation fault.</li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">char</span> <span class="n">src</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;aaaaaaaaaaaaaaaaaaaaa&quot;</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">sprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+</code></pre></div>
+<p><em>suggestion</em></p>
+
+<blockquote>
+<ol>
+<li>snprintf: 会检查返回值n，如果n&gt;len(buffer), 会重新分配空间并再一次调用snprintf.</li>
+<li>asprintf: 不预先分配buf内存，复制过程中根据实际复制源的大小动态分配内存，参考libc手册</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>item2: snprintf parameters:</li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">src</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;hello %s&quot;</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">sprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="n">src</span><span class="p">);</span>
+
+<span class="c1">// *correct*</span>
+<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">sprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>item3: return value of snprintf:</li>
+</ul>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">src</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">snprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+<span class="n">buf</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;buf = %s, buf_len = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</code></pre></div>
+<p>snprintf返回实际写入到buf的字符个数（假设buf大小没有限制）
+e.g.: 
+&quot;%s&quot; src = &quot;123&quot; -&gt; len = 3
+&quot;src=%s&quot; src = &quot;123&quot; -&gt; len = strlen(&quot;str=&quot;) + strlen(src) = 6
+&quot;%s&quot; src = &quot;1234567890123&quot; -&gt; len = 13</p>
+
+<p><em>correct</em></p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">snprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;return len: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;error: src len is %d, buf size is %d not enough&quot;</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;buf=%s, len is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-book"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#c++-ref">
+    		c++ <span>28</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+  
+     
+    	<li><a href="/tags.html#notes-ref">notes <span>4</span></a></li>
+    
+  
+
+
+
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/framework/2014-06-12/framework-plan" title="framework-plan">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/c++/cocos2d-x/2014-06-20/CocoStudio" title="CocoStudio">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'elloop'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>

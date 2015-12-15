@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Small Flows</title>
+    
+    <meta name="author" content="elloop">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!-- Optional theme --><!-- 
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-solarized-dark.css" rel="stylesheet"> -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/colors-dark.css" rel="stylesheet">
+    <!-- highlighting css -->
+    
+        <link href="/assets/syntaxcss/solarizeddark.css" rel="stylesheet" type="text/css" media="all">
+    
+
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images -->
+      <link rel="shortcut icon" href="/assets/themes/bootstrap-3/favicon.png">
+      <!-- <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"> -->
+   
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+</head>
+
+<body>
+
+    
+<style type="text/css">
+</style>
+
+<div id="wrap">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Small Flows</a>
+            <!-- 
+            <a href="http://github.com/elloop"><img class="navbar-brand" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+            -->
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+            <ul class="nav navbar-nav">
+                  
+
+
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">归档</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+
+            </ul>
+            <!--
+
+                <a href="http://github.com/elloop"><img class="naviconhref" src="/assets/images/github-icon.png" alt="Star me on GitHub" /></a>
+
+            <form action="http://www.google.com/search" class="navbar-form navbar-right" method="get">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Google" name="q" size="31" maxlength="255" value="" type="text">
+                </div>
+                <input value="Search" class="btn btn-default" type="submit">
+                <input style="display:none" value="http://elloop.github.io" name="sitesearch" checked="" type="radio">
+            </form>
+            -->
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div class="container">
+        
+<div class="page-header">
+  <h1>Small Flows  <br><small>不积跬步无以至千里，不积小流无以成江海</small></h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    
+
+<h2 id="sample-posts">Posts</h2>
+
+<!--
+<ul class="posts">
+   
+    <li><span>25 Nov 2015</span> &raquo; <a href="/cocos2d-x/2015-11-25/cocos2dx-component-properties">cocos2d-x: 常用组件默认参数</a></li>
+    
+    <p style="background: color"><h2>前言</h2>
+
+<p>本文总结了cocos2d-x常用渲染类的默认属性和它们之间的继承关系，并对比了2.x和3.x在相关方面之间的一些差别。
+<strong>注意</strong>：默认参数的含义是在使用create()方法返回的对象那个时间点的属性。</p>
+
+<h2>V2.X (conclude from 2.2.3 source codes)</h2>
+
+<h3>Node类</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left">(0,0)</td>
+<td style="text-align: left">false</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">CCObject</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCNodeRGBA</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCDrawNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCAtlasNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+</p>
+   
+    <li><span>18 Nov 2015</span> &raquo; <a href="/programming/2015-11-18/learn_coding_by_simulation">How Benjamin Franklin Would've Learned To Program</a></li>
+    
+    <p style="background: color"><p>Good programming is notoriously difficult to teach. Programming books generally all start out in the same way: &quot;Here is an example of an X, and here is an example.&quot;. Teaching the building blocks is easy. There are only so many. The hard part is teaching the consequences of each choice. The common advice is to write a lot of code to get good. This is necessary but not sufficient. To learn we still need to decide what code to write, and how to improve that code.</p>
+</p>
+   
+    <li><span>13 Oct 2015</span> &raquo; <a href="/c++/2015-10-13/using-rapidjson">rapidjson使用总结</a></li>
+    
+    <p style="background: color"><h2>rapidjson简介</h2>
+
+<p>rapidjson是腾讯的开源json解析框架，用c++实现。由于全部代码仅用header file实现，所以很容易集成到项目中。</p>
+
+<p>rapidjson的性能是很出色的，其作者<a href="https://github.com/miloyip">Milo Yipz</a>做了28个C/C++ JSON库的评测，<a href="http://www.zhihu.com/question/23654513">这个链接</a>里有测试的结果截图。</p>
+
+<p>rapidjson的另一个特点是对json的标准符合程度是100%的(在开启了full precision选项的情况下)。</p>
+
+<p>这里是官方教程：<a href="http://rapidjson.org/zh-cn/md_doc_tutorial_8zh-cn.html">rapidjson官方教程</a></p>
+
+<p>这里是原作者对rapidjson代码的剖析：<a href="http://miloyip.com/rapidjson/">rapidjson代码剖析</a></p>
+</p>
+   
+    <li><span>17 Sep 2015</span> &raquo; <a href="/c++/2015-09-17/underscore-in-identifier">c++标识符中下划线的使用</a></li>
+    
+    <p style="background: color"><p>今天在Code Review网站上看到了一个关于在宏定义中使用下划线的讨论 :</p>
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#define _BasicFsmT_h</span>
+</code></pre></div>
+<p>这个宏定义有问题吗？</p>
+</p>
+   
+    <li><span>17 Sep 2015</span> &raquo; <a href="/life/2015-09-17/new-habit">6条可以让习惯成自然的方法</a></li>
+    
+    <p style="background: color"><p>不久以前，我的生活一塌糊涂。在凌晨3点到6点之间我不定时的睡觉，而在最糟糕的日子里我根本无法入睡。因为睡得晚，所以我起的也晚，然后导致的就是我的一天开始的也晚，这就意味着我的一天都是在赶工作，约会也总是迟到。不仅如此，我吃的东西也让人想象不到——为了熬夜我要吃大量的垃圾食品和零食。这种情况不停的形成恶性循环，我也终于不愿再这么继续下去了，我要彻底改变我的生活方式！</p>
+
+<p>我挑选了9个接下来的21天我想培养的习惯，比如说：（1）最晚12点一定要睡觉（2）5点钟准时起床（3）至少拿出一天看看书、听听广播（4）沉思（5）约会时提前一点到（6）吃生食。这六条对于有些人来说可能觉得有些受不了，但是又想到只是一个21天的计划，所以我觉得不妨尝试一些更与众不同的。</p>
+</p>
+  
+</ul>
+-->
+
+
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/cocos2d-x/2015-11-25/cocos2dx-component-properties">cocos2d-x: 常用组件默认参数</a>
+    	</h2>
+        <!-- Wednesday 25 November 2015 -->
+        25 Nov 2015
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p><h2>前言</h2>
+
+本文总结了cocos2d-x常用渲染类的默认属性和它们之间的继承关系，并对比了2.x和3.x在相关方面之间的一些差别。
+<strong>注意</strong>：默认参数的含义是在使用create()方法返回的对象那个时间点的属性。
+
+<h2>V2.X (conclude from 2.2.3 source codes)</h2>
+
+<h3>Node类</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>类型</strong></th>
+<th style="text-align: left"><strong>锚点</strong></th>
+<th style="text-align: left"><strong>忽略锚点</strong></th>
+<th style="text-align: left"><strong>contentSize</strong></th>
+<th style="text-align: left"><strong>position</strong></th>
+<th style="text-align: left"><strong>直接父类</strong></th>
+<th style="text-align: left"><strong>备注</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left">(0,0)</td>
+<td style="text-align: left">false</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">(0, 0)</td>
+<td style="text-align: left">CCObject</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCNodeRGBA</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCDrawNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: left">CCAtlasNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">同CCNode</td>
+<td style="text-align: left">CCNode</td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+...</p>
+    	<p><a href="/cocos2d-x/2015-11-25/cocos2dx-component-properties">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/programming/2015-11-18/learn_coding_by_simulation">How Benjamin Franklin Would've Learned To Program</a>
+    	</h2>
+        <!-- Wednesday 18 November 2015 -->
+        18 Nov 2015
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p>Good programming is notoriously difficult to teach. Programming books generally all start out in the same way: &quot;Here is an example of an X, and here is an example.&quot;. Teaching the building blocks is easy. There are only so many. The hard part is teaching the consequences of each choice. The common advice is to write a lot of code to get good. This is necessary but not sufficient. To learn we still need to decide what code to write, and how to improve that code.
+...</p>
+    	<p><a href="/programming/2015-11-18/learn_coding_by_simulation">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/c++/2015-10-13/using-rapidjson">rapidjson使用总结</a>
+    	</h2>
+        <!-- Tuesday 13 October 2015 -->
+        13 Oct 2015
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p><h2>rapidjson简介</h2>
+
+rapidjson是腾讯的开源json解析框架，用c++实现。由于全部代码仅用header file实现，所以很容易集成到项目中。
+
+rapidjson的性能是很出色的，其作者<a href="https://github.com/miloyip">Milo Yipz</a>做了28个C/C++ JSON库的评测，<a href="http://www.zhihu.com/question/23654513">这个链接</a>里有测试的结果截图。
+
+rapidjson的另一个特点是对json的标准符合程度是100%的(在开启了full precision选项的情况下)。
+
+这里是官方教程：<a href="http://rapidjson.org/zh-cn/md_doc_tutorial_8zh-cn.html">rapidjson官方教程</a>
+
+这里是原作者对rapidjson代码的剖析：<a href="http://miloyip.com/rapidjson/">rapidjson代码剖析</a>
+...</p>
+    	<p><a href="/c++/2015-10-13/using-rapidjson">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/c++/2015-09-17/underscore-in-identifier">c++标识符中下划线的使用</a>
+    	</h2>
+        <!-- Thursday 17 September 2015 -->
+        17 Sep 2015
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p>今天在Code Review网站上看到了一个关于在宏定义中使用下划线的讨论 :
+<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span class="cp">#define _BasicFsmT_h</span>
+</code></pre></div>
+这个宏定义有问题吗？
+...</p>
+    	<p><a href="/c++/2015-09-17/underscore-in-identifier">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
+
+<!-- <div class="hero-unit"> -->
+  <div class="posts">
+    <p>
+    	<h2>
+    		<a href="/life/2015-09-17/new-habit">6条可以让习惯成自然的方法</a>
+    	</h2>
+        <!-- Thursday 17 September 2015 -->
+        17 Sep 2015
+        <!-- { post.content | strip_html | truncatewords: 35 }}-->
+        <p>不久以前，我的生活一塌糊涂。在凌晨3点到6点之间我不定时的睡觉，而在最糟糕的日子里我根本无法入睡。因为睡得晚，所以我起的也晚，然后导致的就是我的一天开始的也晚，这就意味着我的一天都是在赶工作，约会也总是迟到。不仅如此，我吃的东西也让人想象不到——为了熬夜我要吃大量的垃圾食品和零食。这种情况不停的形成恶性循环，我也终于不愿再这么继续下去了，我要彻底改变我的生活方式！
+
+我挑选了9个接下来的21天我想培养的习惯，比如说：（1）最晚12点一定要睡觉（2）5点钟准时起床（3）至少拿出一天看看书、听听广播（4）沉思（5）约会时提前一点到（6）吃生食。这六条对于有些人来说可能觉得有些受不了，但是又想到只是一个21天的计划，所以我觉得不妨尝试一些更与众不同的。
+...</p>
+    	<p><a href="/life/2015-09-17/new-habit">阅读全文 ...</a></p> 
+    </p>
+    <hr/>
+  </div>
+
+
+
+
+<ul class="pagination">
+  
+    <li><a href="/index.html">&laquo; Prev</a></li>
+  
+
+  
+    
+      <li><a href="/index.html">1</a></li>
+    
+  
+    
+      <li class="active"><span>2</span></li>
+    
+  
+    
+      <li><a href="/page3">3</a></li>
+    
+  
+    
+      <li><a href="/page4">4</a></li>
+    
+  
+    
+      <li><a href="/page5">5</a></li>
+    
+  
+    
+      <li><a href="/page6">6</a></li>
+    
+  
+    
+      <li><a href="/page7">7</a></li>
+    
+  
+    
+      <li><a href="/page8">8</a></li>
+    
+  
+    
+      <li><a href="/page9">9</a></li>
+    
+  
+    
+      <li><a href="/page10">10</a></li>
+    
+  
+    
+      <li><a href="/page11">11</a></li>
+    
+  
+    
+      <li><a href="/page12">12</a></li>
+    
+  
+    
+      <li><a href="/page13">13</a></li>
+    
+  
+    
+      <li><a href="/page14">14</a></li>
+    
+  
+    
+      <li><a href="/page15">15</a></li>
+    
+  
+
+  
+    <li><a href="/page3">Next &raquo;</a></li>
+  
+</ul>
+
+
+
+  </div>
+</div>
+
+
+    </div>
+
+<nav class="footer">
+    <div class="container">
+        <span class="copyright">
+            Content by <a href="https://github.com/elloop">elloop</a> (<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+        </span>
+        <p>
+        </p>
+    </div>
+</nav>
+
+</div>
+
+
+
+
+
+    
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64459285-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    
+</body>
+
+</html>
