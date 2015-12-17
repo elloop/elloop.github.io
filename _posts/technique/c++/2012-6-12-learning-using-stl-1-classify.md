@@ -6,13 +6,15 @@ tags: [stl]
 description: ""
 ---
 
-##前言
+#前言
 
 本文从整体上对STL的内容和功能做了一个概览，并根据其组成部分功能的不同对STL的组件进行分类。
 
+在后续的文章中会对每个分类中的组件进行展开说明。
+
 <!--more-->
 
-## 容器-container
+# 容器-container
 
 **1. 序列式容器(sequence containers)**
 
@@ -48,16 +50,71 @@ description: ""
 
 - [priority_queue](http://www.cplusplus.com/reference/queue/priority_queue/) : 优先队列
 
-## 迭代器-iterator
+# 迭代器-iterator
 
 
 
-## 算法-algorithm
+# 算法-algorithm
 
 
-## 函数子-functor
+# 函数对象-function objects (or functors for short)
+
+## 预定义函数对象 (predefined function objects)
+
+|**Expression**|**Actions**|
+|---|---|
+|`negate<T>()`|-arg|
+|`plus<T>()`|arg1 + arg2|
+|`minus<T>()`|arg1 - arg2|
+|`multiplies<T>()`|arg1 * arg2|
+|`divides<T>()`|arg1 / arg2|
+|`modulus<T>()`|arg1 % arg2|
+|`equal_to<T>()`|arg1 == arg2|
+|`not_equal_to<T>()`|arg1 != arg2|
+|`less<T>()`|arg1 < arg2|
+|`greater<T>()`|arg1 > arg2|
+|`less_equal<T>()`|arg1 <= arg2|
+|`greater_equal<T>()`|arg1 >= arg2|
+|`logical_not<T>()`|!arg1|
+|`logical_and<T>()`|arg1 && arg2|
+|`logical_or<T>()`|arg1 || arg2|
+|`bit_and<T>()`|arg1 & arg2|
+|`bit_or<T>()`|arg1 | arg2|
+|`bit_xor<T>()`|arg1 ^ arg2|
+
+
+## 函数组合的概念 (concept of functional composition) (according to the composite pattern in [GoF: DesignPatterns])
+
+函数组合是STL灵活性的体现，通过函数适配器，我们可以把各种预定义functors，自定义functors，全局函数，成员函数，lambda表达式以及各种值组合起来使用.
+
+## 函数适配器与Binders (function adapters)
+
+|**Expression**|**Actions**|
+|---|---|
+|bind(fn, args...)|binds args to fn|
+|mem_fn(fn)|calls fn() as a member function for an obj or ptr of obj|
+|not1(fn)|unary negation: !fn(arg)|
+|not2(fn)|binary negation: !fn(arg1, arg2)|
+
+
+由于C++11推出了bind以及lambda表达式等强大特性, 这些特性使得函数组合操作更加方便，因此C++98中的一些用于实现函数组合的函数适配器已经deprecated. 它们包括：
+
+
+|**Expression**|**Actions**|
+|---|---|
+|bind1st(fn, arg)|calls fn(arg, param), arg是bind1st里提供的数值，param是调用者传来的|
+|bind2nd(fn, arg)|calls fn(param, arg), arg是bind2nd里提供的数值，param是调用者传来的|
+|ptr_fun(fn)|calls *fn(param) or *fn(param1, param2), ptr_fun用来包装函数指针, 因为大多数标准库设施不直接支持函数指针|
+|mem_fun(fn)|calls fn() as a member function for a ptr to an obj|
+|mem_fun_ref(fn)|calls fn() as a member function for an obj|
+|not1(fn)|!fn(param)|
+|not2(fn)|!fn(param1, param2)|
+
+
+从C++11起，我们应该尽量多使用bind和lambda来与STL的其它组件协同完成开发任务，这样写出来的代码更好理解也便于维护。后面的文章中将对bind的用法、lambda的用法及限制等方面进行展开，同时给出这方面的代码示例。
 
 ---------------------------
+
 **作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
 
 **欢迎访问[github博客](http://elloop.github.io)，与本站同步更新**

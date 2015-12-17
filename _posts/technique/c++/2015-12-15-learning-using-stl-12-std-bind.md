@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】12: 掌握std::bind(since c++11)"
+title: "【C++ STL学习与应用总结】12: 如何使用std::bind(since c++11)"
 category: c++
 tags: [stl]
 description: ""
@@ -8,7 +8,7 @@ description: ""
 
 ##前言
 
-本文总结了std::bind这个模板函数的用法，给出了std::bind绑定普通函数(函数指针)、lambda表达式、成员函数、成员变量、模板函数、嵌套std::bind等的语法细节及注意的问题。
+std::bind是STL实现函数组合概念的重要手段，本文总结了std::bind这个模板函数的用法，给出了std::bind绑定普通函数(函数指针)、lambda表达式、成员函数、成员变量、模板函数、嵌套std::bind等的语法细节及注意的问题。
 
 文中涉及到的术语：
 
@@ -434,6 +434,7 @@ bind中的参数是被copy或者是被move到目标函数的，除非显示指�
 - [本文的测试代码](https://github.com/elloop/CS.cpp/blob/master/TrainingGround/stl/functor_test.cpp)
 
 ---------------------------
+
 **作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
 
 **欢迎访问[github博客](http://elloop.github.io)，与本站同步更新**
