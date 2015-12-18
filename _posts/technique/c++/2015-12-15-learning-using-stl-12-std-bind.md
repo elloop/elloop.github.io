@@ -416,7 +416,56 @@ bind_ref();                // 1 100 10; 第二个参数跟着x变化了，第三
 ## bind与标准库协同工作
 
 ```c++
+RUN_GTEST(FunctorTest, BindPredefinedFunctors, @);
 
+// all predefined functors:
+// negate, plus, minus, multiplies, divides, modulus, equal_to, 
+// not_equal_to, less, greater, less_equal, greater_equal,
+// logical_not, logical_and, logical_or, bit_and, bit_or, bit_xor
+
+auto tenTimes = bind(multiplies<int>(), _1, 10);
+EXPECT_EQ(100, tenTimes(10));
+EXPECT_EQ(200, tenTimes(20));
+EXPECT_EQ(300, tenTimes(30));
+
+vector<int> v{ 1, 2, 3, 4, 5, 6, 7, 8 };
+// nested bind. output v[i] if 10*v[i] > 50.
+copy_if(v.begin(), v.end(),
+    ostream_iterator<int>(cout, ", "),
+    bind(greater<int>(),
+        bind(multiplies<int>(), _1, 10),
+        50));                               // 6,7,8,
+cr;
+
+END_TEST;
+```
+
+## bind与智能指针
+
+```c++
+RUN_GTEST(FunctorTest, BindSmartPointer, @);
+
+struct Temp 
+{
+    Temp(int i=0) : i_(i) {}
+    void print() { pln(i_); }
+    int i_;
+};
+
+vector<shared_ptr<Temp>> vs =
+{
+    shared_ptr<Temp>(new Temp(1)),
+    shared_ptr<Temp>(new Temp(2)),
+    shared_ptr<Temp>(new Temp(3)),
+};
+
+for_each(vs.begin(), vs.end(), bind(&Temp::print, _1));  // 1<cr>2<cr>3<cr>
+
+bind(&Temp::print, vs[0])();        // 1
+bind(&Temp::print, vs[1])();        // 2
+bind(&Temp::print, vs[2])();        // 3
+
+END_TEST;
 ```
 
 ## last but not least
@@ -431,7 +480,7 @@ bind中的参数是被copy或者是被move到目标函数的，除非显示指�
 
 - [标准c++参考的测试代码2](http://en.cppreference.com/w/cpp/utility/functional/bind)
 
-- [本文的测试代码](https://github.com/elloop/CS.cpp/blob/master/TrainingGround/stl/functor_test.cpp)
+- [本文的测试代码](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/functor/bind_test.cpp)
 
 ---------------------------
 

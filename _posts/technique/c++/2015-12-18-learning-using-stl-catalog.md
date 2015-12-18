@@ -8,56 +8,73 @@ description: ""
 
 #前言
 
-本文从整体上对STL的内容和功能做了一个概览，并根据其组成部分功能的不同对STL的组件进行分类。
+这篇文章是《STL学习与应用总结》系列的目录, 也是这系列文章的写作计划。STL的总结主要分成四大块：容器、迭代器、函数对象和算法。
 
-在后续的文章中会对每个分类中的组件进行展开说明。
+每个大块细分成的每个叶子节点就对应着一篇文章，已经完成的文章会在目录里以超链接的形式展现，未完成则作为写作计划。
 
-<!--more-->
+这里的“目录”有些不一样，很多是用表格的形式，这样也便于一目了然看到某个大块下有哪些子节点，比如算法这一块，就用表格比较直观，采用《C++标准程序库》的分类方式，每个算法类别是一个表。
 
-# 容器-container
+# 容器 (container)
 
-**1. 序列式容器(sequence containers)**
+**1. 序列式容器**
 
-- [array(since c++11)](http://www.cplusplus.com/reference/array/array/) : 定长数组, 编译时确定长度，对内置数组[]的封装，让其可以当做标准容器来使用. 也可以被当做tuple.
+|**类型**|**文章链接**|
+|--------|------------|
+|`vector`|[【C++ STL学习与应用总结】2: 如何使用std::vector]()|
+|`vector<bool>`|[【C++ STL学习与应用总结】3: 如何使用`std::vector<bool>`]()|
+|`deque`|[【C++ STL学习与应用总结】4: 如何使用std::deque]()|
+|`array`|[【C++ STL学习与应用总结】5: 如何使用std::array (since c++11)]()|
+|`list`|[【C++ STL学习与应用总结】6: 如何使用std::list]()|
+|`forward_list`|[【C++ STL学习与应用总结】7: 如何使用std::forward_list (since c++11)]()|
 
-- [vector](http://www.cplusplus.com/reference/vector/vector/) : 动态数组, 较array，容量可扩展、缩小. 随机访问，顺序存储。插入删除较链表低效.
-
-- [vector<bool>](http://www.cplusplus.com/reference/vector/vector-bool/) : vector的bool特化版本，优化存储空间占用.
-
-- [forward_list(since c++11)](http://www.cplusplus.com/reference/forward_list/) : 单链表, 纯粹从效率角度设计，甚至没有size函数，较list占用存储空间小，插入删除也略快.
-
-- [list](http://www.cplusplus.com/reference/list/list/) : 双向链表, 较list，可双向遍历，较顺序存储容器，插入删除效率更高.
-
-- [deque](http://www.cplusplus.com/reference/queue/queue/) : 双端动态数组, 较vector，支持push_front(), pop_front()
 
 **2. 关联式容器(associative containers)**
 
-- [set(multiset)](http://www.cplusplus.com/reference/set/) : 有序集合， key == value, 不可修改. 
+|**类型**|**文章链接**|
+|--------|------------|
+|`set and multiset`|[【C++ STL学习与应用总结】8: 如何使用std::set和std::multiset]()|
+|`map and multimap`|[【C++ STL学习与应用总结】9: 如何使用std::map和std::multimap]()|
 
-- [map(multimap)](http://www.cplusplus.com/reference/map/) : 有序集合， paire(key, value), key不可修改
 
 **3. 哈希表(hash table)** (since c++11)
 
-- [unordered_set(unordered_multiset)(since c++11)](http://www.cplusplus.com/reference/unordered_set/) : 无序集合，key == value, 特性与unordered_map类似
 
-- [unordered_map(unordered_multimap)(since c++11)](http://www.cplusplus.com/reference/unordered_map/) : 无序集合，单独访问某个元素较快，从头到尾遍历效率会低于map
+|**类型**|**文章链接**|
+|--------|------------|
+|`unordered_set and unordered_multiset`|[【C++ STL学习与应用总结】10: 如何使用std::unordered_set和std::unordered_multiset (since c++11)]()|
+|`unordered_map and unordered_multimap`|[【C++ STL学习与应用总结】11: 如何使用std::unordered_map和std::unordered_multimap (since c++11)]()|
+
 
 **4. 容器适配器(container adapters)**
 
-- [stack](http://www.cplusplus.com/reference/stack/stack/) : 栈 
 
-- [queue](http://www.cplusplus.com/reference/queue/) : 队列
+|**类型**|**文章链接**|
+|--------|------------|
+|`stack`|[【C++ STL学习与应用总结】12: 如何使用std::stack]()|
+|`queue and priority_queue`|[【C++ STL学习与应用总结】13: 如何使用std::queue和std::priority_queue]()|
+|`bitset`|[【C++ STL学习与应用总结】14: 如何使用std::bitset]()|
 
-- [priority_queue](http://www.cplusplus.com/reference/queue/priority_queue/) : 优先队列
+
+# std::string : [【C++ STL学习与应用总结】15: 使用std::string]()
 
 # 迭代器-iterator
 
+- [【C++ STL学习与应用总结】16: 迭代器综述]()
+
+- [【C++ STL学习与应用总结】17: 使用迭代器辅助函数]()
+
+- [【C++ STL学习与应用总结】18: 使用迭代器适配器]()
+
+- [【C++ STL学习与应用总结】19: iterator traits]()
+
+# 函数对象-function objects (or functors for short)
+
+- [【C++ STL学习与应用总结】16: 迭代器综述]()
 
 
 # 算法-algorithm
 
 
-# 函数对象-function objects (or functors for short)
 
 ## 预定义函数对象 (predefined function objects)
 
