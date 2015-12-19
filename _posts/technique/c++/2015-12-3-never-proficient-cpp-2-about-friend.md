@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【永远不会精通的C++】2: 关于类型前置声明"
+title: "【C++编程之杂项笔记】2: 关于类型前置声明"
 category: c++
 tags: c++
 description: ""

@@ -6,7 +6,8 @@ tags: [cocos2d-x]
 description: "cocos2d-x学习"
 ---
 
-## 总论
+# 总论
+----------------
 
 **Q1**: cocos开发中，需要考虑哪些方面的问题？
 
@@ -14,7 +15,8 @@ description: "cocos2d-x学习"
 
 - 资源预加载，时机
 
-## 界面渲染
+# 界面渲染
+----------------
 
 **1**: removeAllChildren()和removeAllChildrenWithCleanup(bool)有何区别？
 
@@ -27,5 +29,29 @@ description: "cocos2d-x学习"
 
 
 **A:** 
+
+# 事件
+----------------
+
+**1.  为什么setTouchMode被deprecated？ 谁来取代他？**
+
+
+
+
+# 3.x deprecated components
+----------------
+
+##  CCFileUtils
+
+
+## LabelTTF, LabelBMFont ...
+
+## CCPoint --> Point(Vec2), CCSize --> Size
+
+## ccTouchBegan ...
+
+## scheduleUpdateForTarget ...
+
+## CCMenuItemImage::create(... target, callback) --> ccMenuCallback
 
 

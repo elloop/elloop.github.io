@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【永远不会精通的C++】1: 两种变长参数函数比较"
+title: "【C++编程之杂项笔记】1: 两种变长参数函数比较"
 category: c++
 tags: c++
 description: ""
