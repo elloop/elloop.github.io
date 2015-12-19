@@ -1,14 +1,16 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】89: 数值算法之1: 如何使用std::accumulate"
+title: "【C++ STL学习与应用总结】86: 如何使用std::accumulate"
 category: c++
 tags: [stl]
 description: ""
 ---
 
+**本系列文章的目录在这里：[目录](http://blog.csdn.net/elloop/article/details/50357205). 通过目录里可以对STL总体有个大概了解**
+
 #前言
 
-本文总结了STL算法中，数值类算法(numeric algorithm)里的第一个算法: std::accumulate的使用, 及注意事项
+本文总结了STL算法中，数值类算法(numeric algorithm)里的第一个算法: std::accumulate的使用, 及注意事项.
 
 #基本用法
 
@@ -21,6 +23,8 @@ cout << accumulate(vi.begin(), vi.end(), 0);    // 6
 ```
 
 这个例子中，accumulate接收了三个参数，一对迭代器用来标识开始和结束区间，第三个参数0，是accumulate操作的初始值. accumulate遍历[begin, end)这个区间，把每个值累加到0这个初始值上面，并最终返回累加结束的值(0 + 1 + 2 + 3) == 6.
+
+<!--more-->
 
 # 通用用法 
 

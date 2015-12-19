@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】0: STL, ACM和年轻的我们"
+title: "【C++ STL学习与应用总结】0: 感恩STL——STL, ACM和年轻的我们"
 category: c++
 tags: [stl]
 description: ""
 ---
+
+**本系列文章的目录在这里：[目录](http://blog.csdn.net/elloop/article/details/50357205). 通过目录里可以对STL总体有个大概了解**
 
 #前言
 

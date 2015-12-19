@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】12: 如何使用std::bind(since c++11)"
+title: "【C++ STL学习与应用总结】22: 函数组合之1：如何使用std::bind (since C++11)"
 category: c++
 tags: [stl]
 description: ""
 ---
+
+**本系列文章的目录在这里：[目录](http://blog.csdn.net/elloop/article/details/50357205). 通过目录里可以对STL总体有个大概了解**
 
 ##前言
 
