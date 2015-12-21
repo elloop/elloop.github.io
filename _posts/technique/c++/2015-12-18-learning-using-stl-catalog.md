@@ -99,7 +99,7 @@ description: ""
 |`functors`|[【C++ STL学习与应用总结】20: 函数对象综述]()|
 |`predefined functors`|[【C++ STL学习与应用总结】21: 如何使用预定义的函数对象, C++98&C++11]()|
 |`functional composition - bind`|[【C++ STL学习与应用总结】22: 函数组合之1：如何使用std::bind (since C++11))](http://blog.csdn.net/elloop/article/details/50323113)<font color="green">【完成】</font>|
-|`functional composition - mem_fn`|[【C++ STL学习与应用总结】23: 函数组合之2：如何使用std::mem_fn (since C++11))]()|
+|`functional composition - mem_fn`|[【C++ STL学习与应用总结】23: 函数组合之2：如何使用std::mem_fn (since C++11))](http://blog.csdn.net/elloop/article/details/50375820)<font color="green">【完成】</font>|
 |`unary compose function object adapters`|[【C++ STL学习与应用总结】24: 一元组合函数适配器]()|
 |`binary compose function object adapters`|[【C++ STL学习与应用总结】25: 二元组合函数适配器]()|
 
