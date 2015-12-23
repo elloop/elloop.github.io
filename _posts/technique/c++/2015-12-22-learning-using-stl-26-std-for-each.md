@@ -26,6 +26,8 @@ template<class InputIterator, class Function>
 }
 ```
 
+<!--more-->
+
 # 不修改元素的用法 (non-modifying)
 
 ```c++
@@ -200,13 +202,13 @@ printContainer(coll2, "coll2:");   // coll2: 1 2 3 4 5
 // same with:
 // MeanValue mv = for_each(coll2.begin(), coll2.end(), MeanValue());
 // double meanValue = mv;
-double meanValue = for_each(coll2.begin(), coll2.end(),
+double meanValue = for_each(coll2.begin(), coll2.end(), // for_each返回传入MeanValue()的副本，然后调用operator double()转换为double.
                             MeanValue());
 
 // validate result using numeric.
 using std::accumulate;
 double sum(0);
-sum = accumulate(coll2.begin(), coll2.end(), sum);
+sum = accumulate(coll2.begin(), coll2.end(), 0);
 EXPECT_EQ(sum / coll2.size(), meanValue);
 
 END_TEST;
@@ -221,16 +223,16 @@ vector<int> vi{1, 2, 3};
 auto iter = vi.begin();
 for( auto elem : vi)
 {
-    // elem 的类型相当于： *iter 后的类型.
+    // elem 的类型相当于： *iter 的类型.
 }
 ```
 
 
 # 源码及参考链接
 
-- [源码：accumulate_test.cpp](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/algorithm/numeric/accumulate_test.cpp)
+- [for_each_test.cpp](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/algorithm/non_modifying/for_each_test.cpp)
 
-- [accumulate](http://www.cplusplus.com/reference/numeric/accumulate/)
+- [for_each](http://www.cplusplus.com/reference/algorithm/for_each/?kw=for_each)
 
 
 ---------------------------
