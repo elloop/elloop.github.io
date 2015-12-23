@@ -112,7 +112,7 @@ description: ""
 
 |**类型**|**文章链接**|
 |--------|------------|
-|`for_each`|[【C++ STL学习与应用总结】26: 如何使用std::for_each]()|
+|`for_each`|[【C++ STL学习与应用总结】26: 如何使用std::for_each](http://blog.csdn.net/elloop/article/details/50383478)<font color="green">【完成】</font>|
 |`count`|[【C++ STL学习与应用总结】27: 如何使用std::count]()|
 |`count_if`|[【C++ STL学习与应用总结】28: 如何使用std::count_if]()|
 |`min_element`|[【C++ STL学习与应用总结】29: 如何使用std::min_element]()|
@@ -133,7 +133,7 @@ description: ""
 
 |**类型**|**文章链接**|
 |--------|------------|
-|`for_each`|[【C++ STL学习与应用总结】26: 如何使用std::for_each]()|
+|`for_each`|[【C++ STL学习与应用总结】26: 如何使用std::for_each](http://blog.csdn.net/elloop/article/details/50383478)<font color="green">【完成】</font>|
 |`copy`|[【C++ STL学习与应用总结】40: 如何使用std::copy]()|
 |`copy_backward`|[【C++ STL学习与应用总结】41: 如何使用std::copy_backward]()|
 |`transform`|[【C++ STL学习与应用总结】42: 如何使用std::transform]()|
