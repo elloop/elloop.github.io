@@ -172,7 +172,7 @@ description: ""
 |`rotate_copy`|[【C++ STL学习与应用总结】61: 如何使用std::rotate_copy]()|
 |`next_permutation`|[【C++ STL学习与应用总结】62: 如何使用std::next_permutation]()|
 |`prev_permutation`|[【C++ STL学习与应用总结】63: 如何使用std::prev_permutation]()|
-|`random_shuffle`|[【C++ STL学习与应用总结】64: 如何使用std::random_shuffle和shuffle (since C++11)]()|
+|`random_shuffle`|[【C++ STL学习与应用总结】64: 如何使用std::random_shuffle和shuffle (since C++11)](http://blog.csdn.net/elloop/article/details/50397618)<font color="green">【完成】</font>|
 |`partition`|[【C++ STL学习与应用总结】65: 如何使用std::partition]()|
 |`stable_partition`|[【C++ STL学习与应用总结】66: 如何使用std::stable_partition]()|
 
