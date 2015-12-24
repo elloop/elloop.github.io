@@ -37,7 +37,7 @@ description: ""
 |`vector`|[【C++ STL学习与应用总结】2: 如何使用std::vector]()|
 |`vector<bool>`|[【C++ STL学习与应用总结】3: 如何使用`std::vector<bool>`]()|
 |`deque`|[【C++ STL学习与应用总结】4: 如何使用std::deque]()|
-|`array`|[【C++ STL学习与应用总结】5: 如何使用std::array (since c++11)]()|
+|`array`|[【C++ STL学习与应用总结】5: 如何使用std::array (since c++11)](http://blog.csdn.net/elloop/article/details/50390870)<font color="green">【完成】</font>|
 |`list`|[【C++ STL学习与应用总结】6: 如何使用std::list]()|
 |`forward_list`|[【C++ STL学习与应用总结】7: 如何使用std::forward_list (since c++11)]()|
 
@@ -172,7 +172,7 @@ description: ""
 |`rotate_copy`|[【C++ STL学习与应用总结】61: 如何使用std::rotate_copy]()|
 |`next_permutation`|[【C++ STL学习与应用总结】62: 如何使用std::next_permutation]()|
 |`prev_permutation`|[【C++ STL学习与应用总结】63: 如何使用std::prev_permutation]()|
-|`random_shufffle`|[【C++ STL学习与应用总结】64: 如何使用std::random_shufffle]()|
+|`random_shuffle`|[【C++ STL学习与应用总结】64: 如何使用std::random_shuffle和shuffle (since C++11)]()|
 |`partition`|[【C++ STL学习与应用总结】65: 如何使用std::partition]()|
 |`stable_partition`|[【C++ STL学习与应用总结】66: 如何使用std::stable_partition]()|
 

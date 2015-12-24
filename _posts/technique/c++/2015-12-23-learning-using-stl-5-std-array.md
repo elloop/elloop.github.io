@@ -203,7 +203,6 @@ printContainer(a5, "a5: ");             // a5: 5 5 5 5 5
 END_TEST;
 ```
 
-
 # 注意事项
 
 - swap的代价：O(n)
@@ -215,7 +214,11 @@ array<int, 3> a;            // no.
 array<int, 3> a = {};       // good.
 ```
 
+# 源码
 
+- [array_test.cpp](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/container/sequence/array_test.cpp)
+
+- [std::array](http://www.cplusplus.com/reference/array/array/?kw=array)
 
 ---------------------------
 
