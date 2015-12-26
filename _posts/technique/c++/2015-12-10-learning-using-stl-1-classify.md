@@ -56,10 +56,34 @@ description: ""
 
 # 迭代器-iterator
 
+迭代器是一种表示容器位置信息的对象。
+
+## 前向迭代器 (forward iterator) : forward_list::iterator, unorderd associative containers at least support forward iterator.
+
+## 双向迭代器 (bidirectional iterator) : iterators of list , set, multiset, map, multimap.
+
+## 随机迭代器 (random-access iterator) : iterators of vector, deque, array, strings.
+
+## 迭代器辅助函数
+
+## 迭代器适配器
 
 
 # 算法-algorithm
 
+## 非变动类算法(nonmodifying algorithms)
+
+## 变动类算法(modifying algorithms)
+
+## 移除类算法(removing algorithms)
+
+## 变序类算法(mutating algorithms)
+
+## 排序类算法(sorting algorithms)
+
+## 已序区间类算法(sorted range algorithms)
+
+## 数值类算法(numerci algorithms)
 
 # 函数对象-function objects (or functors for short)
 
