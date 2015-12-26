@@ -39,7 +39,7 @@ description: ""
 |`deque`|[【C++ STL学习与应用总结】4: 如何使用std::deque]()|
 |`array`|[【C++ STL学习与应用总结】5: 如何使用std::array (since c++11)](http://blog.csdn.net/elloop/article/details/50390870)<font color="green">【完成】</font>|
 |`list`|[【C++ STL学习与应用总结】6: 如何使用std::list]()|
-|`forward_list`|[【C++ STL学习与应用总结】7: 如何使用std::forward_list (since c++11)]()|
+|`forward_list`|[【C++ STL学习与应用总结】7: 如何使用std::forward_list (since c++11)](http://blog.csdn.net/elloop/article/details/50405783)<font color="green">【完成】</font>|
 
 
 <!--more-->

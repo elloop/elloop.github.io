@@ -10,7 +10,7 @@ description: ""
 
 #前言
 
-本文总结了STL算法中for_each, for_each算法很常用，以致于C++11定义了一个新的语法: `range based for loop`, 也就是基于范围的for循环，直接在语法层面把for_each的功能给实现了。下面就举一些使用for_each和range based for loop的使用例子。
+本文总结了STL算法中for_each, for_each算法很常用，以致于C++11定义了一个新的语法: `range based for loop`, 也就是基于范围的for循环，直接在语法层面把for_each的功能给实现了。本文给出一些使用`for_each`和rang-based for loops的用法，并说明for loops的实现原理和使用注意事项。
 
 # for_each的原型
 
@@ -119,14 +119,14 @@ auto print = [](int i)
 
 vector<int> v{ 1, 2, 3, 4, 5 };
 //for_each(v.begin(), v.end(), print);
-for (auto item : v)
+for (const auto &item : v)
 {
     print(item);
 }
 cr;
 
 //for_each(v.begin(), v.end(), printFun);
-for (auto item : v)
+for (const auto &item : v)
 {
     printFun(item);
 }
@@ -214,18 +214,67 @@ EXPECT_EQ(sum / coll2.size(), meanValue);
 END_TEST;
 ```
 
-# 基于范围的for循环使用注意事项
+# 基于范围的for循环的实现原理和使用注意事项
+
+## 1. for loops的实现原理
+
+**形式1**
+
+```c++
+for (const auto &item : con)
+{
+    cout << item;
+}
+```
+
+```c++
+for (decltype(con)::iterator beg = con.begin(), end = con.end();
+        beg != end;
+        ++beg)
+{
+    const auto &item = *beg;
+    // .....
+}
+```
+
+如果con没有begin()和end()成员函数，那么for loops就是做如下尝试：
+
+```c++
+for (decltype(con)::iterator beg=begin(con), end = end(con);
+        beg != end;
+        ++beg)
+{
+    const auto &item = *beg;
+    // .....
+}
+```
+
+## 2. range based for loops的使用注意
 
 **1. for循环里取出的item是对迭代器解引用后的结果**
 
+从for loops的实现原理中也能看出，item是对迭代器解引用(dereference)后的结果
+
+**<font color="red">2. 尽量使用引用，以避免不必要的拷贝开销</font>**
+
+从for loops的实现原理同样可以看到，如果item的类型不是引用的话，那么
+
 ```c++
-vector<int> vi{1, 2, 3};
-auto iter = vi.begin();
-for( auto elem : vi)
+for (auto item : con)
 {
-    // elem 的类型相当于： *iter 的类型.
+}
+
+for (decltype(con)::iterator beg = con.begin(), end = con.end();
+        beg != end;
+        ++beg)
+{
+    auto item = *beg;                   // 拷贝构造item
 }
 ```
+
+可以看到，item每次迭代中都是被拷贝构造出来的，如果item的类型很“巨大”那么其拷贝构造的开销也是巨大的。
+
+**3. 如何使自己定义的容器支持range based for loops**
 
 
 # 源码及参考链接
