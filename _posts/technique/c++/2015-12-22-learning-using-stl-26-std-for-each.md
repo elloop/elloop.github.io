@@ -132,6 +132,13 @@ for (const auto &item : v)
 }
 cr;
 
+// 或者省去vector的定义, 直接在for里面使用初始化列表
+for ( const auto &item : { 1, 2, 3, 4, 5 } )
+{
+    print(item);
+}
+cr;
+
 //----------- modifying --------------
 vector<int> coll;
 insertElements(coll, 1, 5);

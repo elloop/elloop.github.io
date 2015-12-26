@@ -228,9 +228,76 @@ if (next(posBefore) != fl.end())
 
 本文最后会给出这俩算法的实现。
 
-# splice和变序类操作
+# 连接(splice)和变序类操作
+
+|**API**|**说明**|
+|------------|--------|
+|`c.unique()`|删除连续相同的元素|
+|`c.unique(op)`|删除连续使得op(elem) == true的元素|
+|`dst.splice_after(dstPos, src)`|把src里的全部元素移动到dst中的dstPos之后|
+|`dst.splice_after(dstPos, src, srcPos)`|把src里的srcPos后面的一个元素移动到dst中的dstPos之后|
+|`dst.splice_after(dstPos, src, srcBegin, srcEnd)`|把src里(srcBegin, srcEnd)之间的元素移动到dst中的dstPos之后|
+|`c.sort()`|使用默认的`<`来给c中的元素排序|
+|`c.sort(op)`|使用op来给c中的元素排序|
+|`c.merge(c2)`|移动c2中的元素到c中，假定二者原来都已序，那么移动之后c仍然有序|
+|`c.merge(c2, op)`|移动c2中的元素到c中，假定二者原来都按op已序，那么移动之后c仍然按op有序|
+|`c.reverse()`|所有元素反序|
+
+注意：`splice_after`中涉及到的dst, src可以是同一个`forward_list`, 此时，这个操作就是在列表内部来移动元素。`splice_after`的位置参数不要使用end(), 这将导致未定义行为。
+
+下面给出《c++标准库》上关于`splice_after`的一个例子，书中的代码有一句是有错误的，下面给出正确的代码：
+
+```c++
+//----------------------- splice ----------------------
+RUN_GTEST(ForwardListTest, SpliceTest, @);
+
+forward_list<int> fl1 = { 1, 2, 3, 4, 5 };
+forward_list<int> fl2 = { 97, 98, 99 };
+
+printContainer(fl1, "fl1: ");       // 1 2 3 4 5
+printContainer(fl2, "fl2: ");       // 97 98 99
+
+auto pos1 = fl1.before_begin();                 
+for ( ; next(pos1) != fl1.end(); ++pos1 )
+{
+    if ( *next(pos1) == 3 )         // find 3, pos1 is position before 3.
+    {
+        break;
+    }
+}
+
+auto pos2 = fl2.before_begin();
+for ( ; next(pos2) != fl2.end(); ++pos2 )
+{
+    if ( *next(pos2) == 99 )        // find 99, pos2 is position before 99.
+    {
+        break;
+    }
+}
 
 
+// 书中原始代码为：
+// fl1.splice_after(pos2, fl2,         // destination
+//                  pos1);             // source
+
+// 可能是这个函数之前的作用和现在标准发布的用法不一致，
+// 作者的代码用反了source和destination. 我运行这段代码程序报错了。
+// 结合书中对splice_after函数的解释，正确的用法 应该是下面这样：
+
+// 把fl1中pos1后面的一个元素，移动到fl2中pos2后面。
+fl2.splice_after(pos2,              // 目的地
+                 fl1, pos1);        // 源
+
+// 要移动到fl2中，那么fl2是目标，所以要用fl2来调用splice_after.
+// pos2是fl2中的位置，它是目的地，应该作为第一个参数；
+// fl1是源，作为第二个参数；
+// pos1则是源fl1中的具体位置，作为第三个参数。
+
+
+printContainer(fl1, "fl1: ");       // 1 2 4 5
+printContainer(fl2, "fl2: ");       // 97 98 3 99
+END_TEST;
+```
 
 # `find_before` 和 `find_before_if`的实现
 
