@@ -85,7 +85,7 @@ description: ""
 
 |**类型**|**文章链接**|
 |--------|------------|
-|`迭代器综述`|[【C++ STL学习与应用总结】16: 迭代器综述]()|
+|`迭代器综述`|[【C++ STL学习与应用总结】16: 迭代器综述](http://blog.csdn.net/elloop/article/details/50414538)<font color="green">【完成】</font>|
 |`迭代器辅助函数`|[【C++ STL学习与应用总结】17: 使用迭代器辅助函数](http://blog.csdn.net/elloop/article/details/50410765)<font color="green">【完成】</font>|
 |`iterator adapter`|[【C++ STL学习与应用总结】18: 使用迭代器适配器]()|
 |`iterator traits`|[【C++ STL学习与应用总结】19: 迭代器特性iterator traits]()|
