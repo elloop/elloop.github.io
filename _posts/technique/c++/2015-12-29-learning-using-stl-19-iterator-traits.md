@@ -16,6 +16,8 @@ description: ""
 
 下面的代码描述了五中类型的迭代器的“标签”，其中有几种类型的继承关系, 这包含了面向对象的“IS A”的含义。例如，从`forward_iterator_tag`和`bidirectional_terator_tag`的继承关系可知，它们分别对应的迭代器类型，Bidirectional Iterator “IS A” Forward Iterator. 意味着可以用Forward Iterator 的地方，丢一个Bidirectional Iterator过去也是可以的。
 
+<!--more-->
+
 ```c++
 namespace std
 {
