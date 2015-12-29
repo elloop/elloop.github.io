@@ -64,7 +64,7 @@ EXPECT_EQ(4, *rpos1);
 //                          ^            ^
 //                          |            |
 //                          |            |
-// rpos1:                 logical       physically
+// rpos1:                 logically   physically
 //
 // 对于pos1，其逻辑地址与物理地址一致，其逻辑值是5;
 // 而对于rpos1, 其逻辑地址在物理地址的前一个位置，所以其逻辑值是4.
@@ -201,7 +201,7 @@ printContainer(copyS, "copyS: ");       // 1 2 3 4 5
 
 分为：`ostream_iterator`和`istream_iterator`.
 
-## `istream_iterator` 输入流迭代器
+## `ostream_iterator` 输出流迭代器
 
 ```c++
 //----------------------- stream iterator  ----------------------
@@ -230,7 +230,7 @@ cr;                                             // 1-->2-->3-->4-->5-->
 ```
 
 
-## `ostream_iterator` 输出流迭代器
+## `istream_iterator` 输入流迭代器
 
 ```c++
 // 3. 输入流迭代器示例：
@@ -271,7 +271,7 @@ END_TEST;
 
 # move iterator 
 
-since C++11, 移动语义的提出大大提高了一些涉及到转发参数的函数调用过程之中(perfect forwarding完美转发)，通过把元素内部底层的东西移动到新的元素来避免拷贝开销。因为这个原因也提供了移动的迭代器适配器以实现需要移动语义的场合，下面是一段示意的代码:
+since C++11, 移动语义的提出大大提高了一些涉及到转发参数的函数调用过程之中(perfect forwarding完美转发)参数传递的效率，通过把元素内部底层的东西移动到新的元素来避免拷贝开销。因为这个原因也提供了移动的迭代器适配器以实现需要移动语义的场合，下面是一段示意的代码:
 
 ```c++
 //----------------------- move iterator  ----------------------
