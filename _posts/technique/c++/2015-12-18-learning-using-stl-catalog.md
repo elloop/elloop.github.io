@@ -88,7 +88,7 @@ description: ""
 |`迭代器综述`|[【C++ STL学习与应用总结】16: 迭代器综述](http://blog.csdn.net/elloop/article/details/50414538)<font color="green">【完成】</font>|
 |`迭代器辅助函数`|[【C++ STL学习与应用总结】17: 使用迭代器辅助函数](http://blog.csdn.net/elloop/article/details/50410765)<font color="green">【完成】</font>|
 |`iterator adapter`|[【C++ STL学习与应用总结】18: 使用迭代器适配器](http://blog.csdn.net/elloop/article/details/50423589)<font color="green">【完成】</font>|
-|`iterator traits`|[【C++ STL学习与应用总结】19: 迭代器特性iterator traits]()|
+|`iterator traits`|[【C++ STL学习与应用总结】19: 迭代器特性iterator traits](http://blog.csdn.net/elloop/article/details/50430920)<font color="green">【完成】</font>|
 
 
 # 函数对象-function objects (or functors for short)
