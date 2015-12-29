@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】19: 迭代器特性-iterator traits"
+title: "【C++ STL学习与应用总结】56: 使用std::unique删除重复元素"
 category: c++
 tags: [stl]
 description: ""
@@ -10,252 +10,187 @@ description: ""
 
 #前言
 
-本文介绍了STL中的迭代器相关的类型和特性，它们用来定义和区分不同的迭代器类型。如iterator tag作为迭代器的“标签”用来区分迭代器的类型；iterator traits定义了所有类型的迭代器都应该有的公共信息。那标准库为什么提供这些东西呢？答案是我们可以根据这些信息来编写泛型代码，在泛型代码里根据iterator traits来判定迭代器的类型以做相应处理、可以自己定义迭代器实现自定义的迭代器操作。
+本文介绍了STL中的unique算法的使用，结合一个具体例子讲解如何使用它删除自定义类型结合里面的重复元素(不仅仅是连续的)。这篇文章最早写作于2012年6月在中关村软件园实习的时候，在2015年12月的时候，重新整理了格式，并搬运到了github博客.
 
-# iterator tag
+# 原型
 
-下面的代码描述了五中类型的迭代器的“标签”，其中有几种类型的继承关系, 这包含了面向对象的“IS A”的含义。例如，从`forward_iterator_tag`和`bidirectional_terator_tag`的继承关系可知，它们分别对应的迭代器类型，Bidirectional Iterator “IS A” Forward Iterator. 意味着可以用Forward Iterator 的地方，丢一个Bidirectional Iterator过去也是可以的。
+`<algorithm>`中的unique函数， 它能删除连续序列的副本(Remove consecutive duplicates in range).
+原型如下:
 
 ```c++
-namespace std
+template <class ForwardIterator>
+  ForwardIterator unique ( ForwardIterator first, ForwardIterator last );
+
+template <class ForwardIterator, class BinaryPredicate>
+  ForwardIterator unique ( ForwardIterator first, ForwardIterator last,
+                           BinaryPredicate pred );
+```
+
+<!--more-->
+
+“删除连续序列”这样的描述容易造成误解，知道下面几点有助于更好理解这个操作：
+
+- 其实unique仅仅是按照一个规则来修改[first, last)之间的元素，并不会删除任何东西，它不会改变容器的size。这个规则就是连续一样的元素会被后面的元素覆盖。
+
+- 它通过一个返回迭代器result，并保证在[first, result)之间的元素是不存在连续重复的元素。可以把[result, last)之间的元素移除掉，这才算删除了连续重复的元素。
+
+- 默认判断两个元素相等是使用==操作符，第二个版本也可自己指定二元函数（函数，functors，lambda...).
+
+看看与它等价的代码就知道了：
+
+```c++
+template <class ForwardIterator>
+  ForwardIterator unique (ForwardIterator first, ForwardIterator last)
 {
-    struct output_iterator_tag {};
+  if (first==last) return last;
 
-    struct input_iterator_tag {};
+  ForwardIterator result = first;
+  while (++first != last)
+  {
+    if (!(*result == *first))  // or: if (!pred(*result,*first)) for version (2)
+      *(++result)=*first;
+  }
+  return ++result;
+}
+// 代码摘自 http://www.cplusplus.com/reference/algorithm/unique/
+```
 
-    struct forward_iterator_tag : public input_iterator_tag {};
+# 简单示例
 
-    struct bidirectional_iterator_tag : public forward_iterator_tag {};
+模拟这个原型代码的执行过程：
 
-    struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+如果原始序列是： 1,2,2,3,2,1,1
+
+那么unique之后：1,2,3,2,1,1,1， 容器元素被修改了，但是个数没变，需要手动再把结尾的1,1删掉，这个位置由unique的返回值来确定, 下面的代码演示了这个过程：
+
+```c++
+#include <iostream>
+#include <iterator>     // ostream_iterator
+#include <algorithm>    // unique，distance
+#include <vector>
+
+int main() {
+    using namespace std;
+    vector<int> vi{1,2,2,3,2,1,1};
+    // 去重
+    auto result = unique(vi.begin(), vi.end());
+    // 删除
+    vi.resize(distance(vi.begin(), result));
+    copy(vi.begin(), vi.end(), ostream_iterator<int>(cout, ","));
+    return 0;
 }
 ```
 
-# iterator traits
-
-iterator traits ：迭代器特性，定义了所有迭代器都有的公共类型信息:
+输出：
 
 ```c++
-namespace std
-{
-    template <typename T>
-    struct iterator_traits
-    {
-        typedef typename T::iterator_category   iterator_category;
-        typedef typename T::value_type          value_type;
-        typedef typename T::difference_type     difference_type;
-        typedef typename T::pointer             pointer;
-        typedef typename T::reference           reference;
-    };
-}
+1,2,3,2,1,
 ```
 
-有了`iterator_traits`, 我就可以这样, 定义一个迭代器(类型为T)所指向的值类型的变量：
+# 实习中对unique运用
 
-`std::iterator_traits<T>::value_type val;`
+下面的例子是在完成实习任务中的应用，在做图片轮廓提取的时候，得到一些点的坐标，我在点与点之间画线，把轮廓描绘出来，在使用OpenCV提取轮廓点之后，有些数据点重复，它们并不是连续重复的，比如：
 
-# 使用iterator traits来编写泛型代码
+(1, 2), (3, 4), (1, 2), (3, 4), (3, 4), (1,2)
+我要把所有重复的点删掉，不能仅仅删除连续重复的，如果用unique结果会是:
+(1, 2), (3, 4), (1, 2), (3, 4), (1, 2)
 
-## 使用迭代器定义的数据类型, 如 `value_type`
-
-在算法内部使用迭代器定义的数据类型`value_type`
-
-```c++
-template <typename T>
-void shift_left(T beg, T end)
-{
-    typedef typename std::iterator_traits<T>::value_type value_type;
-
-    if (beg != end) 
-    {
-        value_type temp(*beg);
-        // other operations...
-    }
-}
-```
-
-## 使用迭代器分类 `iterator_category`
-
-分两步：
-
-1. 在定义的模板函数f内部，调用另一个以`iterator_category`作为额外参数的函数f, 完成差异化处理；
-
-2. 实现第一步中重载的f，使用不同类型的`iterator_category`参数以针对特殊类型迭代器做特殊处理。
+不能把所有重复的删掉。所以不能直接使用unique，要先把点排序，这样重复的点都变成连续的了，接下来就可以用unique一次搞定了。这几步都能用stl轻松实现，下面是示例代码：
 
 ```c++
-template <typename Iterator>
-void f(Iterator beg, Iterator end)
-{
-    f(beg, end, std::iterator_traits<Iterator>::iterator_category());
-}
+#include <iostream>
+#include <iterator>     // ostream_iterator
+#include <algorithm>    // sort, copy, unique
+#include <vector>
 
-// special f for random-access iterators.
-template <typename RandomIterator>
-void f(RandomIterator beg, RandomIterator end, std::random_access_iterator_tag)
-{
-    //...
-}
-
-// special f for bidirectional terators.
-template <typename BidirectionalIterator>
-void f(BidirectionalIterator beg, BidirectionalIterator end, std::bidirectional_iterator_tag)
-{
-    // ...
-}
-```
-
-上面两个特殊的重载版本的f分别针对随机迭代器和双向迭代器做特殊处理。由于前面介绍的iterator tag的继承关系，可以只针对某个父类定义一个f，该父类的所有子类都可以共用同一个f。比如下面的例子:
-
-distance() 函数的实现：
-
-```c++
-// 第一步，定义一个模板函数，接受一对迭代器, 使用`iterator_category`来转发给重载函数。
-template <typename Iterator>
-typename std::iterator_traits<Iterator>::difference_type distance(Iterator pos1, Iterator pos2)
-{
-    return distance(pos1, pos2, std::iterator_traits<Iterator>::iterator_category());
-}
-
-// 第二步，实现重载的特殊版本函数
-// 1. for random-access iterators.
-template <typename RandomIterator>
-typename std::iterator_traits<RandomIterator>::difference_type
-distance(RandomIterator pos1, RandomIterator pos2, std::random_access_iterator_tag)
-{
-    return pos2 - pos1;
-}
-
-// 2. for other iterators.
-template <typename InputIterator>
-typename std::iterator_traits<InputIterator>::difference_type
-distance(InputIterator pos1, InputIterator pos2, std::input_iterator_tag)
-{
-    typename std::iterator_traits<InputIterator>::difference_type d;
-    for (d=0; pos1 != pos2; ++pos1, ++d) { }
-    return d;
-}
-```
-
-从distance()的实现可以看出，随机迭代器将使用迭代器的算术运算pos2-pos1搞定问题；第二个版本的distance()则能够同时针对Input Iterator, Forward Iterator和Bidirectional Iterator三类迭代器起作用，这正是由开篇给出的iterator tag的继承关系决定的。
-
-# 自定义迭代器
-
-从前面的介绍可知，要自己写一个迭代器, 需要提供`iterator_traits`里的五个类型。可以通过两种办法来实现这一需求：
-
-1. 在我的迭代器类型内，定义`iterator_traits`里需要的五个东西。
-
-2. 特化或者偏特化模板`iterator_traits`, 就像`iterator_traits`的数组特化版本那样。
-
-下面使用《c++标准库》里面的一个例子，来说明使用第一种方法来实现自定义迭代器。
-
-C++标准提供了一个特殊的基类：`iterator<>`, 它帮我们完成了五个类型的定义，我们只需要继承这个基类，并指定它需要的类型参数即可, 例如如下定义：
-
-```c++
-class MyIterator : public std::iterator<std::forward_iterator_tag, type, std::ptrdiff_t, type*, type&)
-{
-    // ...
-};
-```
-
-第一个参数指定了迭代器的分类：`forward_iterator_tag`, `bidirectional_iterator_tag` 或者 `random_access_iterator_tag`等等
-
-第二个参数指定了元素类型：`value_type`
-
-第三个参数指定了位置差类型：`difference_type`
-
-第四个参数指定了指针类型： `pointer`, 第五个参数指定了引用类型：`reference`
-
-最后的三个参数的默认值分别是：`ptrdiff_t`, `type*`, `type&`, 在使用时可以忽略。
-
-下面的例子就是书中的例子，它定义了一个关联容器的inserter适配器，类似std::inserter, 相对于std::iterator, 它省去了位置参数，传入一个容器即可：
-
-```c++
-//----------------------- associative container inserter ----------------------
-template <typename Con>
-class asso_inserter_iterator 
-    : public iterator<output_iterator_tag, typename Con::value_type>
-{
+class Point {
 public:
-    explicit asso_inserter_iterator(Con &con) : conRef_(con) {}
-
-    asso_inserter_iterator<Con>& operator= (const typename Con::value_type &val)
-    {
-        conRef_.insert(val);
-        return *this;
+    Point(int x, int y) {
+        x_ = x;
+        y_ = y;
     }
 
-    asso_inserter_iterator<Con>& operator * () 
-    {
-        return *this;
+    // 用于copy()库函数.
+    Point(const Point& other) {
+        x_ = other.x_;
+        y_ = other.y_;
     }
 
-    asso_inserter_iterator<Con>& operator ++ ()
-    {
-        return *this;
+    // 用于sort库函数.
+    bool operator<(const Point & other) {
+        return ((x_ < other.x_) && (y_ < other.y_));
     }
 
-    asso_inserter_iterator<Con>& operator ++ (int)
-    {
-        return *this;
+    // 用于erase库函数.
+    bool operator==(const Point & other) const {
+        return ((x_ == other.x_) && (y_ == other.y_));
     }
 
-protected:
-    Con     &conRef_;
+    int x() const { return x_; }
+    int y() const { return y_; }
+private:
+    int x_, y_;
 };
 
-// convenience function to create asso_inserter_iterator.
-template <typename Con>
-inline asso_inserter_iterator<Con> asso_inserter(Con &con)
-{
-    return asso_inserter_iterator<Con>(con);
+// 重载<<操作符，为了使用ostream_iterator<Point>
+std::ostream& operator<<(std::ostream& os, const Point & p) {
+    os << "(" << p.x() << ", " << p.y() << ")";
+    return os;
+}
+
+int main() {
+
+    using namespace std;
+
+    // c++11风格容器初始化，使用初始化列表(initializer_list)
+    vector<Point> vp { Point(1, 2), Point(3, 4), Point(1, 2), Point(3, 4), Point(3, 4), Point(1, 2) };
+
+    // 打印容器内的Point到标准输出流cout. 以逗号分隔.
+    cout << "origin..." << endl;
+    copy(vp.begin(), vp.end(), ostream_iterator<Point>(cout, ","));
+    putchar(10);
+    putchar(10);
+
+    // 容器排序. 为了后面的unique操作，因为unique是删除连续相同元素的副本.
+    sort(vp.begin(), vp.end());
+    cout << "after sorting..." << endl;
+
+    // 打印排序后的容器内容.
+    copy(vp.begin(), vp.end(), ostream_iterator<Point>(cout, ","));
+    putchar(10);
+    putchar(10);
+
+    // 删除重复元素.
+    auto it = unique(vp.begin(), vp.end()); // it 类型为 vector<Point>::iterator
+    vp.erase(it, vp.end());
+
+    // 打印处理后的内容.
+    cout << "after unique..." << endl;
+    copy(vp.begin(), vp.end(), ostream_iterator<Point>(cout, ","));
+    putchar(10);
+
+    return 0;
 }
 ```
 
-用法：
-
+运行结果：
 
 ```c++
-RUN_GTEST(UserDefinedIterator, AssoInserter, @);
+origin...
+(1, 2),(3, 4),(1, 2),(3, 4),(3, 4),(1, 2),
 
-set<int> uset;
+after sorting...
+(1, 2),(1, 2),(1, 2),(3, 4),(3, 4),(3, 4),
 
-asso_inserter_iterator<set<int>>  ainserter(uset);
-
-*ainserter = 10;
-++ainserter;
-*ainserter = 20;
-++ainserter;
-*ainserter = 30;
-
-printContainer(uset, "uset: ");     // 10 20 30
-
-asso_inserter(uset) = 1;
-asso_inserter(uset) = 2;
-printContainer(uset, "uset: ");     // 1 2 10 20 30
-
-array<int, 5> a = {11, 22, 33, 44, 55};
-copy(a.begin(), a.end(), asso_inserter(uset)); // 1 2 10 11 20 22 30 33 44 55
-printContainer(uset, "uset: ");
-
-END_TEST;
+after unique...
+(1, 2),(3, 4),
 ```
-
-这里的用法示例与其他的迭代器适配器的用法类似，请参考[【C++ STL学习与应用总结】18: 如何使用迭代器适配器](http://elloop.github.io/c++/2015-12-28/learning-using-stl-18-iterator-adapter/).
-
-
-# 源码及参考链接
-
-- [`user_defined_iterator.cpp`](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/iterator/user_defined_iterator.cpp)
-
-- [`iterator_category`](http://www.cplusplus.com/reference/iterator/iterator/)
-
-- [`iterator_traits`](http://www.cplusplus.com/reference/iterator/iterator_traits/?kw=iterator_traits)
 
 ---------------------------
 
 **作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
 
-**在这里也能看到这篇文章：[github博客](http://elloop.github.io), [CSDN博客](http://blog.csdn.net/elloop), 欢迎访问**
+**欢迎访问[github博客](http://elloop.github.io)，与本站同步更新**
 
 
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】18: 如何使用迭代器适配器"
+title: "【C++ STL学习与应用总结】19: 迭代器特性-iterator traits"
 category: c++
 tags: [stl]
 description: ""
@@ -10,304 +10,252 @@ description: ""
 
 #前言
 
-本文介绍了STL中的迭代器适配器(iterator adapter)的概念及其使用方法示例。迭代器适配器可以和标准库中的算法配合使用，达到一些特殊的效果。
+本文介绍了STL中的迭代器相关的类型和特性，它们用来定义和区分不同的迭代器类型。如iterator tag作为迭代器的“标签”用来区分迭代器的类型；iterator traits定义了所有类型的迭代器都应该有的公共信息。那标准库为什么提供这些东西呢？答案是我们可以根据这些信息来编写泛型代码，在泛型代码里根据iterator traits来判定迭代器的类型以做相应处理、可以自己定义迭代器实现自定义的迭代器操作。
 
-迭代器适配器分为以下几类：
+# iterator tag
 
-- reverse iterator : 反向迭代器
-
-- insert iterator : 插入型迭代器
-
-- stream iterator : 流迭代器
-
-- move iterator : 移动型迭代器
-
-<!--more-->
-
-# reverse iterator 反向迭代器
-
-顾名思义，reverse就是反其道而行之。正常的迭代器是从前往后的方向递增，而反向迭代器则是从后向前递增的。支持双向迭代的容器通常都有rbegin(), rend()这对接口，它们的返回值就是reverse iterator。使用这对反向迭代器来遍历容器就会实现从后向前的效果。
+下面的代码描述了五中类型的迭代器的“标签”，其中有几种类型的继承关系, 这包含了面向对象的“IS A”的含义。例如，从`forward_iterator_tag`和`bidirectional_terator_tag`的继承关系可知，它们分别对应的迭代器类型，Bidirectional Iterator “IS A” Forward Iterator. 意味着可以用Forward Iterator 的地方，丢一个Bidirectional Iterator过去也是可以的。
 
 ```c++
-vector<int> v = { 1, 2, 3};
-auto rbeg = v.rbegin();
-while (rbeg != v.rend())
+namespace std
 {
-    cout << *rbeg << endl;
-    ++rbeg;
+    struct output_iterator_tag {};
+
+    struct input_iterator_tag {};
+
+    struct forward_iterator_tag : public input_iterator_tag {};
+
+    struct bidirectional_iterator_tag : public forward_iterator_tag {};
+
+    struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 }
 ```
 
-```c++
-//----------------------- reverse iterator  ----------------------
-RUN_GTEST(IteratorAdapter, ReverseIterator, @);
+# iterator traits
 
-array<int, 5> a = {1, 2, 3, 4, 5};
-printContainer(a, "a: ");
-
-auto pos1 = find(a.begin(), a.end(), 5);
-
-// rpos1 是pos1的反向迭代器
-array<int, 5>::reverse_iterator rpos1(pos1);
-
-// 对rpos1提取值，会发现与pos1中的值不一样，这是bug吗 ？
-EXPECT_EQ(4, *rpos1);
-
-// 不，不是bug，标准库是故意这样设计的，它的设计是：
-// 从一个迭代器pos1构造其反向迭代器rpos1, 两者在“物理”上是不变的，即指向同一个地方。
-// 但是在取迭代器指向的值的时候（我们叫它“逻辑”地址），二者的解释是不一样的，即逻辑地址不一样。
-//
-// pos1:                              physically(logically)
-//                                       |
-//                                       |
-// 1        2      3        4            5
-//                          ^            ^
-//                          |            |
-//                          |            |
-// rpos1:                 logically   physically
-//
-// 对于pos1，其逻辑地址与物理地址一致，其逻辑值是5;
-// 而对于rpos1, 其逻辑地址在物理地址的前一个位置，所以其逻辑值是4.
-// 这样设计的原因是由于正向迭代器的半开区间特性造成的，正向迭代器的end是最后一个元素的下一个位置，
-// 反向迭代器里并没有超过第一个位置的前一个位置这个概念, 
-// 标准库就使用了逻辑地址和物理地址独立这种设计，实现了反向的迭代，
-// 反向迭代器和正向迭代器的物理位置是一样的，只不过在取值的时候往前一位来取，
-// 当物理位置到达第一个位置的时候，就已经取不到值了，也就代表反向迭代器的结束。
-// 这种设计的好处是对于区间的反向操作很简单：
-
-array<int, 5>::reverse_iterator rEnd(a.end());
-// rEnd also point to physical location: a.end(), 
-// but its logical location is a.end() - 1, so equal to 5.
-EXPECT_EQ(5, *rEnd);                    
-
-
-// reverse range.
-auto posA = find(a.begin(), a.end(), 2);
-auto posB = find(a.begin(), a.end(), 5);
-pln("in normal order: ");
-copy(posA, posB, ostream_iterator<int>(cout, " "));
-cr;
-
-array<int, 5>::reverse_iterator rPosA(posA);
-array<int, 5>::reverse_iterator rPosB(posB);
-pln("in reverse order: ");
-copy(rPosB, rPosA, ostream_iterator<int>(cout, " "));
-cr;
-
-
-// 使用base()函数来把一个反向迭代器转为正向迭代器
-auto recoverPos = rpos1.base();
-EXPECT_EQ(5, *recoverPos);
-
-END_TEST;
-```
-
-# insert iterator 插入型迭代器
-
-插入型迭代器可以使标准库中算法对元素进行赋值操作的语义转化为对元素的插入操作语义。因为它们会改变容器，它们需要使用一个容器来初始化，如下面的代码所示： 
-
-插入型迭代器分为以下三种：
-
-## `back_insert_iterator` or back inserter. 在后面插入型迭代器
-
-会对初始化它的容器调用`push_back`以完成后面插入元素的操作。
+iterator traits ：迭代器特性，定义了所有迭代器都有的公共类型信息:
 
 ```c++
-//----------------------- inserter ----------------------
-RUN_GTEST(IteratorAdapter, InserterTest, @);
-
-array<int, 5> a = { 1, 2, 3, 4, 5 };
-vector<int> v = {};
-
-//------------- 1. back inserter ----------------
-// 1. back_inserter(con) : call con.push_back().
-
-// 创建一个`back_insert_iterator`的第一种方式
-back_insert_iterator<vector<int>>  backInserter(v);
-
-*backInserter = 1;
-++backInserter;                 // do nothing, can skip this
-*backInserter = 2;
-++backInserter;                 // do nothing, can skip this
-
-printContainer(v, "v: ");       // 1 2
-
-// 创建一个back_insert_iterator的第二种方式
-back_inserter(v) = 3;
-back_inserter(v) = 4;
-printContainer(v, "v: ");       // 1 2 3 4
-
-
-copy(a.begin(), a.end(), back_inserter(v));
-printContainer(v, "v: ");       // 1 2 3 4 1 2 3 4 5
-
-END_TEST;
-```
-
-## `front_insert_iterator` or front inserter. 在前面插入型迭代器
-
-与`back_insert_iterator`类似，此迭代器调用容器的`push_front`来完成在前面插入元素的操作。
-
-```c++
-//------------- 2. front inserter ----------------
-// front_inserter(con): call con.push_front().
-list<int> l = {};
-
-// 第一种创建front_insert_iterator的方式
-front_insert_iterator<list<int>> frontInserter(l);
-
-*frontInserter = 1;
-++frontInserter;
-*frontInserter = 2;
-++frontInserter;
-printContainer(l, "l: ");       // 2 1
-
-// 第二种创建front_insert_iterator的方式
-front_inserter(l) = 3;
-front_inserter(l) = 4;
-printContainer(l, "l: ");       // 4 3 2 1 
-
-
-copy(a.begin(), a.end(), front_inserter(l));
-printContainer(l, "l: ");       // 5 4 3 2 1 4 3 2 1
-```
-
-## `insert_iterator` or general inserter. 通用型插入迭代器
-
-最后这种插入型迭代器是最通用的迭代器, 它对容器调用insert(value, pos)方法。使得没有`push_back`, `push_front`操作的容器，比如关联式容器能够使用这种迭代器。它相对于前两种适配器，需要一个额外的参数pos以指示插入位置。
-
-```c++
-//------------- 3. general inserter ----------------
-// inserter(con, pos) : call con.insert(), and return new valid pos.
-set<int> s = {};
-insert_iterator<set<int>> generalInserter(s, s.begin());
-*generalInserter = 5;
-++generalInserter;
-*generalInserter = 1;
-++generalInserter;
-*generalInserter = 4;
-printContainer(s, "s: ");       // 1 4 5
-
-inserter(s, s.end()) = 3;
-inserter(s, s.end()) = 2;
-printContainer(s, "s: ");       // 1 2 3 4 5
-
-list<int> copyS;
-copy(s.begin(), s.end(), inserter(copyS, copyS.begin()));
-printContainer(copyS, "copyS: ");       // 1 2 3 4 5
-```
-
-# stream iterator 流迭代器
-
-分为：`ostream_iterator`和`istream_iterator`.
-
-## `ostream_iterator` 输出流迭代器
-
-```c++
-//----------------------- stream iterator  ----------------------
-RUN_GTEST(IteratorAdapter, StreamIterator, @);
-
-// 输出迭代器示例
-//------------- 1. ostream iterator ----------------
-// ostream_iterator(stream, delim)
-
-// 指定一个流类型变量和分隔符来创建一个流迭代器
-ostream_iterator<int> outputInt(cout, "\n");
-
-*outputInt = 1;             // output 1 \n
-++outputInt;
-*outputInt = 2;             // output 2 \n
-++outputInt;
-cr;
-
-array<int, 5> a = {1, 2, 3, 4, 5};
-copy(a.begin(), a.end(), ostream_iterator<int>(cout));  // no delim, 12345
-cr;
-
-string delim("-->");
-copy(a.begin(), a.end(), ostream_iterator<int>(cout, delim.c_str())); 
-cr;                                             // 1-->2-->3-->4-->5-->
-```
-
-
-## `istream_iterator` 输入流迭代器
-
-```c++
-// 3. 输入流迭代器示例：
-//------------- 2. istream iterator ----------------
-// istream_iterator(stream)
-
-pln("input some char, end with EOF");
-// 创建一个输入流迭代器，注意创建的时候即已读取一个元素。
-istream_iterator<char> charReader(cin);
-
-// 输入流的结束位置
-istream_iterator<char> charEof;
-
-while (charReader != charEof)
+namespace std
 {
-    pln(*charReader);
-    ++charReader;
-}
-cin.clear();
-
-//------------- 3. istream & ostream & advance ----------------
-pln("input some string, end with EOF");
-istream_iterator<string> strReader(cin);
-ostream_iterator<string> strWriter(cout);
-
-while (strReader != istream_iterator<string>())
-{
-    advance(strReader, 1);
-    if (strReader != istream_iterator<string>()) 
+    template <typename T>
+    struct iterator_traits
     {
-        *strWriter++ = *strReader++;
+        typedef typename T::iterator_category   iterator_category;
+        typedef typename T::value_type          value_type;
+        typedef typename T::difference_type     difference_type;
+        typedef typename T::pointer             pointer;
+        typedef typename T::reference           reference;
+    };
+}
+```
+
+有了`iterator_traits`, 我就可以这样, 定义一个迭代器(类型为T)所指向的值类型的变量：
+
+`std::iterator_traits<T>::value_type val;`
+
+# 使用iterator traits来编写泛型代码
+
+## 使用迭代器定义的数据类型, 如 `value_type`
+
+在算法内部使用迭代器定义的数据类型`value_type`
+
+```c++
+template <typename T>
+void shift_left(T beg, T end)
+{
+    typedef typename std::iterator_traits<T>::value_type value_type;
+
+    if (beg != end) 
+    {
+        value_type temp(*beg);
+        // other operations...
     }
 }
-cr;
+```
+
+## 使用迭代器分类 `iterator_category`
+
+分两步：
+
+1. 在定义的模板函数f内部，调用另一个以`iterator_category`作为额外参数的函数f, 完成差异化处理；
+
+2. 实现第一步中重载的f，使用不同类型的`iterator_category`参数以针对特殊类型迭代器做特殊处理。
+
+```c++
+template <typename Iterator>
+void f(Iterator beg, Iterator end)
+{
+    f(beg, end, std::iterator_traits<Iterator>::iterator_category());
+}
+
+// special f for random-access iterators.
+template <typename RandomIterator>
+void f(RandomIterator beg, RandomIterator end, std::random_access_iterator_tag)
+{
+    //...
+}
+
+// special f for bidirectional terators.
+template <typename BidirectionalIterator>
+void f(BidirectionalIterator beg, BidirectionalIterator end, std::bidirectional_iterator_tag)
+{
+    // ...
+}
+```
+
+上面两个特殊的重载版本的f分别针对随机迭代器和双向迭代器做特殊处理。由于前面介绍的iterator tag的继承关系，可以只针对某个父类定义一个f，该父类的所有子类都可以共用同一个f。比如下面的例子:
+
+distance() 函数的实现：
+
+```c++
+// 第一步，定义一个模板函数，接受一对迭代器, 使用`iterator_category`来转发给重载函数。
+template <typename Iterator>
+typename std::iterator_traits<Iterator>::difference_type distance(Iterator pos1, Iterator pos2)
+{
+    return distance(pos1, pos2, std::iterator_traits<Iterator>::iterator_category());
+}
+
+// 第二步，实现重载的特殊版本函数
+// 1. for random-access iterators.
+template <typename RandomIterator>
+typename std::iterator_traits<RandomIterator>::difference_type
+distance(RandomIterator pos1, RandomIterator pos2, std::random_access_iterator_tag)
+{
+    return pos2 - pos1;
+}
+
+// 2. for other iterators.
+template <typename InputIterator>
+typename std::iterator_traits<InputIterator>::difference_type
+distance(InputIterator pos1, InputIterator pos2, std::input_iterator_tag)
+{
+    typename std::iterator_traits<InputIterator>::difference_type d;
+    for (d=0; pos1 != pos2; ++pos1, ++d) { }
+    return d;
+}
+```
+
+从distance()的实现可以看出，随机迭代器将使用迭代器的算术运算pos2-pos1搞定问题；第二个版本的distance()则能够同时针对Input Iterator, Forward Iterator和Bidirectional Iterator三类迭代器起作用，这正是由开篇给出的iterator tag的继承关系决定的。
+
+# 自定义迭代器
+
+从前面的介绍可知，要自己写一个迭代器, 需要提供`iterator_traits`里的五个类型。可以通过两种办法来实现这一需求：
+
+1. 在我的迭代器类型内，定义`iterator_traits`里需要的五个东西。
+
+2. 特化或者偏特化模板`iterator_traits`, 就像`iterator_traits`的数组特化版本那样。
+
+下面使用《c++标准库》里面的一个例子，来说明使用第一种方法来实现自定义迭代器。
+
+C++标准提供了一个特殊的基类：`iterator<>`, 它帮我们完成了五个类型的定义，我们只需要继承这个基类，并指定它需要的类型参数即可, 例如如下定义：
+
+```c++
+class MyIterator : public std::iterator<std::forward_iterator_tag, type, std::ptrdiff_t, type*, type&)
+{
+    // ...
+};
+```
+
+第一个参数指定了迭代器的分类：`forward_iterator_tag`, `bidirectional_iterator_tag` 或者 `random_access_iterator_tag`等等
+
+第二个参数指定了元素类型：`value_type`
+
+第三个参数指定了位置差类型：`difference_type`
+
+第四个参数指定了指针类型： `pointer`, 第五个参数指定了引用类型：`reference`
+
+最后的三个参数的默认值分别是：`ptrdiff_t`, `type*`, `type&`, 在使用时可以忽略。
+
+下面的例子就是书中的例子，它定义了一个关联容器的inserter适配器，类似std::inserter, 相对于std::iterator, 它省去了位置参数，传入一个容器即可：
+
+```c++
+//----------------------- associative container inserter ----------------------
+template <typename Con>
+class asso_inserter_iterator 
+    : public iterator<output_iterator_tag, typename Con::value_type>
+{
+public:
+    explicit asso_inserter_iterator(Con &con) : conRef_(con) {}
+
+    asso_inserter_iterator<Con>& operator= (const typename Con::value_type &val)
+    {
+        conRef_.insert(val);
+        return *this;
+    }
+
+    asso_inserter_iterator<Con>& operator * () 
+    {
+        return *this;
+    }
+
+    asso_inserter_iterator<Con>& operator ++ ()
+    {
+        return *this;
+    }
+
+    asso_inserter_iterator<Con>& operator ++ (int)
+    {
+        return *this;
+    }
+
+protected:
+    Con     &conRef_;
+};
+
+// convenience function to create asso_inserter_iterator.
+template <typename Con>
+inline asso_inserter_iterator<Con> asso_inserter(Con &con)
+{
+    return asso_inserter_iterator<Con>(con);
+}
+```
+
+用法：
+
+
+```c++
+RUN_GTEST(UserDefinedIterator, AssoInserter, @);
+
+set<int> uset;
+
+asso_inserter_iterator<set<int>>  ainserter(uset);
+
+*ainserter = 10;
+++ainserter;
+*ainserter = 20;
+++ainserter;
+*ainserter = 30;
+
+printContainer(uset, "uset: ");     // 10 20 30
+
+asso_inserter(uset) = 1;
+asso_inserter(uset) = 2;
+printContainer(uset, "uset: ");     // 1 2 10 20 30
+
+array<int, 5> a = {11, 22, 33, 44, 55};
+copy(a.begin(), a.end(), asso_inserter(uset)); // 1 2 10 11 20 22 30 33 44 55
+printContainer(uset, "uset: ");
 
 END_TEST;
 ```
 
-# move iterator 
+这里的用法示例与其他的迭代器适配器的用法类似，请参考[【C++ STL学习与应用总结】18: 如何使用迭代器适配器](http://elloop.github.io/c++/2015-12-28/learning-using-stl-18-iterator-adapter/).
 
-since C++11, 移动语义的提出大大提高了一些涉及到转发参数的函数调用过程之中(perfect forwarding完美转发)参数传递的效率，通过把元素内部底层的东西移动到新的元素来避免拷贝开销。因为这个原因也提供了移动的迭代器适配器以实现需要移动语义的场合，下面是一段示意的代码:
 
-```c++
-//----------------------- move iterator  ----------------------
+# 源码及参考链接
 
-list<string> l = {"hello", "tom", "jerry"};
+- [`user_defined_iterator.cpp`](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/iterator/user_defined_iterator.cpp)
 
-vector<string> v(l.begin(), l.end());              // copy l.
+- [`iterator_category`](http://www.cplusplus.com/reference/iterator/iterator/)
 
-vector<string> v2(make_move_iterator(l.begin()),   // move l.
-        make_move_iterator(l.end()));    
-```
-
-# 源码与参考链接
-
-- [`iterator_adapter_test.cpp.cpp`](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/iterator/iterator_adapter/iterator_adapter_test.cpp)
-
-- [`reverse_iterator`](http://www.cplusplus.com/reference/iterator/reverse_iterator/?kw=reverse_iterator)
-
-- [`back_insert_iterator`](http://www.cplusplus.com/reference/iterator/back_insert_iterator/?kw=back_insert_iterator)
-
-- [`front_insert_iterator`](http://www.cplusplus.com/reference/iterator/front_insert_iterator/?kw=front_insert_iterator)
-
-- [`insert_iterator`](http://www.cplusplus.com/reference/iterator/insert_iterator/?kw=insert_iterator)
-
-- [`istream_iterator`](http://www.cplusplus.com/reference/iterator/istream_iterator/?kw=istream_iterator)
-
-- [`ostream_iterator`](http://www.cplusplus.com/reference/iterator/ostream_iterator/?kw=ostream_iterator)
-
-- [`make_move_iterator`](http://www.cplusplus.com/reference/iterator/make_move_iterator/?kw=make_move_iterator)
-
+- [`iterator_traits`](http://www.cplusplus.com/reference/iterator/iterator_traits/?kw=iterator_traits)
 
 ---------------------------
 
 **作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
 
-**欢迎访问[github博客](http://elloop.github.io)，与本站同步更新**
+**在这里也能看到这篇文章：[github博客](http://elloop.github.io), [CSDN博客](http://blog.csdn.net/elloop), 欢迎访问**
 
 
 
