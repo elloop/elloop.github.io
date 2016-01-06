@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "【OpenGL ES 2.0编程笔记】1: 纹理贴图-图片叠加效果实现"
+title: "【C++ OpenGL ES 2.0编程笔记】4: 纹理贴图-图片叠加效果实现"
 category: OpenGL
 tags: [opengl]
 description: ""
 ---
+
+**作者是现在对相关知识理解还不是很深入，后续会不断完善。因此文中内容仅供参考，具体的知识点请以OpenGL的官方文档为准**
 
 # 前言
 
@@ -126,7 +128,7 @@ bool MultiTexture::init()
         mvp_            = glGetUniformLocation(programId_, "mvp_");
     }
 
-    textureBgId_ = loadTexture("images/dog.png");
+    textureBgId_    = loadTexture("images/dog.png");
     textureCloudId_ = loadTexture("images/fog.bmp");
 
     return valid_;
@@ -146,6 +148,8 @@ MultiTexture* MultiTexture::create()
 unsigned int MultiTexture::loadTexture(const std::string &fileName)
 {
     unsigned int textureId = 0;
+
+    // 图片格式：如FIF_PNG, FIF_BMP, FIF_JPEG ...
     FREE_IMAGE_FORMAT format = FreeImage_GetFileType(fileName.c_str(), 0);
 
     FIBITMAP *bitmap = FreeImage_Load(format, fileName.c_str(), 0);
@@ -154,7 +158,7 @@ unsigned int MultiTexture::loadTexture(const std::string &fileName)
 
     BYTE *pixels = FreeImage_GetBits(bitmap);
 
-    int width = FreeImage_GetWidth(bitmap);
+    int width  = FreeImage_GetWidth(bitmap);
     int height = FreeImage_GetHeight(bitmap);
 
     for (size_t i=0; i<width*height*3; i+=3) 
@@ -205,12 +209,15 @@ void MultiTexture::render()
         float2{ x + w, y + h }, float2(1, 0),
     };
 
+    // uv 动画，纹理坐标在x方向每次增加0.01, 详见片段shader multi_texture_fs.glsl 中对deltaUv_的使用
     static float incUv = 0;
     incUv += 0.01;
 
+    // 绑定背景图：狗狗
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureBgId_);
 
+    // 绑定前景：雾
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, textureCloudId_);
 

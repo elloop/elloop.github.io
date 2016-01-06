@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【OpenGL ES 2.0编程笔记】5: mipmap"
+title: "【C++ OpenGL ES 2.0编程笔记】7: alpha测试和混合"
 category: OpenGL
 tags: [opengl]
 description: ""
@@ -9,6 +9,9 @@ description: ""
 **作者是现在对相关知识理解还不是很深入，后续会不断完善。因此文中内容仅供参考，具体的知识点请以OpenGL的官方文档为准**
 
 # 前言
+
+
+混合发生在片段着色之后。
 
 本文介绍了OpenGL ES 2.0 中常用的多级纹理贴图技术，mipmap, 给出了一个使用mipmap的3D场景示例。
 

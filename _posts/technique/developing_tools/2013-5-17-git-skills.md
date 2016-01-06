@@ -7,6 +7,13 @@ tags: [git]
 description: ""
 ---
 
+## 冲突
+
+### 丢弃本地的所有修改
+    
+    - 未commit： git checkout .
+    - 已经commit： git reset --hard HEAD / git reset --hard HEAD^ (HEAD^是上一个HEAD) 或者 git checkout commit-id
+
 ## 从出错中学习Git
 
 ### Problem 1
