@@ -10,9 +10,9 @@ description: ""
 
 # 前言
 
-本文介绍了OpenGL ES 2.0的渲染管线：graphic pipeline和作为OpenGL API和本地窗口之间接口的EGL.
+本文介绍了OpenGL ES 2.0的渲染管线：Graphics Pipeline和作为OpenGL API和本地窗口之间接口的EGL.
 
-# 渲染管线总览 graphic pipeline
+# 渲染管线总览 Graphics Pipeline
 
 ![es2_pipeline.png](http://7xi3zl.com1.z0.glb.clouddn.com/es2_pipeline.png)
 
@@ -20,13 +20,21 @@ description: ""
 
 # 顶点着色器：Vertex Shader
 
+![vertex_shader.png](http://7xi3zl.com1.z0.glb.clouddn.com/vertex_shader.png)
+
 # 图元装配：Primitive Assembly
 
 # 光栅化：Rasterization
 
+![Rasterization.png](http://7xi3zl.com1.z0.glb.clouddn.com/Rasterization.png)
+
 # 片段着色器：Fragment Shader
 
+![fragment_shader.png](http://7xi3zl.com1.z0.glb.clouddn.com/fragment_shader.png)
+
 # 每片段(像素)操作：Per-Fragment Operations
+
+![per_fragment_op.png](http://7xi3zl.com1.z0.glb.clouddn.com/per_fragment_op.png)
 
 # 帧缓冲：Framebuffer
 
