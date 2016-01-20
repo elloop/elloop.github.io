@@ -13,4 +13,8 @@ published: false
 
 - clip sprites outside the visible size.
 
+# ccbi reader
+
+## CCBSelectorResolver::onResolveCCBCCMenuItemSelectorWithSender()
+
 
