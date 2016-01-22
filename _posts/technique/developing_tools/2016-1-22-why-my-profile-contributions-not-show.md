@@ -17,7 +17,7 @@ description: ""
 
 经常使用github的人大概都知道，在你的个人资料主页贡献图(Your Profile Contributions)上，记录着你使用github的贡献行为。你今天有“贡献”，那么代表今天的那个小格子就会变成绿色，否则就是一个空白。下图是一个例子：
 
-![contri_diagram.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/contri_diagram.jpg)
+![contri_diagram.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/contri_diagram2.jpg)
 
 <!--more-->
 
