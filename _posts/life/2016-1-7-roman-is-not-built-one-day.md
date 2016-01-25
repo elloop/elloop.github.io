@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "如果现在不开始那就很可能永远都不会开始"
+title: "【个人吐槽慎入】：如果现在不开始那就很可能永远都不会开始"
 published: true
 category: [life]
 tags: [thinking]
