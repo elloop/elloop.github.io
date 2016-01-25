@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "为什么使用命令行工具进行的提交没有在github主页上显示出来？"
+title: "为什么用命令行工具进行的提交没有在github主页上显示出来？"
 highlighter_style: monokai
 category: tools
 tags: [git]
