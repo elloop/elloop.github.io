@@ -12,6 +12,9 @@ description: ""
 
 本文介绍了如何使用AMD的RenderMonkey开发工具编写shader代码，并预览效果。
 
+RenderMonkey现在的版本是1.8.2， 已经好久不更新了。AMD官方已经说明不再对其惊醒维护了。
+<!--more-->
+
 
 
 
