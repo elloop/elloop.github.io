@@ -67,6 +67,54 @@ origin  git@github.com:<username>/<reponame>.git (push)
 
 ---
 
+## submodule 相关命令
+
+1. clone带有submodule的仓库
+
+```bash
+git clone <url> dir     # clone parent.
+
+cd dir
+
+git submodule init      # register submodules.
+
+git submodule update    # clone submodules. Merge: git submodule init & update.
+```
+
+or, simply: `git clone --recursive <url>`, recursively clone submoduels.
+
+
+2. 修改submodule
+
+注意：刚clone下来的submodule，默认不在任何分支上，要想在submodule上工作，最好先checkout出一个新分支，避免在修改之后，因为错误执行`git submodule update`导致在分支上的修改被覆盖。
+
+```bash
+cd sub1                 # submodule dir
+
+git checkout master     # switch to master branch
+
+# modifying sub1......
+
+git add .
+
+git commit -m "modify submodule 1"
+
+git push origin master
+
+cd parent-dir
+
+git add -u
+
+git commit -m "update commit id of submodule"
+
+git push origin master  
+```
+
+
+
+
+
+
 ## Branch相关命令
 从clone说起，git clone <url>, 
 
