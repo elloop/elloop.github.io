@@ -2,15 +2,20 @@
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /:categories/:year-:month-:day/:title
 
-#markdown: kramdown
-markdown: redcarpet
+markdown: kramdown
+
+# since 2016-3-1 redcarpet is deprecated, github page use kramdown as default markdown engine.
+# markdown: redcarpet
 markdown_ext:  md
 redcarpet:
     extensions: [no_intra_emphasis,tables,autolink,disable_indented_code_blocks,fenced_code_blocks]
     # extensions: [html_toc,with_toc_data,no_intra_emphasis,tables,autolink,disable_indented_code_blocks,fenced_code_blocks]
     
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
+
+# pygments is deprecated since 2016-3-1, use Rounge as highlight plugin.
 highlighter: pygments
+
 #highlighter_style: monokai
 highlighter_style: solarizeddark
 
