@@ -13,8 +13,10 @@ redcarpet:
     
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 
-# pygments is deprecated since 2016-3-1, use Rounge as highlight plugin.
-highlighter: pygments
+# pygments is deprecated since 2016-3-1, use rouge as highlight plugin.
+# highlighter: pygments
+#
+highlighter: rouge
 
 #highlighter_style: monokai
 highlighter_style: solarizeddark
