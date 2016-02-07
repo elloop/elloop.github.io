@@ -4,6 +4,20 @@ permalink: /:categories/:year-:month-:day/:title
 
 markdown: kramdown
 
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  highlighter_style: solarizeddark
+      
+# pygments is deprecated since 2016-3-1, use rouge as highlight plugin.
+# highlighter: pygments
+#
+# highlighter: rouge
+
+#highlighter_style: monokai
+highlighter_style: solarizeddark
+
+
 # since 2016-3-1 redcarpet is deprecated, github page use kramdown as default markdown engine.
 # markdown: redcarpet
 markdown_ext:  md
@@ -13,14 +27,6 @@ markdown_ext:  md
     # extensions: [html_toc,with_toc_data,no_intra_emphasis,tables,autolink,disable_indented_code_blocks,fenced_code_blocks]
     
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-
-# pygments is deprecated since 2016-3-1, use rouge as highlight plugin.
-# highlighter: pygments
-#
-highlighter: rouge
-
-#highlighter_style: monokai
-highlighter_style: solarizeddark
 
 paginate: 5
 paginate_path: "/page:num"
