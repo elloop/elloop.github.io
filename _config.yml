@@ -163,4 +163,10 @@ post :
 
 excerpt_separator: <!--more-->
 
+# upgrading from jekyll 2 to jekyll 3.
+#
+# paginate fix
+gems:
+  - jekyll-paginate
+
 
