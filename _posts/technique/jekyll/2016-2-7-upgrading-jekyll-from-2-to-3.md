@@ -27,7 +27,7 @@ gem jekyll update
 
 >Deprecation: You appear to have pagination turned on, but you haven't included the `jekyll-paginate` gem. Ensure you have `gems: [jekyll-paginate]` in your configuration file.
 
-fix：
+**fix：**
 
 **step1:**
 
@@ -44,5 +44,23 @@ gems:
   - jekyll-paginate
 ```
 
+# style error
+
+>[2016-02-11 08:41:50] ERROR `/assets/themes/bootstrap/css/bootstrap.min.css' not found.</br>
+[2016-02-11 08:41:50] ERROR `/assets/themes/css/style.css' not found.</br>
+[2016-02-11 08:41:50] ERROR `/assets/themes/bootstrap/js/bootstrap.min.js' not found.</br>
+[2016-02-11 08:41:50] ERROR `/assets/themes/bootstrap/css/colors-dark.css' not found.</br>
+
+**fix:**
+
+copy 
+
+~/assets/themes/bootstrap-3/bootstrap
+~/assets/themes/bootstrap-3/css
+
+to
+
+~/assets/themes/bootstrap
+~/assets/themes/css
 
 
