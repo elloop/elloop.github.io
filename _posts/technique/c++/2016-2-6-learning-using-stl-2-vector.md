@@ -17,7 +17,7 @@ description: ""
 
 # 基本用法及常识
 
-```c++
+{% highlight cpp %}
 // 使用初始化列表(initializer list) since C++11
 vector<int> vi {1, 2, 3};
 
@@ -35,11 +35,11 @@ for (int elem : vi)
 {
     pln(elem);
 }
-```
+{% endhighlight %}
 
 输出：
 
-```c++
+{% highlight cpp %}
 10
 2
 3
@@ -49,7 +49,7 @@ for (int elem : vi)
 7
 8
 9
-```
+{% endhighlight %}
 
 由于vector是顺序式的存储结构，因此有以下的常识：
 
@@ -63,11 +63,12 @@ for (int elem : vi)
 
 vector初始情况下的容量取决于对象的定义方式：
 
-```c++
+```cpp
+{% highlight cpp %}
 vector<int> vi;         // capacity: 0
 
 vector<int> vi(100);    // capacity: 100
-```
+{% endhighlight %}
 
 # 容器元素类型的限制
 
@@ -90,13 +91,13 @@ vector<int> vi(100);    // capacity: 100
 
 # todo
 
-```c++
+{% highlight cpp %}
 shrink_to_fit
 
 data
 
 allocator
-```
+{% endhighlight %}
 
 ---------------------------
 
