@@ -56,6 +56,8 @@ for (int i=0; i<kColorCount; ++i)
     Color color_i = static_cast<Color>(kRed + i);
     assert(colors[i] == color_i);
 }
+
+END_TEST;
 {% endhighlight %}
 
 理论基础是：Unscoped Enum的基本类型是int，且默认第一个元素的初值是0，某个枚举元素E(n)的值如果不显式指定，那么E(n)的值就等于E(n-1) + 1.
