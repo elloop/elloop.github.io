@@ -14,7 +14,7 @@ description: ""
 
 - Scoped Enum: C++11开始引入的强类型枚举，使用关键字`enum class`或者`enum struct`定义的枚举
 
-[前面的文章]()总结了"Unscoped Enum"的使用，本文将针对`Scoped Enum`的使用来总结。
+[前面的文章](http://elloop.github.io/c++/2016-02-19/c++-note-12-unscoped-enum)总结了"Unscoped Enum"的使用，本文将针对`Scoped Enum`的使用来总结。
 
 <!--more-->
 
