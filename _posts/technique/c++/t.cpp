@@ -1,19 +1,16 @@
 #include <iostream>
 #include <string>
+#include <regex>
+
 using namespace std;
 int main() {
 
-    string s("{% high %}");
+    string s("{% highlight cpp %}");
     cout << s << endl;
 
-    string::size_type pos = s.find("{% hg");
-    cout << pos << endl;
-    cout << string::npos << endl;
+    regex e("\\b({% highlight})(*)(%})");
 
-    string sub = s.substr(0, pos);
-    cout << sub << endl;
+    cout << regex_replace(s, e, "c++") << endl;
 
-    string news = sub.append("-for-csdn.md");
-    cout << news << endl;
     return 0;
 }
