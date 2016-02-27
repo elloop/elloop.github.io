@@ -1,6 +1,9 @@
 ---
 layout: post
-title: "¡¾»ıË®³ÉÔ¨-Öğ²½¶¨ÖÆ×Ô¼ºµÄEmacsÉñÆ÷¡¿2£º»ù±¾µÄ¶¨ÖÆEmacs"
+title: "ã€ç§¯æ°´æˆæ¸Š-é€æ­¥å®šåˆ¶è‡ªå·±çš„Emacsç¥å™¨ã€‘2ï¼šåŸºæœ¬çš„å®šåˆ¶Emacs"
+category: tools
+tags: [emacs]
+description: ""
 ---
 
 # Load Path

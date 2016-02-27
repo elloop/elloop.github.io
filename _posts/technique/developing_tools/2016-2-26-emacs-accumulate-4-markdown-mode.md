@@ -25,7 +25,7 @@
   * prefix + c : inline code. `<code>`.
   * prefix + k : `<kbd>` tags.
   * prefix + b : blockquote.
-  * prefix + p : similarly for inserting performatted code blocks. Ëõ½øµÄcode block.
+  * prefix + p : similarly for inserting performatted code blocks. ç¼©è¿›çš„code block.
 
 ## Heading: prefix = `C-c C-t`
 
