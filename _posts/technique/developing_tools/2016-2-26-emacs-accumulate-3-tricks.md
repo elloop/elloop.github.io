@@ -1,35 +1,35 @@
 ---
 layout: post
-title: "Emacs°´¼ü¡¢ÃüÁî¡¢Ð¡¼¼ÇÉ-ºÏ¼¯"
+title: "EmacsæŒ‰é”®ã€å‘½ä»¤ã€å°æŠ€å·§-åˆé›†"
 category: tools
 tags: [emacs]
 description: ""
 ---
 
-±¾ÎÄ³ÖÐø×Ü½áEmacsÀïµÄÒ»Ð©³£ÓÃ°´¼üºÍÃüÁîÒÔ¼°Ð¡¼¼ÇÉ¡£
+æœ¬æ–‡æŒç»­æ€»ç»“Emacsé‡Œçš„ä¸€äº›å¸¸ç”¨æŒ‰é”®å’Œå‘½ä»¤ä»¥åŠå°æŠ€å·§ã€‚
 
 <!--more-->
 
-# °´¼ü
+# æŒ‰é”®
 
 
-# ÃüÁî #
+# å‘½ä»¤ #
 
-## ÐÐºÅ ##
+## è¡Œå· ##
 
 M-x global-linum-mode
 
-## Ìø×ªµ½Ö¸¶¨ÐÐ ##
+## è·³è½¬åˆ°æŒ‡å®šè¡Œ ##
 
 M-gg
 
-# ¼¼ÇÉ #
+# æŠ€å·§ #
 
 ## yes-no-p -> y-or-n-p ##
 
 ---------------------------
 
-**×÷ÕßË®Æ½ÓÐÏÞ£¬¶ÔÏà¹ØÖªÊ¶µÄÀí½âºÍ×Ü½áÄÑÃâÓÐ´íÎó£¬»¹Íû¸øÓèÖ¸Õý£¬·Ç³£¸ÐÐ»£¡**
+**ä½œè€…æ°´å¹³æœ‰é™ï¼Œå¯¹ç›¸å…³çŸ¥è¯†çš„ç†è§£å’Œæ€»ç»“éš¾å…æœ‰é”™è¯¯ï¼Œè¿˜æœ›ç»™äºˆæŒ‡æ­£ï¼Œéžå¸¸æ„Ÿè°¢ï¼**
 
-**ÔÚÕâÀïÒ²ÄÜ¿´µ½ÕâÆªÎÄÕÂ£º[github²©¿Í](http://elloop.github.io), [CSDN²©¿Í](http://blog.csdn.net/elloop), »¶Ó­·ÃÎÊ**
+**åœ¨è¿™é‡Œä¹Ÿèƒ½çœ‹åˆ°è¿™ç¯‡æ–‡ç« ï¼š[githubåšå®¢](http://elloop.github.io), [CSDNåšå®¢](http://blog.csdn.net/elloop), æ¬¢è¿Žè®¿é—®**
 
