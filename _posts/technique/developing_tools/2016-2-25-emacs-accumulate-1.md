@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "【积水成渊-逐步定制出自己的Emacs神器】1：Emacs入门"
+title:"【积水成渊-逐步定制出自己的Emacs神器】1：Emacs入门"
 category: tools
 tags: [git]
 description: ""
 ---
 
-#前言
+# 前言 #
 
 <!--本系列文章的目录在这里。该系列文章的目的是通过逐渐的学习和借鉴别人的Emacs配置，最终打造一个适合于自己的Emacs编辑器，提高做事的效率。-->
 
