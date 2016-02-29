@@ -1,8 +1,12 @@
+---
+layout: post
+title: "Emacs-Markdown-mode"
+category: tools
+tags: [emacs]
+description: ""
+---
 
 
-
-
-<!--more-->
 
 # Usage
 
@@ -18,6 +22,8 @@
 
   * prefix + i : 
 
+<!--more-->
+
 ## Styles: prefix = `C-c C-s`
 
   * prefix + e: italic.
@@ -25,7 +31,7 @@
   * prefix + c : inline code. `<code>`.
   * prefix + k : `<kbd>` tags.
   * prefix + b : blockquote.
-  * prefix + p : similarly for inserting performatted code blocks. 缩进的code block.
+  * prefix + p : similarly for inserting performatted code blocks. 缂╄繘鐨刢ode block.
 
 ## Heading: prefix = `C-c C-t`
 
@@ -52,6 +58,7 @@
   * prefix + n : renumber ordered lists.
   * prefix + ] : completes all headings and normalizes all horizontal rules.
   
+<!--
 
 # practice
 
@@ -128,4 +135,12 @@ demoted by one level . use C-u C-u prefix for C-c C-t H.
 
 
 kjaslkdjfkasdjf
+
+-->
+
+---------------------------
+
+**作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
+
+**在这里也能看到这篇文章：[github博客](http://elloop.github.io), [CSDN博客](http://blog.csdn.net/elloop), 欢迎访问**
 
