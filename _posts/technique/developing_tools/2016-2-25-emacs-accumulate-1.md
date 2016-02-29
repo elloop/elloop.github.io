@@ -20,6 +20,8 @@ Emacs的安装很简单，去[官网](https://www.gnu.org/software/emacs/)的[Ob
 
 # 如何学习Emacs #
 
+<!--more-->
+
 ## 入门必看：Emacs Tutorial ##
 
 进入Emacs Tutorial的方法：`C-h t`，即Ctrl+h，然后按t。
