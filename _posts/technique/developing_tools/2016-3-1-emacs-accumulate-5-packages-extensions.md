@@ -2,6 +2,7 @@
 layout: post
 title: "【积水成渊-逐步定制自己的Emacs神器】3：为Emacs安装扩展"
 category: tools
+highlighter_style: monokai
 tags: [emacs]
 description: ""
 ---

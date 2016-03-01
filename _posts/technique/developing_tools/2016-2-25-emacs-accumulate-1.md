@@ -1,6 +1,6 @@
 ---
 layout: post
-title:"【积水成渊-逐步定制出自己的Emacs神器】1：Emacs入门"
+title: "【积水成渊-逐步定制出自己的Emacs神器】1：Emacs入门"
 category: tools
 tags: [git]
 description: ""
@@ -10,7 +10,7 @@ description: ""
 
 本文介绍了Emacs编辑器的入门知识，看完本文读者会知道Emacs的基本用法以及如何通过Emacs来学习Emacs，这会让你觉得整个学习Emacs的过程都是在被“授之以渔”。
 
-<!--本系列文章的目录在这里。该系列文章的目的是通过逐渐的学习和借鉴别人的Emacs配置，最终打造一个适合于自己的Emacs编辑器，提高做事的效率。-->
+
 
 作者使用的Emacs版本是24.3。
 
