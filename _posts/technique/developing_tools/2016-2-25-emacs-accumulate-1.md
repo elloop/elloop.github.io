@@ -89,9 +89,6 @@ C-h i 进入Info Mode, 输入mEmacs进入Emacs Manual，输入mAmusement, 进入
   * [所有解决方案都让你不爽，你就是喜欢VIM的按键风格，那就在Emacs中使用VIM：Evil Mode](https://www.emacswiki.org/emacs/Evil)
 
 
-
-
-
 ---------------------------
 
 **作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**

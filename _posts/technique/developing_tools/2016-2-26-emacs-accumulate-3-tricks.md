@@ -10,20 +10,46 @@ description: ""
 
 本文持续总结Emacs里的一些常用按键和命令以及小技巧。
 
+# 按键和命令 #
+
+## 帮助 ##
+
+  * 查看帮助的帮助：`C-h C-h`
+  * Emacs Tutorial: `C-h t`
+  * Emacs Info: `C-h i`
+  * 查看命令帮助：`C-h a <command-name>`
+  * 查看当前mode帮助：`C-h m`
+  * 查看某个变量的值：`C-h v <command-name>`
+
+
+## 编辑 ##
+
+  * 行号开关：`M-x global-linum-mode`
+  * 跳转到指定行：`M-gg`
+
 <!--more-->
 
-# 按键
+## 窗口(window) ##
 
+  * 关闭其他窗口：`C-x 1`
+  * 水平分割当前窗口：`C-x 2`
+  * 垂直分割当前窗口：`C-x 3`
+  * 关闭当前窗口：`C-x 0`
+  * 关闭当前缓冲区(窗口还在)：`C-x k`
+  * 在窗口间移动光标：`C-h o` (字母o)
 
-# 命令 #
+## 外观和显示 ##
 
-## 行号 ##
+  * 更换字体：`M-x customize-group RET basic-faces RET, Default Subgroup`
+  * 切换主题：`M-x customize-themes`
+  * 定制入口：`M-x customize`
+  * 定制分组入口：`M-x customize-group`
 
-M-x global-linum-mode
+## 包和扩展 ##
 
-## 跳转到指定行 ##
+  * 查看所有packages：`M-x list-packages`
+  * 修改package源：`M-x customize-variable RET package-archives`
 
-M-gg
 
 # 技巧 #
 

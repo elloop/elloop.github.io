@@ -6,11 +6,9 @@ tags: [emacs]
 description: ""
 ---
 
+# Usage #
 
-
-# Usage
-
-## Hyperlinks: prefix = `C-c C-a`
+## Hyperlinks: prefix = `C-c C-a` ##
 
   * prefix + l : insert a link.`[text](url)`.
   * prefix + L : insert a link form `[a][b]`.
@@ -18,13 +16,13 @@ description: ""
   * prefix + f : footnote.footnote is an extension to Markdown.
   * prefix + w : `[[WikiLink]]`. also an extension to Markdown.
 
-## Images: prefix = `C-c C-i`
+## Images: prefix = `C-c C-i` ##
 
   * prefix + i : 
 
 <!--more-->
 
-## Styles: prefix = `C-c C-s`
+## Styles: prefix = `C-c C-s` ##
 
   * prefix + e: italic.
   * prefix + s : `<strong>`.
@@ -33,7 +31,7 @@ description: ""
   * prefix + b : blockquote.
   * prefix + p : similarly for inserting performatted code blocks. 缂╄繘鐨刢ode block.
 
-## Heading: prefix = `C-c C-t`
+## Heading: prefix = `C-c C-t` ##
 
   * prefix + h : auto style, determined by the previous heading.
   * prefix + H : similarly.
