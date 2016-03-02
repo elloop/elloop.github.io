@@ -13,7 +13,30 @@ description: ""
 
 <!--more-->
 
-# ido-mode #
+# 缓冲区名字补全: ido-mode #
+
+在使用C-x b或者M-x dired输入缓冲区名字或者路径名字的时候，需要记住使用过的缓冲区或者文件目录的结构，这使得用户要输入记住和输入很多东西，增加了使用Emacs的困难程度。
+
+ido-mode解决了这个问题，它会在我切换缓冲区或者要使用C-x C-f查找文件的时候，自动为我列出匹配项目，我仅需键入有限的几个输入，然后回车即可。
+
+要打开ido-mode，使用M-x customize，然后搜索ido，找到ido-mode打开即可，你可以让它只作用于buffer补全或者只作用于文件补全，也可以同时作用。
+
+要想让ido-mode支持模糊匹配，还需要设置：
+
+# auto-complete 代码补全 #
+
+根据我的使用情况auto-complete package可以在一下两个package archive(package源，见第三篇文章)找到：
+
+  * ("melpa" . "https://melpa.org/packages/")
+  * ("marmalade" . "http://marmalade-repo.org/packages/")
+
+确保添加了上面任何一个package archive之后，执行：
+
+`M-x package-install RET auto-complete RET` 进行安装。
+
+也可以使用前面第三篇文章里，使用M-x list- package进入包安装界面，搜索auto-complete来进行安装。
+
+
 
 
 
