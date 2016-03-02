@@ -53,6 +53,10 @@ description: ""
 
 # 技巧 #
 
+## 修改.emacs以实现的功能 ##
+
+  * 禁用windows上的滴滴提示声：`(setq visible-bell 1`) 或者 `(setq ring-bell-function 'ignore)`
+
 ## yes-no-p -> y-or-n-p ##
 
 ---------------------------

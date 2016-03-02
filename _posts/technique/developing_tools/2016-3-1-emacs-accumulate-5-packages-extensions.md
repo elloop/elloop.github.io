@@ -58,7 +58,7 @@ M-x list-packages 进入package列表，如果你已经在这个界面，按 "r"
 
 安装过程中会提示你是否要执行未经安全确认的ELisp脚本之类的，选“yes”就行了。装完这个主题之后，使用`M-x customize-themes`进入主题切换界面，可以看到Solarized Dark和Solarized Light两种风格可供选择。这里假设选择了Solarized Dark主题，并且保存为长期使用。此时打开你的Emacs配置文件会看到如下内容：
 
-{% highlight list %}
+{% highlight lisp %}
 (custom-set-variables
  '(custom-enabled-themes (quote (solarized-dark)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
