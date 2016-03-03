@@ -37,6 +37,7 @@ description: ""
   * 关闭当前窗口：`C-x 0`
   * 关闭当前缓冲区(窗口还在)：`C-x k`
   * 在窗口间移动光标：`C-h o` (字母o)
+  * 清除所有无用缓冲区：`M-x clean-buffer-list`
 
 ## 外观和显示 ##
 
@@ -53,9 +54,8 @@ description: ""
 
 # 技巧 #
 
-## 修改.emacs以实现的功能 ##
-
   * 禁用windows上的滴滴提示声：`(setq visible-bell 1`) 或者 `(setq ring-bell-function 'ignore)`
+  * 区分同名buffer：`M-x customize-group RET uniquify RET` 修改uniquify buffer name style
 
 ## yes-no-p -> y-or-n-p ##
 
