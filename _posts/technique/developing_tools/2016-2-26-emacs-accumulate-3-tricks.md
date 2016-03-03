@@ -45,6 +45,8 @@ description: ""
   * 切换主题：`M-x customize-themes`
   * 定制入口：`M-x customize`
   * 定制分组入口：`M-x customize-group`
+  * 调整当前buffer字体大小：`C-x C-+`, `C-x C--`. `C-g`退出设置。
+  * 设置当前buffer缩进风格：`C-c . <RET> STYLE <RET>`, STYLE可以用TAB来查看。
 
 ## 包和扩展 ##
 

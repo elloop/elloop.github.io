@@ -8,9 +8,10 @@ int main() {
     string s("{% highlight cpp %}");
     cout << s << endl;
 
-    regex e("\\b({% highlight})(*)(%})");
+    // regex e("\\b({\% highlight})(*)(\%})");
 
-    cout << regex_replace(s, e, "c++") << endl;
+    cout << "end" << endl;
+    // cout << regex_replace(s, e, "c++") << endl;
 
     return 0;
 }
