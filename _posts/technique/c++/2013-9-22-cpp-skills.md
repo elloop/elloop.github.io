@@ -10,7 +10,7 @@ description: "programming things about c++"
 
 ### 类的static member variables不能在构造函数的初始化列表里初始化
 
-```c++
+{% highlight c++ %}
 class CustomParticleTest : public cocos2d::ParticleSystemQuad {
 
     public:
@@ -28,7 +28,7 @@ class CustomParticleTest : public cocos2d::ParticleSystemQuad {
     private:
         static int s_particleNum;
 };
-```
+{% endhighlight %}
 
 <!--more-->
 
@@ -42,7 +42,7 @@ class CustomParticleTest : public cocos2d::ParticleSystemQuad {
 
 ### A* 与 const A *&
 
-```c++
+{% highlight c++ %}
 class A {
 public:
   int a_;
@@ -77,7 +77,7 @@ int main() {
   delete p;
   return 0;
 }
-```
+{% endhighlight %}
 
 ## Latest Questions
 - 2014-12-4 父类和子类同时又一个同名文件的时候，通过父类接口改变同名变量，改变的是父类的还是子类的？如AdventureBase的setInitData().
@@ -91,7 +91,7 @@ int main() {
 
 - DISALLOW_COPY_AND_ASSIGN (or boost::noncopyable)
 
-```c++
+{% highlight c++ %}
 \#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
             TypeName(const TypeName&); \
             void operator=(const TypeName&)
@@ -104,11 +104,11 @@ class Foo {
     private:
         DISALLOW_COPY_AND_ASSIGN(Foo);
 };
-```
+{% endhighlight %}
 
 - big_endian or little_endian
 
-```c++
+{% highlight c++ %}
 int is_big_endian()
 {
 	union
@@ -121,7 +121,7 @@ int is_big_endian()
 	//
 	return (c.b == 0);
 }
-```
+{% endhighlight %}
 
 ---
 ##基础知识

@@ -36,7 +36,7 @@ void advance(InputIterator &pos, Distance n);
 
 代码示例：
 
-```c++
+{% highlight c++ %}
 //-----------------------  Advance  ----------------------
 RUN_GTEST(AuxiliaryIterFuncTest, Advance, @);
 
@@ -66,7 +66,7 @@ pln("advance pass the end()");
 //advance(iter, -100);      // error: undefined behaviour.
 
 END_TEST;
-```
+{% endhighlight %}
 
 # next (since C++11)
 
@@ -81,7 +81,7 @@ ForwardIterator next(ForwardIterator pos, Distance n = 1);
 
 示例代码：
 
-```c++
+{% highlight c++ %}
 //-----------------------  next  ----------------------
 // next(pos, n) calls advance(pos, n) for an internal temporary object.
 RUN_GTEST(AuxiliaryIterFuncTest, Next, @);
@@ -113,7 +113,7 @@ EXPECT_EQ(1, *pos1);
 //auto posBeforeBegin = next(iter, -100);     // error, undefined behaviour.
 
 END_TEST;
-```
+{% endhighlight %}
 
 # prev (since C++11)
 
@@ -127,7 +127,7 @@ BidirectionalIterator prev(BidirectionalIterator pos, Distance n = 1);
 
 代码示例：
 
-```c++
+{% highlight c++ %}
 //-----------------------  prev ----------------------
 // prev(pos, n) calls advance(pos, -n) for an internal temporary object.
 RUN_GTEST(AuxiliaryIterFuncTest, Prev, @);
@@ -148,7 +148,7 @@ EXPECT_EQ(2, *pos2);
 //auto posBeforeBegin = prev(a.begin(), 1);    // error: undefined behaviour.
 
 END_TEST;
-```
+{% endhighlight %}
 
 # distance
 
@@ -162,7 +162,7 @@ Distance distance(InputIterator pos1, InputIterator pos2);
 
 代码示例：
 
-```c++
+{% highlight c++ %}
 //-----------------------  distance ----------------------
 RUN_GTEST(AuxiliaryIterFuncTest, Distance, @);
 
@@ -183,7 +183,7 @@ psln(negativeDis);                      // negativeDis = -3
 EXPECT_EQ(2 - 5, negativeDis);
 
 END_TEST;
-```
+{% endhighlight %}
 
 # `iter_swap`
 
@@ -197,7 +197,7 @@ END_TEST;
 
 代码示例：
 
-```c++
+{% highlight c++ %}
 //-----------------------  iter_swap ----------------------
 RUN_GTEST(AuxiliaryIterFuncTest, Iter_swap, @);
 
@@ -218,7 +218,7 @@ printContainer(a, "after swap, a: ");   // 10 1 3
 printContainer(l, "after swap, l: ");   // 2 11 12
 
 END_TEST;
-```
+{% endhighlight %}
 
 # 源码和参考链接
 

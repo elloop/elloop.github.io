@@ -19,7 +19,7 @@ published: true
 
 在win32平台上的cocos游戏其实就是一个win32窗口程序，跟其他应用程序一样，游戏的启动点也是在main函数里，所以要从main.cpp为起点，查看游戏的启动过程：
 
-```c++
+{% highlight c++ %}
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                        HINSTANCE hPrevInstance,
                        LPTSTR    lpCmdLine,
@@ -39,13 +39,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     // 调用app的run方法，启动游戏循环
     return CCApplication::sharedApplication()->run();
 }
-```
+{% endhighlight %}
 
 - AppDelegate app
 
 这一行代码，创建了游戏中唯一的一个CCApplication单例，这个单例声明的是CCApplication*类型，但是绑定到的是子类Appdelegate app这个对象，是典型的“声明父类，new子类”的多态方式，可以从CCApplication的构造函数看到这一过程：
 
-```c++
+{% highlight c++ %}
 // sharedApplication pointer    一个父类对象的指针 CCApplication*
 CCApplication * CCApplication::sm_pSharedApplication = 0;
 
@@ -61,7 +61,7 @@ CCApplication::CCApplication()
     // 相当于这样写，CCApplication * app = new Appdelegate();
     sm_pSharedApplication = this;           
 }
-```
+{% endhighlight %}
 
 所以游戏中唯一的CCApplication对象是其子类Appdelegate类型的. 对其虚函数的调用也都将在运行时绑定到对Appdelegate方法的调用.
 
@@ -75,7 +75,7 @@ CCApplication::CCApplication()
 
 游戏窗口的展示以及消息循环是在CCApplication的run函数里面：
 
-```c++
+{% highlight c++ %}
 int CCApplication::run()
 {
     PVRFrameEnableControlWindow(false);
@@ -136,7 +136,7 @@ int CCApplication::run()
 
     return (int) msg.wParam;
 }
-```
+{% endhighlight %}
 
 ### <font color="blue">in 3.X (3.9)</font>
 
@@ -146,7 +146,7 @@ int CCApplication::run()
 
 ### <font color="blue">in 2.X (2.2.3)</font>
 
-```c++
+{% highlight c++ %}
 void CCDisplayLinkDirector::mainLoop(void)
 {
     if (m_bPurgeDirecotorInNextLoop)
@@ -161,7 +161,7 @@ void CCDisplayLinkDirector::mainLoop(void)
          CCPoolManager::sharedPoolManager()->pop();     // 释放自动对象
      }
 }
-```
+{% endhighlight %}
 
 mainLoop里做了两件事情：1. 绘制；2.释放自动释放池里的对象
 
@@ -169,7 +169,7 @@ mainLoop里做了两件事情：1. 绘制；2.释放自动释放池里的对象
 
 drawScene()是帧循环中的重头戏：
 
-```c++
+{% highlight c++ %}
 void CCDirector::drawScene(void)
 {
     calculateDeltaTime();  // 计算帧时间间隔
@@ -219,7 +219,7 @@ void CCDirector::drawScene(void)
         calculateMPF();                         // 计算SPF， 即每帧消耗的时间
     }
 }
-```
+{% endhighlight %}
 
 在drawScene函数中最主要的两个部分是：
 

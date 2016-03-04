@@ -14,7 +14,7 @@ description: ""
 <!--more-->
 
 
-```bash
+{% highlight bash %}
 # GNU Make 3.81
 # Copyright (C) 2006  Free Software Foundation, Inc.
 # This is free software; see the source for copying conditions.
@@ -1214,5 +1214,5 @@ GNUmakefile:
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
 # Finished Make data base on Sun Apr 26 15:08:26 2015
-```
+{% endhighlight %}
 

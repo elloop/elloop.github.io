@@ -40,7 +40,7 @@ std::bind 是一个函数模板, 它就像一个函数适配器，可以把一�
 
 ### 原型
 
-```c++
+{% highlight c++ %}
 // simple(1)	
 template <class Fn, class... Args>
   /* unspecified */ bind (Fn&& fn, Args&&... args);
@@ -48,7 +48,7 @@ template <class Fn, class... Args>
  // with return type (2)	
 template <class Ret, class Fn, class... Args>
   /* unspecified */ bind (Fn&& fn, Args&&... args);
-```
+{% endhighlight %}
 
 bind返回一个基于fn的函数对象(function object), 其参数被绑定到args上.
 
@@ -64,11 +64,11 @@ bind返回一个基于fn的函数对象(function object), 其参数被绑定到a
 
 令bind的返回值为ret:
 
-```c++
+{% highlight c++ %}
 auto ret = std::bind(fn, args&&...)
 // or
 auto ret = std::bind<Ret>(fn, args&&...)
-```
+{% endhighlight %}
 
 其返回值ret是一个未指定类型T的function object，T满足如下条件：`std::is_bind_expression<T>::value == true`. 
 
@@ -120,7 +120,7 @@ ret作为bind的返回值，假设我们这样调用ret: ret(a1, a2, a3, ... ai)
 
 ### 极端1：完全绑定到值
 
-```c++
+{% highlight c++ %}
 void f(int n1, int n2, int n3)
 {
     cout << n1 << " " << n2 << " " << n3 << endl;
@@ -129,11 +129,11 @@ void f(int n1, int n2, int n3)
 // f的三个参数，全部绑定到值，对empty_args的调用将不需要提供参数
 auto empty_args = bind(f, 1, 2, 3);     
 empty_args();               // 1 2 3
-```
+{% endhighlight %}
 
 ### 极端2：完全绑定到std::placeholders
 
-```c++
+{% highlight c++ %}
 void f(int n1, int n2, int n3)
 {
     cout << n1 << " " << n2 << " " << n3 << endl;
@@ -150,7 +150,7 @@ auto need_3args = bind(f, _1, _2, _3);
 need_3args(1, 2, 3);            // 1 2 3
 need_3args(1, 2, 3, 4, 5);      // 1 2 3; 4和5被丢弃
 need_3args(1, 2, 3, ret4());    // ret4() called<cr> 1 2 3; 会调用ret4(), 但是返回的4被丢弃
-```
+{% endhighlight %}
 
 除了这两种极端的情况，大部分情形下，bind是混合着值和占位符来进行绑定的。
 
@@ -158,7 +158,7 @@ need_3args(1, 2, 3, ret4());    // ret4() called<cr> 1 2 3; 会调用ret4(), 但
 
 在分析bind的绑定过程时，<font color="red">如何确定bind调用有没有错误，以及调用bind返回值ret的时候如何正确传参？</font>比如，对下面的bind调用：
 
-```c++
+{% highlight c++ %}
 void f(int n1, int n2, int n3, int n4, int n5)
 {
     cout << n1 << " " << n2 << " " << n3 << " " << n4 << " " << n5 << endl;
@@ -178,7 +178,7 @@ auto mix6 = bind(f, _100, _50, _10, _5, _1);
 // mix3(...); 
 // mix4(...); 
 // mix5(...); 
-```
+{% endhighlight %}
 
 **<font color="red">分析过程：</font>**
 
@@ -206,7 +206,7 @@ auto mix6 = bind(f, _100, _50, _10, _5, _1);
 
 于是，对于上文中定义的合法mix的调用示例及输出可以是：
 
-```c++
+{% highlight c++ %}
 auto mix1 = bind(f, 1, 2, 3, _1, _2);
 auto mix3 = bind(f, 1, 2, 3, _2, _1);
 auto mix4 = bind(f, _3, 2, 3, 4, _1);
@@ -217,7 +217,7 @@ mix1(4, 5);                 // 1 2 3 4 5; M = 2;
 mix3(5, 4);                 // 1 2 3 4 5; M = 2; 
 mix4(5, 0, 1);              // 1 2 3 4 5; M = 3; 第一个参数5给_1, 第三个参数1给_3, 第二个参数0被丢弃，因为bind中没用到_2.
 mix5(5);                    // 5 5 5 5 5; M = 1;
-```
+{% endhighlight %}
 
 你可能注意到mix6中的_100, _50, 这样大的占位符是编译不过的。
 
@@ -227,7 +227,7 @@ placeholders的最大值，在VC++上是20， 它的最大值依赖于具体的�
 
 ## std::bind 绑定普通函数、lambda表达式
 
-```c++
+{% highlight c++ %}
 #include <functional>
 
 // 定义两个函数，乘、除法
@@ -287,13 +287,13 @@ std::function<void(int)> func_with_1args;
 func_with_1args = bind(multiply, 10, _1);
 
 END_TEST;
-```
+{% endhighlight %}
 
 ## std::bind 绑定类成员函数、成员变量
 
 成员函数区别于普通函数的一个特殊之处在于，其第一个参数必须是该类型的一个对象(或对象的指针或引用)
 
-```c++
+{% highlight c++ %}
 class Foo
 {
 public:
@@ -361,11 +361,11 @@ cout << bind_mv(foo_ref);       // 100
 //cout << bind_mv(&foo);        // error, 成员变量不能用对象指针来绑定
 
 END_TEST;
-```
+{% endhighlight %}
 
 ## std::bind 绑定模板函数
 
-```c++
+{% highlight c++ %}
 
 // 定义一个函数模板，返回两数之和，返回值是两数之和的类型。使用了c++11中的trailing return types特性.
 template <typename T1, typename T2>
@@ -377,11 +377,11 @@ auto add(const T1 & t1, const T2& t2) -> decltype(t1 + t2)
 // work with template function.
 auto addby2 = bind(add<double, double>, _1, 2.0);
 cout << addby2(10.2);                             // 12.2
-```
+{% endhighlight %}
 
 ## 嵌套std::bind共享std::placeholder.
 
-```c++
+{% highlight c++ %}
 
 void print(int n1, int n2, int n3)
 {
@@ -399,11 +399,11 @@ auto addby1 = [] (int x) -> int
 auto nested_f = bind(print, _1, bind(addby1, _1), _2); 
 
 nested_f(1, 3);                 // addby1() called<cr> 1 2 3
-```
+{% endhighlight %}
 
 ## `reference_wrapper<T>`类型, 实现绑定引用
 
-```c++
+{% highlight c++ %}
 int x(10);
 
 // 第二个参数使用引用x，第三个参数使用值x
@@ -413,11 +413,11 @@ bind_ref();                // 1 10 10;
 x = 100;
 
 bind_ref();                // 1 100 10; 第二个参数跟着x变化了，第三个则没变
-```
+{% endhighlight %}
 
 ## bind与标准库协同工作
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(FunctorTest, BindPredefinedFunctors, @);
 
 // all predefined functors:
@@ -440,11 +440,11 @@ copy_if(v.begin(), v.end(),
 cr;
 
 END_TEST;
-```
+{% endhighlight %}
 
 ## bind与智能指针
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(FunctorTest, BindSmartPointer, @);
 
 struct Temp 
@@ -468,7 +468,7 @@ bind(&Temp::print, vs[1])();        // 2
 bind(&Temp::print, vs[2])();        // 3
 
 END_TEST;
-```
+{% endhighlight %}
 
 ## last but not least
 

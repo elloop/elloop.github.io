@@ -18,11 +18,11 @@ description: ""
 
 第一次接触STL还是在我的大学时代，大一下学期刚刚学完了C++， 真的仅仅是把C++当做“带类的C”来使用，对当时的我来说C++只是比C多了个class，多了个继承和virtual，写一些Circle和Rectangle继承自Shape之类的玩具作业，感觉没什么吊炸天的感觉。当老师布置《数据结构》期末的课程设计作业的时候，我还傻傻的选了用C语言设计一个行编辑程序。直到一次有个同学发给我一个C++的程序，他在网上下的想自己改改作为课程设计但不会改，就让我帮他改。我一看main.cpp也傻了，这开头的一堆`#include`是啥？
 
-```c++
+{% highlight c++ %}
 #include <vector>
 #include <algorithm>
 #include <functional>
-```
+{% endhighlight %}
 
 印象最深的是一句代码里有：`for_each(files.begin(), files.end(), mem_fun(&File::print))`
 
@@ -32,7 +32,7 @@ description: ""
 
 终于知道在C++语言中还有这么一座宝藏，好tm激动。从图书馆借回来那本丑丑的灰绿色的《C++标准程序库》（侯捷译）第一版(人气不高, 好几本都没人借), 看这本书的时候经常看到高潮迭起。印象最深的是有一节讲到容器和算法的配合，可以用两行代码实现从输入流读取一堆字符串，排序，输出，我靠，简直不能更酷:
 
-```c++
+{% highlight c++ %}
 #include <iostream>
 #include <set>
 #include <iterator>
@@ -47,11 +47,11 @@ int main()
     return 0;
 }
 // 提示初学者：你在测试这段代码时，输入字符串的时候，回车分隔不同的字符串，在windows上用ctrl + z来结束输入. linux上用ctrl+d结束
-```
+{% endhighlight %}
 
 还有一个例子是那本书的作者用来展示STL威力的代码，用三条语句实现从输入流读取一堆字符串，排序，去掉重复，并输出：
 
-```c++
+{% highlight c++ %}
 #include <iostream>
 #include <vector>
 #include <iterator>
@@ -74,7 +74,7 @@ int main()
 
     return 0;
 }
-```
+{% endhighlight %}
 
 从此以后，STL在方便我生活的同时也成为了我的一个装b利器，
 

@@ -32,7 +32,7 @@ description: ""
 
 ## 学到的东西
 
-```java
+{% highlight java %}
 ByteOrder bOrder = vertexData.order();
 if (bOrder == ByteOrder.BIG_ENDIAN) {
     // is big endian
@@ -43,14 +43,14 @@ if (bOrder == ByteOrder.BIG_ENDIAN) {
 // use native order
 byteBuffer.order(ByteOrder.nativeOrder())
 
-```
+{% endhighlight %}
 
 ## 遇到的问题：
 - q1. `java.lang.IllegalArgumentException: Must use a native order direct Buffer`
 
 use allocateDirect instead of allocate.
 
-```java
+{% highlight java %}
 float[] tableVerticesWithTriangles = {
     // first triangle.
     -0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f,
@@ -69,12 +69,12 @@ FloatBuffer vertexData = ByteBuffer.allocate(tableVerticesWithTriangles.length *
 vertexData.position(0);
 // crash here: "java.lang.IllegalArgumentException: Must use a native order direct Buffer"
 glVertexAttribPointer(aPostionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, 0, vertexData); 
-```
+{% endhighlight %}
 
-```java
+{% highlight java %}
 // this is ok. use allocateDirect. 
 // The vertBuff buffer needs to be direct so that it isn't moved around in memory. [from StackOverflow](http://stackoverflow.com/questions/11012669/opengl-es-rendereing-error)
 // You need to use the allocateDirect(int) method from the ByteBuffer class.
 vertexData = ByteBuffer.allocateDirect(tableVerticesWithTriangles.length * BYTES_PER_FLOAT).order(ByteOrder.nativeOrder()).asFloatBuffer();
-```
+{% endhighlight %}
 

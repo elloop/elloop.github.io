@@ -17,10 +17,10 @@ description: "install jekyll on windows"
 
 - 解压Ruby DevKit之后，进入解压所在目录，分别执行：
 
-```bash
+{% highlight bash %}
 ruby dk.rb init
 ruby dk.rb install
-```
+{% endhighlight %}
 
 ## 2. 安装Jekyll: gem install jekyll
 

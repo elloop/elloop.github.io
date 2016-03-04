@@ -14,7 +14,7 @@ description: ""
 
 # for_each的原型
 
-```c++
+{% highlight c++ %}
 template<class InputIterator, class Function>
   Function for_each(InputIterator first, InputIterator last, Function fn)
 {
@@ -24,13 +24,13 @@ template<class InputIterator, class Function>
   }
   return fn;      // or, since C++11: return move(fn);
 }
-```
+{% endhighlight %}
 
 <!--more-->
 
 # 不修改元素的用法 (non-modifying)
 
-```c++
+{% highlight c++ %}
 void printFun(int i)
 {
     cout << i << " ";
@@ -48,13 +48,13 @@ for_each(v.begin(), v.end(), printFun);
 cr;
 
 END_TEST;
-```
+{% endhighlight %}
 
 上面的例子输出都是`1 2 3 4 5`, for_each接受一个范围迭代器对，外加一个一元函数，跟其他的算法一样，这个函数选择很灵活，包括functors概念里的所有东西。
 
 # 修改元素的用法 (modifying)
 
-```c++
+{% highlight c++ %}
 template <typename T>
 class AddVal
 {
@@ -100,7 +100,7 @@ for_each(coll.begin(), coll.end(), add50);
 printContainer(coll, "coll: ");//coll: 151 152 153 154 155 
 
 END_TEST;
-```
+{% endhighlight %}
 
 这个例子展示了如何使用for_each来修改元素，分别使用了lambda、functor和普通函数，三者原理相同，都是通过接受一个引用类型的参数, 在函数内部修改了这个实参，从而达到修改容器元素的效果。
 
@@ -108,7 +108,7 @@ END_TEST;
 
 for_each完成的工作都可以用基于范围的for来做，比如上面的例子，使用for来实现：
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(ForEachTest, RangeForLoop, @);
 
 //-----------non-modifying --------------
@@ -150,7 +150,7 @@ for (auto & item : coll) {
 printContainer(coll, "coll: ");  //coll: 51 52 53 54 55 
 
 END_TEST;
-```
+{% endhighlight %}
 
 上面的例子展示了使用基于范围的for实现for_each的modifying和non-modifying代码功能，可以看出，for循环并结合auto关键字，使得同样的功能实现起来更加直观、简单。for_each会慢慢被for替代，从而走出我们的视野。
 
@@ -161,7 +161,7 @@ for_each有个返回值功能，通常不会被注意，也不是很常用。这
 看原型的代码：
 
 
-```c++
+{% highlight c++ %}
 template<class InputIterator, class Function>
   Function for_each(InputIterator first, InputIterator last, Function fn)
 {
@@ -171,13 +171,13 @@ template<class InputIterator, class Function>
   }
   return fn;      // or, since C++11: return move(fn);
 }
-```
+{% endhighlight %}
 
 它的返回值就是：std::move(fn). 什么意思，就是返回for_each(begin, end, fn)中的第三个参数fn的move结果，也就是说，如果fn有移动构造函数，那么返回值就是fn的移动构造结果，否则返回值就是fn的副本（copy构造结果）。
 
 下面看一个使用for_each返回值的例子， 它用来计算一串数字的平均值：
 
-```c++
+{% highlight c++ %}
 class MeanValue
 {
 public:
@@ -219,7 +219,7 @@ sum = accumulate(coll2.begin(), coll2.end(), 0);
 EXPECT_EQ(sum / coll2.size(), meanValue);
 
 END_TEST;
-```
+{% endhighlight %}
 
 # 基于范围的for循环的实现原理和使用注意事项
 
@@ -227,14 +227,14 @@ END_TEST;
 
 **形式1**
 
-```c++
+{% highlight c++ %}
 for (const auto &item : con)
 {
     cout << item;
 }
-```
+{% endhighlight %}
 
-```c++
+{% highlight c++ %}
 for (decltype(con)::iterator beg = con.begin(), end = con.end();
         beg != end;
         ++beg)
@@ -242,11 +242,11 @@ for (decltype(con)::iterator beg = con.begin(), end = con.end();
     const auto &item = *beg;
     // .....
 }
-```
+{% endhighlight %}
 
 如果con没有begin()和end()成员函数，那么for loops就是做如下尝试：
 
-```c++
+{% highlight c++ %}
 for (decltype(con)::iterator beg=begin(con), end = end(con);
         beg != end;
         ++beg)
@@ -254,7 +254,7 @@ for (decltype(con)::iterator beg=begin(con), end = end(con);
     const auto &item = *beg;
     // .....
 }
-```
+{% endhighlight %}
 
 ## 2. range based for loops的使用注意
 
@@ -266,7 +266,7 @@ for (decltype(con)::iterator beg=begin(con), end = end(con);
 
 从for loops的实现原理同样可以看到，如果item的类型不是引用的话，那么
 
-```c++
+{% highlight c++ %}
 for (auto item : con)
 {
 }
@@ -277,7 +277,7 @@ for (decltype(con)::iterator beg = con.begin(), end = con.end();
 {
     auto item = *beg;                   // 拷贝构造item
 }
-```
+{% endhighlight %}
 
 可以看到，item每次迭代中都是被拷贝构造出来的，如果item的类型很“巨大”那么其拷贝构造的开销也是巨大的。
 

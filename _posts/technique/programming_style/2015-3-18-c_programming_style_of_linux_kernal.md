@@ -63,21 +63,21 @@ choose one placement strategy over the other, but the preferred way, as
 shown to us by the prophets Kernighan and Ritchie, is to put the opening
 brace last on the line, and put the closing brace first, thusly:
 
-```
+{% highlight cpp %}
 	if (x is true) {
 		we do y
 	}
-```
+{% endhighlight %}
 
 However, there is one special case, namely functions: they have the
 opening brace at the beginning of the next line, thus:
 
-```
+{% highlight cpp %}
 	int function(int x)
 	{
 		body of function
 	}
-```
+{% endhighlight %}
 
 Heretic people all over the world have claimed that this inconsistency
 is ...  well ...  inconsistent, but all right-thinking people know that
@@ -89,15 +89,15 @@ the cases where it is followed by a continuation of the same statement,
 ie a "while" in a do-statement or an "else" in an if-statement, like
 this:
 
-```
+{% highlight cpp %}
 	do {
 		body of do-loop
 	} while (condition);
-```
+{% endhighlight %}
 
 and
 
-```
+{% highlight cpp %}
 	if (x == y) {
 		..
 	} else if (x > y) {
@@ -105,7 +105,7 @@ and
 	} else {
 		....
 	}
-```
+{% endhighlight %}
 			
 Rationale: K&R. 
 
@@ -207,24 +207,24 @@ So, you can either get rid of GNU emacs, or change it to use saner
 values.  To do the latter, you can stick the following in your .emacs file:
 
 
-```
+{% highlight lisp %}
 (defun linux-c-mode ()
   "C mode with adjusted defaults for use with the Linux kernel."
   (interactive)
   (c-mode)
   (c-set-style "K&R")
   (setq c-basic-offset 8))
-```
+{% endhighlight %}
 
 This will define the M-x linux-c-mode command.  When hacking on a
 module, if you put the string -*- linux-c -*- somewhere on the first
 two lines, this mode will be automatically invoked. Also, you may want
 to add
 
-```
+{% highlight lisp %}
 (setq auto-mode-alist (cons '("/usr/src/linux.*/.*\\.[ch]$" . linux-c-mode)
                        auto-mode-alist))
-```
+{% endhighlight %}
 
 to your .emacs file if you want to have linux-c-mode switched on
 automagically when you edit source files under /usr/src/linux.
@@ -254,14 +254,14 @@ options should have an indention-level of 2 to indicate dependencies. The
 latter only applies to bool/tristate options. For other options, just use
 common sense. An example:
 
-```
+{% highlight shell %}
 if [ "$CONFIG_EXPERIMENTAL" = "y" ]; then
    tristate 'Apply nitroglycerine inside the keyboard (DANGEROUS)' CONFIG_BOOM
    if [ "$CONFIG_BOOM" != "n" ]; then
       bool '  Output nice messages when you explode' CONFIG_CHEER
    fi
 fi
-```
+{% endhighlight %}
 
 Generally, CONFIG_EXPERIMENTAL should surround all options not considered
 stable. All options that are known to trash data (experimental write-

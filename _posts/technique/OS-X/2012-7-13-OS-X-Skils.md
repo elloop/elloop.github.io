@@ -79,33 +79,33 @@ description: ""
 
 - 截屏时不带阴影：
 
-```bash
+{% highlight bash %}
 defaults write com.apple.screencapture disable-shadow -bool true
-````
+{% endhighlight %}
 
 - 复默认：
 
-```bash
+{% highlight bash %}
 defaults write com.apple.screencapture disable-shadow -bool false
-```
+{% endhighlight %}
 
 - 改变文件格式：
 
-```bash
+{% highlight bash %}
 defaults write com.apple.screencapture type <format>
 #format可选择的格式有：png (默认)、pdf、jpg、jp2 (JPG2000)、gif、tif (TIFF)、bmp、pict、tga
-```
+{% endhighlight %}
 
 - 变截图路径：
 
-```bash
+{% highlight bash %}
 defaults write com.apple.screencapture location <path>
 #注意：默认的路径是桌面：~/Desktop
-```
+{% endhighlight %}
 
 5、改变文件名方式：
 
-```bash
+{% highlight bash %}
 defaults write com.apple.screencapture name <string>
-```
+{% endhighlight %}
 

@@ -16,11 +16,11 @@ description: ""
 
 先看一个使用accumulate的简单例子：
 
-```c++
+{% highlight c++ %}
 vector<int> vi{1, 2, 3};
 
 cout << accumulate(vi.begin(), vi.end(), 0);    // 6
-```
+{% endhighlight %}
 
 这个例子中，accumulate接收了三个参数，一对迭代器用来标识开始和结束区间，第三个参数0，是accumulate操作的初始值. accumulate遍历[begin, end)这个区间，把每个值累加到0这个初始值上面，并最终返回累加结束的值(0 + 1 + 2 + 3) == 6.
 
@@ -36,7 +36,7 @@ op是一个二元操作函数，默认的op是 `+` 运算, 这就是第一个例
 
 下面是其原型：
 
-```c++
+{% highlight c++ %}
 // 1. 无op
 template <class InputIterator, class T>
    T accumulate (InputIterator first, InputIterator last, T init);
@@ -45,11 +45,11 @@ template <class InputIterator, class T>
 template <class InputIterator, class T, class BinaryOperation>
    T accumulate (InputIterator first, InputIterator last, T init,
                  BinaryOperation binary_op);
-```
+{% endhighlight %}
 
 其可能的实现是：
 
-```c++
+{% highlight c++ %}
 template <class InputIterator, class T>
    T accumulate (InputIterator first, InputIterator last, T init)
 {
@@ -59,17 +59,17 @@ template <class InputIterator, class T>
   }
   return init;
 }
-```
+{% endhighlight %}
 
 因此可以说第一种原型和用法只是第二种的一个特例，accumulate更通用的用法是指定一个操作函数op.
 
 可以这样来重写第一个例子，
 
-```c++
+{% highlight c++ %}
 vector<int> vi{ 1, 2, 3 };
 // 显示指定op为二元操作符 ： plus<int>()
 cout << accumulate(vi.begin(), vi.end(), 0, plus<int>());   // 6
-```
+{% endhighlight %}
 
 虽然结果是一样的，但是第二个例子是一种更为通用的用法。
 
@@ -81,7 +81,7 @@ cout << accumulate(vi.begin(), vi.end(), 0, plus<int>());   // 6
 
 所以下面例子中的init在调用accumulate之后并不会被改变
 
-```c++
+{% highlight c++ %}
 vector<int> vi{ 1, 2, 3 };
 
 int init(0);
@@ -90,7 +90,7 @@ EXPECT_EQ(0, init);                 // test pass
 
 init = accumulate(vi.begin(), vi.end(), init, plus<int>());
 EXPECT_EQ(6, init);                 // test pass
-```
+{% endhighlight %}
 
 init在第一个调用完之后仍然是0. 那能不能不接受返回值，让init被修改呢, 就想传引用那样？
 
@@ -102,7 +102,7 @@ init在第一个调用完之后仍然是0. 那能不能不接受返回值，让i
 
 **使用函数、函数对象、lambda、bind函数组合等**
 
-```c++
+{% highlight c++ %}
 int func(int i, int j) 
 {
     return i + j;
@@ -155,7 +155,7 @@ int total = accumulate(va.begin(), va.end(),
 EXPECT_EQ(101, total);
 
 END_TEST;
-```
+{% endhighlight %}
 
 以上测试在作者的环境测试通过。
 
@@ -165,7 +165,7 @@ END_TEST;
 
 在一个map里有各种动物--数量的映射，使用accumulate统计动物总数：
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(NumericAlgorithm, AdvancedUse, @);
 
 map<string, int> m;
@@ -186,13 +186,13 @@ animals = accumulate(m.begin(), m.end(),
 EXPECT_EQ(8, animals);                  // animail totoal count is 8
 
 END_TEST;
-```
+{% endhighlight %}
 
 其实这个例子和统计Account里钱数那个例子没有本质区别，只不过绑定的类成员变量second嵌套了两层。
 
 # 对accumulate的init参数修改的尝试
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(NumericAlgorithm, TryToChangeInit, @);
 
 // try1. 试图使用ref来包装int型的init，结果编译错误，出错在于：accumulate中`init = op(init, *first)`
@@ -227,7 +227,7 @@ vector<Addable> aa = {Addable(1), Addable(2), Addable(3)};
 //EXPECT_NE(0, inita.i_);
 
 END_TEST;
-```
+{% endhighlight %}
 
 通过用两种类型的`reference_wrapper<int>和reference_wrapper<Addable>`尝试，都没能通过编译，需要进一步了解reference_wrapper，暂时我未成功实现在accumulate内部按引用的方式修改变量init.
 

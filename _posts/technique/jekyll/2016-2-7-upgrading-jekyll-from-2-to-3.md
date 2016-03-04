@@ -17,9 +17,9 @@ description: ""
 
 # 升级本地jekyll版本 upgrade local jekyll
 
-```bash
+{% highlight bash %}
 gem jekyll update
-```
+{% endhighlight %}
 
 如遇更新失败，更改gem sources或者翻墙
 
@@ -31,18 +31,18 @@ gem jekyll update
 
 **step1:**
 
-```bash
+{% highlight bash %}
 gem install jekyll-paginate
-```
+{% endhighlight %}
 
 **step2:**
 
 修改`_config.yml`:
 
-```bash
+{% highlight bash %}
 gems:
   - jekyll-paginate
-```
+{% endhighlight %}
 
 # style error
 

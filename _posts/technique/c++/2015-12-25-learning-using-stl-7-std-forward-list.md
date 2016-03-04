@@ -20,7 +20,7 @@ description: ""
 
 # 先看个例子吧
 
-```c++
+{% highlight c++ %}
 #include <forward_list>
 #include <iostream>
 
@@ -37,7 +37,7 @@ int main()
 
     return 0;
 }
-```
+{% endhighlight %}
 
 # constructor
 
@@ -112,10 +112,10 @@ c.front()返回第一个元素，这个接口内部并不会检查是不是存�
 
 注意: 对end()和`before_begin()`迭代器的直接操作都是未定义的行为，有可能造成运行时错误：
 
-```c++
+{% highlight c++ %}
 *c.before_begin();      // undefined behaviour
 *c.end();               // undefined behaviour
-```
+{% endhighlight %}
 
 一般没人会像上面这样写，但是有时候连我自己都不知道我会对这两个位置进行解引用，比如我从一个函数的返回值得到了一个pos，然后我没有对pos进行合法性检查就直接*pos。
 
@@ -149,7 +149,7 @@ c.front()返回第一个元素，这个接口内部并不会检查是不是存�
 
 在实际的应用中，我通常要先搜索要被处理的元素，比如，在一个列表里，我要删除第一个偶数， 如果我这样来写：
 
-```c++
+{% highlight c++ %}
 //----------------------- find and modify  ----------------------
 RUN_GTEST(ForwardListTest, FindAndModify, @);
 
@@ -218,7 +218,7 @@ if (next(posBefore) != fl.end())
     fl.erase_after(posBefore);
     printContainer(fl, "fl: ");              // fl: 1 3
 }
-```
+{% endhighlight %}
 
 使用next来找要删除或插入的位置的代码还勉强能够接受，如果要频繁重复这操作，那建议像标准库那本书里自己定义两个算法：
 
@@ -247,7 +247,7 @@ if (next(posBefore) != fl.end())
 
 下面给出《c++标准库》上关于`splice_after`的一个例子，书中的代码有一句是有错误的，下面给出正确的代码：
 
-```c++
+{% highlight c++ %}
 //----------------------- splice ----------------------
 RUN_GTEST(ForwardListTest, SpliceTest, @);
 
@@ -297,11 +297,11 @@ fl2.splice_after(pos2,              // 目的地
 printContainer(fl1, "fl1: ");       // 1 2 4 5
 printContainer(fl2, "fl2: ");       // 97 98 3 99
 END_TEST;
-```
+{% endhighlight %}
 
 # `find_before` 和 `find_before_if`的实现
 
-```c++
+{% highlight c++ %}
 // 返回(begin, end)之间，值等于val的元素的前一个位置pos. 开区间，不包括begin和end
 template <typename ForwardIter, typename T>
 ForwardIter find_before(ForwardIter beg, ForwardIter end, const T &val)
@@ -336,11 +336,11 @@ ForwardIter find_before_if(ForwardIter beg, ForwardIter end, Pred op)
     }
     return end;
 }
-```
+{% endhighlight %}
 
 使用示例：
 
-```c++
+{% highlight c++ %}
 //----------------------- test find_before  ----------------------
 RUN_GTEST(ForwardListTest, FindBefore, @);
 
@@ -376,7 +376,7 @@ if (posBefore2 != fl.end())
 }
 
 END_TEST;
-```
+{% endhighlight %}
 
 # 源码和参考链接
 

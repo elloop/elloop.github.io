@@ -11,7 +11,7 @@ description: ""
 
 <!--more-->
 
-```make
+{% highlight make %}
 #===============================================================================
 #
 #         File: Makefile
@@ -81,5 +81,5 @@ zip:
 #---------- clear up -------------------------------------
 clean:
 				rm  --force  $(EXECUTABLE) $(OBJECTS) $(PREREQUISITES)
-```
+{% endhighlight %}
 

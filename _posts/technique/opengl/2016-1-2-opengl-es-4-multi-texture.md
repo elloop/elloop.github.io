@@ -36,7 +36,7 @@ description: ""
 
 **MultiTexture.h**
 
-```c++
+{% highlight c++ %}
 #pragma  once
 
 #include "gl_include.h"
@@ -88,12 +88,12 @@ protected:
 };
 
 NS_END(elloop);
-```
+{% endhighlight %}
 
 
 **MultiTexture.cpp**
 
-```c++
+{% highlight c++ %}
 #include "scenes/MultiTexture.h"
 #include "app_control/ELDirector.h"
 #include "math/ELGeometry.h"
@@ -236,13 +236,13 @@ void MultiTexture::render()
 }
 
 NS_END(elloop);
-```
+{% endhighlight %}
 
 # shader
 
 顶点着色器：`multi_texture_vs.glsl`
 
-```c++
+{% highlight c++ %}
 precision lowp float;
 
 attribute   vec2    position_;
@@ -257,11 +257,11 @@ void main()
     gl_Position = mvp_ * pos;
     outUv_      = uv_;
 }
-```
+{% endhighlight %}
 
 片段着色器：`multi_texture_fs.glsl`
 
-```c++
+{% highlight c++ %}
 precision lowp float;
 
 varying     vec2        outUv_;
@@ -277,7 +277,7 @@ void main()
     gl_FragColor    = bgColor + cloudColor;
     /* gl_FragColor       = mix(bgColor, cloudColor, 0.5); */
 }
-```
+{% endhighlight %}
 
 
 有空的时候再来补充注释及说明，想了解更多内容请参考源码部分。

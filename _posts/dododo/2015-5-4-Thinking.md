@@ -9,7 +9,7 @@ published: false
 ##questions
 1. is retain() needed or not ? in following two situations: pNode and sender.
 
-```c++
+{% highlight c++ %}
 bool TestCcbContainer::onAssignCCBMemberVariable(cocos2d::CCObject* pTarget, const char* pMemberVariableName, cocos2d::CCNode* pNode) {
 	if (pTarget != this) {
 		return false;
@@ -30,9 +30,9 @@ bool TestCcbContainer::onAssignCCBMemberVariable(cocos2d::CCObject* pTarget, con
 	}
 	return true;
 }
-```
+{% endhighlight %}
 
-```c++
+{% highlight c++ %}
 cocos2d::SEL_MenuHandler TestCcbContainer::onResolveCCBCCMenuItemSelectorWithSender(cocos2d::CCObject * pTarget, const char* pSelectorName, cocos2d::CCNode* sender) {
 	if (pTarget != this) {
 		return nullptr;
@@ -48,7 +48,7 @@ cocos2d::SEL_MenuHandler TestCcbContainer::onResolveCCBCCMenuItemSelectorWithSen
 	}
 	return static_cast<SEL_MenuHandler>(&TestCcbContainer::menuClicked);
 }
-```
+{% endhighlight %}
 
 ##summary
 

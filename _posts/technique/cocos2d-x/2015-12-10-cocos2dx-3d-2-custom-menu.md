@@ -22,7 +22,7 @@ CCMenu本质上就是一个Touchable，并且是单点触摸的。它身上挂�
 
 **CCMenu.h:**
 
-```c++
+{% highlight c++ %}
 #ifndef __CCMENU_H_
 #define __CCMENU_H_
 
@@ -113,11 +113,11 @@ protected:
 NS_CC_END
 
 #endif//__CCMENU_H_
-```
+{% endhighlight %}
 
 **CCMenu.cpp**
 
-```c++
+{% highlight c++ %}
 #include "CCMenu.h"
 #include "CCDirector.h"
 #include "CCApplication.h"
@@ -776,7 +776,7 @@ CCMenuItem* CCMenu::itemForTouch(CCTouch *touch)
 }
 
 NS_CC_END
-```
+{% endhighlight %}
 
 可以看到CCMenu的实现还是比较清晰、简单的，它本身作为一个CCMenuItem的容器，响应单点触摸事件，判断哪个item被点击，并调用其对应方法完成菜单消息响应，核心在于对触摸事件的处理，坐标点的判断。
 
@@ -784,13 +784,13 @@ NS_CC_END
 
 在实际的游戏开发中，最常用的CCMenuItem要属CCMenuItemImage了，在HelloWorld的Demo中可以看到，要创建一个关闭按钮通常是这样写：
 
-```c++
+{% highlight c++ %}
 CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
                                         "CloseNormal.png",
                                         "CloseSelected.png",
                                         this,
                                         menu_selector(HelloWorld::menuCloseCallback));
-```
+{% endhighlight %}
 
 其中用到了两张图片，第一张是按钮在正常状态下的图片，第二张是被点击时候的选中状态的图片。如果两种状态下按钮的图片是相近的那最好就只用一张，正常和选中都用同一个图片，然后在按钮被按下的时候让它有一个放大的效果，恢复正常之后再自动恢复原来的缩放。这样就节省了一张图片素材。
 
@@ -798,7 +798,7 @@ CCMenuItemImage *pCloseItem = CCMenuItemImage::create(
 
 我们知道CCMenuItemLabel在被选中的时候是有一个缩放效果的，它的selected和unselected方法是这样：
 
-```c++
+{% highlight c++ %}
 void CCMenuItemLabel::selected()
 {
     if(m_bEnabled)
@@ -834,7 +834,7 @@ void CCMenuItemLabel::unselected()
         this->runAction(zoomAction);
     }
 }
-```
+{% endhighlight %}
 
 按照相同的处理方式，我可以copy一份CCMenuItemImage的实现，改个名字，然后按照CCMenuItemLabel的方式重写selected和unselected方法就可以实现和CCMenuItemLabel同样的缩放效果，但是这里会有一个问题，我实现了一个新的CCMenuItemImage达到了缩放的效果，那对于它的父类CCMenuItemSprite呢，其实跟CCMenuItemImage是一个东西，只是创建方式是传入Sprite，而不是纹理的名字，对于它也要缩放，那还要实现一遍CCMenuItemSprite的翻版，对于新定义的按钮，要缩放也要重写selected和unseleceted，加入的内容也都是相同的，即CCScaleTo的action动作。与其每个CCMenuItem的子类都重写一遍加入缩放代码，还不如在顶层只搞一次。顶层在哪里，我们从CCMenu的源码中已经看到，是CCMenu的触摸响应里调用的CCMenuItem的selected和unseleceted等方法，那么干脆在CCMenu里加上缩放行不行。
 
@@ -844,7 +844,7 @@ void CCMenuItemLabel::unselected()
 
 **自定义菜单类Menu.h, 仅列出改动的部分，其它部分跟CCMenu.h是一样的:**
 
-```c++
+{% highlight c++ %}
 #ifndef CPP_DEMO_CUSTOM_MENU_H
 #define CPP_DEMO_CUSTOM_MENU_H
 
@@ -879,11 +879,11 @@ protected:
 NS_END(elloop);    // }  end of namespace elloop
 
 #endif//CPP_DEMO_CUSTOM_MENU_H
-```
+{% endhighlight %}
 
 **自定义缩放按钮实现文件：Menu.cpp, 也仅列出改变的部分**
 
-```c++
+{% highlight c++ %}
 NS_BEGIN(elloop);
 
 bool Menu::ccTouchBegan(CCTouch* touch, CCEvent* event)
@@ -980,11 +980,11 @@ void Menu::ccTouchMoved(CCTouch* touch, CCEvent* event)
 }
 
 NS_END(elloop);
-```
+{% endhighlight %}
 
 **自定义菜单类的使用方法**
 
-```c++
+{% highlight c++ %}
 
 // 正常的方式来创建三个CCMenuItem, 两个CCMenuItemImage, 一个CCMenuItemLabel
 // 从左到右水平排列
@@ -1009,7 +1009,7 @@ using elloop::Menu;
 // Menu的创建方式跟CCMenu的创建方式完全一样
 Menu *menu = Menu::create(menuItemImage1, menuItemImage2, menuItemLabel, nullptr);
 ADD_CHILD(menu);
-```
+{% endhighlight %}
 
 代码中之所以加上一个CCMenuItemLabel类型的按钮是为了测试，本身就带有缩放功能的CCMenuItem会不会和带有缩放功能的Menu父容器产生冲突，是否会产生叠加放大的效果？
 

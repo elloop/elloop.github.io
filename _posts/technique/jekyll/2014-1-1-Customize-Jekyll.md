@@ -45,7 +45,7 @@ No database required.
 - 功能: jekyll的主要配置文件，这里面定义了一些关键的变量。如markdown引擎、高亮引擎、评论系统、统计系统、分享系统、Jekyll-Bootstrap(JB)等变量设置。
 >从程序设计角度理解就是在这里面定义了jekyll系统用到的一些全局变量，在其他页面可以访问这里面的值。
 
-```bash
+{% highlight bash %}
 
  # This is the default format.
 # For more see: http://jekyllrb.com/docs/permalinks/
@@ -59,7 +59,7 @@ redcarpet:
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 highlighter: pygments
 highlighter_style: solarizeddark
-```
+{% endhighlight %}
 
 ## atom.xml
 **todo**
@@ -69,7 +69,7 @@ highlighter_style: solarizeddark
 
 简单首页示例
 
-```html
+{% highlight html %}
 ---
 layout: page
 title: elloop.github.io
@@ -81,7 +81,7 @@ tagline: Programming Things
 
 <ul class="posts">
 </ul>
-```
+{% endhighlight %}
 **todo**
 
 ## pages.html

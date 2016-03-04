@@ -47,7 +47,7 @@ mipmap的常见使用场景是，在一个采用透视投影的三维场景中�
 
 下面是代码示例，先来怎么定义一个函数把多张图片打包成一个mipmap.
 
-```c++
+{% highlight c++ %}
 
 // 组成多级纹理每一级的图片名字, 这个例子一共分为6级，像素尺寸从2的五次方到2的零次方。
 std::vector<std::string> fileNames =
@@ -111,12 +111,12 @@ unsigned int MipMapTexture::loadMipMap(const std::vector<std::string> &fileNames
    
     return textureId;
 }
-```
+{% endhighlight %}
 
 通过调用这个`loadMipMap()`函数，我就可以创建出mipmap形式的多级纹理了，下面我把创建出的纹理贴在一个透视投影的三维场景里，我先把render的代码贴在这吧：
 
 
-```c++
+{% highlight c++ %}
 // 创建mipmap多级纹理
 bool MipMapTexture::init()
 {
@@ -205,12 +205,12 @@ void MipMapTexture::render()
 
     end();
 }
-```
+{% endhighlight %}
 
 **顶点shader**
 
 
-```c++
+{% highlight c++ %}
 precision lowp float;
 
 attribute   vec3    _position;
@@ -224,11 +224,11 @@ void main() {
     gl_Position = _mvp * pos;
     _outUv      = _uv;
 }
-```
+{% endhighlight %}
 
 **片段shader**
 
-```c++
+{% highlight c++ %}
 precision lowp float;
 
 varying     vec2        _outUv;
@@ -239,13 +239,13 @@ void main()
     vec4    bgColor    = texture2D(_textureBg, _outUv);
     gl_FragColor       = bgColor;
 }
-```
+{% endhighlight %}
 
 # 完整的源代码
 
 **MipMapTexture.h**
 
-```c++
+{% highlight c++ %}
 #pragma  once
 
 #include "gl_include.h"
@@ -356,11 +356,11 @@ protected:
 
 NS_END(mip_map);
 NS_END(elloop);
-```
+{% endhighlight %}
 
 **MipMapTexture.cpp**
 
-```c++
+{% highlight c++ %}
 #include "scenes/MipMapTexture.h"
 #include "app_control/ELDirector.h"
 #include "math/ELGeometry.h"
@@ -514,7 +514,7 @@ void MipMapTexture::render()
 
 NS_END(mip_map);
 NS_END(elloop);
-```
+{% endhighlight %}
 # 完整项目源码
 
 - [OpenGL-ES-2.0-cpp](https://github.com/elloop/OpenGL-ES-2.0-cpp)

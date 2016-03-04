@@ -22,7 +22,7 @@ shuffle算法则是从C++11之后才开始出现，可以与随机数和分布�
 
 # shuffle的三种形式
 
-```c++
+{% highlight c++ %}
 template <typename RandomAccessIterator, typename UniformRandomNumberGenerator>
   void shuffle (RandomAccessIterator first, RandomAccessIterator last, UniformRandomNumberGenerator&& g);
 
@@ -32,7 +32,7 @@ template <typename RandomAccessIterator>
 template <typename RandomAccessIterator, typename RandomNumberGenerator>
   void random_shuffle (RandomAccessIterator first, RandomAccessIterator last,
                        RandomNumberGenerator&& gen);
-```
+{% endhighlight %}
 
 shuffle是从C++11开始支持的，作用是使用一个随机数引擎来打乱[first, last)之间元素的顺序，关于随机数引擎需要参考`<random>`头文件及相关资料.
 
@@ -44,7 +44,7 @@ random_shuffle有两种形式：
 
 其等价的实现：
 
-```c++
+{% highlight c++ %}
 template <typename RandomAccessIterator, typename UniformRandomNumberGenerator>
 void shuffle (RandomAccessIterator first, 
               RandomAccessIterator last, 
@@ -68,7 +68,7 @@ template <typename RandomAccessIterator, typename RandomNumberGenerator>
         swap (first[i],first[gen(i+1)]);
     }
 }
-```
+{% endhighlight %}
 
 # 基本用法
 
@@ -76,7 +76,7 @@ template <typename RandomAccessIterator, typename RandomNumberGenerator>
 
 ## 使用默认的随机数生成器来shuffle
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(ShuffleTest, Default, @);
 
 array<int, 10> a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -93,24 +93,24 @@ shuffle(a.begin(), a.end(), defaultEngine);
 printContainer(a, "a: ");
 
 END_TEST;
-```
+{% endhighlight %}
 
 输出：
 
-```c++
+{% highlight c++ %}
 a: 1 2 3 4 5 6 7 8 9 10
 a: 9 2 10 3 1 6 8 4 5 7
 a: 1 2 3 4 5 6 7 8 9 10
 a: 5 1 4 2 6 8 7 3 10 9
-```
+{% endhighlight %}
 
 其中对于default_random_engine的使用，还可以指定种子seed，比如：
 
-```c++
+{% highlight c++ %}
 // 使用系统时钟作为种子
 unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 shuffle(a.begin(), a.end(), default_random_engine(seed));
-```
+{% endhighlight %}
 
 更多的关于random engine的内容请参考`<random>`中的介绍。
 
@@ -118,7 +118,7 @@ shuffle(a.begin(), a.end(), default_random_engine(seed));
 
 ## 使用自定义的generator来shuffle元素
 
-```c++
+{% highlight c++ %}
 // 自定义的generator, 用来random_shuffle.
 class SelfGenerator
 {
@@ -143,14 +143,14 @@ random_shuffle(a.begin(), a.end(), sg);
 printContainer(a, "a: ");
 
 END_TEST;
-```
+{% endhighlight %}
 
 某次执行的输出：
 
-```c++
+{% highlight c++ %}
 a: 1 2 3 4 5 6 7 8 9 10
 a: 9 2 7 10 4 5 1 3 8 6
-```
+{% endhighlight %}
 
 《C++ 标准库》的作者说使用自定义的generator比直接调用rand()要好，自定义的generator是一个对象，它内部封装了自己的状态，不会像rand()那样使用一个静态变量保存其状态，rand()这样“天生就不是线程安全的，无法同时有两个独立互不干扰的随机数流”.
 

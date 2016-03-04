@@ -8,8 +8,8 @@ description: ""
 
 
 
-```c++
-```
+{% highlight c++ %}
+{% endhighlight %}
 
 这个宏定义有问题吗？
 

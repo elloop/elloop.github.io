@@ -72,7 +72,7 @@ to force you use shortcut, map occord keys to <nop>
 
 4. shadowing: like program in c,
 
-```Vim 
+{% highlight Vim %}
 int flag = 1;
 void f(int flag)
 {
@@ -81,7 +81,7 @@ void f(int flag)
 
     }
 }
-```
+{% endhighlight %}
 
 flag in f() will hide the global flag.
 in vim, you set following mapings:
@@ -117,35 +117,35 @@ more events: help autocmd-events.
 ## 10. Autocommand Groups
 1. in order to avoid duplicate cmds, define autocmd using Autocommand Groups, like this:
 
-```Vim
+{% highlight Vim %}
 :augroup group_name
 :autocmd!
 :autocmd BufWrite * :echom "write success"
 ... lots of other commands.
 :augroup END
-```
+{% endhighlight %}
 
 another example:
 
-```Vim
+{% highlight Vim %}
 :augroup filetype_html
 :autocmd!
 :autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
 :augroup END
-```
+{% endhighlight %}
 
 ## 11. Operator-Pending Mappings
 1. :onoremap p i( = cp will be same with ci(, that is cp will change content in parentheses and dp will be same with di(......
 2. :onoremap <buffer> b /return<cr> = notice <buffer> used like inoremap, nnoremap and vnoremap.
 
-```Vim 
+{% highlight Vim %}
 void f() {
     int i(0);
     int j(1);
     int k(0);
     return 0;
 }
-```
+{% endhighlight %}
 
 put cursor in i, and press db, will delete lines until return.
 

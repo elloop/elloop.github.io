@@ -9,7 +9,7 @@ tags: [notes]
 
 - 1. DISALLOW_COPY_AND_ASSIGN
 
-```c++
+{% highlight c++ %}
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
             TypeName(const TypeName&); \
             void operator=(const TypeName&)
@@ -23,6 +23,6 @@ class Foo {
     private:
         DISALLOW_COPY_AND_ASSIGN(Foo);
 };
-```
+{% endhighlight %}
 
 <!--more-->

@@ -28,7 +28,7 @@ description: ""
 
 顾名思义，reverse就是反其道而行之。正常的迭代器是从前往后的方向递增，而反向迭代器则是从后向前递增的。支持双向迭代的容器通常都有rbegin(), rend()这对接口，它们的返回值就是reverse iterator。使用这对反向迭代器来遍历容器就会实现从后向前的效果。
 
-```c++
+{% highlight c++ %}
 vector<int> v = { 1, 2, 3};
 auto rbeg = v.rbegin();
 while (rbeg != v.rend())
@@ -36,9 +36,9 @@ while (rbeg != v.rend())
     cout << *rbeg << endl;
     ++rbeg;
 }
-```
+{% endhighlight %}
 
-```c++
+{% highlight c++ %}
 //----------------------- reverse iterator  ----------------------
 RUN_GTEST(IteratorAdapter, ReverseIterator, @);
 
@@ -100,7 +100,7 @@ auto recoverPos = rpos1.base();
 EXPECT_EQ(5, *recoverPos);
 
 END_TEST;
-```
+{% endhighlight %}
 
 # insert iterator 插入型迭代器
 
@@ -112,7 +112,7 @@ END_TEST;
 
 会对初始化它的容器调用`push_back`以完成后面插入元素的操作。
 
-```c++
+{% highlight c++ %}
 //----------------------- inserter ----------------------
 RUN_GTEST(IteratorAdapter, InserterTest, @);
 
@@ -142,13 +142,13 @@ copy(a.begin(), a.end(), back_inserter(v));
 printContainer(v, "v: ");       // 1 2 3 4 1 2 3 4 5
 
 END_TEST;
-```
+{% endhighlight %}
 
 ## `front_insert_iterator` or front inserter. 在前面插入型迭代器
 
 与`back_insert_iterator`类似，此迭代器调用容器的`push_front`来完成在前面插入元素的操作。
 
-```c++
+{% highlight c++ %}
 //------------- 2. front inserter ----------------
 // front_inserter(con): call con.push_front().
 list<int> l = {};
@@ -170,13 +170,13 @@ printContainer(l, "l: ");       // 4 3 2 1
 
 copy(a.begin(), a.end(), front_inserter(l));
 printContainer(l, "l: ");       // 5 4 3 2 1 4 3 2 1
-```
+{% endhighlight %}
 
 ## `insert_iterator` or general inserter. 通用型插入迭代器
 
 最后这种插入型迭代器是最通用的迭代器, 它对容器调用insert(value, pos)方法。使得没有`push_back`, `push_front`操作的容器，比如关联式容器能够使用这种迭代器。它相对于前两种适配器，需要一个额外的参数pos以指示插入位置。
 
-```c++
+{% highlight c++ %}
 //------------- 3. general inserter ----------------
 // inserter(con, pos) : call con.insert(), and return new valid pos.
 set<int> s = {};
@@ -195,7 +195,7 @@ printContainer(s, "s: ");       // 1 2 3 4 5
 list<int> copyS;
 copy(s.begin(), s.end(), inserter(copyS, copyS.begin()));
 printContainer(copyS, "copyS: ");       // 1 2 3 4 5
-```
+{% endhighlight %}
 
 # stream iterator 流迭代器
 
@@ -203,7 +203,7 @@ printContainer(copyS, "copyS: ");       // 1 2 3 4 5
 
 ## `ostream_iterator` 输出流迭代器
 
-```c++
+{% highlight c++ %}
 //----------------------- stream iterator  ----------------------
 RUN_GTEST(IteratorAdapter, StreamIterator, @);
 
@@ -227,12 +227,12 @@ cr;
 string delim("-->");
 copy(a.begin(), a.end(), ostream_iterator<int>(cout, delim.c_str())); 
 cr;                                             // 1-->2-->3-->4-->5-->
-```
+{% endhighlight %}
 
 
 ## `istream_iterator` 输入流迭代器
 
-```c++
+{% highlight c++ %}
 // 3. 输入流迭代器示例：
 //------------- 2. istream iterator ----------------
 // istream_iterator(stream)
@@ -267,13 +267,13 @@ while (strReader != istream_iterator<string>())
 cr;
 
 END_TEST;
-```
+{% endhighlight %}
 
 # move iterator 
 
 since C++11, 移动语义的提出大大提高了一些涉及到转发参数的函数调用过程之中(perfect forwarding完美转发)参数传递的效率，通过把元素内部底层的东西移动到新的元素来避免拷贝开销。因为这个原因也提供了移动的迭代器适配器以实现需要移动语义的场合，下面是一段示意的代码:
 
-```c++
+{% highlight c++ %}
 //----------------------- move iterator  ----------------------
 
 list<string> l = {"hello", "tom", "jerry"};
@@ -282,7 +282,7 @@ vector<string> v(l.begin(), l.end());              // copy l.
 
 vector<string> v2(make_move_iterator(l.begin()),   // move l.
         make_move_iterator(l.end()));    
-```
+{% endhighlight %}
 
 # 源码与参考链接
 

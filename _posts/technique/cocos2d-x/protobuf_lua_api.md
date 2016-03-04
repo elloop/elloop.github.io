@@ -2,10 +2,10 @@
 layout: post
 title: protobuf lua api
 ---
-```
+{% endhighlight %}
 message Msg{
 }
-```
+{% endhighlight %}
 
 ## Singular Fields - required or optional
 ##

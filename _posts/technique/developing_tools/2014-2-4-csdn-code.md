@@ -10,7 +10,7 @@ tags: csdn
 - clone
 - push
 
-```bash
+{% highlight bash %}
  ssh key
  $ cd ~/.ssh
  $ mkdir key_backup
@@ -18,7 +18,7 @@ tags: csdn
  $ rm id_rsa*
  生成新的密钥：
  $ ssh-keygen -t rsa -C “您的邮箱地址”
-```
+{% endhighlight %}
 
 <!--more-->
 

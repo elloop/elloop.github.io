@@ -11,23 +11,23 @@ description: summary of book "Lessons Learned From c/c++ Defects"
 
 ### item2: what will happen? 
 
-```c++
+{% highlight c++ %}
 #define perimeter(x, y) 2*x + 2*y
 volume = perimeter(x, y) * high
-``` 
+{% endhighlight %}
 
 *correct*
 
-```c++
+{% highlight c++ %}
 #define perimeter(x, y) (2*(x) + 2*(y))
-```
+{% endhighlight %}
 
 ### item3: macro pollution:
 
-```c++
+{% highlight c++ %}
 #define map __gnu_cxx::hash_map // in a.cpp
 // files which include 'a.cpp' will be polluted by map define.
-```
+{% endhighlight %}
 
 <!--more-->
 
@@ -35,7 +35,7 @@ volume = perimeter(x, y) * high
 
 ### item5: what's wrong?
 
-```c++
+{% highlight c++ %}
 int main() {
     char c ;
     while ((c = getchar()) != EOF) {
@@ -43,7 +43,7 @@ int main() {
     }
     return 0;
 }
-```
+{% endhighlight %}
 
 *correct* : `int c;`
 
@@ -51,7 +51,7 @@ int main() {
 
 - item7: see:
 
-```c++
+{% highlight c++ %}
 struct data
 {
     int flag:1;
@@ -75,13 +75,13 @@ int main()
     }
     return 0;
 }
-```
+{% endhighlight %}
 
 *correct*: flag is signed bit, value only be 0 or -1.  so change to unsigned int flag: 1;
 
 - item8: compare float:
 
-```c++
+{% highlight c++ %}
 float f = 1.0 / 3;
 float f2 = 0.333333;
 // wrong
@@ -92,11 +92,11 @@ if (f == f2) {
 // right
 if (fabs(f - f2) < 0.00001)
     // same
-```
+{% endhighlight %}
 
 - item9: 求相反数
 
-```c++
+{% highlight c++ %}
 int minInt = 0xffffffff;
 minInt = -minInt;
 printf("%d", minInt);
@@ -106,11 +106,11 @@ if (minInt == 0xffffffff)
 {
 
 }
-```
+{% endhighlight %}
 
 - item10: right?
 
-```c++
+{% highlight c++ %}
 int main()
 {
     size_t size = sizeof(int);
@@ -120,13 +120,13 @@ int main()
     }
     retrun 0;
 }
-```
+{% endhighlight %}
 
 *correct*: --size > 0
 
 - item11: struct init style.
 
-```c++
+{% highlight c++ %}
 struct rect
 {
     int l, w;
@@ -137,11 +137,11 @@ struct rect r = {10, 20};
 
 // good style.
 struct rect r = { r.l = 10, r.w = 20};
-```
+{% endhighlight %}
 
 - item12: 模板的两段编译
 
-```c++
+{% highlight c++ %}
 template<typename T>
 class A {
     protected:
@@ -154,7 +154,7 @@ class B : public A<T> {
         num = 0;
     }
 };
-```
+{% endhighlight %}
 
 won't compiling pass in latest complier
 but will pass in old complier
@@ -170,11 +170,11 @@ reason: num是一个非依赖参数, 但是但是定义在基类中的，目前�
 ## lib functions.
 - item1: sprintf: segmentation fault.
 
-```c++
+{% highlight c++ %}
 char src[] = "aaaaaaaaaaaaaaaaaaaaa";
 char buf[10] = "";
 int len = sprintf(buf, "%s", src);
-```
+{% endhighlight %}
 
 *suggestion*
 >1. snprintf: 会检查返回值n，如果n>len(buffer), 会重新分配空间并再一次调用snprintf.
@@ -182,24 +182,24 @@ int len = sprintf(buf, "%s", src);
 
 - item2: snprintf parameters:
 
-```c++
+{% highlight c++ %}
 char buf[10] = "";
 char src[10] = "hello %s";
 int len = sprintf(buf, sizeof(buf), src);
 
 // *correct*
 int len = sprintf(buf, sizeof(buf), "%s", src);
-```
+{% endhighlight %}
 
 - item3: return value of snprintf:
 
-```c++
+{% highlight c++ %}
 char buf[10] = "";
 char src[] = "aaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 int len = snprintf(buf, sizeof(buf), "%s", src);
 buf[len] = '\0';
 printf("buf = %s, buf_len = %d\n", buf, len);
-```
+{% endhighlight %}
 
 snprintf返回实际写入到buf的字符个数（假设buf大小没有限制）
 e.g.: 
@@ -209,7 +209,7 @@ e.g.:
 
 *correct*
 
-```c++
+{% highlight c++ %}
 int len = snprintf(buf, sizeof(buf), "%s", src);
 printf("return len: %d\n", len);
 if (len > sizeof(buf) - 1) {
@@ -218,5 +218,5 @@ if (len > sizeof(buf) - 1) {
 else {
     printf("buf=%s, len is %d\n", buf, strlen(buf));
 }
-```
+{% endhighlight %}
 

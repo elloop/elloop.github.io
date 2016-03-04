@@ -21,7 +21,7 @@ published: true
 
 下面以hello world示例为基础，添加一下触摸的功能, 非常的简单, 请看代码：
 
-```c++
+{% highlight c++ %}
 // HelloWorldScene.h
 class HelloWorld : public cocos2d::CCLayer
 {
@@ -49,7 +49,7 @@ bool HelloWorld::init()
 {
     return CCLayer::init();
 }
-```
+{% endhighlight %}
 
 编译运行代码，并且在`CCLayer::ccTouchesBegan`, `CCLayer::ccTouchesMoved`, `CCLayer::ccTouchesEnded`等函数内添加断点，当用鼠标点击或在Layer上面做拖拽的时候，断点就会触发。
 
@@ -63,7 +63,7 @@ bool HelloWorld::init()
 
 在Layer的ccTouchBegan函数里已经提示我们了，看下面:
 
-```c++
+{% highlight c++ %}
 bool CCLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (kScriptTypeNone != m_eScriptType)
@@ -76,7 +76,7 @@ bool CCLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     CCAssert(false, "Layer#ccTouchBegan override me"); // 重写我！！
     return true;
 }
-```
+{% endhighlight %}
 
 相信大家自己也能想到，在HelloWorld的Layer里通过重写ccTouchBegan系列函数就能实现自定义触摸事件的响应逻辑了。
 
@@ -100,7 +100,7 @@ Layer为什么能够响应触摸事件？
 
 可以通过下面的示例代码来说明这一过程：
 
-```c++
+{% highlight c++ %}
 // 定义一个Touchable
 class Touchable : public cocos2d::CCTouchDelegate //, 其他类...
 {
@@ -140,7 +140,7 @@ void removeTouchable()
     // 单点触摸 多点触摸都是通过此接口来移除
     touchDispatcher->removeDelegate(touchable);
 }
-```
+{% endhighlight %}
 
 回答上面那两个问题：
 
@@ -179,7 +179,7 @@ CCTouchDispatcher通过遍历两个处理器队列来实现触摸事件分发，
 
 来看一下触摸代理的分发过程：
 
-```c++
+{% highlight c++ %}
 void CCTouchDispatcher::touches(CCSet *pTouches, CCEvent *pEvent, unsigned int uIndex)
 {
     // ... 此处省略一些代码
@@ -231,13 +231,13 @@ void CCTouchDispatcher::touches(CCSet *pTouches, CCEvent *pEvent, unsigned int u
     }
     // ... 此处省略一些代码
 }
-```
+{% endhighlight %}
 
 从上面这段代码可以看到，对于TargetedTouch单点触摸是按照线性顺序来遍历分发的，那么排在队列前面的自然就会先分发
 
 再看一下处理器是怎么排队的：
 
-```c++
+{% highlight c++ %}
 // pHandler: 要插入到队列里的代理； 
 // pArray：  现存代理队列；
 void CCTouchDispatcher::forceAddHandler(CCTouchHandler *pHandler, CCArray *pArray)
@@ -271,7 +271,7 @@ void CCTouchDispatcher::forceAddHandler(CCTouchHandler *pHandler, CCArray *pArra
     // 把新代理插入到下标u处.
     pArray->insertObject(pHandler, u);
 }
-```
+{% endhighlight %}
 
 可以看到优先级高的会排在前面，优先级相同的，后来者会排在前面。因此，不难总结出上面提到的两条结论。
 
@@ -281,7 +281,7 @@ void CCTouchDispatcher::forceAddHandler(CCTouchHandler *pHandler, CCArray *pArra
 
 **HelloWorldScene.h: **
 
-```c++
+{% highlight c++ %}
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
@@ -309,13 +309,13 @@ public:
 };
 
 #endif // __HELLOWORLD_SCENE_H__
-```
+{% endhighlight %}
 
 头文件很简单，在HelloWorldScene下面加了一个TouchableLayer类，用来接收触摸事件. 下面是实现文件：
 
 **HelloWorldScene.cpp: **
 
-```c++
+{% highlight c++ %}
 #include "HelloWorldScene.h"
 
 USING_NS_CC;
@@ -370,7 +370,7 @@ bool TouchableLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pE
     runAction(rotate);
     return false;
 }
-```
+{% endhighlight %}
 
 接下来运行代码， 效果如下图所示：
 
@@ -474,7 +474,7 @@ dog1优先级最高总是被触发发生抖动且不吞噬，dog3触发并抖动
 
 **TouchTestPage.h**:
 
-```c++
+{% highlight c++ %}
 #ifndef CPP_DEMO_PAGES_MENU_PAGE_H
 #define CPP_DEMO_PAGES_MENU_PAGE_H
 
@@ -532,11 +532,11 @@ protected:
     ~Dog();
 };
 #endif
-```
+{% endhighlight %}
 
 **TouchTestPage.cpp**:
 
-```c++
+{% highlight c++ %}
 #include "pages/TouchTestPage.h"
 #include "PageManager.h"
 #include "util/StringUtil.h"
@@ -734,7 +734,7 @@ void Dog::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 
 void Dog::ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 {}
-```
+{% endhighlight %}
 
 注意：
 

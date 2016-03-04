@@ -17,14 +17,14 @@ description: ""
 `<algorithm>`中的unique函数， 它能删除连续序列的副本(Remove consecutive duplicates in range).
 原型如下:
 
-```c++
+{% highlight c++ %}
 template <class ForwardIterator>
   ForwardIterator unique ( ForwardIterator first, ForwardIterator last );
 
 template <class ForwardIterator, class BinaryPredicate>
   ForwardIterator unique ( ForwardIterator first, ForwardIterator last,
                            BinaryPredicate pred );
-```
+{% endhighlight %}
 
 <!--more-->
 
@@ -38,7 +38,7 @@ template <class ForwardIterator, class BinaryPredicate>
 
 看看与它等价的代码就知道了：
 
-```c++
+{% highlight c++ %}
 template <class ForwardIterator>
   ForwardIterator unique (ForwardIterator first, ForwardIterator last)
 {
@@ -53,7 +53,7 @@ template <class ForwardIterator>
   return ++result;
 }
 // 代码摘自 http://www.cplusplus.com/reference/algorithm/unique/
-```
+{% endhighlight %}
 
 # 简单示例
 
@@ -63,7 +63,7 @@ template <class ForwardIterator>
 
 那么unique之后：1,2,3,2,1,1,1， 容器元素被修改了，但是个数没变，需要手动再把结尾的1,1删掉，这个位置由unique的返回值来确定, 下面的代码演示了这个过程：
 
-```c++
+{% highlight c++ %}
 #include <iostream>
 #include <iterator>     // ostream_iterator
 #include <algorithm>    // unique，distance
@@ -79,13 +79,13 @@ int main() {
     copy(vi.begin(), vi.end(), ostream_iterator<int>(cout, ","));
     return 0;
 }
-```
+{% endhighlight %}
 
 输出：
 
-```c++
+{% highlight c++ %}
 1,2,3,2,1,
-```
+{% endhighlight %}
 
 # 实习中对unique运用
 
@@ -97,7 +97,7 @@ int main() {
 
 不能把所有重复的删掉。所以不能直接使用unique，要先把点排序，这样重复的点都变成连续的了，接下来就可以用unique一次搞定了。这几步都能用stl轻松实现，下面是示例代码：
 
-```c++
+{% highlight c++ %}
 #include <iostream>
 #include <iterator>     // ostream_iterator
 #include <algorithm>    // sort, copy, unique
@@ -171,11 +171,11 @@ int main() {
 
     return 0;
 }
-```
+{% endhighlight %}
 
 运行结果：
 
-```c++
+{% highlight c++ %}
 origin...
 (1, 2),(3, 4),(1, 2),(3, 4),(3, 4),(1, 2),
 
@@ -184,7 +184,7 @@ after sorting...
 
 after unique...
 (1, 2),(3, 4),
-```
+{% endhighlight %}
 
 ---------------------------
 

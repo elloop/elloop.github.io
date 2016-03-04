@@ -63,7 +63,6 @@ for (int elem : vi)
 
 vector初始情况下的容量取决于对象的定义方式：
 
-```cpp
 {% highlight cpp %}
 vector<int> vi;         // capacity: 0
 

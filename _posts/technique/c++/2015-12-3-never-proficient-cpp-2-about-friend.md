@@ -15,14 +15,14 @@ published: true
 
 `前置声明`：(forward declaration), 跟普通的声明一样，就是个声明, 没有定义。之所以叫前置声明，看下面一小段代码：
 
-```c++
+{% highlight c++ %}
 class Useful;  // 对Userful类的前置声明
 
 class Boss 
 {
     Useful  *userful_;      // 实际要用到它的地方
 };
-```
+{% endhighlight %}
 
 <!--more-->
 
@@ -61,7 +61,7 @@ class Boss
 
 **1. 以指针或引用的形式来引用类型**
 
-```c++
+{% highlight c++ %}
 class A;
 
 class B 
@@ -74,22 +74,22 @@ class B
     A& f(const A &pa);    // ok
 
 };
-```
+{% endhighlight %}
 
 **2. 友元**
 
-```c++
+{% highlight c++ %}
 class A;
 class B 
 {
     friend A;               // ok, after c++11.
     friend class A;         // ok, not tested.
 };
-```
+{% endhighlight %}
 
 **3. typedef**
 
-```c++
+{% highlight c++ %}
 class A
 {
     typedef int AInt;
@@ -99,7 +99,7 @@ class B
 {
     A::AInt     *a_;    // ok, todo: test this.
 };
-```
+{% endhighlight %}
 
 
 **3. 不定期持续更新**
@@ -108,7 +108,7 @@ class B
 
 **1. 使用完成的类型来引用**
 
-```c++
+{% highlight c++ %}
 class A;
 
 class B
@@ -119,17 +119,17 @@ class B
 
     A g();          // error
 };
-```
+{% endhighlight %}
 
 **2. 被当做父类时**
 
-```c++
+{% highlight c++ %}
 class A;
 
 class B : public A      // error
 {
 };
-```
+{% endhighlight %}
 
 **3. 不定期持续更新**
 
@@ -137,7 +137,7 @@ class B : public A      // error
 
 **1. in namespace**
 
-```c++
+{% highlight c++ %}
 namespace somewhere
 {
     class A;
@@ -147,11 +147,11 @@ class B
 {
     somewhere::A    *pa_;   // ok
 };
-```
+{% endhighlight %}
 
 **2. in class**
 
-```c++
+{% highlight c++ %}
 namespace ns1 
 {
     class A 
@@ -164,7 +164,7 @@ class B
 {
     void f(const ns1::A::IntArray &ary);    // ok. todo: test this.
 };
-```
+{% endhighlight %}
 
 ## TODO
 

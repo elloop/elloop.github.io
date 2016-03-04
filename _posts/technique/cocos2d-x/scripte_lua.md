@@ -7,9 +7,9 @@ title: Script lua
 
 ## create lua engine
 
-```lua
+{% highlight lua %}
 CCLuaEngine* pEngine = CCLuaEngine::defaultEngine();
 CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
-```
+{% endhighlight %}
 
 ## clear lua engine

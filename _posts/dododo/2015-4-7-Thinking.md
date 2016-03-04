@@ -64,7 +64,7 @@ A::swap(A::MyClass&, A::MyClass&) and std::swap(A::MyClass&, A::MyClass&) are de
 
 ## 2. noncopyable implementation.
 
-```c++
+{% highlight c++ %}
 //  Boost noncopyable.hpp header file  --------------------------------------//
 
 //  (C) Copyright Beman Dawes 1999-2003. Distributed under the Boost
@@ -113,7 +113,7 @@ typedef noncopyable_::noncopyable noncopyable;
 } // namespace boost
 
 #endif  // BOOST_NONCOPYABLE_HPP_INCLUDED
-```
+{% endhighlight %}
 
 #Qeustions.
 ---

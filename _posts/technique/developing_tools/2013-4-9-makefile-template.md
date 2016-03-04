@@ -11,7 +11,7 @@ description: ""
 
 <!--more-->
 
-``` make
+{% highlight make %}
 # this makefile shows how to locate src dependancies. use VPATH.
 # src tree:
 #
@@ -55,10 +55,10 @@ all : $(OBJS)
 .PHONY : clean
 clean:
 		-rm $(REBUILDABLE)
-```
+{% endhighlight %}
 
 ## modified on the basis of this makefile
-```
+{% highlight make %}
 # This sample makefile is extracted from Eclipse's "C/C++ Development Guide -Makefile".
 # A sample Makefile
 # This Makefile demonstrates and explains 
@@ -136,10 +136,11 @@ Test2.o : Test2.h
 # %.dep : %.cpp
 #   g++ -M $(FLAGS) $< > $@
 # include $(OBJS:.o=.dep)
-```
+
 
 ##  Learning from [GNU make](http://make.mad-scientist.net/papers/how-not-to-use-vpath/)
 Well, then, what the heck is VPATH good for, anyway? As described in Paul's Third Rule of Makefiles, VPATH is good for finding sources, not for finding targets.
+{% endhighlight %}
 
 ## Basic
 

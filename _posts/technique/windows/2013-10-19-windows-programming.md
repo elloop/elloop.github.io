@@ -9,7 +9,7 @@ description: "windows programming summary"
 # Unicode in windows
 ## _T and __T
 
-```c++
+{% highlight c++ %}
 #ifdef UNICODE
 #define __T(x)      L ## x
 #else
@@ -17,7 +17,7 @@ description: "windows programming summary"
 #endif
 
 #define _T(x) __T(x)
-```
+{% endhighlight %}
 
 ## how to define UNICODE in VS.
 In Project setting -> common -> character set : Unicdoe or Mutibytes.
@@ -82,7 +82,7 @@ In Project setting -> common -> character set : Unicdoe or Mutibytes.
 
 ## 获得当前可执行文件路径
 
-```c++
+{% highlight c++ %}
 // 获取 _wpgmptr 全局变量的当前值, 
 // _wpgmptr 全局变量以宽字符字符串形式包含通向与该过程关联的可执行文件的完整路径
 errno_t _get_wpgmptr(     wchar_t **pValue  );
@@ -104,11 +104,11 @@ static void _checkPath()
         s_resourcePath = convertPathFormatToUnixStyle(utf8ExeDir);
     }
 }
-```
+{% endhighlight %}
 
 ## 获得当前工作目录
 
-```c++
+{% highlight c++ %}
 // GetCurrentDirectoryW (Unicode) and GetCurrentDirectoryA (ANSI)
 
 // example: cocos2d-x CCFileUtils
@@ -123,4 +123,4 @@ static void _checkPath()
         s_pszResourcePath[nNum] = '\\';
     }
 }
-```
+{% endhighlight %}

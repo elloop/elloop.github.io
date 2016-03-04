@@ -50,7 +50,7 @@ IBO跟VBO的原理类似，只不过IBO是缓存了VBO绘制时候的Indices.
 
 按编号从0~7以不同的颜色标识，下面定义出这8个顶点
 
-```c++
+{% highlight c++ %}
 // x,y,z,  u,v,   r,g,b,a
 Vertex cubeVertex[] =
 {
@@ -76,13 +76,13 @@ GLubyte cubeIndices[] =
     7, 6, 2, 7, 2, 1, // Quad 4
     4, 0, 3, 4, 3, 5  // Quad 5
 };
-```
+{% endhighlight %}
 
 ## 2. 创建VBO和IBO，分别和顶点数据、顶点索引数据绑定
 
 上面定义好了两个数组，接下来分别把顶点数组和索引数据绑定到VBO和IBO。
 
-```c++
+{% highlight c++ %}
 
 unsigned int    _vbo;
 unsigned int    _ibo;
@@ -101,13 +101,13 @@ glGenBuffers(1, &_ibo); // 同VBO
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo); // 同VBO，仅仅是第一个参数不一样
 glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof( cubeIndices ), cubeIndices, GL_STATIC_DRAW); // 同VBO
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-```
+{% endhighlight %}
 
 ## 3. 使用绑定后的VBO和IBO来完成绘制
 
 万事俱备，现在开始绘制：
 
-```c++
+{% highlight c++ %}
 glBindTexture(GL_TEXTURE_2D, _textureCube);         // 立方体的纹理，忽略
 glUniformMatrix4fv(_mvp, 1, false, mvpDog.data());  // 投影矩阵，忽略
 
@@ -126,13 +126,13 @@ glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, 0); // 使用_ibo指定的36�
 
 glBindBuffer(GL_ARRAY_BUFFER, 0);           // 使用完要解除VBO绑定
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);   // 使用完要解除IBO绑定
-```
+{% endhighlight %}
 
 # 完整的源代码和Shader
 
 **VboScene.h**
 
-```c++
+{% highlight c++ %}
 #pragma  once
 
 #include "gl_include.h"
@@ -251,11 +251,11 @@ protected:
 
 NS_END(vbo_scene);
 NS_END(elloop);
-```
+{% endhighlight %}
 
 **VboScene.cpp**
 
-```c++
+{% highlight c++ %}
 #include "scenes/VboScene.h"
 #include "app_control/ELDirector.h"
 #include "math/ELGeometry.h"
@@ -523,11 +523,11 @@ unsigned int VboScene::loadTexture(const std::string &fileName)
 
 NS_END(vbo_scene);
 NS_END(elloop);
-```
+{% endhighlight %}
 
 **顶点shader: 3D_projection_vs.glsl**
 
-```c++
+{% highlight c++ %}
 precision lowp float;
 
 attribute   vec3    _position;
@@ -542,11 +542,11 @@ void main()
     gl_Position = _mvp * pos;
     _outUv      = _uv;
 }
-```
+{% endhighlight %}
 
 **片段shader: 3D_projection_fs.glsl**
 
-```c++
+{% highlight c++ %}
 
 precision lowp float;
 
@@ -559,7 +559,7 @@ void main()
     vec4    bgColor    = texture2D(_textureBg, _outUv);
     gl_FragColor       = bgColor;
 }
-```
+{% endhighlight %}
 
 # 源码下载
 

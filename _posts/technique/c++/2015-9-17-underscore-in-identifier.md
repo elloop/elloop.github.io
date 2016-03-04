@@ -8,9 +8,9 @@ description: ""
 
 今天在Code Review网站上看到了一个关于在宏定义中使用下划线的讨论 :
 
-```c++
+{% highlight c++ %}
 #define _BasicFsmT_h
-```
+{% endhighlight %}
 
 这个宏定义有问题吗？
 

@@ -26,7 +26,7 @@ rapidjson的另一个特点是对json的标准符合程度是100%的(在开启�
 
 下面是我写的一个小例子，从test.json文件中读取内容并解析。其他代码示例也可以查看我的github仓库中关于rapidjson的测试代码:[rapid_json_test.cpp](https://github.com/elloop/CS.cpp/blob/master/TrainingGround/third_party/rapid_json_test.cpp).
 
-```json
+{% highlight json %}
 // test.json
 {
     "dictVersion": 1,  
@@ -39,9 +39,9 @@ rapidjson的另一个特点是对json的标准符合程度是100%的(在开启�
      	{"key": "word5", "value": "单词5"} 
     ]
 }
-```
+{% endhighlight %}
 
-```c++
+{% highlight c++ %}
 // test.cpp
 #include "rapidjson/document.h"
 #include <fstream>
@@ -97,7 +97,7 @@ void testSimpleDoc() {
         }
     }
 }
-```
+{% endhighlight %}
 
 
 

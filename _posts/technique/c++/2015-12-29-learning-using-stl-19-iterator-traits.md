@@ -18,7 +18,7 @@ description: ""
 
 <!--more-->
 
-```c++
+{% highlight c++ %}
 namespace std
 {
     struct output_iterator_tag {};
@@ -31,13 +31,13 @@ namespace std
 
     struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 }
-```
+{% endhighlight %}
 
 # iterator traits
 
 iterator traits ：迭代器特性，定义了所有迭代器都有的公共类型信息:
 
-```c++
+{% highlight c++ %}
 namespace std
 {
     template <typename T>
@@ -50,7 +50,7 @@ namespace std
         typedef typename T::reference           reference;
     };
 }
-```
+{% endhighlight %}
 
 有了`iterator_traits`, 我就可以这样, 定义一个迭代器(类型为T)所指向的值类型的变量：
 
@@ -62,7 +62,7 @@ namespace std
 
 在算法内部使用迭代器定义的数据类型`value_type`
 
-```c++
+{% highlight c++ %}
 template <typename T>
 void shift_left(T beg, T end)
 {
@@ -74,7 +74,7 @@ void shift_left(T beg, T end)
         // other operations...
     }
 }
-```
+{% endhighlight %}
 
 ## 使用迭代器分类 `iterator_category`
 
@@ -84,7 +84,7 @@ void shift_left(T beg, T end)
 
 2. 实现第一步中重载的f，使用不同类型的`iterator_category`参数以针对特殊类型迭代器做特殊处理。
 
-```c++
+{% highlight c++ %}
 template <typename Iterator>
 void f(Iterator beg, Iterator end)
 {
@@ -104,13 +104,13 @@ void f(BidirectionalIterator beg, BidirectionalIterator end, std::bidirectional_
 {
     // ...
 }
-```
+{% endhighlight %}
 
 上面两个特殊的重载版本的f分别针对随机迭代器和双向迭代器做特殊处理。由于前面介绍的iterator tag的继承关系，可以只针对某个父类定义一个f，该父类的所有子类都可以共用同一个f。比如下面的例子:
 
 distance() 函数的实现：
 
-```c++
+{% highlight c++ %}
 // 第一步，定义一个模板函数，接受一对迭代器, 使用`iterator_category`来转发给重载函数。
 template <typename Iterator>
 typename std::iterator_traits<Iterator>::difference_type distance(Iterator pos1, Iterator pos2)
@@ -136,7 +136,7 @@ distance(InputIterator pos1, InputIterator pos2, std::input_iterator_tag)
     for (d=0; pos1 != pos2; ++pos1, ++d) { }
     return d;
 }
-```
+{% endhighlight %}
 
 从distance()的实现可以看出，随机迭代器将使用迭代器的算术运算pos2-pos1搞定问题；第二个版本的distance()则能够同时针对Input Iterator, Forward Iterator和Bidirectional Iterator三类迭代器起作用，这正是由开篇给出的iterator tag的继承关系决定的。
 
@@ -152,12 +152,12 @@ distance(InputIterator pos1, InputIterator pos2, std::input_iterator_tag)
 
 C++标准提供了一个特殊的基类：`iterator<>`, 它帮我们完成了五个类型的定义，我们只需要继承这个基类，并指定它需要的类型参数即可, 例如如下定义：
 
-```c++
+{% highlight c++ %}
 class MyIterator : public std::iterator<std::forward_iterator_tag, type, std::ptrdiff_t, type*, type&)
 {
     // ...
 };
-```
+{% endhighlight %}
 
 第一个参数指定了迭代器的分类：`forward_iterator_tag`, `bidirectional_iterator_tag` 或者 `random_access_iterator_tag`等等
 
@@ -171,7 +171,7 @@ class MyIterator : public std::iterator<std::forward_iterator_tag, type, std::pt
 
 下面的例子就是书中的例子，它定义了一个关联容器的inserter适配器，类似std::inserter, 相对于std::iterator, 它省去了位置参数，传入一个容器即可：
 
-```c++
+{% highlight c++ %}
 //----------------------- associative container inserter ----------------------
 template <typename Con>
 class asso_inserter_iterator 
@@ -211,12 +211,12 @@ inline asso_inserter_iterator<Con> asso_inserter(Con &con)
 {
     return asso_inserter_iterator<Con>(con);
 }
-```
+{% endhighlight %}
 
 用法：
 
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(UserDefinedIterator, AssoInserter, @);
 
 set<int> uset;
@@ -240,7 +240,7 @@ copy(a.begin(), a.end(), asso_inserter(uset)); // 1 2 10 11 20 22 30 33 44 55
 printContainer(uset, "uset: ");
 
 END_TEST;
-```
+{% endhighlight %}
 
 这里的用法示例与其他的迭代器适配器的用法类似，请参考[【C++ STL学习与应用总结】18: 如何使用迭代器适配器](http://elloop.github.io/c++/2015-12-28/learning-using-stl-18-iterator-adapter/).
 

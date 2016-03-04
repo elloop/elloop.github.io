@@ -20,13 +20,13 @@ array是STL中的一个序列式容器，它包装了一个c风格的数组，�
 
 它的原型就像这样, 是一个模板类：
 
-```c++
+{% highlight c++ %}
 namespace std
 {
     template <typename T, size_t N>
     class array;
 }
-```
+{% endhighlight %}
 
 第一个模板参数T指明了array中存放的数据类型；
 
@@ -54,13 +54,13 @@ array 被要求是一个“aggregate”: 没有用户自定义的构造函数、
 
 初始化array最常用的方法是使用赋值运算符和初始化列表：
 
-```c++
+{% highlight c++ %}
 array<int, 3> a = {1, 2, 3};
 
 array<int, 100> b = {1, 2, 3};  // a[0] ~ a[2] = 1, 2, 3; a[3] ~ a[99] = 0, 0, 0 ... 0;
 
 array<int, 3> c;                // c[0] ~ c[2] 未初始化，是垃圾值.
-```
+{% endhighlight %}
 
 ## assignment 
 
@@ -102,16 +102,16 @@ array<int, 3> c;                // c[0] ~ c[2] 未初始化，是垃圾值.
 
 ## tuple接口
 
-```c++
+{% highlight c++ %}
 array<string, 3> a = {"hello", "hwo", "are"};
 tuple_size<a>::value;
 tuple_element<1, a>::type;  // string
 get<1>(a);                  
-```
+{% endhighlight %}
 
 # 把array当做c风格的数组来用
 
-```c++
+{% highlight c++ %}
 //----------------------- array as c-style array ----------------------
 RUN_GTEST(ArrayTest, CStyleArray, @);
 
@@ -125,7 +125,7 @@ printf("%s\n", p);              // hello world
 
 
 END_TEST;
-```
+{% endhighlight %}
 
 上面这个例子让我想起了std::string, 它有一个c_str()方法，同样是返回内部的c风格字符串，同样string也是STL的容器。
 
@@ -133,7 +133,7 @@ END_TEST;
 
 # 综合示例
 
-```c++
+{% highlight c++ %}
 //----------------------- normal example ----------------------
 RUN_GTEST(ArrayTest, NormalExample, @);
 
@@ -201,7 +201,7 @@ printContainer(a5, "a5: ");             // a5: 5 5 5 5 5
 
 
 END_TEST;
-```
+{% endhighlight %}
 
 # 注意事项
 
@@ -209,10 +209,10 @@ END_TEST;
 
 - 基本类型的默认构造是垃圾值，用初始化列表来避免
 
-```c++
+{% highlight c++ %}
 array<int, 3> a;            // no.
 array<int, 3> a = {};       // good.
-```
+{% endhighlight %}
 
 # 源码
 

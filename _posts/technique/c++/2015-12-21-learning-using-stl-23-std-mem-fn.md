@@ -23,7 +23,7 @@ description: ""
 2. mem_fun_ref
 3. mem_fn
 
-```c++
+{% highlight c++ %}
 #include "gtest/gtest.h"
 #include "inc.h"
 #include <functional>
@@ -127,7 +127,7 @@ END_TEST;
 
 
 NS_END(elloop);
-```
+{% endhighlight %}
 
 # 总结
 

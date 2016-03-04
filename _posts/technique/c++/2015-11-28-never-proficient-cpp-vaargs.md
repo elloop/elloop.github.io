@@ -21,7 +21,7 @@ description: ""
 
 **例1**：使用变长参数函数求和 
 
-```c++
+{% highlight c++ %}
 #include <cstdarg>
 
 int vsum(int count, ...) {
@@ -66,11 +66,11 @@ EXPECT_EQ(10, vsum(10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
 
 END_TEST;
 
-```
+{% endhighlight %}
 
 运行结果： 测试通过
 
-```c++
+{% highlight c++ %}
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
 [----------] 1 test from GrammarTest
@@ -82,7 +82,7 @@ END_TEST;
 [----------] Global test environment tear-down
 [==========] 1 test from 1 test case ran. (4 ms total)
 [  PASSED  ] 1 test.
-```
+{% endhighlight %}
 
 使用va_list这种处理方式很早以前就有了，而且资料也比较多，在此不再多说，下面给出一个表格总结下几个关键宏（va_list是一个类型，不是宏）的作用：
 
@@ -104,7 +104,7 @@ c++11中引入了变长模板参数这一功能，包括类模板和函数模板
 
 **例2**：
 
-```c++
+{% highlight c++ %}
 template <typename T, typename ... Args>
 T vsum(const T &t, const Args&... args) {
     T sum(0);
@@ -127,21 +127,21 @@ EXPECT_EQ(10, vsum(1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
 
 END_TEST;
 
-```
+{% endhighlight %}
 
 测试结果：通过
 
-```c++
+{% highlight c++ %}
 [----------] 1 test from GrammarTest
 [ RUN      ] GrammarTest.VA_Args
 @@@@@@@@@@@@@@@@@@@@ GrammarTest ---> VA_Args @@@@@@@@@@@@@@@@@@@@
 [       OK ] GrammarTest.VA_Args (16 ms)
 [----------] 1 test from GrammarTest (16 ms total)
-```
+{% endhighlight %}
 
 代码分析:
 
-```c++
+{% highlight c++ %}
 
 // 定义一个函数模板，接受可变数量参数, 且每个参数的类型可以不一样
 // 这里面是一个递归调用的形式来定义的，比如：
@@ -162,7 +162,7 @@ T vsum(const T &t, const Args&... args) {
 template <typename T>
 T vsum(const T &t) { return t; }
 
-```
+{% endhighlight %}
 
 与va_list的实现方式比较：
 
@@ -175,19 +175,19 @@ T vsum(const T &t) { return t; }
 
 可以使用如下测试代码，来确定vsum(1, 2.5, 3) 和 vsum(1.5, 2, 3)的返回类型.
 
-```c++
+{% highlight c++ %}
 string t1 = typeid( decltype( vsum(1, 2.5, 3) ) ).name();
 EXPECT_STREQ("int", t1.c_str());
 
 string t2 = typeid( decltype( vsum(1.5, 2, 3) ) ).name();
 EXPECT_STREQ("double", t2.c_str());
-```
+{% endhighlight %}
 
 ## 使用c++11的变长参数类模板来实现可变参数求和 vsum
 
 **例3**：使用模板类
 
-```c++
+{% highlight c++ %}
 template <long ... Args> class vsum;
 
 template <long d, long ... Args>
@@ -218,22 +218,22 @@ s = vsum<1, 1, 1, 1, 1, 1, 1, 1, 1, 1>::value;  EXPECT_EQ(10, s);
 
 END_TEST;
 
-```
+{% endhighlight %}
 
 测试结果： 通过
 
-```c++
+{% highlight c++ %}
 [----------] 1 test from GrammarTest
 [ RUN      ] GrammarTest.VA_Args
 @@@@@@@@@@@@@@@@@@@@ GrammarTest ---> VA_Args @@@@@@@@@@@@@@@@@@@@
 [       OK ] GrammarTest.VA_Args (0 ms)
 [----------] 1 test from GrammarTest (0 ms total)
-```
+{% endhighlight %}
 
 代码分析：
 思路是通过模板元编程的方式，在编译期完成计算。类似经典的模板元编程求阶乘的方法。 模板参数类型使用了非类型模板(nontype template)参数:long。 变长模板的展开通常都是通过递归的方式。
 
-```c++
+{% highlight c++ %}
 // (1) 模板类前置声明，用于下面 (3) 处那个模板的特化.
 template <long ... Args> class vsum;
 
@@ -256,7 +256,7 @@ public:
     static const long value = 0;
 };
 
-```
+{% endhighlight %}
 
 ## 总结，对比两种方式可以看出，
 

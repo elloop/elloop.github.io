@@ -16,7 +16,7 @@ gtest目前最新的稳定release版本是1.7，关于gtest的介绍请移步[gt
 
 我对gtest使用比较多的特性是基本的`TEST`测试，典型的用法像下面的代码这样：
 
-```c++
+{% highlight c++ %}
 #include <iostream>
 #include "gtest/gtest.h"
 
@@ -41,7 +41,6 @@ TEST(TempTest, Test1)
     cout << i << endl;
 }
 
-<!--more-->
 
 TEST(TempTest, Test2)
 {
@@ -79,7 +78,9 @@ int main(int argc, char** argv)
 	testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
-```
+{% endhighlight %}
+
+<!--more-->
 
 测试代码中，我定义了一个测试用例，包含三个子测试Test123，其中输出那么多行的i是为了模拟测试用例可能的复杂输出，上面的测试结果如下：
 
@@ -107,7 +108,7 @@ Test1, Test2通过，Test3中1 > i的条件失败，导致其未通过。
 
 **方案3：弄一个全局开关，在每个TEST体内，根据开关状态判断，如果开关打开，那就直接返回，不输出。**
 
-```c++
+{% highlight c++ %}
 bool gSkipAllTest = true;
 
 // 禁止输出的用例
@@ -124,7 +125,7 @@ TEST(N, n)
 {
     // ......
 }
-```
+{% endhighlight %}
 
 在需要输出的用例中，不加条件判断，在测试完毕之后再加上条件。这样只有每次新加的测试会有输出。当想打开所有测试的时候，把全局的开关打开就行了。看起来不错，但是运行起来的时候会发现，虽然那些用例没有输出但是gtest还是会打印出那些测试用例的测试报告，即使它是个没有任何测试条件和输出的用例。
 
@@ -147,7 +148,7 @@ TEST(N, n)
 
 ## 实现
 
-```c++
+{% highlight c++ %}
 
 // p(x) 是一个模板函数，这样写你应该懂吧：cout<T> << x;
 
@@ -170,11 +171,11 @@ TEST(N, n)
 #endif
 
 #define END_TEST }
-```
+{% endhighlight %}
 
 ## 用法
 
-```c++
+{% highlight c++ %}
 BEGIN_TEST(A, h1, @);
 // ...
 END_TEST;
@@ -183,17 +184,17 @@ END_TEST;
 RUN_GTEST(Hello, h2, $#);
 // ...
 END_TEST;
-```
+{% endhighlight %}
 
 **输出**
 
-```c++
+{% highlight c++ %}
 [----------] 1 test from Hello
 [ RUN      ] Hello.h2
 $#$#$#$#$#$#$#$#$#$# Hello ---> h2 $#$#$#$#$#$#$#$#$#$#
 [       OK ] Hello.h2 (2 ms)
 [----------] 1 test from Hello (2 ms total)
-```
+{% endhighlight %}
 
 可以看到，只有使用`RUN_GTEST`定义的h2被执行了。在用例的函数体里我不需要自己写log了。`RUN_GTEST`会把测试用例名字给我打印出来。
 
@@ -205,7 +206,7 @@ $#$#$#$#$#$#$#$#$#$# Hello ---> h2 $#$#$#$#$#$#$#$#$#$#
 
 如果不用TAG，那么每个用例开头，我都需要写一句输出语句：
 
-```c++
+{% highlight c++ %}
 TEST(A, a1)
 {
     cout << "============= A ---> a1 ===================" << endl;
@@ -217,11 +218,11 @@ TEST(A, a2)
     cout << "============= A ---> a2 ===================" << endl;
     // test body
 }
-```
+{% endhighlight %}
 
 使用`RUN_GTEST`和TAG就可以这样写：
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(A, a1, =);
 
 // test body
@@ -234,11 +235,11 @@ RUN_GTEST(A, a2, @);
 // test body
 
 END_TEST;
-```
+{% endhighlight %}
 
 第三个参数`__TAG__`是字符串"="和"@"，从`RUN_GTEST`的定义中可以看到，在刚一进入测试用例，`__TAG__`会被输出10次，然后是`__CASE__ ---> __SUB_CASE__`, 接着又是10次`__TAG__`字符串的输出。如下：
 
-```c++
+{% highlight c++ %}
 [----------] 2 tests from A
 [ RUN      ] A.a1
 ========== A ---> a1 ==========
@@ -247,11 +248,11 @@ END_TEST;
 @@@@@@@@@@ A ---> a2 @@@@@@@@@@
 [       OK ] A.a2 (2 ms)
 [----------] 2 tests from A (3 ms total)
-```
+{% endhighlight %}
 
 如果不够明显，还可以使用更复杂的`__TAG__`:
 
-```c++
+{% highlight c++ %}
 RUN_GTEST(A, a, @@@$);
 
 END_TEST;
@@ -262,7 +263,7 @@ END_TEST;
 @@@$@@@$@@@$@@@$@@@$@@@$@@@$@@@$@@@$@@@$ A ---> a @@@$@@@$@@@$@@@$@@@$@@@$@@@$@@@$@@@$@@@$
 [       OK ] A.a (3 ms)
 [----------] 1 test from A
-```
+{% endhighlight %}
 
 ## 结论
 

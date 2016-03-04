@@ -18,21 +18,21 @@ description: ""
 
 ### Problem 1
 
-```bash
+{% highlight bash %}
 error: object file .git/objects/9a/83e9c5b3d697d12a2e315e1777ceaf27ea1bab is empty
 fatal: loose object 9a83e9c5b3d697d12a2e315e1777ceaf27ea1bab (stored in .git/objects/9a/83e9c5b3d697d12a2e315e1777ceaf27ea1bab) is corrupt
-```
+{% endhighlight %}
 
 solution:
 
-```bash
+{% highlight bash %}
 $ rm -fr .git
 $ git init
 $ git remote add origin your-git-remote-url
 $ git fetch
 $ git reset --hard origin/master
 $ git branch --set-upstream-to=origin/master master 
-```
+{% endhighlight %}
 
 <!--more-->
 
@@ -40,13 +40,13 @@ $ git branch --set-upstream-to=origin/master master
 
 今天忽然git push到github失败，报如下错误, 本地也没有修改git相关配置，一直没使用代理也是好好的，看到github的主页图标改版了，应该是它那边修改了什么，重新安装了Github For Windows也不起作用，尝试了别人说的关闭代理，`git config --global --unset http.proxy`也没有作用，最后通过切换连接方式解决了问题：HTTPS -> SSH.
 
-```bash
+{% highlight bash %}
 fatal: unable to access 'https://github.com/elloop/TankPongPongPong.git/': Failed connect to github.com:443; No error
-```
+{% endhighlight %}
 
 *solution*
 
-```bash
+{% highlight bash %}
 #查看原来的URLs
 git remote -v
 #下面的输出是HTTPS
@@ -61,7 +61,7 @@ git remote -v
 #看到下面的输出就是修改成SSH了
 origin  git@github.com:<username>/<reponame>.git (fetch)
 origin  git@github.com:<username>/<reponame>.git (push)
-```
+{% endhighlight %}
 
 >[参考链接](https://help.github.com/articles/changing-a-remote-s-url/)
 
@@ -71,7 +71,7 @@ origin  git@github.com:<username>/<reponame>.git (push)
 
 1. clone带有submodule的仓库
 
-```bash
+{% highlight bash %}
 git clone <url> dir     # clone parent.
 
 cd dir
@@ -79,7 +79,7 @@ cd dir
 git submodule init      # register submodules.
 
 git submodule update    # clone submodules. Merge: git submodule init & update.
-```
+{% endhighlight %}
 
 or, simply: `git clone --recursive <url>`, recursively clone submoduels.
 
@@ -88,7 +88,7 @@ or, simply: `git clone --recursive <url>`, recursively clone submoduels.
 
 注意：刚clone下来的submodule，默认不在任何分支上，要想在submodule上工作，最好先checkout出一个新分支，避免在修改之后，因为错误执行`git submodule update`导致在分支上的修改被覆盖。
 
-```bash
+{% highlight bash %}
 cd sub1                 # submodule dir
 
 git checkout master     # switch to master branch
@@ -108,7 +108,7 @@ git add -u
 git commit -m "update commit id of submodule"
 
 git push origin master  
-```
+{% endhighlight %}
 
 
 
