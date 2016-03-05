@@ -13,7 +13,7 @@ description: ""
 {% highlight python %}
 import platform
 
-platform.system() # Windows or Linux. 
+platform.system() # 'Windows' or 'Linux' or 'Darwin'. 
 {% endhighlight %}
 
 <!--more-->
