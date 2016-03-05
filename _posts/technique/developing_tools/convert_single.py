@@ -25,15 +25,20 @@ if __name__ == "__main__":
     print(compile_cmd)
     os.system(compile_cmd)
 
-    fileNames = []
-    override_flag = "--override"    # or "--backup"
-    to_style = "--to-rouge"        # or "--to-dot"
-    walkDir(os.getcwd(), fileNames)
-    for line in fileNames:
-        if line.endswith(".md"):
-            cmd = "{exe} {override} {style} {file}".format(exe = execute_name, override = override_flag, style = to_style, file = line)
-            print(cmd)
-            os.system(cmd)
+    
+    default_override_flag = "--override"    # or "--backup"
+    default_to_style      = "--to-rouge"        # or "--to-dot"
+
+    override_flag = raw_input("input flag [%s]: " % default_override_flag)
+    override_flag = override_flag or default_override_flag
+
+    to_style = raw_input("to style [%s]:" % default_to_style)
+    to_style = to_style or default_to_style
+
+    file_name = raw_input("file name:")
+
+    cmd = "{exe} {override} {style} {file}".format(exe = execute_name, override = override_flag, style = to_style, file = file_name)
+    os.system(cmd)
 
     # remove binary tool.
     rm_cmd = "del {execute}.exe".format(execute = execute_name) if platform.system() == "Windows" else "rm {execute_name}".format(execute = execute_name)

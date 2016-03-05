@@ -104,25 +104,32 @@ Emacs诞生已经30来年了，使用Emacs的大牛很多，也有很多大牛�
 
 `C-h v user-init-file` 就会看到你使用的配置文件是啥了，你的配置文件就在那里。如果你对Emacs只进行了上面的几个配置，那么现在打开这个配置文件，内容大致是这个样子的：
 
-    (custom-set-variables
-     ;; custom-set-variables was added by Custom.
-     ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
-     '(menu-bar-mode nil)
-     '(scroll-bar-mode nil)
-     '(tool-bar-mode nil))
-    
-    (custom-set-faces
-     ;; custom-set-faces was added by Custom.
-     ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
-     '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "outline" :family "Monaco")))))
-    
+{% highlight list %}
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(menu-bar-mode nil)
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "outline" :family "Monaco")))))
+{% endhighlight %}
+
 可以看到你刚才进行的几项配置都保存在这里了(menu-bar-mode是菜单栏，scroll-bar-mode是滚动条，最下面的是字体设置），每次Emacs启动的时候会执行这个lisp脚本来加载你的定制选项。
 
 > C-h v对应的命令叫：describe variable，也可以使用：M-x describe-variable 来启动这个命令，M-x 是启动命令的万能钥匙，以C-h v类似的按键来发送命令是一种快捷方式！
+
+# 推荐的.emacs.d(不定期更新) #
+
+  * [magnars/.emacs.d](https://github.com/magnars/.emacs.d/): emacs rocks系列视频的配置，文档齐全，可以当做学习参考之用
+  * [tuhdo/emacs-c-ide-demo](https://github.com/tuhdo/emacs-c-ide-demo)：C/C++开发环境demo，可参考作者的[博客](http://tuhdo.github.io/c-ide.html#sec-2)，可以把Emacs打造成一个功能完备的C++ IDE，可以在Emacs中高效的浏览Linux Kernel源代码。
 
 ---------------------------
 
