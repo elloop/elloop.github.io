@@ -13,7 +13,7 @@ description: ""
 
 如果想直接尝试体验，可以到这里下载配置好的Emacs配置：[emacs-c-ide-demo](https://github.com/tuhdo/emacs-c-ide-demo)
 
-这个配置是从这篇文章里得到的：[C/C++ Development Environment for Emacs](C/C++ Development Environment for Emacs)，这篇文章写的特别好，也是我主要的参考对象之一。
+这个配置是从这篇文章里得到的：[C/C++ Development Environment for Emacs](http://tuhdo.github.io/c-ide.html#sec-2)，这篇文章写的特别好，也是我主要的参考对象之一。
 
 
 先列一下要安装的package：
