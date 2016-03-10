@@ -14,7 +14,7 @@ description: ""
 
 - way1 REPL模式：打开终端，敲入`python`
   
-    ```python
+{% highlight python %}
     linadeMacBook-Pro:Downloads lina$ python
     Python 2.7.6 (default, Sep  9 2014, 15:04:36) 
     [GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
@@ -23,24 +23,24 @@ description: ""
     >>> print(hi)
     hello world
     >>> 
-    ```
+{% endhighlight %}
 
 - way2 `python <python-script-name>.py`
    创建一个以py结尾的文件，输入下面的内容，保存为hello.py, 它就成为了一个python脚本 
 
-    ```python
+{% highlight python %}
     #hello.py
     hi = "hello world"
     print(hi)
-    ```
+{% endhighlight %}
 
     保存之后，在终端敲入：
 
-    ```python
+{% highlight python %}
     linadeMacBook-Pro:Downloads lina$ python hello.py 
     hello world
     linadeMacBook-Pro:Downloads lina$ 
-    ```
+{% endhighlight %}
 
     这样脚本就执行完成了
 
@@ -50,19 +50,19 @@ description: ""
 
     创建一个hello.py
             
-    ```python
+{% highlight python %}
     #!/usr/bin/env python
     hi = "hello world"
     print(hi)
-    ```
+{% endhighlight %}
 
     添加可执行权限：
 
-    ```python
+{% highlight python %}
     linadeMacBook-Pro:Downloads lina$ chmod +x hello.py
     linadeMacBook-Pro:Downloads lina$ ./hello.py 
     hello world
     linadeMacBook-Pro:Downloads lina$ 
-    ```
+{% endhighlight %}
 
     >`#!/usr/bin/env python`的意思是到环境变量中查找python解释器的路径，这种写法比`#!/usr/local/bin/python`的写法更有可移植性

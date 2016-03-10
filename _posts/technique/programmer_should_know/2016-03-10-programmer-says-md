@@ -1,0 +1,24 @@
+---
+layout: post
+title: "What Famous Programmers Have Said"
+category: programming
+tags: [programming]
+description: ""
+---
+
+
+## Bjarne Stroustrup
+
+>Quote Originally Posted by Bjarne Stroustrup (2000-10-14)
+I get maybe two dozen requests for help with some sort of programming or design problem every day. Most have more sense than to send me hundreds of lines of code. If they do, I ask them to find the smallest example that exhibits the problem and send me that. Mostly, they then find the error themselves. "Finding the smallest program that demonstrates the error" is a powerful debugging tool.
+
+<!--more-->
+
+---------------------------
+
+**作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
+
+**在这里也能看到这篇文章：[github博客](http://elloop.github.io), [CSDN博客](http://blog.csdn.net/elloop), 欢迎访问**
+
+
+

@@ -15,32 +15,34 @@ description: ""
 - 显示完整路径：
   - 开：
 
-    ```bash
+{% highlight bash %}
     defaults write com.apple.finder PathBarRootAtHome -bool TRUE;killall Finder
-    ```
+{% endhighlight %}
 
   - 关：
 
-    ```bash
+{% highlight bash %}
     defaults delete com.apple.finder PathBarRootAtHome;killall Finder
-    ```
+{% endhighlight %}
 
 - 在finder顶部显示完整路径
   - 开：
   
-    ```bash
+{% highlight bash %}
     defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE;killall Finder
-    ```
+{% endhighlight %}
 
   - 关：
 
-    ```bash
+{% highlight bash %}
     defaults delete com.apple.finder _FXShowPosixPathInTitle;killall Finder
-    ```
+{% endhighlight %}
   
   >*Tip*: 右键点击顶部路径任意位置，会弹出路径列表，可切换至任意层级的父目录
 
 - [参考文章](http://www.cnet.com/au/how-to/how-to-copy-a-file-path-in-os-x/)
+
+<!--more-->
 
 ### 常用快捷键
 
@@ -83,12 +85,6 @@ description: ""
 defaults write com.apple.screencapture disable-shadow -bool true
 {% endhighlight %}
 
-- 复默认：
-
-{% highlight bash %}
-defaults write com.apple.screencapture disable-shadow -bool false
-{% endhighlight %}
-
 - 改变文件格式：
 
 {% highlight bash %}
@@ -103,7 +99,7 @@ defaults write com.apple.screencapture location <path>
 #注意：默认的路径是桌面：~/Desktop
 {% endhighlight %}
 
-5、改变文件名方式：
+- 改变文件名方式：
 
 {% highlight bash %}
 defaults write com.apple.screencapture name <string>

@@ -22,7 +22,7 @@ description: "technique conference"
 - 网络通信
 	- 最简单的收发包方法：(参见`ShipInstructionCfg.lua`) 
 
-	```lua
+{% highlight lua %}
 	local handler = LuaPacketHandler:new_local() 	
 	handler:registerPacket(step.waitopcode) 	
 	handler:registerFunctionHandler( function(eventName) 	
@@ -31,34 +31,34 @@ description: "technique conference"
 			ShipInstructionSys.delayNextStep(step.delay) 	
 		end 	
 	end) 		
-	```	
+{% endhighlight %}
 
 	LuaPacketHandler的实现在LuaPacketHandler.cpp中，在那里可以找到常用的接口，如getRecPacketOpcode(), getRecPacketBuffer()等。它实现了收发包逻辑和界面的分离，不依赖于container。
 	
 	- 其它收发包辅助函数：
 	    - 发包: Global_OnSendPacket 
 	    
-	    ```lua
+{% highlight lua %}
         function Global_OnSendPacket(container, OPFunc, opcode, wait, FillDataFunc)
 	        local msg = OPFunc()
 	        FillDataFunc(msg)
 	        local pb_data = msg:SerializeToString()
 	        PacketManager:getInstance():sendPakcet(opcode, pb_data, #pb_data, wait)
         end
-        ```
+{% endhighlight %}
          
         示例：
 
-        ```lua
+{% highlight lua %}
         Global_OnSendPacket(nil, proto.OPSnatchBasicInfo, Op_pb.XX, true, function(msg) 
             msg.version = dataManager.version
         end)
         
-        ```
+{% endhighlight %}
         
         - 接包：Global_OnReceivePacketRet
          
-        ```lua
+{% highlight lua %}
         -- receive packet
         function Global_OnReceivePacketRet(container, OPRetFunc, ReceiveFunc)
 	        local msg = OPRetFunc()
@@ -68,28 +68,28 @@ description: "technique conference"
 	        	ReceiveFunc(container, msg)
 	        end
         end
-        ```
+{% endhighlight %}
          
         示例：
 
-        ```lua
+{% highlight lua %}
         Global_OnReceivePacketRet(container, UserRewards_pb.OPUserRewardRet, 
             function(container, msg)
                 local x = msg.x
             end
         )
-        ```
+{% endhighlight %}
         
     - 总结
         - 尽量是收发包代码与界面分开，推荐使用LuaPacketHandler的方式
         - Opcodes使用Op.proto定义的即可，不需自己单独定义。用法如下：
 
-        ```lua
+{% highlight lua %}
         local opcodes = require("OP_pb") -- 使用OP.proto
         opcodes.OPCODE_GET_USER_BASIC_INFO_C
         opcodes.OPCODE_GET_USER_BASIC_INFO_S
         -- ...
-        ```
+{% endhighlight %}
     
 - 内存优化
 	- 模块内local主动赋值nil：促使其被垃圾回收器回收。
@@ -97,7 +97,7 @@ description: "technique conference"
 ##代码风格
 - 模块内变量分块定义：比如所有local统一放在文件开头
 
-    ```lua
+{% highlight lua %}
     -- 坏的风格
     local proto = require("NewSnatchWar_pb")
     local data               = {
@@ -130,11 +130,11 @@ description: "technique conference"
     for index=1, #... do
         -- ...
     end
-    ```
+{% endhighlight %}
 
 - 属于一个table的变量，以花括号的形式，统一包裹在{}之间。
 
-    ```lua
+{% highlight lua %}
     -- 坏的风格
     local data               = {
         basicInfo            = {}, -- proto.OPSnatchBasicInfoRet()
@@ -158,12 +158,12 @@ description: "technique conference"
         maxPage              = 0,-- 有几个岛(页)
         
     }
-    ```
+{% endhighlight %}
     
 - 使用空行分割逻辑功能代码
 - 使用table代替过多的函数参数
 
-    ```lua
+{% highlight lua %}
     -- 坏的风格
     function ShowSnatchWarBuyPage(hasBuyCount, leftBuyTime, maxNum, leftFightCount, title, notice, callback, minNum, step)
         -- ...
@@ -175,7 +175,7 @@ description: "technique conference"
         -- buyInfo.maxNum ...
         
     end
-    ```
+{% endhighlight %}
     
 - 参考一些成熟、出名项目的代码风格，如protobuf.lua, Cocos2d-lua等等。
 ##代码重用

@@ -7,6 +7,7 @@ description: "windows programming summary"
 ---
 
 # Unicode in windows
+
 ## _T and __T
 
 {% highlight c++ %}
@@ -22,9 +23,11 @@ description: "windows programming summary"
 ## how to define UNICODE in VS.
 In Project setting -> common -> character set : Unicdoe or Mutibytes.
 
+<!--more-->
+
 ## an example of command line args parsing, with Unicode support.
 
- ```c++
+{% highlight c++ %}
  auto args = elloop_test::StringUtil::split(cmd_line, ' ');
     //auto args = GameMaths::tokenize(cmd_line, _T" ");
     auto iter = args.begin();
@@ -78,7 +81,7 @@ In Project setting -> common -> character set : Unicdoe or Mutibytes.
             ++iter;
         }
     }
- ```
+{% endhighlight %}
 
 ## 获得当前可执行文件路径
 
@@ -124,3 +127,4 @@ static void _checkPath()
     }
 }
 {% endhighlight %}
+

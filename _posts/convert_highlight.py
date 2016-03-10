@@ -21,7 +21,7 @@ def walkDir(currentDir, coll):
 if __name__ == "__main__":
     # compile binary tool from convert_code_highlight.cpp.
     execute_name = os.path.join(os.getcwd(), "convert_highlight_style")
-    compile_cmd = "g++ -std=c++11 convert_code_highlight.cpp -o {out}".format(out = execute_name)
+    compile_cmd = "c++ -std=c++11 convert_code_highlight.cpp -o {out}".format(out = execute_name)
     print(compile_cmd)
     os.system(compile_cmd)
 
@@ -36,7 +36,7 @@ if __name__ == "__main__":
             os.system(cmd)
 
     # remove binary tool.
-    rm_cmd = "del {execute}.exe".format(execute = execute_name) if platform.system() == "Windows" else "rm {execute_name}".format(execute = execute_name)
+    rm_cmd = "del {execute}.exe".format(execute = execute_name) if platform.system() == "Windows" else "rm {execute}".format(execute = execute_name)
     os.system(rm_cmd)
     print("OK, done")
     raw_input("press RET to quit.")

@@ -38,9 +38,9 @@ size_t convert_highlight(vector<string>& content, char* cmd)
     if (string(cmd) == "--to-dot")
     {
         // match {% highlight <lan> %} and {% endhighlight %}, then replace with ```<lan> and ```.
-        pattern_begin = "\\{[\\s\\t]*%[\\s\\t]*\\bhighlight[\\s\\t]*(\\S+)[\\s\\t]*%[\\s\\t]*\\}[\\s\\t]*";
+        pattern_begin = "[\\s\\t]*\\{[\\s\\t]*%[\\s\\t]*\\bhighlight[\\s\\t]*(\\S+)[\\s\\t]*%[\\s\\t]*\\}[\\s\\t]*";
         regex_begin = pattern_begin;
-        pattern_end = "\\{[\\s\\t]*%[\\s\\t]*endhighlight[\\s\\t]*%[\\s\\t]*\\}";
+        pattern_end = "[\\s\\t]*\\{[\\s\\t]*%[\\s\\t]*endhighlight[\\s\\t]*%[\\s\\t]*\\}";
         regex_end = pattern_end;
         replace_begin = "```$1";
         replace_end = "```";
@@ -48,9 +48,9 @@ size_t convert_highlight(vector<string>& content, char* cmd)
     else
     {
         // match ```<lan> and ```, then replace with {% highlight <lan> %} and {% endhighlight %}.
-        pattern_begin = "```(\\S+)[\\s\\t]*";
+        pattern_begin = "[\\s\\t]*```(\\S+)[\\s\\t]*";
         regex_begin = pattern_begin;
-        pattern_end = "```[\\s\\t]*";
+        pattern_end = "[\\s\\t]*```[\\s\\t]*";
         regex_end = pattern_end;
         replace_begin = "{% highlight $1 %}";
         replace_end = "{% endhighlight %}";

@@ -39,17 +39,17 @@ published: true
 
 - s1. 复制mobdebug.lua到lua代码目录(在zb/lualibs/mobdebug/下面能找到它)，在lua程序启动的地方加入下面这句代码：
 
-    ```lua
+{% highlight lua %}
     require("mobdebug").start()
-    ```
+{% endhighlight %}
 
 - s2. 把luasocket和lua51.dll的路径分别添加在lua的[package.path](http://www.lua.org/manual/5.1/manual.html#pdf-package.path)和[package.cpath](http://www.lua.org/manual/5.1/manual.html#pdf-package.cpath)的搜索范围内。(这是因为zb调试用到了luasocket，进入mobdebug.lua里面就会看到，里面会require("socket"), 而luasocket用到了lua51.dll。), 以我的路径为例，我的zb解压在了 D:\zb\, 我在项目里的main.lua里面(在调用require("mobdebug")之前), 加入了如下的代码来设置lua和dll的搜索路径：
 
-    ```lua
+{% highlight lua %}
     local zb = "D:\\zb\\"
     package.path = package.path .. ";" .. zb .. "lualibs\\?\\?.lua;" .. zb .. "lualibs\\?.lua;"
     package.cpath = package.cpath .. ";" .. zb .. "bin\\?.dll;" .. zb .. "bin\\clibs\\?.dll;"
-    ```
+{% endhighlight %}
 
 - s3. 启动zb，把项目中的lua源代码加入到zb，在Project菜单，勾选 "Start Debug Server"以启动调试器。找个地方设置个断点。
 
@@ -58,9 +58,9 @@ published: true
 ###可能会遇到的问题
 - require("socket") 处报错：no module "socket.core", 这是因为lua51.dll有问题。先来分析一下到报错之前的执行流程: 
 
-    ```lua
+{% highlight lua %}
     require("mobdebug").start() -----> require("socket") ------> require("socket.core")
-    ```
+{% endhighlight %}
 
     涉及到的文件从mobdebug.lua到socket.lua, require("socket.core")这句是在socket.lua里面调用的，这说明lua解释器已经找到了mobdebug.lua并且执行到了require("socket")那一句代码(package.path的设置生效了)。为什么找不到socket.core ? 在zb\lualibs\socket\下面并没有找到core.lua, 也就是说不是package.path里, 那么到cpath里找找。在zb\bin\clibs\socket\下发现了core.dll, 看来就是加载这个dll失败了。我在cmd里面以交互的方式启动lua，并且重复了上面的操作：1 设置path和cpath；2 require("socket"), 看到了如下的报错信息，意思是我的lua没有开启加载动态链接库的功能。因此解决方案就是重编一个带加载动态库功能的lua就可以了。如果还不行，就像我一样，到LuaBinary网站下载一个编译好的lua包，解压拿来用。
 
