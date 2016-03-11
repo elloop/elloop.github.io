@@ -10,9 +10,11 @@ description: ""
 ## Finder
 
 ### Show Paths in Finder
+
 - Finder菜单栏 ：显示 ：显示／隐藏路径栏
 
 - 显示完整路径：
+
   - 开：
 
 {% highlight bash %}
@@ -26,6 +28,7 @@ description: ""
 {% endhighlight %}
 
 - 在finder顶部显示完整路径
+
   - 开：
   
 {% highlight bash %}
@@ -104,4 +107,20 @@ defaults write com.apple.screencapture location <path>
 {% highlight bash %}
 defaults write com.apple.screencapture name <string>
 {% endhighlight %}
+
+
+## Terminal
+
+为什么执行了`chsh -s $(which zsh)`之后，SHELL也已经变成/bin/zsh了，但是打开的Terminal窗口还是默认的bash？答案在这里，请看下图：
+
+![why_zsh_not_show.png](http://7xi3zl.com1.z0.glb.clouddn.com/why_zsh_not_show.png)
+
+即：需要到终端的偏好设置中改变shell的打开方式, 让它作为登录shell来打开即可。
+
+ps: zsh的安装很简单，参考官方github或者池建强的博客:[终极shell](http://macshuo.com/?p=676)
+
+
+## Launchpad
+
+- 有些app已经删掉了还出现在Launchpad中，怎么办？去~/Applications下面找找吧，看没用的都干掉
 
