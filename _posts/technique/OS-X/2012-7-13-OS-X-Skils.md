@@ -117,9 +117,21 @@ defaults write com.apple.screencapture name <string>
 
 >zsh很强大，安装很简单，参考官方github或者池建强的博客:[终极shell](http://macshuo.com/?p=676)
 
-### 如何在vim中执行zsh的别名命令，比如我要在当前目录新建一个文件夹: `:!mkdir temp`，使用zsh的alias可以简写为`md temp`，如何在vim中直接使用zsh的简写命令呢，即做到`:!md temp`
+### 如何在vim中执行zsh的别名命令，比如我要在当前目录新建一个文件夹: `:!mkdir temp`，使用zsh的alias可以简写为`md temp`，如何在vim中直接使用zsh的简写命令呢，即做到`:!md temp` ?
 
-### 如何把当前路径重定向到剪切板，比如`pwd > clipboard`，是否有clipboard这个变量，这样就方便在Terminal中复制当前路径了.
+### 如何把当前路径重定向到剪切板，比如`pwd > clipboard`，是否有clipboard这个变量，这样就方便在Terminal中复制当前路径了？
+
+的确有在命令行操作剪切板的命令：
+
+在OS X上：
+
+- [pbcopy](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html): 在命令行下，拷贝内容到剪切板.
+
+- [pbpaste](https://developer.apple.com/library/prerelease/mac/documentation/Darwin/Reference/ManPages/man1/pbpaste.1.html): 输出剪切板内容到命令长标准输出
+
+解决上面题目里的问题，复制当前路径到剪切板：`pwd | pbcopy`这样就行了，使用command + v就可以粘贴到别的地方了。
+
+在X window系统有`xclip`.
 
 ## Launchpad
 
