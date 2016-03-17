@@ -117,6 +117,9 @@ defaults write com.apple.screencapture name <string>
 
 >zsh很强大，安装很简单，参考官方github或者池建强的博客:[终极shell](http://macshuo.com/?p=676)
 
+### 如何在vim中执行zsh的别名命令，比如我要在当前目录新建一个文件夹: `:!mkdir temp`，使用zsh的alias可以简写为`md temp`，如何在vim中直接使用zsh的简写命令呢，即做到`:!md temp`
+
+### 如何把当前路径重定向到剪切板，比如`pwd > clipboard`，是否有clipboard这个变量，这样就方便在Terminal中复制当前路径了.
 
 ## Launchpad
 

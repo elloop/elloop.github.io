@@ -3,11 +3,9 @@ layout: post
 title: "常用Shell命令总结"
 highlighter_style: monokai
 category: linux
-tags: [shell]
+tags: [linux, shell]
 description: ""
 ---
-
-*本文总结的命令均以zsh为操作环境*
 
 # 终极解决方案 man <command>
 
