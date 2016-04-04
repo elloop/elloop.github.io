@@ -343,3 +343,44 @@ and in particular, installs libclang.so as
 
 3. libclang can not find the builtin includes. This will cause slow code completion. Please report the problem.
 
+## Skills
+
+- 查看vim是64位还是32位？
+
+{% highlight bash %}
+file "path/to/your/macvim/content/Mavim"
+{% endhighlight %}
+
+- Vundle安装ctrlp失败，是怎么回事？
+
+**原始代码：**
+
+{% highlight bash %}
+Plugin 'ctrlpvim/ctrlp'
+{% endhighlight %}
+
+**修改后：**
+
+{% highlight bash %}
+Plugin 'ctrlpvim/ctrlp.vim'
+{% endhighlight %}
+
+注意：加上.vim.
+规律：配置在Vundle里的，来自github的Plugin，写法就是去掉github.com开头，去掉结尾的.git
+
+- brew 安装macvim
+
+{% highlight bash %}
+brew install macvim
+
+brew linkapps # create shortcut in /Applications.
+{% endhighlight %}
+
+- 查看c++编译器使用的系统文件包含路径
+
+{% highlight bash %}
+echo | clang -v -E -x c++ -
+{% endhighlight %}
+
+
+
