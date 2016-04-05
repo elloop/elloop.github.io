@@ -383,4 +383,8 @@ echo | clang -v -E -x c++ -
 {% endhighlight %}
 
 
+- YCM 不能不全STL，怎么办？
+
+>
+
 
