@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "掌握CMake"
+title: "【使用CMake组织C++工程】0：CMake学习资源"
 highlighter_style: monokai
 category: tools
 tags: [cmake]
@@ -9,7 +9,7 @@ description: ""
 
 # 前言
 
-本文总结了CMake的用法。
+CMake学习路线摸索。
 
 <!--more-->
 

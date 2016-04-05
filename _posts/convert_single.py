@@ -38,10 +38,11 @@ if __name__ == "__main__":
     file_name = raw_input("file name:")
 
     cmd = "{exe} {override} {style} {file}".format(exe = execute_name, override = override_flag, style = to_style, file = file_name)
+    print(cmd)
     os.system(cmd)
 
     # remove binary tool.
-    rm_cmd = "del {execute}.exe".format(execute = execute_name) if platform.system() == "Windows" else "rm {execute_name}".format(execute = execute_name)
+    rm_cmd = "del {execute}.exe".format(execute = execute_name) if platform.system() == "Windows" else "rm {execute}".format(execute = execute_name)
     os.system(rm_cmd)
     print("OK, done")
     raw_input("press RET to quit.")
