@@ -57,7 +57,62 @@ arg = abc
 
 个人感觉, 对于CMake里的函数和宏的使用原则可以以C语言里函数和宏的使用原则来作为参考。下面就着重说一下我在组织工程的时候对于function的常见用法。
 
-# 参数类型是列表类型的function
+# function 的使用技巧
+
+## 如何按引用来传递参数？(在function中修改外部作用域的值)
+
+**答：通过名字来传递变量**
+
+例如：有一个var变量，在函数外部定义，要通过调用一个函数f1, 来修改var的值
+
+```c++
+set(var "abc")                      # 定义一个变量var，初值为abc
+
+function(f1 arg)
+    set(${arg} "ABC" PARENT_SCOPE)  # ${arg} == var, 于是相当于set(var "ABC" PARENT_SCOPE)
+endfunction()
+
+message("before calling f1, var = ${var}")
+f1(var)                                     # 如果写成了 f1(${var}), 那么先计算表达式${var}, 即相当于调用f1(abc), 调用结果是在函数的父作用域定义了一个abc变量.
+message("after calling f1, var = ${var}")
+```
+
+结果：
+
+```c++
+➜  /Users/sunyongjian1/codes/local_codes/cmake_test/build cmake ..
+before calling f1, var = abc
+after calling f1, var = ABC
+```
+
+需要注意的两点：
+
+- 函数调用处用变量的名字var，而不是它的值${var}
+ 
+- 在函数内部，set的时候，要加上作用域PARENT_SCOPE.
+
+试试写成`f1(${var})`
+
+```c++
+message("before calling f1, abc = ${abc}")
+f1(${var})                                     
+message("after calling f1, abc = ${abc}")
+```
+
+输出是：
+
+```c++
+➜  /Users/sunyongjian1/codes/local_codes/cmake_test/build cmake ..
+before calling f1, abc = 
+after calling f1, abc = ABC
+```
+
+其实在了解了参数展开之后，这个问题很显而易见，本质上就是调用了一个`set(<var-name> <var-value> <var-scope>)`, 只不过如果需要通过函数来包装他的话就要注意传参传过来的东西是个变量名还是变量的值。
+
+
+## 如何传递列表类型的参数？
+
+
 
 
 
