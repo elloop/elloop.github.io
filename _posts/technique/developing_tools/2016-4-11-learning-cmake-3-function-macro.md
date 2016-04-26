@@ -4,7 +4,7 @@ title: "【使用CMake组织C++工程】3：CMake 函数和宏"
 category: tools
 tags: [cmake]
 description: ""
-published: false
+published: true
 ---
 
 # 前言
