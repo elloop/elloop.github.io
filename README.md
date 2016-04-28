@@ -31,5 +31,5 @@ Remind Myself
 - [x] integrate with disqus.
 - [x] pictures storage in QiNiu.
 
-
+check in in 七台河 20160428
 
