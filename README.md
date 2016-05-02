@@ -27,13 +27,7 @@ Remind Myself
 - [ ] Time consume log.
 - [ ] LaTex support.
 - [ ] table format.
-- [ ] click to comment.
+- [x] click to comment. remove disqus comment plugin, use duoshuo instead.
 - [x] integrate with disqus.
 - [x] pictures storage in QiNiu.
-
-check in in 七台河 20160428
-check in in 七台河 20160429
-check in in 七台河 20160430
-back to beijing 20160501
-
 
