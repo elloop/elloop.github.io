@@ -33,3 +33,4 @@ Remind Myself
 
 last day in c4l.
 animal 
+last night beijing JINGSHI HOTEL
