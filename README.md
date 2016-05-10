@@ -31,7 +31,3 @@ Remind Myself
 - [x] integrate with disqus.
 - [x] pictures storage in QiNiu.
 
-last day in c4l.
-animal 
-last night beijing JINGSHI HOTEL
-last day in beijing in May 2016
