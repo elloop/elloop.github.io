@@ -9,12 +9,16 @@ description: "Learn Vimscript the hard way"
 
 # Learning VimScript
 ---
+
 *following codes will ignore the `:` precede every command*.
+
 ## 1. Prerequisites
+
 0. :help *command*
 1. echo / echom (leave in :messages, useful for debuging.)
 
 ## 2 ~ 3. Echoing Messages & Setting Options
+
 1. boolean options: :set *name* / :set no*name* / set *name*!
 2. query: :set *command*? (e.g. :set numberwidth? can check the width of line number.)
 3. multiple options - :set number numberwidth=6
@@ -22,46 +26,54 @@ description: "Learn Vimscript the hard way"
 <!--more-->
 
 ## 4. Basic Mapping
+
 1. map - x / map - dd     = basic
 2. map \<space\> viw        = use name to call speical key
 3. map \<c-d\> dd           = modifier keys {ctrl          = c, alt = m}
 4. map - ddp / map - ddkP = move line down/up
 
 ## 5. Modal Mapping
+
 1. nmap / vmap / imap     = modal mapping.
 2. vmap \ U               = upper selected text in visual mode.
 3. imap \<c-u\> \<esc\>viwUae = upper word under the cursor in insert mode and back in insert mode
 
 ## 6. Strict Mapping
+
 1. donwside of common mapping = nmap - dd then nmap \ -, will make \ =  = dd
 2. nunmap - / nunmap \        = remove mapping.
 3. recursive mapping = try this nmap dd O\<esc\>jddk.
 4. nonrecursive mapping
 
-*recursive version*|*nonrecursive version*
----------------------|-----------------------
- map    |   noremap    
- nmap   |   nnoremap   
- imap   |   inoremap   
- vmap   |   vnoremap   
+ | *recursive version*   | *nonrecursive version*  |
+ | --------------------- | ----------------------- |
+ | map                   | noremap                 |
+ | nmap                  | nnoremap                |
+ | imap                  | inoremap                |
+ | vmap                  | vnoremap                |
  
 *Remember*: always use nonrecursive version. Save yourself the trouble when you install a plugin or add a new custom mapping.
 
 ## 5. Leaders
+
 1. `mapleader`                = use in .vimrc, e.g. nnoremap \<leader\>- dd
 2. `maplocalleader`           = can be same with `mapleader`, better not same, use in local .vim file in case to conflict with global `mapleader`
 3. an example of leader value = let `mapleader` = "," / let `maplocalleader` = "\\"
 
 ## 6. More Mapping
+
 1. `< / `> = go to last selected content's first char or last char
 2. '< / '> = go to last selected content's first line or last line
+
 ---
 
 ## 7. Training your fingers
+
 to force you use shortcut, map occord keys to <nop>
 1. noremap <esc> <nop>
 
 ## 8. Buffer-Local Options and Mapping
+
 1. nnoremap  <leader>d dd
    nnoremap <buffer> <leader>x dd
    <leader>x mapping will only take effect in current buffer.
@@ -108,6 +120,7 @@ when you type Q, first Q will take effect, because <buffer> is more specific tha
    <nowait> will make \a work immediately ignore longer mapping \abc
 
 ## 9. Autocommands.
+
 1. :autocmd BufNewFile *.txt :write
 2. :autocmd BufWritePre, BufRead *.html :normal gg=G
 3. :autocmd BufNewFile, BufRead *.html setlocal nowrap
@@ -115,6 +128,7 @@ when you type Q, first Q will take effect, because <buffer> is more specific tha
 more events: help autocmd-events.
 
 ## 10. Autocommand Groups
+
 1. in order to avoid duplicate cmds, define autocmd using Autocommand Groups, like this:
 
 {% highlight Vim %}
@@ -135,6 +149,7 @@ another example:
 {% endhighlight %}
 
 ## 11. Operator-Pending Mappings
+
 1. :onoremap p i( = cp will be same with ci(, that is cp will change content in parentheses and dp will be same with di(......
 2. :onoremap <buffer> b /return<cr> = notice <buffer> used like inoremap, nnoremap and vnoremap.
 
@@ -158,6 +173,7 @@ or
 see :help omap-info
 
 ## 12. Abbreviations
+
 vim will substitute `non-keyword` characters. (see :set iskeyword?)
 1. :iabbrev adn and, :iabbrev taht that, :iabbrev @@ jacysun@gmail.com
 2. why not use `map` ? 
@@ -168,6 +184,7 @@ vim will substitute `non-keyword` characters. (see :set iskeyword?)
    :autocmd FileType javascript :iabbrev <buffer> iff if()<left> = remember to use augroup
 
 ## 13. More Operator-Pending Mappings
+
 1. :onoremap ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
 type `cih`, vim will change title of markdown file.
 `execute`: execute the string as a vim command script.
@@ -175,6 +192,7 @@ type `cih`, vim will change title of markdown file.
 type `cih`, vim will change title of markdown both =========== or ----------- are supported.
 
 ## 14. Variables.
+
 1. :let x = 10 | :echo x = define a variable name x. :unlet x to delete a variable.
 2. :let &wrap = 1 == Option `wrap` as a variable. Notice `wrap` is a boolean, 0 menas false, otherwise means true.
 3. :let &l:number=0 == Local Option as a variable.
@@ -187,18 +205,22 @@ type `cih`, vim will change title of markdown both =========== or ----------- ar
 5. you should never use `let` in your .vimrc when `set` is suffice, because `let` is harder to read.
 
 ## 15. Scope.
+
 1. variable with a b:, l: ... specifies it's scope.
 see :help internal-variables to learn more.
 
 ## 16. Conditional.
+
 1. "hello10" + 10 = 10, "10hello" + 10 = 20 (string begins with number will convert to that number in an arithmetic expression.); if "astring" == if 0 ("string" as a boolean equals to false.)
 
 ## 17. Comparisons.
+
 1. numbers comparison use >, <, == is ok, or better ==#(==?)
 2.> string comparison don't use == , use ==#, ==?, because == is depends on user's settings. ==# is case-sensitive, ==? is case-insensitive, both of them will ignore the setting of comparison operator like (&ignorecase)
 see :help ignorecase and noignorecase, :help expr4
 
 ## 18. Function.
+
 1. define a function.
 > :function Fun()
   : echo "fun"
@@ -216,6 +238,7 @@ define a function,
 then :echo Funr() will show func, it's a explicit return value.
 
 ## 19. Function Arguments.
+
 1. fixed count arguments, visit by a:
 > :function FixedCount(name)
   :   echo a:name
@@ -253,12 +276,14 @@ then :echo Funr() will show func, it's a explicit return value.
 5. more to see :help function-argument. && help local-variables. 
 
 ## 20. Number & String.
+
 1. 0xff, 017, 1.24e4, 1.24e+4, 1.24e-4, 100.11, 
 2. + is only for number, operators will be cor
 3. :help floating-point-precision.
 
 
 ## Useful Command
+
 1. echo $MYVIMRC
 
 
@@ -274,8 +299,11 @@ then :echo Funr() will show func, it's a explicit return value.
 
 
 # Plugins
+
 ---
+
 ## vim with python support.
+
 在leopard snow下面编译不同版本的vim。
 
 以下通过3种不同的方法安装vim。
@@ -313,8 +341,11 @@ ln -s /System/Library/Frameworks/Python.framework/Versions/2.5 /System/Library/F
 下一步可以为vim 安装omnicomplete。然后就可以在vim 通过
 
 ctrl+x ctrl+o 进行自动完成了。
+
 ## clang_complete
+
 ### Install Problems:
+
 1. two ways to use clang_complete:
 clang_complete can be configured to use the clang executable or the clang library
 
@@ -387,4 +418,15 @@ echo | clang -v -E -x c++ -
 
 >
 
+
+- UTF-8 bomb
+
+set nobomb
+
+set bomb
+
+
+- vimgrep recursively search ?
+
+vimgrep "something" **
 
