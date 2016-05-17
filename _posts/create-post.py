@@ -107,5 +107,6 @@ def createPost():
     os.system("pause")
 
 
-createPost()
+if "__main__" == __name:
+        createPost()
 
