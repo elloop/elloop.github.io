@@ -40,6 +40,8 @@ drwxr-xr-x@ 58 lina  staff   1.9K  5 18 23:10 src
 drwxr-xr-x@ 22 lina  staff   748B  8 12  2005 test
 {% endhighlight %}
 
+<!--more-->
+
 要编译安装lua，其实按照INSTALL操作就行了。
 
 如果不需要安装lua到系统，仅仅是搞个lua可执行程序出来用，那仅需如下两步：
