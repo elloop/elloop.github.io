@@ -1,7 +1,7 @@
 ---
 layout: post
-titile: "【离开有爱】"
-tag:life
+title: "【离开有爱】"
+tag: life
 category: life
 ---
 
@@ -10,3 +10,4 @@ category: life
 com4loves 有爱有梦的地方，感谢这里的伙伴们。
 
 <!--more-->
+
