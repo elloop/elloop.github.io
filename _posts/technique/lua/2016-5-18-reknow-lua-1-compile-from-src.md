@@ -7,7 +7,7 @@ description: ""
 published: true
 ---
 
-<font color="red">自从13年开始做手游接触lua，始终是边写边学，缺乏对lua更加全面系统的学习，这几篇文章开始“重识lua”, 把欠下的帐还回来。</font>
+<font color="red">自从13年开始做手游接触lua，始终是边写边学，缺乏对lua更加全面系统的学习，这几篇文章开始“重识lua”, 把欠下的帐还回来。这个系列侧重于总结lua作为扩展程序的用法，不会着重介绍lua的语法。</font>
 
 # 前言
 

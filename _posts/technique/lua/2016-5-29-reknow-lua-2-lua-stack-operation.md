@@ -7,7 +7,7 @@ description: ""
 published: true
 ---
 
-<font color="red">自从13年开始做手游接触lua，始终是边写边学，缺乏对lua更加全面系统的学习，这几篇文章开始“重识lua”, 把欠下的帐还回来。</font>
+<font color="red">自从13年开始做手游接触lua，始终是边写边学，缺乏对lua更加全面系统的学习，这几篇文章开始“重识lua”, 把欠下的帐还回来。这个系列侧重于总结lua作为扩展程序的用法，不会着重介绍lua的语法。</font>
 
 # 前言
 
@@ -21,8 +21,8 @@ published: true
 
 {% highlight c++ %}
 extern "C" {
-   #include "lua_src/lua.h"                            // C API函数声明所在的文件
-   #include "lua_src/lauxlib.h"                        // luaL_ 开头的函数所在的头文件, 比如luaL_newstate
+   #include "lua_51/lua.h"                            // C API函数声明所在的文件
+   #include "lua_51/lauxlib.h"                        // luaL_ 开头的函数所在的头文件, 比如luaL_newstate
 }
 
 #include <iostream>
@@ -45,14 +45,16 @@ int main()
 
 这个例子中演示了一个很简单的操作lua虚拟栈的方法，`lua_pushstring`是向栈中压入一个字符串，`lua_tostring`是从lua栈中读取一个字符串。
 
-几乎所有的C API都需要一个`lua_State*`类型的参数，这个结构体用来保存lua的状态。`luaL_newstate`用来创建一个新的状态，这个函数被定义在lua辅助函数文件laxulib.h中。
+几乎所有的C API都需要一个`lua_State*`类型的参数，这个结构体用来保存lua的状态。`luaL_newstate`用来创建一个新的状态，这个函数被定义在lua辅助函数文件lauxlib.h中。
 
-开头的两个头文件包含使用 extern "C"来包裹是因为我是是在C++里写代码的, 也可以使用Lua 5.1中带的lua.hpp来代替。lua.hpp 这个文件在Lua 5.1解压后的根目录/etc/目录下面。
+开头的两个头文件包含使用 extern "C"来包裹是因为我要使用C++编译器来构建工程, 也可以使用Lua 5.1中带的lua.hpp来代替。lua.hpp 这个文件在Lua 5.1解压后的根目录/etc/目录下面。
 
 要想上面的例子编译通过，可以按如下方式来组织代码：
 
 --src/
+
 ----lua_src/ -- 这个目录存放lua 5.1的源代码, 要想使用lua.hpp, 把Lua 5.1解压目录下的etc/lua.hpp也放在这里面
+
 ----main.cpp -- 这就是上面的示例代码所在文件
 
 在编译的时候，把src/目录放进包含目录。建议使用cmake来组织工程，会节省你很多精力。这里是我建立的一个[工程示例:`lua_in_cpp`](https://github.com/elloop/lua_in_cpp)，使用cmake组织好的，可供参考。
@@ -125,7 +127,7 @@ void testPrintStackFunction() {
 
     printLuaStack(lua);         // 打印栈
 
-    assert(stackSize == 5);
+    assert( (stackSize == 5) && (stackSize == lua_gettop(lua)) );
 
     lua_close(lua);
 }
@@ -156,13 +158,13 @@ void printLuaStack(lua_State* lua) {
 
     pln("========= content of stack from top to bottom: ===========");
 
-    int stackSize = lua_gettop(lua);
+    int stackSize = lua_gettop(lua);                    // 获得栈中元素个数
     for (int i=stackSize; i>0; --i) {
         pv("%d [%d]\t", i, -1 - (stackSize - i));
-        int t = lua_type(lua, i);
+        int t = lua_type(lua, i);                       // 判断当前元素类型
         switch (t) {
             case LUA_TNUMBER:
-                pv("%s: \t%.2f\n", lua_typename(lua, t), lua_tonumber(lua, i));
+                pv("%s: \t%.2f\n", lua_typename(lua, t), lua_tonumber(lua, i));     // 打印类型名称和值
                 break;
             case LUA_TBOOLEAN:
                 pv("%s: \t%d\n", lua_typename(lua, t), lua_toboolean(lua, i));
@@ -177,7 +179,7 @@ void printLuaStack(lua_State* lua) {
                 // LUA_TLIGHTUSERDATA
                 // LUA_TUSERDATA
                 // LUA_TNIL
-                pv("%s\n", lua_typename(lua, t));
+                pv("%s\n", lua_typename(lua, t));                                   // 不好打印的类型，暂时仅打印类型名称
                 break;
         }
     }
