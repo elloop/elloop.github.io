@@ -31,3 +31,4 @@ Remind Myself
 - [x] integrate with disqus.
 - [x] pictures storage in QiNiu.
 
+check in 618
