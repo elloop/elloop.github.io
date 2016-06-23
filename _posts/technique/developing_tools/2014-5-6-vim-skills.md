@@ -430,3 +430,34 @@ set bomb
 
 vimgrep "something" **
 
+
+
+## ctrlp cast summary
+
+- shortcuts of c-p
+
+- use c-f to switch between path/file/mru...
+
+- use c-y to create path/file which is not exist before in c-p.
+
+- use c-z to mark multiple file to open, then c-o to open them.
+
+- ctrlp looks for .git .svn etc as project root dir.
+
+- c-p : 3 to goto line 3 after opening the file.
+
+- c-p:/some to goto first occurrence of "some" after opening the file.
+
+-------
+
+- 一旦CtrlP被打开了，就可以使用以下的命令
+- 
+- <F5> 清除当前目录下的缓存，获取新的结构
+- <c-f>和<c-b> 在各个模式下转换
+- <c-d> 使用文件名搜索代替全路径搜索
+- <c-r> 使用正则模式
+- <c-j>和<c-k> 上下选择文件
+- <c-t> <c-v>和<c-x> 在新的tab或者新的分割窗口打开选择的文件
+- <c-n>和<c-p> 找到之前或者之后查找的字符串
+- <c-y> 创建一个新的文件
+- <c-z> 标记或者取消标记多个文件然后使用<c-o>打开它们
