@@ -36,7 +36,7 @@ make install
 # 卸载的话 make uninstall 
 {% endhighlight %}
 
-<!-- more -->
+<!--more-->
 
 ## 第一步，下载vim源代码
 
