@@ -61,6 +61,11 @@ defaults delete com.apple.finder _FXShowPosixPathInTitle;killall Finder
 
 - Shift + Command + U：定位到实用工具(Utilities)
 
+- Command + up ：返回到上一层目录
+
+- Command + down ：打开文件(夹)
+
+
 ## 截屏
 
 |**快捷键**|**说明**|
@@ -136,6 +141,22 @@ defaults write com.apple.screencapture name <string>
 ## Launchpad
 
 - 有些app已经删掉了还出现在Launchpad中，怎么办？去~/Applications下面找找吧，看看删不掉的图标是不是在这里。
+
+## FAQ
+
+- 如何修改某种类型文件的默认打开方式
+
+右键菜单 - > 简介里可以看到
+
+- 查看多个文件占用的容量 ctrl + command + i
+
+- 快速关机 正常左上角苹果 option键，(按住option键菜单项一般都会有些变化，记住这个规律)
+
+- 调整声音的时候，系统会发出“嘟嘟”的声音，按住shift键就没了
+
+- 同时按shift+option， 可以4分1格调节（这个同样适用键盘背光和屏幕亮度）
+
+- 把多个文件归类到一个文件夹中：选中你想要的文件 按control＋command＋n
 
 ---------------------------
 
