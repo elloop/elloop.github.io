@@ -14,7 +14,9 @@ description: ""
 
 - go2shell
 
+自定义Go2Shell:
 
+open -a Go2Shell --args config
 
 
 ---------------------------

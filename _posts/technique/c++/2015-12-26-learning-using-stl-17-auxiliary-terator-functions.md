@@ -211,7 +211,7 @@ printContainer(a, "a: ");               // 2 1 3
 // 使用不同容器的迭代器
 
 list<int> l = { 10, 11, 12};
-printContainer(l, "l: ");
+printContainer(l, "l: ");               // l: 10 11 12
 
 iter_swap(a.begin(), l.begin());
 printContainer(a, "after swap, a: ");   // 10 1 3
@@ -222,7 +222,7 @@ END_TEST;
 
 # 源码和参考链接
 
-- [`auxiliary_iterator_func_test.cpp`](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/iterator/auxiliary/auxiliary_iterator_func_test.cpp)
+- [`auxiliary_iterator_func_test.cpp`](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/src/iterator/auxiliary_functions/auxiliary_iterator_func_test.cpp)
 
 - [`advance`](http://www.cplusplus.com/reference/iterator/advance/?kw=advance)
 
