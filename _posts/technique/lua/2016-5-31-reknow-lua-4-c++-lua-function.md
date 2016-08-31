@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【重识Lua】4：用lua扩展C++——C++调用lua函数"
+title: "【Programming In Lua (2E) 笔记】4：用lua扩展C++——C++调用lua函数"
 category: lua
 tags: [lua]
 description: ""

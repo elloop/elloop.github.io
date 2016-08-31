@@ -1,15 +1,15 @@
 ---
 layout: post
-title: "常用Shell命令总结"
+title: "我所使用的Shell命令"
 highlighter_style: monokai
 category: linux
 tags: [linux, shell]
 description: ""
 ---
 
-# 终极解决方案 man <command>
+# 前言
 
-# 文件目录操作类
+本文罗列总结了学习和工作使用过的一些shell命令，记在这里方便复习和随时查阅。
 
 ## 查看大小
 
