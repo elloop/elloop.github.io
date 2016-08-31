@@ -665,6 +665,8 @@ endif(APPLE)
 
 - [OS X ABI Dynamic Loader Reference-macOS ABI动态库加载参考](https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/MachOReference/index.html#//apple_ref/doc/uid/TP40001398)
 
+- [最简单的demo地址](https://github.com/elloop/lua_in_cpp/tree/master/src/test_so)
+
 - [作者的`lua_in_cpp`项目的CMakeLists脚本](https://github.com/elloop/lua_in_cpp/blob/master/CMakeLists.txt)
 
 
