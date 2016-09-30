@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】7: 如何使用std::forward_list 单链表 (since C++11)"
+title: "【C++ STL应用与实现】7: 如何使用std::forward_list 单链表 (since C++11)"
 category: c++
 tags: [stl]
 description: ""

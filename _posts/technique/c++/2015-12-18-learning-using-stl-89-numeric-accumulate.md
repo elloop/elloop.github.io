@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】86: 如何使用std::accumulate"
+title: "【C++ STL应用与实现】86: 如何使用std::accumulate"
 category: c++
 tags: [stl]
 description: ""

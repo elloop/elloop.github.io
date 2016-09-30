@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】19: 迭代器特性-iterator traits"
+title: "【C++ STL应用与实现】19: 迭代器特性-iterator traits"
 category: c++
 tags: [stl]
 description: ""
@@ -242,7 +242,7 @@ printContainer(uset, "uset: ");
 END_TEST;
 {% endhighlight %}
 
-这里的用法示例与其他的迭代器适配器的用法类似，请参考[【C++ STL学习与应用总结】18: 如何使用迭代器适配器](http://elloop.github.io/c++/2015-12-28/learning-using-stl-18-iterator-adapter/).
+这里的用法示例与其他的迭代器适配器的用法类似，请参考[【C++ STL应用与实现】18: 如何使用迭代器适配器](http://elloop.github.io/c++/2015-12-28/learning-using-stl-18-iterator-adapter/).
 
 
 # 源码及参考链接

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】64: 如何使用shuffle和random_shuffle : 洗牌 (since C++11)"
+title: "【C++ STL应用与实现】64: 如何使用shuffle和random_shuffle : 洗牌 (since C++11)"
 category: c++
 tags: [stl]
 description: ""

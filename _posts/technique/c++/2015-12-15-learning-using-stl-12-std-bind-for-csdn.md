@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】22: 函数组合之1：如何使用std::bind (since C++11)"
+title: "【C++ STL应用与实现】22: 函数组合之1：如何使用std::bind (since C++11)"
 category: c++
 tags: [stl]
 description: ""

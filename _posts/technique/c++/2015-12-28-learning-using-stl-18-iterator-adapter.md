@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】18: 如何使用迭代器适配器"
+title: "【C++ STL应用与实现】18: 如何使用迭代器适配器"
 category: c++
 tags: [stl]
 description: ""

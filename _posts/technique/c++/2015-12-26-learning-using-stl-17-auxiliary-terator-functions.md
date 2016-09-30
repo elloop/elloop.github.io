@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】17: 如何使用迭代器辅助函数"
+title: "【C++ STL应用与实现】17: 如何使用迭代器辅助函数"
 category: c++
 tags: [stl]
 description: ""

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】23: 如何使用std::mem_fn (since C++11)"
+title: "【C++ STL应用与实现】23: 如何使用std::mem_fn (since C++11)"
 category: c++
 tags: [stl]
 description: ""

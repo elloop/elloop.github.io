@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】5: 如何使用std::array (since C++11)"
+title: "【C++ STL应用与实现】5: 如何使用std::array (since C++11)"
 category: c++
 tags: [stl]
 description: ""
@@ -97,7 +97,7 @@ array<int, 3> c;                // c[0] ~ c[2] 未初始化，是垃圾值.
 - at(index)
 
 - front()
--
+
 - back();
 
 ## tuple接口
@@ -214,9 +214,85 @@ array<int, 3> a;            // no.
 array<int, 3> a = {};       // good.
 {% endhighlight %}
 
+# 二维和多维array
+
+```c++
+//----------------------- multiple div array example ----------------------
+RUN_GTEST(ArrayTest, MatrixOrMultipleDiv, @);
+
+// like plain 2D array
+array<array<int, 5>, 5> mat1 = {
+    1,2,3,4,5,
+    1,2,3,4,5,
+    1,2,3,4,5,
+    1,2,3,4,5,
+    1,2,3,4,5,
+};
+
+// construct with 1D arys.
+array<int, 5> ary = {1};
+array<array<int, 5>, 5> mat2 = { ary, ary, ary, ary, ary};
+
+// just like plain 2D array, but can ommit some value some each div.
+array<array<int, 5>, 5> mat3 = {
+    array<int, 5>{ 1, 2, 3, 4, 5},
+    array<int, 5>{ 1, 2, 3, 4},
+    array<int, 5>{ 1, 2, 3},
+    array<int, 5>{ 1, 2,},
+    array<int, 5>{ 1, }
+};
+
+// util function to print matrix.
+auto printMatrix = [] (const array<array<int, 5>, 5>& mat) {
+    for (const auto& ary : mat) {
+        for (const auto& item : ary) {
+            cout << item << " ";
+        }
+        cout << endl;
+    }
+};
+
+pcln("ma1");
+printMatrix(mat1);
+
+pcln("mat2");
+printMatrix(mat2);
+
+pcln("mat3");
+printMatrix(mat3);
+
+END_TEST;
+
+```
+
+
+output:
+
+```c++
+
+************************ma1*********************
+1 2 3 4 5
+1 2 3 4 5
+1 2 3 4 5
+1 2 3 4 5
+1 2 3 4 5
+************************mat2*********************
+1 0 0 0 0
+1 0 0 0 0
+1 0 0 0 0
+1 0 0 0 0
+1 0 0 0 0
+************************mat3*********************
+1 2 3 4 5
+1 2 3 4 0
+1 2 3 0 0
+1 2 0 0 0
+1 0 0 0 0
+```
+
 # 源码
 
-- [array_test.cpp](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/container/sequence/array_test.cpp)
+- [array_test.cpp](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/src/container/sequence/array_test.cpp)
 
 - [std::array](http://www.cplusplus.com/reference/array/array/?kw=array)
 

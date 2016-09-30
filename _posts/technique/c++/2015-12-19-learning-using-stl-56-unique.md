@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】56: 使用std::unique删除重复元素"
+title: "【C++ STL应用与实现】56: 使用std::unique删除重复元素"
 category: c++
 tags: [stl]
 description: ""

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】26: 如何使用std::for_each以及基于范围的for循环 (since C++11)"
+title: "【C++ STL应用与实现】26: 如何使用std::for_each以及基于范围的for循环 (since C++11)"
 category: c++
 tags: [stl]
 description: ""
