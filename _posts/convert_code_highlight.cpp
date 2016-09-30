@@ -5,114 +5,96 @@
 #include <fstream>
 using namespace std;
 
-void read_from_file(const string& file_name, vector<string>& output)
-{
-    if (file_name.empty()) 
-    {
+void readFromFile(const string& fileName, vector<string>& output) {
+    if (fileName.empty()) {
         cout << "bad input file name!" << endl;
         return;
     }
 
-    ifstream in_stream(file_name.c_str(), ifstream::in);
-    if (in_stream.is_open()) 
-    {
+    ifstream inStream(fileName.c_str(), ifstream::in);
+    if (inStream.is_open()) {
         output.clear();
         string line;
-        while (getline(in_stream, line)) 
-        {
+        while (getline(inStream, line)) {
             output.push_back(line);
         }
-        in_stream.close();
+        inStream.close();
     }
 }
 
-size_t convert_highlight(vector<string>& content, char* cmd)
-{
-    string pattern_begin;
-    string pattern_end;
-    regex regex_begin;
-    regex regex_end;
-    string replace_begin;
-    string replace_end;
+size_t convertHighlight(vector<string>& content, char* cmd) {
+    string patternBegin;
+    string patternEnd;
+    regex regexBegin;
+    regex regexEnd;
+    string replaceBegin;
+    string replaceEnd;
 
-    if (string(cmd) == "--to-dot")
-    {
+    if (string(cmd) == "--to-dot") {
         // match {% highlight <lan> %} and {% endhighlight %}, then replace with ```<lan> and ```.
-        pattern_begin = "[\\s\\t]*\\{[\\s\\t]*%[\\s\\t]*\\bhighlight[\\s\\t]*(\\S+)[\\s\\t]*%[\\s\\t]*\\}[\\s\\t]*";
-        regex_begin = pattern_begin;
-        pattern_end = "[\\s\\t]*\\{[\\s\\t]*%[\\s\\t]*endhighlight[\\s\\t]*%[\\s\\t]*\\}";
-        regex_end = pattern_end;
-        replace_begin = "```$1";
-        replace_end = "```";
+        patternBegin = "[\\s\\t]*\\{[\\s\\t]*%[\\s\\t]*\\bhighlight[\\s\\t]*(\\S+)[\\s\\t]*%[\\s\\t]*\\}[\\s\\t]*";
+        regexBegin = patternBegin;
+        patternEnd = "[\\s\\t]*\\{[\\s\\t]*%[\\s\\t]*endhighlight[\\s\\t]*%[\\s\\t]*\\}";
+        regexEnd = patternEnd;
+        replaceBegin = "```$1";
+        replaceEnd = "```";
     }
-    else
-    {
+    else {
         // match ```<lan> and ```, then replace with {% highlight <lan> %} and {% endhighlight %}.
-        pattern_begin = "[\\s\\t]*```(\\S+)[\\s\\t]*";
-        regex_begin = pattern_begin;
-        pattern_end = "[\\s\\t]*```[\\s\\t]*";
-        regex_end = pattern_end;
-        replace_begin = "{% highlight $1 %}";
-        replace_end = "{% endhighlight %}";
+        patternBegin = "[\\s\\t]*```(\\S+)[\\s\\t]*";
+        regexBegin = patternBegin;
+        patternEnd = "[\\s\\t]*```[\\s\\t]*";
+        regexEnd = patternEnd;
+        replaceBegin = "{% highlight $1 %}";
+        replaceEnd = "{% endhighlight %}";
     }
 
     // check every line, try to match begin and end.
     vector<string> backup;
     backup.swap(content);
 
-    size_t match_count(0);
-    for (auto & line : backup)
-    {
+    size_t matchCount(0);
+    for (auto & line : backup) {
         smatch sm;
         // try to match begin.
-        regex_match(line, sm, regex_begin);
-        if (sm.size() == 2)
-        {
+        regex_match(line, sm, regexBegin);
+        if (sm.size() == 2) {
             cout << "replace: " << line << endl;
-            line = regex_replace(line, regex_begin, replace_begin);
-            ++match_count;
+            line = regex_replace(line, regexBegin, replaceBegin);
+            ++matchCount;
             continue;
         }
 
-        regex_match(line, sm, regex_end);
-        if (sm.size() == 1)
-        {
+        regex_match(line, sm, regexEnd);
+        if (sm.size() == 1) {
             cout << "replace: " << line << endl;
-            line = regex_replace(line, regex_end, replace_end);
-            ++match_count;
+            line = regex_replace(line, regexEnd, replaceEnd);
+            ++matchCount;
         }
     }
 
-    cout << "total replace: " << match_count << endl;
-    if (match_count > 0) 
-    {
+    cout << "================ total replace: " << matchCount << "================ " << endl;
+    if (matchCount > 0) {
         // write back to contents.
         content.swap(backup);
     }
 
-    return match_count;
+    return matchCount;
 }
 
-void write_to_file(const string& file_name, const vector<string>& content)
-{
-    if (file_name.empty())
-    {
-        return;
-    }
+void writeToFile(const string& fileName, const vector<string>& content) {
+    if (fileName.empty()) { return; }
 
-    ofstream out(file_name.c_str(), fstream::out);
-    if (out.is_open())
-    {
-        for (const auto& line : content)
-        {
+    ofstream out(fileName.c_str(), fstream::out);
+    if (out.is_open()) {
+        for (const auto& line : content) {
             out << line << endl;
         }
         out.close();
     }
 }
 
-void printUsage()
-{
+void printUsage() {
     string help =
         "usage:                           \n"
         "                                 \n"
@@ -127,50 +109,44 @@ void printUsage()
         " --override : override original file\n"
         " --backup   : save as a new file\n"
         " \n"
-        " Example: convert_highlight --override --to-rouge hello.md\n"
-        " or     : convert_highlight --backup   --to-rouge hello.md\n";
+        " Example: convertHighlight --override --to-rouge hello.md\n"
+        " or     : convertHighlight --backup   --to-rouge hello.md\n";
     cout << help;
 }
 
-int main(int argc, char** argv) 
-{
-    if (argc != 4)
-    {
+int main(int argc, char** argv) {
+    if (argc != 4) {
         printUsage();
         return 1;
     }
 
-    string srcfile_name(argv[3]);
-    string dstfile_name;
+    string srcFileName(argv[3]);
+    string dstFileName;
 
     string strategy(argv[1]);
-    if ("--override" == strategy)
-    {
-        dstfile_name = srcfile_name;
+    if ("--override" == strategy) {
+        dstFileName = srcFileName;
     }
-    else
-    {
-        dstfile_name = srcfile_name.substr(0, srcfile_name.rfind('.')) + "-for-csdn.md";
+    else {
+        dstFileName = srcFileName.substr(0, srcFileName.rfind('.')) + "-for-csdn.md";
     }
 
-    cout << "src: " << srcfile_name << endl;
-    cout << "dst: " << dstfile_name << endl;
+    cout << "src: " << srcFileName << endl;
+    cout << "dst: " << dstFileName << endl;
 
     vector<string> content;
-    size_t replaced_count(0);
+    size_t replaceCount(0);
 
-    read_from_file(srcfile_name, content);
+    readFromFile(srcFileName, content);
 
-    replaced_count = convert_highlight(content, argv[2]);
+    replaceCount = convertHighlight(content, argv[2]);
 
-    if (replaced_count > 0)
-    {
-        write_to_file(dstfile_name, content);
-        cout << "writting to file" << dstfile_name << endl;
+    if (replaceCount > 0) {
+        writeToFile(dstFileName, content);
+        cout << "writting to file" << dstFileName << endl;
     }
-    else 
-    {
-        cout << "SKIP writting to file: " << dstfile_name << endl;
+    else {
+        cout << "SKIP writting to file: " << dstFileName << endl;
     }
 
     return 0;
