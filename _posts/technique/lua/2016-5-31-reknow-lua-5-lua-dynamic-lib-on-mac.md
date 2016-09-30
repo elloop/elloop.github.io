@@ -98,7 +98,7 @@ print(test.add(2))     -- 以1为参数调用add, 将返回（10+2）即：12
 
 为了编译动态库的操作方便，添加了一个Makefile:
 
-{% highlight bash %}
+{% highlight c++ %}
 CXX       = clang++     # macOS上xcode工具链里的默认c++编译器
 INCLUDE   = -I../       # 上一层目录就是lua_51所在目录，对应test.cpp中的#include。
 
@@ -544,7 +544,7 @@ static void *ll_load (lua_State *L, const char *path) {
 于是，再次修改Makefile, 把LIBOPTS从`-shared`改为`-bundle`, 最终的Makefile:
 
 
-{% highlight bash %}
+{% highlight c++ %}
 CXX       = clang++     # macOS上xcode工具链里的默认c++编译器
 INCLUDE   = -I../       # 上一层目录就是lua_51所在目录，对应test.cpp中的#include。
 
