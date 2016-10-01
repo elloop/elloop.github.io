@@ -216,7 +216,7 @@ array<int, 3> a = {};       // good.
 
 # 二维和多维array
 
-```c++
+{% highlight c++ %}
 //----------------------- multiple div array example ----------------------
 RUN_GTEST(ArrayTest, MatrixOrMultipleDiv, @);
 
@@ -263,12 +263,12 @@ printMatrix(mat3);
 
 END_TEST;
 
-```
+{% endhighlight %}
 
 
 output:
 
-```c++
+{% highlight c++ %}
 
 ************************ma1*********************
 1 2 3 4 5
@@ -288,7 +288,7 @@ output:
 1 2 3 0 0
 1 2 0 0 0
 1 0 0 0 0
-```
+{% endhighlight %}
 
 # 源码
 

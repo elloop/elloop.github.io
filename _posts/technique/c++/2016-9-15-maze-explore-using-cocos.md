@@ -36,7 +36,7 @@ description: ""
 
 **1. 算法基类：MazeStrategy.h**
 
-```c++
+{% highlight c++ %}
 #pragma once
 
 #include "cocos2d.h"
@@ -121,11 +121,11 @@ public:
     }
     
 };
-```
+{% endhighlight %}
 
 **2. 基于栈的解法：StackMazeStrategy.h**
 
-```c++
+{% highlight c++ %}
 #pragma once
 
 #include "MazeStrategy.h"
@@ -234,11 +234,11 @@ public:
         return {_maze[_currentPos._row][_currentPos._col].pos, result};
     }
 };
-```
+{% endhighlight %}
 
 ## 界面展示部分： MatrixExplore.h
 
-```c++
+{% highlight c++ %}
 #pragma once
 
 #include "cocos2d.h"
@@ -281,11 +281,11 @@ private:
     cocos2d::Sprite*    _robot;
     cocos2d::Sprite*    _door;
 };
-```
+{% endhighlight %}
 
 **MatrixExplore.cpp**
 
-```c++
+{% highlight c++ %}
 #include "MatrixExplore.h"
 #include "StackMazeStrategy.h"
 USING_NS_CC;
@@ -476,7 +476,7 @@ void MatrixExplore::onMazeClicked(Ref* target) {
     menuItemImage->setScaleX(_mazeStrategy->_cellWidth / cts.width);
     menuItemImage->setScaleY(_mazeStrategy->_cellWidth / cts.height);
 }
-```
+{% endhighlight %}
 
 
 

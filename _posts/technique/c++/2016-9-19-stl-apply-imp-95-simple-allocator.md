@@ -8,7 +8,7 @@ description: ""
 
 **本系列文章的目录在这里：[目录](http://blog.csdn.net/elloop/article/details/50357205). 通过目录里可以对STL总体有个大概了解**
 
-#前言
+# 前言
 
 本文展示了如何使用Allocator，例子取自《STL源码剖析》里实现的一个简单的Allocator，从中可以看到Allocator最基本的用法。
 

@@ -55,6 +55,13 @@ macOS上的IDE我用过Xcode，CLion，CodeBlock，能用，但是作为一个�
 
 我自己对这套开发工具的使用是感觉对我的帮助很大的，因此在这里分享给朋友们。不多说了，看下使用这套工具来开发的效果图吧：
 
+- include 头文件补全
+
+![ycm-header.gif](http://7xi3zl.com1.z0.glb.clouddn.com/ycm-header.gif)
+
+- api 补全
+
+![ycm-api.gif](http://7xi3zl.com1.z0.glb.clouddn.com/ycm-api.gif)
 
 # 编译构建，使用CMake
 
@@ -78,7 +85,7 @@ GDB里面有个python你知道吗？ 调试也是可编程的了，这下你高�
 
 GDB可以让程序倒着运行你知道吗？ 黑科技你要不试一试?
 
-如果你不知道上面说的这些，那建议你看下相关视频，比如这个：[]().
+如果你不知道上面说的这些，那建议你看下相关视频，比如这个：['Become a GDB Power User' - Greg Law [ACCU 2016]](https://www.youtube.com/watch?v=713ay4bZUrw).
 
 其实，学习使用GDB和学习使用vim，emacs等等工具是一个道理，开始的不习惯和坚持会换来以后效率上和解决问题能力上质的飞跃。
 

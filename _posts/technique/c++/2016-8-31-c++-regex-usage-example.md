@@ -28,7 +28,7 @@ description: ""
 
 # 代码实现
 
-```c++
+{% highlight c++ %}
 size_t convertHighlight(vector<string>& content, char* cmd) {
     string patternBegin;
     string patternEnd;
@@ -88,7 +88,7 @@ size_t convertHighlight(vector<string>& content, char* cmd) {
 
     return matchCount;
 }
-```
+{% endhighlight %}
 
 # 参考链接
 
