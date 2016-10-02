@@ -13,7 +13,7 @@ description: ""
 
 - 操作系统: macOS 10.11.5
 
-- 开发工具：Vim 7.4(patches: 1-1952) + YCM + Clang++
+- 开发工具：Vim 7.4(patches: 1-1952) + YCM( YouCompleteMe ) + Clang++
 
 - 编译构建：CMake 3.0+
 
@@ -29,7 +29,7 @@ macOS已被验证为是Unix，所以在此系统做Unix开发是可行且适合�
 
 若是在Windows平台做C++开发那恐怕没有哪个工具的开发效率能比得上vs + va （+ vim插件）。 最近传说vs可以支持远程调试linux下的代码，笔者没有做尝试，虽然跟vs有比较深厚的感情，但是, 你懂的，本来使用unix对程序员来说就更有一种“仪式感”。更何况这是要开发unix程序。
 
-macOS上的IDE我用过Xcode，CLion，CodeBlock，能用，但是作为一个追求效率和“逼格”的程序员，做到自己定制的工具才是最舒服的。尤其是习惯了vim或者emacs编辑效率的人，恨不得一切都用他们习惯的编辑器来搞定, 对于这种人来说，如果要他们在写代码过程中经常去时不时地拿鼠标点点，我相信他们一定会非常地不爽。
+macOS上的IDE我用过Xcode，QtCreator, CLion，CodeBlock，能用，但是作为一个追求效率和“逼格”的程序员，做到自己定制的工具才是最舒服的。尤其是习惯了vim或者emacs编辑效率的人，恨不得一切都用他们习惯的编辑器来搞定, 对于这种人来说，如果要他们在写代码过程中时不时地拿鼠标点点，我相信他们一定会非常地不爽。
 
 就拿Xcode来说，写代码过程中最常见的行为，至少有下面这几项是必须要用鼠标或者需要手离开主键盘区的（需要按上下左右箭头键的时候）
 
@@ -89,7 +89,47 @@ GDB可以让程序倒着运行你知道吗？ 黑科技你要不试一试?
 
 其实，学习使用GDB和学习使用vim，emacs等等工具是一个道理，开始的不习惯和坚持会换来以后效率上和解决问题能力上质的飞跃。
 
-# 参考链接
+
+# 工具的安装和配置
+
+## CMake 
+
+使用Homebrew来安装即可：`brew install cmake`
+
+如需安装Homebrew看下面的参考链接：
+
+参考链接：
+
+- [Homebrew - The missing package manager for macOS](http://brew.sh/)
+
+## vim
+
+参考：
+
+- [安装MacVim](http://blog.csdn.net/elloop/article/details/51760992)
+
+- [升级mac内置的vim](http://blog.csdn.net/elloop/article/details/51762303)
+
+## YCM
+
+YCM的安装算是整个环境搭建过程中最繁琐的一个步骤，但是不难，按照官方指南来就可以。
+
+参考: [mac上安装YCM](https://github.com/Valloric/YouCompleteMe#mac-os-x)
+
+## vim的其它插件
+
+如今的vim插件安装和管理都变得很简单了，仅需一份好用的.vimrc就可以搞定大部分插件的安装。对于c++的开发我常用到的插件包括：YCM， Ultisnips， CtrlP等，出了YCM，其他的插件安装十分简单，仅需要github上搜索这些插件关键字，它们觉得部分都支持Vundle或者Pathogen安装方式，在README里已经写得很清楚了。
+
+
+## Clang++ 和 LLDB
+
+如果你已经安装了Xcode，那么编译器和调试器应该是已经可用了，如果命令行里输入这两个命令没有反应的话，那么再安Xcode command line tools就好了:
+
+`xcode-select --install`
+
+Xcode工具链里带的c++编译器和调试器都是LLVM系的，如果想用GNU GCC系列，那么可以通过Homebrew来安装，然后配置下env。
+
+关于开发环境的安装配置本文说的并不是很详细，重点是说明这种工具链的可行性，之后抽空把我的环境配置整理测试一下，再分享出来。
 
 ---------------------------
 

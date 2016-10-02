@@ -4,11 +4,12 @@
 import os
 
 def jekyllBuild():
-    cmd = "jekyll build"
+    #  cmd = "jekyll build"
+    cmd = "bundle exec jekyll build"
     os.system(cmd)
 
 def jekyllStart():
-    cmd = "jekyll serve --watch"
+    cmd = "bundle exec jekyll serve --watch"
     os.system(cmd)
 
 def restartJekyll():

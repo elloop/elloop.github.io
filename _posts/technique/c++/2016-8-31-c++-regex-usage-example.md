@@ -29,6 +29,7 @@ description: ""
 # 代码实现
 
 {% highlight c++ %}
+{% raw %}
 size_t convertHighlight(vector<string>& content, char* cmd) {
     string patternBegin;
     string patternEnd;
@@ -88,6 +89,7 @@ size_t convertHighlight(vector<string>& content, char* cmd) {
 
     return matchCount;
 }
+{% endraw %}
 {% endhighlight %}
 
 # 参考链接
