@@ -1,15 +1,15 @@
 ---
 layout: post
-title: "OS-X 使用经验总结"
+title: "macOS 使用经验总结"
 highlighter_style: monokai
 category: programming
-tags: [OS-X]
+tags: [macOS]
 description: ""
 ---
 
 # 前言
 
-本文持续更新总结OS X系统的一些操作技巧。
+本文持续更新总结macOS系统的一些操作技巧。
 
 ## Finder
 
@@ -128,7 +128,7 @@ defaults write com.apple.screencapture name <string>
 
 的确有在命令行操作剪切板的命令：
 
-在OS X上：
+在macOS上：
 
 - [pbcopy](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html): 在命令行下，拷贝内容到剪切板.
 

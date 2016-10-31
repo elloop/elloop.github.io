@@ -475,3 +475,18 @@ vimgrep "something" **
 
 - <c-z> 标记或者取消标记多个文件然后使用<c-o>打开它们
 
+## key mapping
+
+>When executing the key sequences in a key map, if Vim encounters an error, then the map will be aborted and the remaining key sequences will not be executed
+
+- help keycodes to see key name
+
+- help vim-script... to learn vimscript grammar. usr_41.txt.
+
+- help functions: learn about build-in functions in vim.
+    
+    or, to access a (more useful) categorized listing:
+
+    :help function-list
+
+
