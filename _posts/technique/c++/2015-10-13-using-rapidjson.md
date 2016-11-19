@@ -43,7 +43,17 @@ rapidjson的另一个特点是对json的标准符合程度是100%的(在开启�
 
 {% highlight c++ %}
 // test.cpp
+#include "rapid_json_test.h"
 #include "rapidjson/document.h"
+#include "rapidjson/reader.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/writer.h"
+#include "util/FileReader.h"
+#include <string>
+#include <fstream>
+#include <iostream>
+
+
 #include <fstream>
 #include <string>
 #include <cassert>
@@ -96,9 +106,28 @@ void testSimpleDoc() {
             }
         }
     }
+
+    pcln("add a value into array");
+
+    Value item(Type::kObjectType);
+    item.AddMember("key", "word5", doc.GetAllocator());
+    item.AddMember("value", "单词5", doc.GetAllocator());
+    contents.PushBack(item, doc.GetAllocator());
+
+    // convert dom to string.
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    doc.Accept(writer);
+
+    psln(buffer.GetString());
 }
 {% endhighlight %}
 
+---------------------------
+
+**作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
+
+**在这里也能看到这篇文章：[github博客](http://elloop.github.io), [CSDN博客](http://blog.csdn.net/elloop), 欢迎访问**
 
 
 
