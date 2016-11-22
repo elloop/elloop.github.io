@@ -19,7 +19,6 @@ description: ""
 
 - 体素模型编辑器：[MagicaVoxel 0.98 ](https://ephtracy.github.io/)
 
-<!--more-->
 
 # 1. 新建cocos工程
 
@@ -48,6 +47,8 @@ MagicaVoxel比较容易上手，
 - B     方块
 
 画刷操作类型有四种：
+
+<!--more-->
 
 - Attach   附加
 

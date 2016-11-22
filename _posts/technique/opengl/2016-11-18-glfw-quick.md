@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "【OpenGL Programming On macOS using glfw 】0: Build a Simple OpenGL Program"
-category: OpenGL
+category: [OpenGL]
 tags: [opengl]
 description: ""
 ---
@@ -36,7 +36,6 @@ OpenGL红宝书第九版已经开始使用[glfw](http://www.glfw.org/)作为窗�
 
 - build guide: [build guide](http://www.glfw.org/docs/latest/build_guide.html)
 
-<!-- more -->
 
 # build glfw
 
@@ -44,7 +43,7 @@ OpenGL红宝书第九版已经开始使用[glfw](http://www.glfw.org/)作为窗�
 
 假设你已经熟悉CMake，这里我使用`out-of-tree`的构建方式，打开terminal，切换到glfw根目录，比如： `~/codes/glfw/`
 
-{% highlight bash %}
+{% highlight c++ %}
 cd ~/codes/glfw
 mkdir build && cd build            
 cmake ..     # macOS上glfw的依赖项目除了完整的Xcode工具链就只需要一个CMake就ok了，所以这一步正常应该不会出问题的。
@@ -55,7 +54,7 @@ make         # 开始编译, 如果要安装到系统，执行make install， �
 
 make成功后，在build目录下输入命令（或者在finder中直接打开build/examples/simple.app)
 
-{% highlight bash %}
+{% highlight c++ %}
 open ./examples/simple.app
 {% endhighlight %}
 
@@ -68,6 +67,8 @@ open ./examples/simple.app
 # 开始写自己的OpenGL项目
 
 正如构建其它的c++程序一样，构建自己的基于glfw的OpenGL项目，无非就两步：第一，包含正确的头文件；第二，链接正确的库文件。
+
+<!--more-->
 
 ## 1. 包含正确的头文件
 
@@ -127,7 +128,7 @@ Xcode的方式请参考这两篇文章，还算比较新，
 
 创建好的目录如下所示：
 
-{% highlight bash %}
+{% highlight c++ %}
 drwxr-xr-x  10 elloop  staff   340B Nov 19 00:10 .
 drwxr-xr-x  29 elloop  staff   986B Nov 19 00:10 ..
 -rw-r--r--   1 elloop  staff   2.7K Nov 19 00:10 CMakeLists.txt
@@ -358,7 +359,7 @@ int main() {
 
 编写完毕，回到RedBook根目录，开始编译构建，执行：
 
-{% highlight bash %}
+{% highlight c++ %}
 mkdir build && cd build     # 创建构建目录
 cmake ..                    # cmake
 make                        # 开始构建
