@@ -189,10 +189,10 @@ description: ""
 |`nth_element`|[【C++ STL应用与实现】71: 如何使用std::nth_element]()|
 |`partition`|[【C++ STL应用与实现】65: 如何使用std::partition]()|
 |`stable_partition`|[【C++ STL应用与实现】66: 如何使用std::stable_partition]()|
-|`make_heap`|[【C++ STL应用与实现】72: 如何使用std::make_heap]()|
-|`push_heap`|[【C++ STL应用与实现】73: 如何使用std::push_heap]()|
-|`pop_heap`|[【C++ STL应用与实现】74: 如何使用std::pop_heap]()|
-|`sort_heap`|[【C++ STL应用与实现】75: 如何使用std::sort_heap]()|
+|`make_heap`|[【C++ STL应用与实现】72: 如何使用std::make_heap](http://blog.csdn.net/elloop/article/details/53402209)<font color="green">【完成】</font>|
+|`push_heap`|[【C++ STL应用与实现】73: 如何使用std::push_heap](http://blog.csdn.net/elloop/article/details/53402209)<font color="green">【完成】</font>|
+|`pop_heap`|[【C++ STL应用与实现】74: 如何使用std::pop_heap](http://blog.csdn.net/elloop/article/details/53402209)<font color="green">【完成】</font>|
+|`sort_heap`|[【C++ STL应用与实现】75: 如何使用std::sort_heap](http://blog.csdn.net/elloop/article/details/53402209)<font color="green">【完成】</font>|
 
 
 **6. 已序区间类算法(sorted range algorithms)**
