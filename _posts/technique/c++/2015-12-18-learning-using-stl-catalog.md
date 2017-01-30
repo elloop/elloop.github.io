@@ -20,10 +20,10 @@ description: ""
 
 # 缘起、概览
 
-|**类型**|**文章链接**|
-|--------|------------|
-|`beginning`|[【C++ STL应用与实现】0: 感恩STL——STL, ACM和年轻的我们](http://blog.csdn.net/elloop/article/details/50340623)<font color="green">【完成】</font>|
-|`概览`|[【C++ STL应用与实现】1: STL概览和分类](http://blog.csdn.net/elloop/article/details/50321635)<font color="green">【完成】</font>|
+| **类型**    | **文章链接**                                                                                                                                     |
+| --------    | ------------                                                                                                                                     |
+| `beginning` | [【C++ STL应用与实现】0: 感恩STL——STL, ACM和年轻的我们](http://blog.csdn.net/elloop/article/details/50340623)<font color="green">【完成】</font> |
+| `概览`      | [【C++ STL应用与实现】1: STL概览和分类](http://blog.csdn.net/elloop/article/details/50321635)<font color="green">【完成】</font>                 |
 
 
 <!--more-->
@@ -32,14 +32,14 @@ description: ""
 
 **1. 序列式容器**
 
-|**类型**|**文章链接**|
-|--------|------------|
-|`vector`|[【C++ STL应用与实现】2: 如何使用std::vector]()|
-|`vector<bool>`|[【C++ STL应用与实现】3: 如何使用`std::vector<bool>`]()|
-|`deque`|[【C++ STL应用与实现】4: 如何使用std::deque]()|
-|`array`|[【C++ STL应用与实现】5: 如何使用std::array (since c++11)](http://blog.csdn.net/elloop/article/details/50390870)<font color="green">【完成】</font>|
-|`list`|[【C++ STL应用与实现】6: 如何使用std::list]()|
-|`forward_list`|[【C++ STL应用与实现】7: 如何使用std::forward_list (since c++11)](http://blog.csdn.net/elloop/article/details/50405783)<font color="green">【完成】</font>|
+| **类型**       | **文章链接**                                                                                                                                               |
+| --------       | ------------                                                                                                                                               |
+| `vector`       | [【C++ STL应用与实现】2: 如何使用std::vector](http://blog.csdn.net/elloop/article/details/54780873)<font color="green">【完成】</font>                     |
+| `vector<bool>` | [【C++ STL应用与实现】3: 如何使用`std::vector<bool>`]()                                                                                                    |
+| `deque`        | [【C++ STL应用与实现】4: 如何使用std::deque]()                                                                                                             |
+| `array`        | [【C++ STL应用与实现】5: 如何使用std::array (since c++11)](http://blog.csdn.net/elloop/article/details/50390870)<font color="green">【完成】</font>        |
+| `list`         | [【C++ STL应用与实现】6: 如何使用std::list]()                                                                                                              |
+| `forward_list` | [【C++ STL应用与实现】7: 如何使用std::forward_list (since c++11)](http://blog.csdn.net/elloop/article/details/50405783)<font color="green">【完成】</font> |
 
 
 <!--more-->
@@ -47,10 +47,10 @@ description: ""
 **2. 关联式容器(associative containers)**
 
 
-|**类型**|**文章链接**|
-|--------|------------|
-|`set(multiset)`|[【C++ STL应用与实现】8: 如何使用std::set和std::multiset]()|
-|`map(multimap)`|[【C++ STL应用与实现】9: 如何使用std::map和std::multimap]()|
+| **类型**        | **文章链接**                                                |
+| --------        | ------------                                                |
+| `set(multiset)` | [【C++ STL应用与实现】8: 如何使用std::set和std::multiset]() |
+| `map(multimap)` | [【C++ STL应用与实现】9: 如何使用std::map和std::multimap]() |
 
 
 **3. 哈希表(hash table)** (since c++11)
@@ -170,8 +170,8 @@ description: ""
 |`reverse_copy`|[【C++ STL应用与实现】59: 如何使用std::reverse_copy]()|
 |`rotate`|[【C++ STL应用与实现】60: 如何使用std::rotate]()|
 |`rotate_copy`|[【C++ STL应用与实现】61: 如何使用std::rotate_copy]()|
-|`next_permutation`|[【C++ STL应用与实现】62: 如何使用std::next_permutation]()|
-|`prev_permutation`|[【C++ STL应用与实现】63: 如何使用std::prev_permutation]()|
+|`next_permutation`|[【C++ STL应用与实现】62: 如何使用std::next_permutation](http://blog.csdn.net/elloop/article/details/53958797)<font color="green">【完成】</font>|
+|`prev_permutation`|[【C++ STL应用与实现】63: 如何使用std::prev_permutation](http://blog.csdn.net/elloop/article/details/53958797)<font color="green">【完成】</font>|
 |`random_shuffle`|[【C++ STL应用与实现】64: 如何使用std::random_shuffle和shuffle (since C++11)](http://blog.csdn.net/elloop/article/details/50397618)<font color="green">【完成】</font>|
 |`partition`|[【C++ STL应用与实现】65: 如何使用std::partition]()|
 |`stable_partition`|[【C++ STL应用与实现】66: 如何使用std::stable_partition]()|

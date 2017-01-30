@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【C++ STL学习与应用总结】2: 如何使用std::vector"
+title: " 【C++ STL应用与实现】2: 如何使用std::vector"
 category: c++
 tags: [stl]
 description: ""
@@ -10,45 +10,82 @@ description: ""
 
 #前言
 
-本文介绍了std::vector容器。vector是STL容器中最为常用的一个，它是序列式容器的代表，是对动态数组的抽象封装。
+本文介绍vector容器。vector是STL容器中最为常用的一个，它是序列式容器的代表，是对动态数组的抽象封装。
 
 
-<!--more-->
 
 # 基本用法及常识
 
+### 创建 & 增删改查
+
 {% highlight cpp %}
+
 // 使用初始化列表(initializer list) since C++11
+// 更多创建方式见参考链接
 vector<int> vi {1, 2, 3};
 
-// add elems
-for (int i=4; i<10; ++i) 
-{
+// 增
+for (int i=4; i<10; ++i) {
     vi.push_back(i);
 }
 
-// random access and modify
+// 打印内容
+printContainer(vi, "init, vi: ");
+
+// 查 & 改, random access and modify
 vi[0] = 10;
 
-// print elems
-for (int elem : vi)
-{
-    pln(elem);
+// 删
+// 删第一个元素
+auto iter = vi.begin();
+vi.erase(iter);
+printContainer(vi, "erase begin, vi: ");
+
+// use <algorithm> std::find to locate pos of 5 in vi.
+// 删值为5的元素
+iter = find(vi.begin(), vi.end(), 5);
+if (iter != vi.end()) {
+    pln("erase 5");
+    vi.erase(iter);
 }
+printContainer(vi, "erase 5, vi: ");
+
 {% endhighlight %}
+
+<!--more-->
 
 输出：
 
 {% highlight cpp %}
-10
-2
-3
-4
-5
-6
-7
-8
-9
+init vi: 10 2 3 4 5 6 7 8 9
+erase begin, vi: 2 3 4 5 6 7 8 9
+erase 5
+erase 5, vi: 2 3 4 6 7 8 9
+{% endhighlight %}
+
+以下是辅助函数printContainer的实现。
+
+{% highlight cpp %}
+#define	cr do { std::cout << std::endl; } while (0);
+
+template <typename T>
+inline void p(const T & x) {
+    std::cout << x;
+}
+
+template <typename Con>
+void printContainer(const Con & c, const std::string& opt = "") {
+    if (!opt.empty()) {
+        p(opt);
+    }
+    auto iter = c.begin();
+    while (iter != c.end()) {
+        p(*iter);
+        p(" ");
+        ++iter;
+    }
+    cr;
+}
 {% endhighlight %}
 
 由于vector是顺序式的存储结构，因此有以下的常识：
@@ -75,18 +112,12 @@ vector<int> vi(100);    // capacity: 100
 
 # 注意迭代器失效
 
-
-
-
-
-
 # 源码及参考链接
 
-- []()
+- [std::vector](http://en.cppreference.com/w/cpp/container/vector)
 
-- []()
+- [`vector_test.cpp`](https://github.com/elloop/CS.cpp/blob/master/TotalSTL/src/container/sequence/vector_test.cpp)
 
-- []()
 
 # todo
 
