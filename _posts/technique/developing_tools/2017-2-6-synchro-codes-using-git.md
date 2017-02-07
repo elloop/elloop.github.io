@@ -2,6 +2,7 @@
 layout: post
 title: "使用git在两台机器间同步代码"
 category: tools
+highlighter_style: monokai
 tags: git 
 description: ""
 ---
@@ -9,8 +10,6 @@ description: ""
 # 前言
 
 本文记录了如何使用git来在两台机器间同步代码，一台机器是linux，另一台是windows。
-
-<!--more-->
 
 # 需求描述
 
@@ -34,8 +33,20 @@ git init
 git add .
 git commit -m "create project"
 
+# 切换到project父目录，创建一个project-bare目录
+cd ..
+mkdir project-bare
+
 # 从原始代码仓库创建bare仓库，作为“中央”仓库，其他机器(包括本机的原始仓库)往这里push，从这里pull
-git clone --bare ./ ./project-bare.git
+git clone --bare ../project ./project-bare.git
+
+# 回到project仓库目录
+cd ../project
+
+# 把project-bare添加为remote，
+git remote add origin ../project-bare.git
+git branch --set-upstream-to=origin/master master
+
 {% endhighlight %}
 
 ## 2. 在其它机器上，比如B:
@@ -43,11 +54,10 @@ git clone --bare ./ ./project-bare.git
 假设通过ssh来连接机器A
 
 {% highlight bash %}
-git clone ssh://username@ip:port:/codes/project/project-bare.git ./project
+git clone ssh://<username>@<ip>:<port>:/codes/project-bare/project-bare.git ./project
 {% endhighlight %}
 
 <!--more-->
-
 
 clone下来之后，在机器B上做修改，然后commit，push之后，在机器A上就可以pull到了。反之在机器A的project目录做修改，commit，push之后，在机器B上也能pull下来了。
 
@@ -55,7 +65,7 @@ clone下来之后，在机器B上做修改，然后commit，push之后，在机�
 
 # 遇到的坑
 
-注意第1步中创建 project-bare的必要性
+注意第1步中创建 project-bare.gti 的必要性
 
 如果B直接clone A上的project仓库，并且将其添加为remote，那么在执行git push操作的时候是会报错的，因为此时B不知道A是否也在对工作副本进行了修改，直接push过去可能造成working copy的冲突，而创建的project-bare仓库只记录仓库信息不保存working copy，作为一个中央仓库使用，详情参考[bare仓库和non-bare仓库的区别这篇文章](http://www.bitflop.dk/tutorials/git-bare-vs-non-bare-repositories.html)
 
