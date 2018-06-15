@@ -18,6 +18,8 @@ published: true
 
 - 1). 提示MSBuild无法正确加载 Console Application
 
+<!-- more -->
+
 ![load project error](http://7xi3zl.com1.z0.glb.clouddn.com/load_project_error.png)
 
 <font color="red">解决</font>: 安装了dotnet sdk，重启Rider , 设置(Build, Execution, Deployment --> Toolset and Build)中MSBuild会被自动设置为新安装的dotnet sdk里面的MSBuild，此时可以在Rider中成功新建、运行 .Net Core类型的 Console Application
