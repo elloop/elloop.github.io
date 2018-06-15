@@ -18,7 +18,7 @@ published: true
 
 - 1). 提示MSBuild无法正确加载 Console Application
 
-<!-- more -->
+<!--more-->
 
 ![load project error](http://7xi3zl.com1.z0.glb.clouddn.com/load_project_error.png)
 
