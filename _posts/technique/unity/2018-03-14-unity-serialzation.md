@@ -20,6 +20,8 @@ published: true
 
 [Serialization in Unity](https://blogs.unity3d.com/2014/06/24/serialization-in-unity/)
 
+在1月份刚release的新版本2019.3，序列化做了优化，支持null、多态、引用([SerializeReference](https://docs.unity3d.com/2019.3/Documentation/ScriptReference/SerializeReference.html?_ga=2.114944007.1225197652.1584114938-432432965.1582872975))
+
 这里聊点其他的, 比如什么情况下会发生序列化，怎么写代码来验证上面两篇文章说的是事实？
 
 # unity 编辑器下常见的序列化情形
