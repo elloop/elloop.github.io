@@ -1030,7 +1030,7 @@ ADD_CHILD(menu);
 - [缩放按钮Menu的使用范例](https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp)
 
 ---------------------------
-**作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
+
 
 **欢迎访问[github博客](http://elloop.github.io)，与本站同步更新**
 

@@ -770,7 +770,7 @@ void Dog::ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent)
 **源代码仓库地址: [cocos2d-x-cpp-demos-2.x](https://github.com/elloop/cocos2d-x-cpp-demos-2.x/blob/master/Classes/pages/TouchTestPage.cpp), 是本人写的一个小型Demo框架，方便添加测试代码或者用来开发游戏，如果觉得有用请帮忙点个Star，谢谢**
 
 ---------------------------
-**作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
+
 
 **欢迎访问[CSDN博客](http://blog.csdn.net/elloop)，与本站同步更新**
 

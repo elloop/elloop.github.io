@@ -14,6 +14,14 @@ published: true
 
 <!--more-->
 
+关于unity的序列化，Unity Blog有两篇文章讲的比较好了：
+
+[Unity Serialization](https://blogs.unity3d.com/2012/10/25/unity-serialization/)
+
+[Serialization in Unity](https://blogs.unity3d.com/2014/06/24/serialization-in-unity/)
+
+这里聊点其他的, 比如什么情况下会发生序列化，怎么写代码来验证上面两篇文章说的是事实？
+
 # unity 编辑器下常见的序列化情形
 
 ## 1. 编辑prefab
@@ -98,7 +106,6 @@ UnityEditor.EditorApplication:Internal_CallUpdateFunctions()   -->
 
 ---------------------------
 
-**作者水平有限，对相关知识的理解和总结难免有错误，还望给予指正，非常感谢！**
 
 **在这里也能看到这篇文章：[github博客](http://elloop.github.io), [CSDN博客](http://blog.csdn.net/elloop), 欢迎访问**
 

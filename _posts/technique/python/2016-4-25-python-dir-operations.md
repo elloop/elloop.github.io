@@ -51,8 +51,6 @@ The string used to separate (or, rather, terminate) lines on the current platfor
 
 ---------------------------
 
-*作者水平有限，对相关知识的理解和总结难免有错误，还望<font color="red">给予指正，非常感谢！</font>**
-
 **在这里也能看到这篇文章：[github博客](http://elloop.github.io), [CSDN博客](http://blog.csdn.net/elloop), 欢迎访问**
 
 ---------------------------
