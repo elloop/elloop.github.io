@@ -13,7 +13,7 @@ description: ""
 
 # 效果图
 
-![stack-maze-explore.gif](http://elloop.oss-cn-hangzhou.aliyuncs.com/blog_pic/stack-maze-explore.gif?OSSAccessKeyId=LTAI4FtWWR7eyV7ELYCixBe2&Expires=1584204324&Signature=QNO54jtAH1qUpeiKd7Rd6zs0WZU%3D)
+![stack-maze-explore.gif](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/stack-maze-explore.gif)
 
 
 按钮功能：
