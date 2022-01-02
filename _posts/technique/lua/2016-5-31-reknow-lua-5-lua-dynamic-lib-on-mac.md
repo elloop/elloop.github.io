@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "【Programming In Lua (2E) 笔记】5：使用C++为Lua编写扩展库（macOS上两种动态库格式的坑）"
-category: lua
+category: [lua,c++]
 tags: [lua]
 description: ""
 published: true
