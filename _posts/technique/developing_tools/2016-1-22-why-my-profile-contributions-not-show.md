@@ -17,13 +17,13 @@ description: ""
 
 经常使用github的人大概都知道，在你的个人资料主页贡献图(Your Profile Contributions)上，记录着你使用github的贡献行为。你今天有“贡献”，那么代表今天的那个小格子就会变成绿色，否则就是一个空白。下图是一个例子：
 
-![contri_diagram.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/contri_diagram2.jpg)
+![contri_diagram.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/contri_diagram2.jpg)
 
 <!--more-->
 
 之前不是很关注这个活动图，我觉得自己的肯定是满满的一片绿色，因为我几乎每天都在使用github，每天都会有提交。“一片绿色”这件事情也没什么好炫耀的，因为我只写一个标点符号，然后提交并推送上去也算一个“贡献”。但是最近几天我发现，我的粉丝(Followers)在持续减少，这是咋回事？我看了一眼我的贡献图，竟然一片空白！难道是因为我“不够绿”，他们应该是以为我太懒，这么长时间都不知道做点事情，我为啥要关注你？可是我天天提交呀，在我的“public activity”里面也能看到活动记录。但是为什么主页的贡献图这里是一片空白。
 
-![not_green.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/not_green.jpg)
+![not_green.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/not_green.jpg)
 
 我注意到，如果我在线上修改，通过github网页进行提交，那么“贡献”会立即在个人贡献图上显示出来。而我平时是在本地使用命令行工具来做提交和推送的，难道非要在它的网站上操作才可以？它是为了要提高自己网站的流量，鼓励程序猿们都到网页上操作吗？不应该呀，这种“强X”行为会得罪多少用户呀。
 
@@ -39,7 +39,7 @@ description: ""
 
 github这么牛逼的产品当然有说明书和FAQ，关于不绿的这个问题，稍微留意一下就会看到FAQ就在活动图的下面：
 
-![not_green_faq.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/not_green_faq.png)
+![not_green_faq.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/not_green_faq.png)
 
 点进去，根据自己的问题对症下药，我这个问题是因为：
 **<font color="red">"You haven't added your local Git commit email to your profile"</font>**
@@ -52,11 +52,11 @@ github这么牛逼的产品当然有说明书和FAQ，关于不绿的这个问�
 
 到你的个人资料主页，选择"public activity"选项卡：
 
-![commit_id.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/commit_id.jpg)
+![commit_id.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/commit_id.jpg)
 
 点击本该变绿但没有变绿的提交id(fb9a236)，在打开的网页上，地址栏最后加上`.patch`，回车，将会显示如下内容，其中的From字段就是你本次提交所用的email
 
-![github_email.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/git_email.jpg)
+![github_email.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/git_email.jpg)
 
 **2. 把这个email地址绑定到你的Profile**
 
@@ -65,7 +65,7 @@ github这么牛逼的产品当然有说明书和FAQ，关于不绿的这个问�
 
 绑定并验证完email，回到你的个人资料主页，刷新一下就会发现：该绿的都绿了。
 
-![green.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/green.jpg)
+![green.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/green.jpg)
 
 # 参考
 

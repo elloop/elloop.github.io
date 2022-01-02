@@ -16,7 +16,7 @@ description: ""
 
 先看图吧，图中以美元符号$开头 + 一对括号，这样进行引用的就是我所谓的环境变量，
 
-![vs_env.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/vs_env.jpg)
+![vs_env.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/vs_env.jpg)
 
 图中出现的几个环境变量含义如下：
 
@@ -73,17 +73,17 @@ Google的C++编程风格鼓励第一种做法，好处是可以看到文件相�
 
 具体如下图所示：
 
-![include_setting.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/include_setting.jpg)
+![include_setting.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/include_setting.jpg)
 
 点击编辑之后，弹出如下图所示的编辑窗口：
 
-![additional_searchpath.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/additional_searchpath.jpg)
+![additional_searchpath.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/additional_searchpath.jpg)
 
 在这里可以新建、删除包含路径、调整包含顺序。
 
 点击新建按钮或者双击列表空白处即可添加一条包含路径，在编辑新添加的路径时，可以看到列表条目右侧有一个浏览按钮，
 
-![include_scan.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/include_sacn.jpg)
+![include_scan.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/include_sacn.jpg)
 
 点击按钮可以从打开文件对话框里选择路径，点击确定后，会看到新添加的路径名。虽然通过浏览来定位文件夹比较容易，免去了自己编写，但是你会发现，通过浏览添加的路径是绝对路径。
 
@@ -130,11 +130,11 @@ Google的C++编程风格鼓励第一种做法，好处是可以看到文件相�
 
 有好多个地方都可以查看，比如刚才在添加包含目录时候，弹出的窗口，注意其右下方，有个“宏”按钮
 
-![additional_searchpath.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/additional_searchpath.jpg)
+![additional_searchpath.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/additional_searchpath.jpg)
 
 点击它就能看到所有的“宏” （即vs环境变量的值）：
 
-![all_vs_env.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/all_vs_env.jpg)
+![all_vs_env.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/all_vs_env.jpg)
 
 在上方的输入框可以进行过滤。
 

@@ -230,7 +230,7 @@ void CCDirector::drawScene(void)
 
 下面这张图总结了一帧循环中的主要工作：
 
-![GameFrameLoop.png](http://7xi3zl.com1.z0.glb.clouddn.com/GameFrameLoop.png)
+![GameFrameLoop.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/GameFrameLoop.png)
 
 
 ### <font color="blue">in 3.X (3.9)</font>

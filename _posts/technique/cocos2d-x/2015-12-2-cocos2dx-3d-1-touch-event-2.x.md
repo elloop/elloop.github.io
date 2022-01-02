@@ -162,7 +162,7 @@ CCTouchHandler就像一个适配器，它内部含有一个Touchable, 同时添�
 
 下面的类图给出了触摸事件分发过程中三个主要类之间的关系:
 
-![触摸事件类图](http://7xi3zl.com1.z0.glb.clouddn.com/CCTouch3.png)
+![触摸事件类图](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/CCTouch3.png)
 
 这个过程的重点是CCTouchDispatcher, 它的内部保存两个触摸处理器队列，一个m_pStandardHandlers保存所有注册来的标准触摸处理器；另一个m_pTargetedHandlers保存单点触摸处理器。
 
@@ -374,7 +374,7 @@ bool TouchableLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pE
 
 接下来运行代码， 效果如下图所示：
 
-![TouchableLayer](http://7xi3zl.com1.z0.glb.clouddn.com/TouchableLayer.png)
+![TouchableLayer](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/TouchableLayer.png)
 
 现在请考虑: 
 
@@ -386,9 +386,9 @@ bool TouchableLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pE
 
 第二个问题呢，我们知道TouchableLayer的contentSize是100 x 100, 那么点击右半部分，肯定已经超出了contentSize, 也就是点击在了TouchableLayer的外面，它还会响应吗？
 
-![ClickInRed](http://7xi3zl.com1.z0.glb.clouddn.com/ClickInRed.gif)
+![ClickInRed](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/ClickInRed.gif)
 
-![ClickInBlack](http://7xi3zl.com1.z0.glb.clouddn.com/ClickInBlack.gif)
+![ClickInBlack](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/ClickInBlack.gif)
 
 看效果图，答案是还会旋转！这可能有些出乎我们的预料，因为刚接触触摸事件，很容易把这个小红方块看成一个GUI概念里的按钮，我点在它的外面，它怎么还会响应呢？我刚接触这个地方的时候也很差异，但是你要知道，cocos是个游戏引擎，并不是GUI框架，它主要关心图形的绘制渲染，比GUI框架更加“底层化”，如果要实现一个GUI按钮的效果，那也需要你自己来处理触摸事件，判断点击范围，就是需要自己包装出来一个按钮出来。看看CCMenu对触摸事件的处理你就会明白这一过程了。
 
@@ -400,7 +400,7 @@ bool TouchableLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pE
 
 下面的小实例，演示了如何自定义响应触摸事件的类、触摸事件的分发顺序、单点触摸事件的吞噬.  
 
-![TouchTestPage](http://7xi3zl.com1.z0.glb.clouddn.com/TouchTestPage_副本.png)
+![TouchTestPage](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/TouchTestPage_副本.png)
 
 如图所示，一个父Layer中包含了1个小的彩色方块layer，和3只狗狗。(上面两个按钮分别是回测试主页和退出)
 
@@ -427,44 +427,44 @@ Layer和三只狗都注册了触摸事件，注册的时间先后顺序是dog1, 
 
 **操作1：触摸空白处**
 
-![TouchLayer](http://7xi3zl.com1.z0.glb.clouddn.com/TouchEmpty.gif)
+![TouchLayer](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/TouchEmpty.gif)
 
 没有点在任何一只狗内，也没有触摸在彩色方块内，因此事件一直向下转发，三只狗均触发touch，发生抖动.
 
 **操作2：触摸dog1**
 
-![Touchdog1](http://7xi3zl.com1.z0.glb.clouddn.com/touchdog1.gif)
+![Touchdog1](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/touchdog1.gif)
 
 触摸在dog1， dog1旋转并吞噬事件，其它2只狗没触发touch.
 
 **操作3：触摸彩色方块**
 
-![Touchcolor](http://7xi3zl.com1.z0.glb.clouddn.com/touchlayer.gif)
+![Touchcolor](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/touchlayer.gif)
 
 根据优先级，dog1先触发事件发生抖动且不吞噬，接着彩色方块触发触摸可以拖动，同时吞噬触摸，dog2, dog3没有触发touch
 
 **操作4：触摸dog3**
 
-![Touchdog3](http://7xi3zl.com1.z0.glb.clouddn.com/touchdog3.gif)
+![Touchdog3](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/touchdog3.gif)
 
 dog1优先级最高总是被触发发生抖动且不吞噬，dog3触发在内部，旋转且吞噬触摸, dog2没有触发touch
 
 
 **操作5：触摸dog2**
 
-![Touchdog2](http://7xi3zl.com1.z0.glb.clouddn.com/touchdog2.gif)
+![Touchdog2](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/touchdog2.gif)
 
 dog1优先级最高总是被触发发生抖动且不吞噬，dog3触发并抖动不吞噬，dog2触发touch, 旋转，吞噬。
 
 **操作6：把彩色方块放在dog1下面，并拖拽**
 
-![dragdog1](http://7xi3zl.com1.z0.glb.clouddn.com/dragdog1.gif)
+![dragdog1](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/dragdog1.gif)
 
 因为触摸点在dog1内部，所以被dog1优先截获触摸并吞噬。彩色方块无法拖拽。dog2, dog3也不会触发touch.
 
 **操作6：把彩色方块放在dog2和dog3下面，并拖拽**
 
-![dragdog2_3](http://7xi3zl.com1.z0.glb.clouddn.com/dragdog2_3.gif)
+![dragdog2_3](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/dragdog2_3.gif)
 
 彩色方块的优先级 > dog3 > dog2, 所以虽然彩色方块显示在dog2和dog3的下面，但是触摸响应是优先于2只狗的，因此可以实现拖拽，且吞噬了触摸事件，dog2和dog3既不会旋转也不会抖动。同时能看到dog1还是能够触发touch，因为它的优先级是最高的
 

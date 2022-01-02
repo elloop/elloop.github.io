@@ -16,7 +16,7 @@ description: ""
 
 <!--more-->
 
-![my_soulution.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/my_solution.jpg)
+![my_soulution.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/my_solution.jpg)
 
 这个解决方案叫：CS.cpp, 包含了7个项目:
 
@@ -34,7 +34,7 @@ description: ""
 
 下图是这个解决方案文件的物理路径：
 
-![sln_tree.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/sln_tree.jpg)
+![sln_tree.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/sln_tree.jpg)
 
 可以看到，每个项目名称对应一个同名文件夹。（Algorithm项目对应CS.cpp文件夹，因为Algorithm这个项目名字是中途修改的。)
 
@@ -63,7 +63,7 @@ description: ""
 
 需要注意的一点是，由于gtest和util属于公共使用的库，所以最好是把它们的头文件放在一个公共的路径下，比如放在常见的以include命名的目录。这正是前面表格中提到的include文件夹的作用，其物理结构如下图所示：
 
-![include_tree.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/include_tree.jpg)
+![include_tree.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/include_tree.jpg)
 
 可以看到，在include目录下包含了gtest和util等子目录，他们是按照项目来分类，除了gtest和util这两个项目，还有其他的包含文件也集中放在此处。
 
@@ -115,11 +115,11 @@ int main(int argc, char** argv) {
 
 跟前面讲的把公共头文件统一放在include目录类似，公共的库文件一般是放到名为lib或者library的文件夹下，正如前文的目录结构图所示，我把它们统一放到了`$(SolutionDir)libs`目录下，如图，gtest.lib和util.lib就是gtest和util两个项目生成的库文件：
 
-![libs_tree.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/libs_tree.jpg)
+![libs_tree.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/libs_tree.jpg)
 
 要想做到让gtest和util这俩项目"把蛋下到libs这里"是需要设置的。以gtest项目为例，进行如下的设置：项目属性 - 库管理器 - 常规 - 输出文件 :
 
-![gtest_output.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/gtest_output.jpg)
+![gtest_output.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/gtest_output.jpg)
 
 注意到其中对环境变量的使用，`$(SolutionDir)libs/` 就是我的目的地，`$(TargetFileName) == gtest.lib`
 
@@ -131,7 +131,7 @@ int main(int argc, char** argv) {
 
 下面把它加入到项目的库搜索路径，还是以TotalSTL项目为例，进行如下操作：项目属性 - 配置属性 - 链接器 - 常规 - 附加库目录
 
-![lib_dir.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/lib_dir.jpg)
+![lib_dir.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/lib_dir.jpg)
 
 经过这两个小步骤，就完成了库文件搜索路径的设置。其他的4个项目也按照TotalSTL这样设置一下库搜索目录也就完成了第二步，至此即可保证项目链接通过了。
 
@@ -147,7 +147,7 @@ int main(int argc, char** argv) {
 
 这就需要调整项目的生成顺序，很简单，还是以TotalSTL为例，进行如下操作：项目属性 - 通用属性 - 引用 - 添加新引用
 
-![add_ref.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/add_ref.jpg)
+![add_ref.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/add_ref.jpg)
 
 在弹出的列表中，选择其依赖的项目。选择gtest和util，确定即可。
 
@@ -165,7 +165,7 @@ int main(int argc, char** argv) {
 
 下面是这两个目录的设置过程：项目属性 - 配置属性 - 常规 - 输出目录/中间目录
 
-![outdir.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/outdir.jpg)
+![outdir.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/outdir.jpg)
 
 输出目录的值为： `$(SolutionDir)output/$(Configuration)/$(ProjectName)`
 
@@ -175,7 +175,7 @@ int main(int argc, char** argv) {
 
 生成之后的目录结构如下图所示, 可以看到图中路径正是把`$(Configuration)`(值为Debug)， `$(ProjectName)`（项目名字）代入之后的结果：
 
-![inter_tree.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/inter_tree.jpg)
+![inter_tree.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/inter_tree.jpg)
 
 ## 管理可执行文件生成位置
 
@@ -183,7 +183,7 @@ int main(int argc, char** argv) {
 
 以TotalSTL项目为例，具体操作如下：项目属性 - 配置属性 - 链接器 - 常规 - 输出文件
 
-![output_exe.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/output_exe.jpg)
+![output_exe.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/output_exe.jpg)
 
 其值设置为：`$(OutDir)$(TargetFileName)`
 
@@ -193,7 +193,7 @@ int main(int argc, char** argv) {
 
 生成之后的物理路径结构为：
 
-![output.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/output.jpg)
+![output.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/output.jpg)
 
 可以看到输出的TotalSTL.exe的路径正是"输出目录"，文件名TotalSTL.exe即`$(TargetFileName)`。
 
@@ -203,7 +203,7 @@ int main(int argc, char** argv) {
 
 以TrainingGround项目为例:
 
-![workdir.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/workdir.jpg)
+![workdir.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/workdir.jpg)
 
 其值为：`$(SolutionDir)res/`, 即对应开篇解决方案图中的res文件夹。
 

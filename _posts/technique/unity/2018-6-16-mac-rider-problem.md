@@ -20,7 +20,7 @@ published: true
 
 <!--more-->
 
-![load project error](http://7xi3zl.com1.z0.glb.clouddn.com/load_project_error.png)
+![load project error](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/load_project_error.png)
 
 <font color="red">解决</font>: 安装了dotnet sdk，重启Rider , 设置(Build, Execution, Deployment --> Toolset and Build)中MSBuild会被自动设置为新安装的dotnet sdk里面的MSBuild，此时可以在Rider中成功新建、运行 .Net Core类型的 Console Application
 
@@ -36,7 +36,7 @@ published: true
 - 2) **在 Rider 的构建设置中(Build, Execution, Deployment --> Toolset and Build), 让Mono executable path 和 Use MSBuild version 两个地方的Mono路径一致，例如都在 /Library/Frameworks/Mono.Framework/的子目录下，以保证使用的工具链是同一套、同一个版本的Mono.framework.**
 
 
-![Toolset and Build](http://7xi3zl.com1.z0.glb.clouddn.com/toolset_and_build.png)
+![Toolset and Build](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/toolset_and_build.png)
 
 
 ---------------------------

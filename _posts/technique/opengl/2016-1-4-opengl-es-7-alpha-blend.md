@@ -23,7 +23,7 @@ mipmap的常见使用场景是，在一个采用透视投影的三维场景中�
 
 <!--more-->
 
-![mipmap_effect.gif](http://7xi3zl.com1.z0.glb.clouddn.com/mipmap_effect.gif)
+![mipmap_effect.gif](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/mipmap_effect.gif)
 
 从近到远，分别是不同级别图片绘制的结果，越远的位置图片像素越少。
 
@@ -33,18 +33,18 @@ mipmap的常见使用场景是，在一个采用透视投影的三维场景中�
 
 **1x1像素的图**：
 
-![create_mipmap.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/create_mipmap.jpg)
+![create_mipmap.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/create_mipmap.jpg)
 
 
 **32x32像素的图**：
 
-![create_mipmap32.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/create_mipmap32.jpg)
+![create_mipmap32.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/create_mipmap32.jpg)
 
 
 制作好的6个级别的图片依次如下所示，其中1x1的太小了，与16x16的都为红色：
 
 
-![mipmap6.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/mipmap6.jpg)
+![mipmap6.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/mipmap6.jpg)
 
 把图片保存为p1x1.bmp ~ p32x32.bmp。接下来要在OpenGL程序中把它们组合成一个多级纹理，我该怎么做呢？
 

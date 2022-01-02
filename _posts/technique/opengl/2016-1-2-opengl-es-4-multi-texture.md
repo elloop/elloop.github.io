@@ -30,7 +30,7 @@ description: ""
 
 <!--more-->
 
-![dog_texture.gif](http://7xi3zl.com1.z0.glb.clouddn.com/dog_texture.gif)
+![dog_texture.gif](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/dog_texture.gif)
 
 # 实现代码：
 

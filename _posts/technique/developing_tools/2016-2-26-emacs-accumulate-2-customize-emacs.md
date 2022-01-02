@@ -22,14 +22,14 @@ description: ""
 
 所有的定制操作有一个统一的入口：`M-x customize RET`。进入Customize Mode之后的界面如下：
 
-![customize.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/customize.jpg)
+![customize.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/customize.jpg)
 
 <!--more-->
 
 定制的操作很简单，选择要设置的项目编辑、保存即可。关键在于如何找到要设置的项目，可以使用页面上方的搜索框来搜索要设置的选项。使用C-h m来获得使用Customize Mode的帮助信息。
 以隐藏菜单栏来举例，我在search里输入"menu bar"回车，在搜索结果里将光标移动到"Menu Bar Mode"那一行行首，按TAB键，光标会自动定位到`Toggle`按钮上，按回车键来切换设置状态，设置为“off”之后，再一下TAB将光标移动到下面的`State`按钮上，按下回车，Emacs提示你保存状态，选择“1”，为以后的sessio都使用这个设置。如下图所示：
 
-![hide-menu-bar](http://7xi3zl.com1.z0.glb.clouddn.com/hide-menu-bar.jpg)
+![hide-menu-bar](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/hide-menu-bar.jpg)
 
 > 小提示：在Customize Mode下，TAB键自动将光标移动到下一个按钮，S-TAB移动到上一个按钮。
 
@@ -42,7 +42,7 @@ description: ""
 
 1. M-x customize-group RET basic-faces RET，进入了Customize Group的Basic Faces设置分组，将光标移动到Default那一行，按回车键，展开Default分组：
 
-![basic_faces.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/basic_faces.jpg)
+![basic_faces.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/basic_faces.jpg)
 
 2. 可以看到Font Family那项就是字体的名称，光标移动到那行的行首，按TAB键会自动定位到名称编辑框里进行修改，可以根据需要修改其它的设置。修改之后，点击State按钮，类似之前修改菜单栏的操作一样，要对修改进行保存，要为以后的session都使用这个字体那就根据提示输入“1”即可。
 
@@ -52,7 +52,7 @@ description: ""
 
 如果只是临时想修改主题，那么可以这么操作：输入`M-x customize-themes RET`, 会看到Emacs自带的十几种主题，光标移动到某个主题，然后按回车键，当前的session就会切换到对应主题。如果想在Emacs重启后仍然保留需要点击上面的保存按钮。
 
-![customize_themes.gif](http://7xi3zl.com1.z0.glb.clouddn.com/customize_themes.gif)
+![customize_themes.gif](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/customize_themes.gif)
 
 
 # 自定义操作小结 #

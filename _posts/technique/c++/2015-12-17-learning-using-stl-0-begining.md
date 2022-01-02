@@ -78,7 +78,7 @@ int main()
 
 从此以后，STL在方便我生活的同时也成为了我的一个装b利器，
 
-![LifeIsBoringWithoutZB.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/LifeIsBoringWithoutZB.jpg)
+![LifeIsBoringWithoutZB.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/LifeIsBoringWithoutZB.jpg)
 
 每当遇到谁让我帮忙写代码的时候, 尤其是知道他大概不认识STL的时候，我必须在代码里“强行”使用STL，就为了能够让他在看到代码时候，有种: “cao，这是啥, 这tm是啥...？跟这小子比，我的C++真是白学了。”的想法。
 

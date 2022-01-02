@@ -57,11 +57,11 @@ macOS上的IDE我用过Xcode，QtCreator, CLion，CodeBlock，能用，但是作
 
 - include 头文件补全
 
-![ycm-header.gif](http://7xi3zl.com1.z0.glb.clouddn.com/ycm-header.gif)
+![ycm-header.gif](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/ycm-header.gif)
 
 - api 补全
 
-![ycm-api.gif](http://7xi3zl.com1.z0.glb.clouddn.com/ycm-api.gif)
+![ycm-api.gif](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/ycm-api.gif)
 
 # 编译构建，使用CMake
 

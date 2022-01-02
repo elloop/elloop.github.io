@@ -64,7 +64,7 @@ Fatal Python error: PyThreadState_Get: no current thread
 
 到[官网](http://macvim-dev.github.io/macvim/)下载了最新的dmg：
 
-![macvim_dmg.png](http://7xi3zl.com1.z0.glb.clouddn.com/Screen%20Shot%202016-06-26%20at%2001.07.25.png)
+![macvim_dmg.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/Screen%20Shot%202016-06-26%20at%2001.07.25.png)
 
 直接拖到Applications文件夹，双击打开，安静的没有任何报错。
 

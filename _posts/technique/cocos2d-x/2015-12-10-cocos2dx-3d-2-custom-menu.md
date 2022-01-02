@@ -1015,7 +1015,7 @@ ADD_CHILD(menu);
 
 下面是运行截图：
 
-![CustomMenu](http://7xi3zl.com1.z0.glb.clouddn.com/CustomMenu.gif)
+![CustomMenu](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/CustomMenu.gif)
 
 从图中能看到，两个CCMenuItemImage是可以实现自动缩放效果的，CCMenuItemLabel的缩放动作也没有与Menu的缩放发生冲突(这是为什么？涉及到Action的更新，在后面总结到动作系统的时候再做出分析)。
 

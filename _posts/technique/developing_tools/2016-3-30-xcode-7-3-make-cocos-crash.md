@@ -18,7 +18,7 @@ description: "Xcode skills"
 
 <!--more-->
 
-![ccmenuitem_crash.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/ccmenuitem_crash.jpg)
+![ccmenuitem_crash.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/ccmenuitem_crash.jpg)
 
 # 尝试解决
 
@@ -30,7 +30,7 @@ description: "Xcode skills"
 
 解决办法：把Release版本的编译器优化等级调低到：-O, O1.
 
-![level-o1.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/level-o1.jpg)
+![level-o1.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/level-o1.jpg)
 
 Release版本的默认编译器优化级别是：Fastest, Smalleset，而Debug版本默认是不优化None, -O0. 至于编译器里面具体优化掉了什么造成的崩溃还不得而知，总之就是调低了优化等级或者干脆不优化就不崩溃了。但是不优化会造成二进制体积的变大或者运行速度的降低，所以选择了不崩溃的最高优化等级-O，即O1。
 

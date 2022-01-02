@@ -28,7 +28,7 @@ IBO跟VBO的原理类似，只不过IBO是缓存了VBO绘制时候的Indices.
 
 图中这个绿色的正方体就是绘制的结果
 
-![vbo_cube.gif](http://7xi3zl.com1.z0.glb.clouddn.com/vbo_cube.gif)
+![vbo_cube.gif](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/vbo_cube.gif)
 
 # 实现
 
@@ -46,7 +46,7 @@ IBO跟VBO的原理类似，只不过IBO是缓存了VBO绘制时候的Indices.
 
 绘制正方体主要是确定其八个顶点的坐标，如下图所示：
 
-![cube_vertex.png](http://7xi3zl.com1.z0.glb.clouddn.com/cube_vertex.png)
+![cube_vertex.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/cube_vertex.png)
 
 按编号从0~7以不同的颜色标识，下面定义出这8个顶点
 

@@ -50,7 +50,7 @@ contributor只有一个人：Bram Moolenaar
 
 这导致在SourceTree里看这个仓库的提交记录显得很。。。诡异？
 
-![sourcetree_vim.png](http://7xi3zl.com1.z0.glb.clouddn.com/sourcetree_vim.png)
+![sourcetree_vim.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/sourcetree_vim.png)
 
 好了，抱歉，不啰嗦了，开始下载吧。
 

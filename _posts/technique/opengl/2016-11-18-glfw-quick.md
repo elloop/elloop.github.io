@@ -60,7 +60,7 @@ open ./examples/simple.app
 
 可以看到如下的一个旋转的三角形：
 
-![glfw-simple.png](http://7xi3zl.com1.z0.glb.clouddn.com/glfw-simple.png)
+![glfw-simple.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/glfw-simple.png)
 
 官方编译参考文档：[compile glfw](http://www.glfw.org/docs/latest/compile_guide.html#compile_compile)
 
@@ -368,7 +368,7 @@ make                        # 开始构建
 
 可以看到绘制出的三角形和控制台输出core profile下显卡驱动支持的OpenGL版本：
 
-![redrun.png](http://7xi3zl.com1.z0.glb.clouddn.com/redrun.png)
+![redrun.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/redrun.png)
 
 ### 遇到的问题
 

@@ -28,7 +28,7 @@ description: ""
 
 使用MagicaVoxel创建出一个3D小汽车，如下图所示：
 
-![magicavoxel.png](http://7xi3zl.com1.z0.glb.clouddn.com/magicavoxel.png)
+![magicavoxel.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/magicavoxel.png)
 
 MagicaVoxel比较容易上手，
 
@@ -106,7 +106,7 @@ void House::setCamera() {
 
 效果图：
 
-![car1.png](http://7xi3zl.com1.z0.glb.clouddn.com/Snip20161101_2.png)
+![car1.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/Snip20161101_2.png)
 
 在下一篇文章中再加入调整摄像机的视角的触摸响应函数。
 

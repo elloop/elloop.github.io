@@ -17,7 +17,7 @@ description: ""
 
 <!--more-->
 
-![list_packages.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/list_packages.jpg)
+![list_packages.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/list_packages.jpg)
 
 ## Package源：package-archives ##
 
@@ -36,7 +36,7 @@ description: ""
   
 填好之后的界面如下所示：
 
-![package_archive.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/package_archives.jpg)
+![package_archive.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/package_archives.jpg)
 
 保存设置之后，再次使用M-x list-packages 就会看到包的数量明显增多。
 
@@ -54,7 +54,7 @@ M-x list-packages 进入package列表，如果你已经在这个界面，按 "r"
 
 以安装Solarized主题为例，按C-s来搜索 "solarized". 如下图所示，把光标放在“Solarized”那行，按“i”键，将其标记为“要安装的”，然后按“x”键执行标记为“i”的项目，这里仅仅标记这一个。
 
-![solarized_theme.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/solarized_theme.jpg)
+![solarized_theme.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/solarized_theme.jpg)
 
 安装过程中会提示你是否要执行未经安全确认的ELisp脚本之类的，选“yes”就行了。装完这个主题之后，使用`M-x customize-themes`进入主题切换界面，可以看到Solarized Dark和Solarized Light两种风格可供选择。这里假设选择了Solarized Dark主题，并且保存为长期使用。此时打开你的Emacs配置文件会看到如下内容：
 

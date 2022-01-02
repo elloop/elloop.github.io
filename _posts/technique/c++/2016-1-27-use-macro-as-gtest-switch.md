@@ -84,7 +84,7 @@ int main(int argc, char** argv)
 
 测试代码中，我定义了一个测试用例，包含三个子测试Test123，其中输出那么多行的i是为了模拟测试用例可能的复杂输出，上面的测试结果如下：
 
-![basic_gtest.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/gtest_basic.jpg)
+![basic_gtest.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/gtest_basic.jpg)
 
 Test1, Test2通过，Test3中1 > i的条件失败，导致其未通过。
 

@@ -116,7 +116,7 @@ defaults write com.apple.screencapture name <string>
 
 为什么执行了`chsh -s $(which zsh)`之后，$SHELL也已经变成/bin/zsh了，但是打开的Terminal窗口还是默认的bash？答案在这里，请看下图：
 
-![why_zsh_not_show.png](http://7xi3zl.com1.z0.glb.clouddn.com/why_zsh_not_show.png)
+![why_zsh_not_show.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/why_zsh_not_show.png)
 
 即：需要到终端的偏好设置中改变shell的打开方式, 让它作为登录shell来打开即可。
 

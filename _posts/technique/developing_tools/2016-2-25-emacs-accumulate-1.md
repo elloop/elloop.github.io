@@ -71,7 +71,7 @@ C-h i 进入Info Mode, 输入mEmacs进入Emacs Manual，输入mAmusement, 进入
 
 不知道怎么玩？ 问Emacs，还记得怎么获得当前Mode下的帮助吗？ 对，`C-h m`即可。下图是Emacs中俄罗斯方块的画面和右侧的帮助信息。
 
-![Emacs中玩俄罗斯方块.jpg](http://7xi3zl.com1.z0.glb.clouddn.com/tetris.jpg)
+![Emacs中玩俄罗斯方块.jpg](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/tetris.jpg)
 
 # 下集预告  #
 

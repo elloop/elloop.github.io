@@ -14,27 +14,27 @@ description: ""
 
 # 渲染管线总览 Graphics Pipeline
 
-![es2_pipeline.png](http://7xi3zl.com1.z0.glb.clouddn.com/es2_pipeline.png)
+![es2_pipeline.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/es2_pipeline.png)
 
 <!--more-->
 
 # 顶点着色器：Vertex Shader
 
-![vertex_shader.png](http://7xi3zl.com1.z0.glb.clouddn.com/vertex_shader.png)
+![vertex_shader.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/vertex_shader.png)
 
 # 图元装配：Primitive Assembly
 
 # 光栅化：Rasterization
 
-![Rasterization.png](http://7xi3zl.com1.z0.glb.clouddn.com/Rasterization.png)
+![Rasterization.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/Rasterization.png)
 
 # 片段着色器：Fragment Shader
 
-![fragment_shader.png](http://7xi3zl.com1.z0.glb.clouddn.com/fragment_shader.png)
+![fragment_shader.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/fragment_shader.png)
 
 # 每片段(像素)操作：Per-Fragment Operations
 
-![per_fragment_op.png](http://7xi3zl.com1.z0.glb.clouddn.com/per_fragment_op.png)
+![per_fragment_op.png](https://github.com/elloop/elloop.github.io/blob/master/blog_pictures/per_fragment_op.png)
 
 # 帧缓冲：Framebuffer
 
